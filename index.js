@@ -9,7 +9,10 @@ const exec = util.promisify(require('child_process').exec);
 const { Client } = require('pg-promise');
 
 var pgp = require('pg-promise')(/* options */)
-var db = pgp(process.env.DATABASE_URL)
+var db = pgp({
+  connectionString:  process.env.DATABASE_URL,
+  ssl: true
+});
 
 console.log(process.env.DATABASE_URL);
 
