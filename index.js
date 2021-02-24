@@ -8,7 +8,7 @@ const exec = util.promisify(require('child_process').exec);
 
 const cmd = async () => {
   var ret = "mmm";
-  const { stdout, stderr } = await exec("java --version");
+  const { stdout, stderr } = await exec("java Main.java");
   if (stderr) {
       return stderr;
   }
