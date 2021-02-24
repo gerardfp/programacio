@@ -9,4 +9,5 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/cool', (req, res) => res.send(cool()))
+  .get('/test', (req, res) => res.send("test"))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
