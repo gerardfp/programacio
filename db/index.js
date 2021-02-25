@@ -13,7 +13,7 @@ const pgp = pgPromise(initOptions);
 
 const db = pgp({
     connectionString: process.env.DATABASE_URL || 'postgresql://admin:admin@localhost:5432/programacio',
-      ssl: process.env.DATABASE_URL ? true : false
+      ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
   });
 
 module.exports = db;
