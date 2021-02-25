@@ -1,21 +1,7 @@
 const express = require('express');
 const path = require('path');
 const db = require('./db');
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
-
-const PORT = process.env.PORT || 5000;
-
-
-
-const cmd = async () => {
-  var ret = "mmm";
-  const { stdout, stderr } = await exec("java Main.java");
-  if(stdout) return stdout;
-
-  return stderr;
-}
-
+const runjava = require('./runjava')
 const app = express();
 
 
@@ -25,9 +11,10 @@ app.use(express.static(path.join(__dirname, 'public')))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
 
-GET('/java', () => cmd());
+GET('/java', () => runjava());
 GET('/db', () => db.posts.all());
   
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 function GET(url, handler) {
