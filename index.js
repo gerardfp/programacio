@@ -39,7 +39,7 @@ app.post('/auth', async (req, res) => {
             req.session.username = username;
             res.redirect('/home');
         } else {
-            res.send('Incorrect Username and/or Password!');
+            res.send('Incorrect Username and/or Password');
         }			
         res.end();
     } else {
