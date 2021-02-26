@@ -1,11 +1,12 @@
 const promise = require('bluebird'); // best promise library today
 const pgPromise = require('pg-promise'); // pg-promise core library
-const {Posts} = require('./repos');
+const {Posts, Auth} = require('./repos');
 
 const initOptions = {
     promiseLib: promise,
     extend(obj, dc) {
         obj.posts = new Posts(obj, pgp);
+        obj.auth = new Auth(obj, pgp);
     }
 };
 
