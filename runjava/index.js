@@ -1,13 +1,17 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+const fs = require('fs');
+const path = require('path');
 
+const runjava = async (code, input) => {
+  const tmpjava = path.join(__dirname,"tmpjava","random.java");
+  fs.writeFileSync(tmpjava, code,{ 
+    encoding: "utf8", 
+    flag: "w", 
+    mode: 0o666 
+  });
 
-const runjava = async () => {
-  var ret = "mmm";
-  const { stdout, stderr } = await exec("java Main.java");
-  if(stdout) return stdout;
-
-  return stderr;
+  return await exec(`echo ${input} | java ${tmpjava}`);
 }
 
 module.exports = runjava;

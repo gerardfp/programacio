@@ -1,6 +1,7 @@
-<!DOCTYPE html>
-<form action="auth" method="POST">
-  <input type="text" name="username" placeholder="Username" required>
-  <input type="password" name="password" placeholder="Password" required>
+<%- include ("../partials/header.ejs") %>
+
+<form action="/login" method="POST">
+  <input type="text" name="username" placeholder="Username" value="admin" required>
+  <input type="password" name="password" placeholder="Password" value="admin" required>
   <input type="submit">
 </form>

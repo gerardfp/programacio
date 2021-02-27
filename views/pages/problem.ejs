@@ -1,0 +1,40 @@
+<%- include ("../partials/header.ejs") %>
+
+<h1>Welcome <%= problem.statement %></h1>
+
+<% testcases.forEach(function(testcase){ %>
+  <h2>Input</h2>
+  <pre><%= testcase.input %></pre>
+  <h2>Output</h2>
+  <pre><%= testcase.output %></pre>
+<% }); %>
+
+<textarea id="code" rows="20" cols="80">
+  import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("holaaaaaa");
+        System.out.println(scanner.nextInt()*2);        
+    }
+}
+</textarea>
+<input type="submit" onclick="_submit()" value="CHECK">
+
+<p id="response"></p>
+
+<script>
+  async function _submit() {
+    const code = document.getElementById('code');
+
+    console.log(code.value);
+
+    const response = await fetch('/submit/<%= problem.slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code.value})});
+
+    console.log(response.json());
+    document.getElementById('response').innerText = response;
+
+  }
+</script>
