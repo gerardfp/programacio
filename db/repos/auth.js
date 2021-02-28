@@ -4,7 +4,7 @@ class AuthRepository {
     }
     
     async auth(username, password) {
-        return this.db.result('SELECT * FROM users WHERE email = $1 AND password = crypt($2, password)', [username, password], r => r.rowCount);
+        return this.db.one('SELECT * FROM users WHERE email = $1 AND password = crypt($2, password)', [username, password]);
     }
 }
 

@@ -11,7 +11,11 @@ const runjava = async (code, input) => {
     mode: 0o666 
   });
 
-  return await exec(`echo ${input} | java ${tmpjava}`);
+  try {
+    return await exec(`echo ${input} | java ${tmpjava}`);
+  } catch(e){
+    return e;
+  }
 }
 
 module.exports = runjava;

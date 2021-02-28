@@ -21,16 +21,25 @@ router.post('/submit/:slug/', async (req, res) => {
 
     const testcases = await db.problems.testcases(req.params.slug);
 
-    var s = [];
+    var s = { testcases: []};
     for (testcase of testcases){
         const result = await runjava(code, testcase.input);
-        console.log(result);
-        s.push(result);
+        if (result.stderr) {
+            s.testcases.push({ stderr: result.stderr });
+        } else {
+            const resultre = result.stdout.replace(/(\s+)\n/g,'').replace(/\s+$/g,'');
+            if(resultre === testcase.output) {
+                s.testcases.push({ result: 'ok', stdout: resultre }); 
+            } else {
+                s.testcases.push({ result: 'fail', expected: testcase.output, stdout: resultre });
+            }
+        }
     }
-
-    console.log(s);
 
     res.send(JSON.stringify(s));
 });
 
-module.exports = router;
+module.exports = {
+    index: router,
+    admin: require('./admin')
+};

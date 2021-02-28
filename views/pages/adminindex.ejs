@@ -1,0 +1,15 @@
+<%- include ("../partials/header.ejs") %>
+
+<h1>Administration: <%= user %> <a href="/logout">logout</a></h1>
+
+<a href="/admin/problems/create">Crear problema</a>
+
+<br>
+<br>
+
+<ul>
+
+<% problems.forEach(function(problem){ %>
+  <li><a href="/admin/problems/edit/<%= problem.slug %>"><%= problem.title %></a></li>
+<% }); %>
+</ul>

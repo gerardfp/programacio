@@ -4,7 +4,12 @@ public class Main {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("holaaaaaa");
-        System.out.println(scanner.nextInt()*2);        
+        int[] a = new int[4];
+
+        int b = scanner.nextInt();
+
+        for(int i =0; i<b; i++){
+          System.out.println(a[i]);        
+        }
     }
 }

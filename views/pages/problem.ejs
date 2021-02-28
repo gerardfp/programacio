@@ -1,6 +1,8 @@
 <%- include ("../partials/header.ejs") %>
 
-<h1>Welcome <%= problem.statement %></h1>
+<h1><%= problem.title %></h1>
+
+<p><%= problem.statement %></p>
 
 <% testcases.forEach(function(testcase){ %>
   <h2>Input</h2>
@@ -10,31 +12,36 @@
 <% }); %>
 
 <textarea id="code" rows="20" cols="80">
-  import java.util.Scanner;
-
-public class Main {
-    public static void main(String[] args){
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("holaaaaaa");
-        System.out.println(scanner.nextInt()*2);        
-    }
-}
+<%= problem.template %>
 </textarea>
 <input type="submit" onclick="_submit()" value="CHECK">
 
-<p id="response"></p>
+<div id="response"></div>
 
 <script>
   async function _submit() {
-    const code = document.getElementById('code');
+    const code = document.getElementById('code').value;
 
-    console.log(code.value);
+    const response = await (await fetch('/submit/<%= problem.slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code})})).json();
 
-    const response = await fetch('/submit/<%= problem.slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code.value})});
-
-    console.log(response.json());
-    document.getElementById('response').innerText = response;
-
+    console.log(response);
+    var r = "";
+    for(const [i, testcase] of response.testcases.entries()){
+      if(testcase.result === 'ok'){
+        r += "<p>Testcase " + i + "...ok</p>";
+      } else {
+        if(testcase.stderr){
+          r += "<p>Testcase " + i + "...error</p>";
+          r += "<pre>" + testcase.stderr + "</pre>";
+        } else {
+          r += "<p>Testcase " + i + "...fail</p>";
+          r += "<div>Output</div>";
+          r += "<pre>" + testcase.stdout + "</pre>";
+          r += "<div>Expected</div>";
+          r += "<pre>" + testcase.expected + "</pre>";
+        }
+      }
+    }
+    document.getElementById('response').innerHTML = r;
   }
 </script>

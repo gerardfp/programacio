@@ -33,28 +33,42 @@ function restrict(req, res, next) {
       res.redirect('/login');
     }
 }
+
+function restrictAdmin(req, res, next) {
+    if (req.session.isAdmin) {
+      next();
+    } else if(!req.session.user){
+      res.redirect('/login');
+    }
+}
+
     
 app.get('/logout', (req, res) => { req.session.destroy(() => { res.redirect('/') }) });
   
 app.get('/login', (req, res) => { res.render('pages/login') });
   
 app.post('/login', async (req, res) => {
-    console.log("'Login");
-    console.log(req.body);
     var username = req.body.username;
     var password = req.body.password;
 
-    if(await db.auth.auth(username, password) > 0){
+    if(user = await db.auth.auth(username, password)){
         req.session.regenerate(function(){
-          req.session.user = username;
-          res.redirect('/');
+            req.session.user = user.email;
+
+            if(user.admin){
+                req.session.isAdmin = user.admin; 
+                res.redirect('/admin');
+            } else {
+                res.redirect('/');
+            }
         });
     } else {
         res.redirect('/login');
     }
 });
 
-app.use('/', restrict, routes);
+app.use('/admin', restrictAdmin, routes.admin);
+app.use('/', restrict, routes.index);
 
 
 GET('/java', () => runjava());

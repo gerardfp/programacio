@@ -1,0 +1,104 @@
+<%- include ("../partials/header.ejs") %>
+
+<input type="submit" onclick="_save()" value="SAVE">
+
+<input id="slug" value="<%= problem.slug %>">
+
+<input id="title" value="<%= problem.title %>">
+
+<br>
+
+<textarea id="statement" rows="20" cols="160"><%= problem.statement %></textarea>
+
+<br>
+
+<textarea id="testcases"  rows="20" cols="160">
+<% for(const [index,testcase] of testcases.entries()){ %>
+  #in<%= index %>
+  <%= testcase.input %>
+  #out<%= index %>
+  <%= testcase.output %>
+  #ex<%= index %>
+  <%= testcase.explanation %>
+<% } %>
+</textarea>
+
+<br>
+
+<textarea id="template" rows="20" cols="160">
+<%= problem.template %>
+</textarea>
+
+<textarea id="code" rows="20" cols="160">
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+
+        int[] a = new int[4];
+
+        int b = scanner.nextInt();
+
+        for(int i =0; i<b; i++){
+          System.out.println(a[i]);        
+        }
+    }
+}
+</textarea>
+<input type="submit" onclick="_submit()" value="CHECK">
+
+<div id="response"></div>
+
+<script>
+  async function _submit() {
+    const code = document.getElementById('code').value;
+
+    const response = await (await fetch('/submit/<%= problem.slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code})})).json();
+
+    console.log(response);
+    var r = "";
+    for(const [i, testcase] of response.testcases.entries()){
+      if(testcase.result === 'ok'){
+        r += "<p>Testcase " + i + "...ok</p>";
+      } else {
+        if(testcase.stderr){
+          r += "<p>Testcase " + i + "...error</p>";
+          r += "<pre>" + testcase.stderr + "</pre>";
+        } else {
+          r += "<p>Testcase " + i + "...fail</p>";
+          r += "<div>Output</div>";
+          r += "<pre>" + testcase.stdout + "</pre>";
+          r += "<div>Expected</div>";
+          r += "<pre>" + testcase.expected + "</pre>";
+        }
+      }
+    }
+    document.getElementById('response').innerHTML = r;
+  }
+
+
+  async function _save(){
+      const title = document.getElementById('title').value;
+      const statement = document.getElementById('statement').value;
+      const testcases = document.getElementById('testcases').value;
+      const template = document.getElementById('template').value;
+
+      const response = await f('/admin/save/<%= problem.slug %>', 
+        {data: {slug: '<%= problem.slug %>', title: title, statement: statement, testcases: testcases, template: template}});
+
+      console.log(response);
+      if (response.redirect) {
+          window.location.replace(response.redirect);
+      }
+  }
+
+  async function f(url, data){
+    const response = await fetch(url, { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)});
+    await response;
+    console.log(response);
+      return (await response).json();
+  }
+</script>
+
+
