@@ -1,0 +1,331 @@
+<div class='challenge_problem_statement'><div class='msB challenge_problem_statement_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>En la teoria de la probabilitat, el problema dels bandits de múltiples braços és un problema en el qual s'ha d'assignar un conjunt fix limitat de recursos entre opcions competidores (alternatives) de manera que maximitzi el seu guany esperat, quan les propietats de cada elecció només es coneixen parcialment en el moment de l'assignació, i es poden entendre millor quan passa el temps o assignant recursos a l'elecció.
+És un problema clàssic de <strong>reinforcment learning</strong> que exemplifica el dilema d'exploració-explotació. La seva aplicació va desde la tria entre una antiga i una nova posologia d'una vacuna o medicament, fins a l'elecció dels colors d'un botó a una pàgina web.</p>
+
+<p>Diguem que triem un color per al botó "Comprar ara!". Les opcions són taronja, verd o blau. </p>
+
+<p><img src="1559124318-8e5631e7b4-multiarmedbandits.png" alt="image" title=""></p>
+
+<p>L'algoritme funciona així: inicialitzem les tres opcions a 1 click d'1 intent. Així, quan comencem, les dades de proves internes són aquestes:</p>
+
+<div class="highlight"><pre><span></span><span class="n">Taronja</span>       <span class="n">Verd</span>          <span class="n">Blau</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">1</span> <span class="o">=</span> <span class="mi">100</span><span class="o">%</span>    <span class="mi">1</span><span class="o">/</span><span class="mi">1</span> <span class="o">=</span> <span class="mi">100</span><span class="o">%</span>    <span class="mi">1</span><span class="o">/</span><span class="mi">1</span> <span class="o">=</span> <span class="mi">100</span><span class="o">%</span>
+</pre></div>
+
+
+<p>Llavors arriba un visitant al lloc web i hem de mostrar-li un botó. Escollim el primer amb la màxima expectativa de guanyar. L’algorisme creu que tots funcionen al 100% tot el temps, de manera que tria el primer: TARONJA. Però, per desgràcia, el visitant no fa clic al botó.</p>
+
+<div class="highlight"><pre><span></span><span class="n">Taronja</span>      <span class="n">Verd</span>          <span class="n">Blau</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">=</span> <span class="mi">50</span><span class="o">%</span>    <span class="mi">1</span><span class="o">/</span><span class="mi">1</span> <span class="o">=</span> <span class="mi">100</span><span class="o">%</span>    <span class="mi">1</span><span class="o">/</span><span class="mi">1</span> <span class="o">=</span> <span class="mi">100</span><span class="o">%</span>
+</pre></div>
+
+
+<p>Ve un altre visitant. Definitivament no li mostrarem el TARONJA, ja que pensem que només té un 50% de probabilitats de funcionar. De manera que triem el VERD. No fa clic. El mateix passa per a molts més visitants i acabem fent rondes per les opcions. En el procés, afinarem la nostra estimació del percentatge de clics per a cada opció cap avall.</p>
+
+<div class="highlight"><pre><span></span><span class="n">Taronja</span>      <span class="n">Verd</span>          <span class="n">Blau</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">=</span> <span class="mi">25</span><span class="o">%</span>    <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">=</span> <span class="mi">25</span><span class="o">%</span>     <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">=</span> <span class="mi">25</span><span class="o">%</span>
+</pre></div>
+
+
+<p>Però, de sobte, algú fa clic al botó TARONJA. Ràpidament, el navegador fa una trucada Ajax a la nostra funció de recompensa $.ajax(url:"/reward?testname=buy-button");i el nostre codi actualitza els resultats:</p>
+
+<div class="highlight"><pre><span></span><span class="n">Taronja</span>      <span class="n">Verd</span>          <span class="n">Blau</span>
+<span class="mi">2</span><span class="o">/</span><span class="mi">5</span> <span class="o">=</span> <span class="mi">40</span><span class="o">%</span>    <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">=</span> <span class="mi">25</span><span class="o">%</span>     <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">=</span> <span class="mi">25</span><span class="o">%</span>
+</pre></div>
+
+
+<p>Quan el nostre intrèpid desenvolupador web ho veu, s'esgarrapa el cap: "<em>El botó taronja és la pitjor opció. La seva font és petita. El botó verd és, òbviament, el millor. Tot està perdut! L’algoritme cobdiciós l’escollirà sempre per sempre!</em>"</p>
+
+<p>Però espereu, vegem què passa si el TARONJA és realment l’elecció subóptima. Atès que l’algorisme ara creu que és el millor, sempre es mostrarà. És a dir, fins que deixi de funcionar bé. Llavors les altres opcions comencaran a semblar millor.</p>
+
+<div class="highlight"><pre><span></span><span class="n">Taronja</span>      <span class="n">Verd</span>          <span class="n">Blau</span>
+<span class="mi">2</span><span class="o">/</span><span class="mi">9</span> <span class="o">=</span> <span class="mi">22</span><span class="o">%</span>    <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">=</span> <span class="mi">25</span><span class="o">%</span>     <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">=</span> <span class="mi">25</span><span class="o">%</span>
+</pre></div>
+
+
+<p>Després de moltes més visites, s’ha trobat la millor opció, si n'hi ha, i es mostrarà tot el temps. El percentatge de clics per a cada opció podria ser aquest:</p>
+
+<div class="highlight"><pre><span></span><span class="n">Taronja</span>            <span class="n">Verd</span>                <span class="n">Blau</span>
+<span class="mi">114</span><span class="o">/</span><span class="mi">4071</span> <span class="o">=</span> <span class="mf">2.8</span><span class="o">%</span>    <span class="mi">205</span><span class="o">/</span><span class="mi">6385</span> <span class="o">=</span> <span class="mf">3.2</span><span class="o">%</span>     <span class="mi">59</span><span class="o">/</span><span class="mi">2264</span> <span class="o">=</span> <span class="mf">2.6</span><span class="o">%</span>
+</pre></div>
+</div></div></div><div class='challenge_input_format'><div class='msB challenge_input_format_title'><p><strong>Input Format</strong></p></div><div class='msB challenge_input_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>L'entrada consta en primer lloc del nombre d'opcions competidores alternatives.</p>
+
+<p>Després ve la seqüència d'accions que indiquen l'èxit o fracàs de l'opció subòptima.
+La seqüència comença amb un nombre enter que indica el nombre d'accions, i a continuació un seguit de booleans que indiquen l'èxit o fracàs de l'opció subòptima.</p></div></div></div><div class='challenge_constraints'><div class='msB challenge_constraints_title'><p><strong>Constraints</strong></p></div><div class='msB challenge_constraints_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>No hi ha</p></div></div></div><div class='challenge_output_format'><div class='msB challenge_output_format_title'><p><strong>Output Format</strong></p></div><div class='msB challenge_output_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>S'imprimirà el percentatge d'èxit de cada opció en format Array.</p>
+
+<div class="highlight"><pre><span></span><span class="p">[</span> <span class="mf">3.54</span><span class="p">,</span> <span class="mf">2.98</span><span class="p">,</span> <span class="mf">1.73</span> <span class="p">]</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 0</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">3</span>
+<span class="err">6</span>
+<span class="err">true</span>
+<span class="err">true</span>
+<span class="err">false</span>
+<span class="err">true</span>
+<span class="err">false</span>
+<span class="err">false</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 0</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">[75.0, 66.66667, 50.0]</span>
+</pre></div>
+</div></div></div><div class='challenge_explanation'><div class='msB challenge_explanation_title'><p><strong>Explanation 0</strong></p></div><div class='msB challenge_explanation_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>Tenim 3 botons. Els inicialitzem a 1 clic i mostrats 1 cop:</p>
+
+<div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>  <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>  <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>
+</pre></div>
+
+
+<p>A continuació venen les 6 accions que fan els visitants de la web.
+Al primer visitant se li mostra el primer botó i fa clic (true). Actualitzem la probabilitat del primer botó: s'ha mostrat i s'ha fet clic:</p>
+
+<div class="highlight"><pre><span></span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>
+</pre></div>
+
+
+<p>Al segon visitant se li mostra també el primer botó i fa clic (true). Actualitzem la seva probabilitat d'exit:</p>
+
+<div class="highlight"><pre><span></span><span class="mi">3</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>
+</pre></div>
+
+
+<p>Al tercer visitant se li mostra el primer botó, però aquest cop no fa clic (false). Actualitzem la seva probabilitat, sumem 1 als cops que s'ha mostrat, però no sumem 1 clic:</p>
+
+<div class="highlight"><pre><span></span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="o">=</span><span class="mf">75.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>
+</pre></div>
+
+
+<p>Al quart visitant se li mostra ara el segon botó, i fa clic (true). Actualitzem el segon botó sumant 1 als cops mostrat i als clics:</p>
+
+<div class="highlight"><pre><span></span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="o">=</span><span class="mf">75.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>
+</pre></div>
+
+
+<p>Al cinquè visitatnt se li mostra el segon botó, per no fa clic (false). Sumem 1 als cops mostrat, però no als clics:</p>
+
+<div class="highlight"><pre><span></span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="o">=</span><span class="mf">75.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>
+</pre></div>
+
+
+<p>Al sisé visitant se li mostra ara el tercer botó, i no fa clic (false). Actualitzem el tercer botó:</p>
+
+<div class="highlight"><pre><span></span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="o">=</span><span class="mf">75.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 1</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">2</span>
+<span class="err">5</span>
+<span class="err">true</span>
+<span class="err">false</span>
+<span class="err">false</span>
+<span class="err">true</span>
+<span class="err">true</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 1</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">[80.0, 50.0]</span>
+</pre></div>
+</div></div></div><div class='challenge_explanation'><div class='msB challenge_explanation_title'><p><strong>Explanation 1</strong></p></div><div class='msB challenge_explanation_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>Es mostra el primer i es fa clic (true)</p>
+
+<div class="highlight"><pre><span></span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   
+</pre></div>
+
+
+<p>Es mostra el primer i no es fa clic (false)</p>
+
+<div class="highlight"><pre><span></span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   
+</pre></div>
+
+
+<p>Es mostra el segon i no es fa clic (false)</p>
+
+<div class="highlight"><pre><span></span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   
+</pre></div>
+
+
+<p>Es mostra el primer i es fa clic (true)</p>
+
+<div class="highlight"><pre><span></span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="o">=</span><span class="mf">75.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   
+</pre></div>
+
+
+<p>Es mostra el primer i es fa clic (true)</p>
+
+<div class="highlight"><pre><span></span><span class="mi">4</span><span class="o">/</span><span class="mi">5</span><span class="o">=</span><span class="mf">80.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 2</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">5</span>
+<span class="err">10</span>
+<span class="err">false</span>
+<span class="err">true</span>
+<span class="err">false</span>
+<span class="err">true</span>
+<span class="err">true</span>
+<span class="err">false</span>
+<span class="err">false</span>
+<span class="err">false</span>
+<span class="err">false</span>
+<span class="err">true</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 2</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">[50.0, 75.0, 60.000004, 50.0, 50.0]</span>
+</pre></div>
+</div></div></div><div class='challenge_explanation'><div class='msB challenge_explanation_title'><p><strong>Explanation 2</strong></p></div><div class='msB challenge_explanation_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="nb">false</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   
+<span class="nb">true</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   
+<span class="nb">false</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   
+<span class="nb">true</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   
+<span class="nb">true</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">3</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   
+<span class="nb">false</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="o">=</span><span class="mf">75.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   
+<span class="nb">false</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="o">=</span><span class="mf">75.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="o">=</span><span class="mf">100.0</span>   
+<span class="nb">false</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="o">=</span><span class="mf">75.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   
+<span class="nb">false</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">=</span><span class="mf">66.66667</span>   <span class="mi">3</span><span class="o">/</span><span class="mi">5</span><span class="o">=</span><span class="mf">60.000004</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   
+<span class="nb">true</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="o">=</span><span class="mf">75.0</span>   <span class="mi">3</span><span class="o">/</span><span class="mi">5</span><span class="o">=</span><span class="mf">60.000004</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">=</span><span class="mf">50.0</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 3</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">5</span>
+<span class="err">100</span>
+<span class="err">false true true false false false true false true false false true true true false false false true false false false false true false true false true true false false false false true true true true true true true false false true true true true false false true true false false true false true false false false true true true true false true true false false true true true true true false true true true false false false false true false false false false false true true false true true true true true true true false false true true false </span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 3</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">[33.333336, 47.368423, 33.333336, 60.000004, 50.0]</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 4</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">3</span>
+<span class="err">1000</span>
+<span class="err">false false true false false false true false false false true false true false false false false false false false true false false false true false false false false false false false false false true false true false false false false false false false false false false false true false false false false false false false true false false false false false false false false false true false false false true true false false true false true false false true false false false false true true false false false false false false false true false true true true false false false false true true false false true false false false false true false false false false true false false false false false false false false true false false false false false false false true false false true false false false false false false false true false false false false false false true false false true true false false false false false false false false false false false false false false false false true false false false false false false false false false false false false true false false false false false true false false false true false false false false false false true true false false false false true false false true false false true false false true true false false true true false false false false false false false false false false false false false false false false false false false false false false false false true false false false false false false true false false false false false false true false false false false false false false false false false false false false false false false false false false false false true false false true false false false true false true false false false false true true false true false true false false false false true false true false false false false false false false false false false true false false false true false false false true false false true false false false false false false false false false false false true false false false false false false false false true false false false true false true true false false false false false false false false true false false false false false false false true false false true false false false false false false false false false false false false false false true false true true false true false false true false false false false false false false false false false false true false true false false true false false false false false false false false false false false false true false false false true false false false false false false false false false false false false true false true false false true false false false false true false false false false false false false false false false false false false false false false false false false false true true false false false false false false true true false false false false false false false false false false false true false false false true false false false false true false true false false false false false true false false false false false false false false false true true false true false false false true false false false false false false false true false false true false true false false true false false false false true false false false false false false true false false false false true false false true true false false false true false false false false false false false false false false true false false false false false false false true false false false false false true true false false true false false false false false false false true false false true true false false false false true false false false false false false false false false false true false false false false false true false false true false false true false true false false true false false true false true false false false true false false false true false false false false false false false true false false false true false true false false false false false false false false false false false false false false false false false false false false false true false false false false false false false false true true false false true false false false false false false false true false false false false true false false false false false false false false true false false false false false false false false false false false false false false false true false false true false false false false false false false false false true false false false true false false false false false true true false false true false true false false false false false true true false false true false false false false false true false false false true false false true false false false true false false false true false false false false false false true true false false true false false false false false false false false false false false false false false false false false false false true false false true false false false false false false false true false false true false false false false true false false false true false false false false false false true false false false false false false false false false false false false false false false false true false false true false false false false false false false false false true false false false false false false false false false false false false false false false false false true false false false false false true false false false true false false false false false false true false false false false true false false false true false false false false true false false false false false false false false false false true false true false true false true false false false false false true false false true false true false false false false false false false false true true true false false false true true true false false false true </span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 4</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">[16.666668, 19.081633, 17.647058]</span>
+</pre></div>
+</div></div></div>

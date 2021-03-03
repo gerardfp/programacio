@@ -1,0 +1,167 @@
+<div class='challenge_problem_statement'><div class='msB challenge_problem_statement_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>Donades les tuples de la següent relació:</p>
+
+<p><img src="1556888264-0b788b0491-db3.png" alt="image" title=""></p>
+
+<p>Realitza les següents consultes:</p>
+
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> 
+    <span class="k">FROM</span> <span class="n">patients</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> 
+    <span class="k">FROM</span> <span class="n">patients</span> 
+    <span class="k">WHERE</span> <span class="k">LOWER</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">LIKE</span> <span class="o">%</span><span class="n">pa</span><span class="o">%</span> <span class="k">OR</span> <span class="k">LOWER</span><span class="p">(</span><span class="n">lastname</span><span class="p">)</span> <span class="k">LIKE</span> <span class="o">%</span><span class="n">er</span><span class="o">%</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">lastname</span><span class="p">,</span> <span class="n">birthdate</span> 
+    <span class="k">FROM</span> <span class="n">patients</span> 
+    <span class="k">WHERE</span> <span class="n">birthdate</span> <span class="k">BETWEEN</span> <span class="s1">'1707-04-15'</span> <span class="k">AND</span> <span class="s1">'1937-12-26'</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">lastname</span><span class="p">,</span> <span class="n">weight</span><span class="o">/</span><span class="n">height</span><span class="o">^</span><span class="mi">2</span> <span class="k">AS</span> <span class="n">ims</span>
+    <span class="k">FROM</span> <span class="n">patients</span> 
+    <span class="k">WHERE</span> <span class="n">weight</span><span class="o">/</span><span class="n">height</span><span class="o">^</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">.</span><span class="mi">5</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">lastname</span><span class="p">,</span> <span class="n">weight</span><span class="o">/</span><span class="n">height</span><span class="o">^</span><span class="mi">2</span> <span class="k">AS</span> <span class="n">ims</span>
+    <span class="k">FROM</span> <span class="n">patients</span> 
+    <span class="k">WHERE</span> <span class="n">weight</span><span class="o">/</span><span class="n">height</span><span class="o">^</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">25</span> <span class="k">AND</span> <span class="p">(</span><span class="n">diabetes</span> <span class="k">IS</span> <span class="k">TRUE</span> <span class="o">||</span> <span class="n">hepatitis</span> <span class="k">IS</span> <span class="k">TRUE</span><span class="p">)</span>
+</pre></div>
+</div></div></div><div class='challenge_input_format'><div class='msB challenge_input_format_title'><p><strong>Input Format</strong></p></div><div class='msB challenge_input_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>El primer nombre indica el la quantitat de tuples que venen a continuació.</p>
+
+<p>El format de cada tupla és:</p>
+
+<div class="highlight"><pre><span></span><span class="n">id</span> <span class="n">lastname</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">birthdate</span><span class="o">,</span> <span class="n">height</span><span class="o">,</span> <span class="n">weight</span><span class="o">,</span> <span class="n">diabetes</span><span class="o">,</span> <span class="n">hepatitis</span>
+</pre></div>
+
+
+<p>Els valors de l'atribut birthdate estan en format 'YYYY-MM-DD'</p>
+
+<p>Els booleans s'expresen amb {0|1}</p>
+
+<p>En les dades d'entrada poden haver diversos espais en blanc entre els diferents atributs.</p></div></div></div><div class='challenge_constraints'><div class='msB challenge_constraints_title'><p><strong>Constraints</strong></p></div><div class='msB challenge_constraints_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>-</p></div></div></div><div class='challenge_output_format'><div class='msB challenge_output_format_title'><p><strong>Output Format</strong></p></div><div class='msB challenge_output_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>El format de sortida serà en format taula:</p>
+
+<div class="highlight"><pre><span></span><span class="n">col1</span>   <span class="o">|</span><span class="n">col2</span>   <span class="o">|</span><span class="n">col3</span>
+<span class="o">-------+-------+-------</span>
+<span class="n">val</span>    <span class="o">|</span><span class="n">val</span>    <span class="o">|</span><span class="n">val</span>
+<span class="n">val</span>    <span class="o">|</span><span class="n">val</span>    <span class="o">|</span><span class="n">val</span>
+</pre></div>
+
+
+<p>Els noms de les columnes s'aliniaran a l'esquerra.</p>
+
+<p>El format dels valors ha de ser:</p>
+
+<ul>
+<li>Integer: amplada 4, aliniat a l'esquerra</li>
+<li>String: amplada 16, aliniat a l'esquerra</li>
+<li>Data: amplada 12, aliniat a la dreta</li>
+<li>Float: amplada 10, aliniat a la dreta, amb dues xifres decimals</li>
+<li>Boolean: amplada 10, aliniat a la dreta, {true|false}</li>
+</ul>
+
+<p>S'ha de deixar una separació de 2 salts de línia entre cada resultat.</p></div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 0</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">10</span>
+<span class="err">1 of Samos,   Pyhtagoras, -0570-01-01, 1.75, 63.2, 0, 0</span>
+<span class="err">2   of Alexandria,  Hypatia, 0350-01-01, 1.59, 46.1,  0, 1</span>
+<span class="err"> 3  Cardano,  Gerolamo, 1501-09-24, 1.73,  69.2,   1, 0</span>
+<span class="err">  4  Euler,    Leonhard,   1707-04-15,    1.64,  59.9, 1, 1</span>
+<span class="err">5 Gauss, Carl, 1777-04-30, 1.70, 92.2, 1, 0</span>
+<span class="err">6 Cantor,   Georg, 1845-03-03,    1.75, 75.2, 0, 0</span>
+<span class="err"> 7    Erdos, Paul,     1913-03-26, 1.76, 56.6,  1,    1</span>
+<span class="err"> 8 Conway, John, 1937-12-26, 1.72, 88.2, 0, 1</span>
+<span class="err">9 Perelman, Grigori,    1966-06-13, 1.90, 89.9, 1,   1</span>
+<span class="err">  10 Tao, Terry, 1975-07-17,  1.74, 68.4, 0, 0</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 0</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">id  |name            |lastname        |birthdate   |height  |wheight |diabetes  |hepatitis </span>
+<span class="err">----+----------------+----------------+------------+--------+--------+----------+----------</span>
+<span class="err">1   |Pyhtagoras      |of Samos        | -0570-01-01|    1.75|   63.20|     false|     false</span>
+<span class="err">2   |Hypatia         |of Alexandria   |  0350-01-01|    1.59|   46.10|     false|      true</span>
+<span class="err">3   |Gerolamo        |Cardano         |  1501-09-24|    1.73|   69.20|      true|     false</span>
+<span class="err">4   |Leonhard        |Euler           |  1707-04-15|    1.64|   59.90|      true|      true</span>
+<span class="err">5   |Carl            |Gauss           |  1777-04-30|    1.70|   92.20|      true|     false</span>
+<span class="err">6   |Georg           |Cantor          |  1845-03-03|    1.75|   75.20|     false|     false</span>
+<span class="err">7   |Paul            |Erdos           |  1913-03-26|    1.76|   56.60|      true|      true</span>
+<span class="err">8   |John            |Conway          |  1937-12-26|    1.72|   88.20|     false|      true</span>
+<span class="err">9   |Grigori         |Perelman        |  1966-06-13|    1.90|   89.90|      true|      true</span>
+<span class="err">10  |Terry           |Tao             |  1975-07-17|    1.74|   68.40|     false|     false</span>
+
+
+<span class="err">id  |name            |lastname        |birthdate   |height  |wheight |diabetes  |hepatitis </span>
+<span class="err">----+----------------+----------------+------------+--------+--------+----------+----------</span>
+<span class="err">2   |Hypatia         |of Alexandria   |  0350-01-01|    1.59|   46.10|     false|      true</span>
+<span class="err">4   |Leonhard        |Euler           |  1707-04-15|    1.64|   59.90|      true|      true</span>
+<span class="err">7   |Paul            |Erdos           |  1913-03-26|    1.76|   56.60|      true|      true</span>
+<span class="err">9   |Grigori         |Perelman        |  1966-06-13|    1.90|   89.90|      true|      true</span>
+
+
+<span class="err">name            |lastname        |birthdate   </span>
+<span class="err">----------------+----------------+------------</span>
+<span class="err">Leonhard        |Euler           |  1707-04-15</span>
+<span class="err">Carl            |Gauss           |  1777-04-30</span>
+<span class="err">Georg           |Cantor          |  1845-03-03</span>
+<span class="err">Paul            |Erdos           |  1913-03-26</span>
+<span class="err">John            |Conway          |  1937-12-26</span>
+
+
+<span class="err">name            |lastname        |ims     </span>
+<span class="err">----------------+----------------+--------</span>
+<span class="err">Hypatia         |of Alexandria   |   18.24</span>
+<span class="err">Paul            |Erdos           |   18.27</span>
+
+
+<span class="err">name            |lastname        |ims     </span>
+<span class="err">----------------+----------------+--------</span>
+<span class="err">Carl            |Gauss           |   31.90</span>
+<span class="err">John            |Conway          |   29.81</span>
+</pre></div>
+</div></div></div>

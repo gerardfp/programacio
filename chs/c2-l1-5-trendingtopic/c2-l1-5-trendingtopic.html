@@ -1,0 +1,345 @@
+<div class='challenge_problem_statement'><div class='msB challenge_problem_statement_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>Una forma de veure la popularitat dels llenguatges de programació, es veure els cops que es mencionen a les xarxes socials.</p>
+
+<p>A partir d'una sèrie de missatges publicats, volem fer un ranking dels hashtags més utilitzats. </p></div></div></div><div class='challenge_input_format'><div class='msB challenge_input_format_title'><p><strong>Input Format</strong></p></div><div class='msB challenge_input_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>En primer lloc ve el nombre de missatges. A continuació venen els missatges.</p>
+
+<p>Cada missatge està encabit dintre d'unes claus {}</p>
+
+<p>El missatge pot ocupar vàries línies, però totes elles tenen 1 grau de tabulació.</p></div></div></div><div class='challenge_constraints'><div class='msB challenge_constraints_title'><p><strong>Constraints</strong></p></div><div class='msB challenge_constraints_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>Un Hastag comença amb una # i es permeten lletres i números, i en general qualsevol caràcter que no sigui:</p>
+
+<div class="highlight"><pre><span></span><span class="p">.</span> <span class="p">,</span> <span class="o">-</span> <span class="o">:</span> <span class="o">?</span> <span class="o">!</span>
+</pre></div>
+</div></div></div><div class='challenge_output_format'><div class='msB challenge_output_format_title'><p><strong>Output Format</strong></p></div><div class='msB challenge_output_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>S'imprimirà la llista de Hashtags i les vegades que apareix als missatges</p></div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 0</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">4</span>
+<span class="err">{</span>
+<span class="err">    #Java</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    #Python #Java</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    #Java</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    #Python</span>
+<span class="err">}</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 0</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">#java 3</span>
+<span class="err">#python 2</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 1</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">4</span>
+<span class="err">{</span>
+<span class="err">    The #Java world</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Programming in #Python #Java</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Everybody loves #PHP</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    #Python is easy, #Java mmmm</span>
+<span class="err">}</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 1</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">#java 3</span>
+<span class="err">#python 2</span>
+<span class="err">#php 1</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 2</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">4</span>
+<span class="err">{</span>
+<span class="err">    What if... Oh, it actually works. #javascript</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    #Java: New Developments &amp; Features.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Anyone out there know if there are any good books on #java?</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    All computers wait at same speed #java, #JavaScript</span>
+<span class="err">}</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 2</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">#java 3</span>
+<span class="err">#javascript 2</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 3</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">6</span>
+<span class="err">{</span>
+<span class="err">    Everything you need to know about the newest garbage collectors in #Java.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    #python:  The boolean values False and True are equal to zero and one.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Write everything in #JavaScript?</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Yet Another #javascript Framework</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    got photo bombed by Guido van Rossum creator of #python</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Tonight I manipulated the DOM to add elements to a webpage using #javascript!</span>
+<span class="err">    Mind freaking blown!</span>
+<span class="err">}</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 3</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">#javascript 3</span>
+<span class="err">#python 2</span>
+<span class="err">#java 1</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 4</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">40</span>
+<span class="err">{</span>
+<span class="err">    #Java: New Developments &amp; Features. #Java is growing and changing quickly,</span>
+<span class="err">    and there's a lot to keep up with.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Everything you need to know about the newest garbage collectors in #Java.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    For #Java developers, learning Spring Boot is the first step to learning to developer</span>
+<span class="err">    applications for the cloud.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    A Reading List for #Java Programmers</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    I used the last two days to complete the JUnit tutorial. #java</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Starting with my first #Java app</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Now I know #Java</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    #Python is the most popular language in 2019</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    How To: Configure #Python Virtual Environment</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    console.log("good morning"); #JavaScript</span>
+<span class="err">    System.out.println("good morning"); #JAVA</span>
+<span class="err">    print "good morning"; #Python</span>
+<span class="err">    echo "good morning"; #PHP</span>
+<span class="err">    Good morning. #Human</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    1 Minute #Python - String Indexing: Positive Indexes Enjoy! :)</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Creating a Neural Network from Scratch in #Python</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    #python tip:  The boolean values False and True are equal to zero and one.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    got photo bombed by Guido van Rossum creator of #python</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Tonight I manipulated the DOM to add elements to a webpage using #javascript!</span>
+<span class="err">    Mind freaking blown!</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Today was spent going over regular expressions in #JavaScript</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    I started learning React before having a solid grasp of #JavaScript and I regretted it.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    What if... Oh, it actually works. #javascript</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Write everything in #JavaScript</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    This is going to change my entire workflow of building #javascript</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Yet Another #javascript Framework</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Time to relax after work and not think about #JavaScript Errors.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    if an image failed to load, show a customized broken image #javascript</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    all about Machine Learning with #JavaScript</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Can you spot the vulnerability? #PHP</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Improve the security of your #PHP app</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    &lt;? this tweet is not parsed as #PHP anymore: get over it</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Vue and Laravel To-Do App - Restful API Project #PHP</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    What #PHP version are you running?</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Learn to Create a #PHP MVC Framework</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    That #PHP clip too crazy!!!</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Hello, naming convention:</span>
+<span class="err">    camelCase</span>
+<span class="err">    kebab-case</span>
+<span class="err">    PascalCase</span>
+<span class="err">    snake_case</span>
+<span class="err">    #java #javascript #python #CSharp #PHP</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Languages to learn this year;</span>
+<span class="err">    #Python #JavaScript #PHP #CSharp</span>
+<span class="err">    Maybe;</span>
+<span class="err">    #Java</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Looks like PAUSE has taken a pause. #Java</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Which programming language would you recommend to start learning first?</span>
+<span class="err">    #Python #Java #CSharp #PHP #Javascript</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    All computers wait at same speed #CSharp</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Do #CSharp developers have 20/20 vision?</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Anyone out there know if there are any good books on #CSharp?</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    Wish I could declare local variables as `readonly` in #csharp so I can't accidentally overwrite them.</span>
+<span class="err">}</span>
+<span class="err">{</span>
+<span class="err">    It doesn't seem to be #csharp</span>
+<span class="err">}</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 4</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">#javascript 14</span>
+<span class="err">#java 13</span>
+<span class="err">#php 11</span>
+<span class="err">#python 10</span>
+<span class="err">#csharp 8</span>
+<span class="err">#human 1</span>
+</pre></div>
+</div></div></div>

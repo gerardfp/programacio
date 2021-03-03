@@ -1,0 +1,449 @@
+<div class='challenge_problem_statement'><div class='msB challenge_problem_statement_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>En molts videojocs 2D és bastant comú invertir horitzontal i verticalment un sprite per tal d'obtenir les diferents orientacions d'un personatge.</p>
+
+<p>Per exemple, a partir d'aquest sprite:</p>
+
+<p><img src="1579042329-5c62c7247d-NewPiskel-1.png.png" alt="image" title=""></p>
+
+<p>Podem obtenir els seus "flips" horitzontals i verticals:</p>
+
+<p><img src="1579042393-b2556f6116-NewPiskel1.png" alt="image" title=""></p></div></div></div><div class='challenge_input_format'><div class='msB challenge_input_format_title'><p><strong>Input Format</strong></p></div><div class='msB challenge_input_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>En primer lloc el nombre de línies de l'sprite.
+A continuació ve l'sprite ASCII-ART.</p></div></div></div><div class='challenge_constraints'><div class='msB challenge_constraints_title'><p><strong>Constraints</strong></p></div><div class='msB challenge_constraints_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>-</p></div></div></div><div class='challenge_output_format'><div class='msB challenge_output_format_title'><p><strong>Output Format</strong></p></div><div class='msB challenge_output_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>S'imprimirà l'<em>spritesheet</em> amb l'spirte ORIGINAL, junt amb les inversions HORITZONTAL, VERTICAL i HORITZONTAL/VERTICAL (separades per línies en blanc).</p></div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 0</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">3</span>
+<span class="err">#..</span>
+<span class="err">#..</span>
+<span class="err">###</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 0</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">#..</span>
+<span class="err">#..</span>
+<span class="err">###</span>
+
+<span class="err">..#</span>
+<span class="err">..#</span>
+<span class="err">###</span>
+
+<span class="err">###</span>
+<span class="err">#..</span>
+<span class="err">#..</span>
+
+<span class="err">###</span>
+<span class="err">..#</span>
+<span class="err">..#</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 1</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">8</span>
+<span class="err">...###..</span>
+<span class="err">..###...</span>
+<span class="err">.#######</span>
+<span class="err">....###.</span>
+<span class="err">...###..</span>
+<span class="err">..###...</span>
+<span class="err">.###....</span>
+<span class="err">###.....</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 1</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">...###..</span>
+<span class="err">..###...</span>
+<span class="err">.#######</span>
+<span class="err">....###.</span>
+<span class="err">...###..</span>
+<span class="err">..###...</span>
+<span class="err">.###....</span>
+<span class="err">###.....</span>
+
+<span class="err">..###...</span>
+<span class="err">...###..</span>
+<span class="err">#######.</span>
+<span class="err">.###....</span>
+<span class="err">..###...</span>
+<span class="err">...###..</span>
+<span class="err">....###.</span>
+<span class="err">.....###</span>
+
+<span class="err">###.....</span>
+<span class="err">.###....</span>
+<span class="err">..###...</span>
+<span class="err">...###..</span>
+<span class="err">....###.</span>
+<span class="err">.#######</span>
+<span class="err">..###...</span>
+<span class="err">...###..</span>
+
+<span class="err">.....###</span>
+<span class="err">....###.</span>
+<span class="err">...###..</span>
+<span class="err">..###...</span>
+<span class="err">.###....</span>
+<span class="err">#######.</span>
+<span class="err">...###..</span>
+<span class="err">..###...</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 2</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">5</span>
+<span class="err">####</span>
+<span class="err">#  #</span>
+<span class="err">####</span>
+<span class="err">#   </span>
+<span class="err">#   </span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 2</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">####</span>
+<span class="err">#  #</span>
+<span class="err">####</span>
+<span class="err">#   </span>
+<span class="err">#   </span>
+
+<span class="err">####</span>
+<span class="err">#  #</span>
+<span class="err">####</span>
+<span class="err">   #</span>
+<span class="err">   #</span>
+
+<span class="err">#   </span>
+<span class="err">#   </span>
+<span class="err">####</span>
+<span class="err">#  #</span>
+<span class="err">####</span>
+
+<span class="err">   #</span>
+<span class="err">   #</span>
+<span class="err">####</span>
+<span class="err">#  #</span>
+<span class="err">####</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 3</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">48</span>
+<span class="err">i`it)v|[[[[(//s+)`(-\\/JJgbdd@@@@@@@dmKK(c!(/-[2=/cct/!-v\!_L\)|</span>
+<span class="err">]-!/(!-)\L\)v|c5(!,!Ldd@@@@@@@@@@@@@@@@@@@dK/]!c\\\v|i\/cT\v((c-</span>
+<span class="err">]!`/v\//(-|t\VvcL!m@@@@@M@@@@@@@@@@@@@@@@@@@@bLt\\|)c/2-vv)/it\.</span>
+<span class="err">--/-,\,\v\,|)/v/m@@@@@@K@@@@@@@@@@@@@@@@@@@@@@@bK!v!-( )-!.[/cT</span>
+<span class="err">//.\--'--|-/c(e@@@@@@@DD@@@@@@@@@@@@@@@@@@@@@@@@@@s\\\\-||/v!c\.</span>
+<span class="err">-,-|\`||\-\/id@@@@@@@@N@@@@@@@@@@@@@@@@@@@@@@@@@@@@b.),`-,-/c-`i</span>
+<span class="err">!,\!-!-!'!-!d@@@@@@@P[+~**AAA@@@@@@@@@@@@@@@@@@@@@@@b/./`c-/.\7-</span>
+<span class="err">--'.-- -/,id@@@*P!`          \'Z8@@@@@@@@@@@@@@@@@@@@@i.\\'.\.c</span>
+<span class="err">',`,`\'-,-J@@5`-           -- `-iYA@@@@@@@@@@b@@@@@@@@@_\-|-\c-</span>
+<span class="err">'. -.,`/.G@@K- `               - )7KM@@@@@@@@@@@@@@@@@@@c-----/</span>
+<span class="err">- `-  --i@@Ai                    -!ZZ@@@@@@@@@@@@@@@@@@@b! \`|-`</span>
+<span class="err"> `-,'- G@@@[,                    '.D8K@@@@@@@@@@@@@@@@@@@[/-,-/.</span>
+<span class="err">-` .-/v@@@A)                      -)ZdMd@@@@@@@@@@@@@@@@@@\' _\</span>
+<span class="err">- ` ,iVJ@@@!                     '-!(K5K@@@@@@@@@@@@@@@@@@[(/s[.</span>
+<span class="err">  - i\G@@@Z-                    ' ! -i55ZZ@@@@@@@@@@@@@@@@@)(4)`</span>
+<span class="err"> , -|b@@@@!\                     '  ` |-tYG@@@@@@@@@@@@@@@@XNYZ-</span>
+<span class="err">   tt@@@@A-,                        '  `)(d@@@@@@@@@@@@@@@@D)8A[</span>
+<span class="err">   )8@@@@@\                         ,-'-/Kd@@@@@@@@@@@@@@@@@KD@[</span>
+<span class="err">  ]]Z@@@@d|-              ,ii.c,, -.icLZKK@@@@@@8@K@@@@@@@@@(@8[</span>
+<span class="err">  KN8@@@@@( .i!vGG_      J4Kb8ZKb@bbK@d@88@@@@@@@b@@@@@@@@@@dK@-</span>
+<span class="err"> )/8K@@@K@b@dP~~~T4(    Jd@@7`___s@M@@@@MM8d@@@d@@@@@@@@@@@@LM8[</span>
+<span class="err">\!48@K@@@@8@@d*@@@bVi   bAKLY~~@@@@@@*ff/\NM8@@@@@@@@@@@@@@@db@[</span>
+<span class="err">,\\Kb@@@d@.~t` !*~!`.  -MA)    '~'.).` `,'K@@@@@@@@@@@@@@@@@AKb[</span>
+<span class="err">,`8M@@@@@@ -`,,gvZ``    A//-  ..c\+\`    i]d@@@@@@M@@@@@@@@@@@8[</span>
+<span class="err">i\@8@K@@@D              \!'             !iZ8@@@8A@@@@@8d@b@@@8M[</span>
+<span class="err">e8d5@@@@@@             '!-             '-)8@@@@@@@@@@@@@@@@@@M8i</span>
+<span class="err">8dZ8@M@@@@-             v  ,          ,\tK@@@@@@@@@@@@A@@@@@@Z2|</span>
+<span class="err">@b@AK@@@b@[              //           cctbA@@@AK@@d@@d@@@K@@@bmi</span>
+<span class="err">@@8@M@8@@@P-            -=/.         /iD8d@@@@@@@@@@@@@@A@@@d@@[</span>
+<span class="err">@8@@@MA@@@@\-      .   _)g2i        -((dKK@@@@@d@@@@d@@K@@@@@@K[</span>
+<span class="err">@@@bAK@@K@@)i     'c,,Kb@@bK       )X)Kb@M@@d@@@Mb@@A@d@@@@@@8@[</span>
+<span class="err">@K@b@@@@A@AA/i-     ~M@@@@Mc    .,\c=)D8d@@b@@@d@@@@@@@@@@8d@@A[</span>
+<span class="err">@@@@Mb@@@@@@('c\`     PPK((,i]v|-\-v)8XNAdMK@@@@@@@b@@MK@A@@@@@[</span>
+<span class="err">@@8@@MK@d@A@L!--c)s_, ,(ZsbLb@\`- .-N]/KM@@@@@@@d@@@A@@@@@@@@d@[</span>
+<span class="err">@@Kb@@@K@b@@@/-  !''~~Vff*N5f -` -,\))KK@@@@@@@MK@@d@@@M8d@b@@@[</span>
+<span class="err">@b@@@KAK@@@@@@2--    ,,_JJ/i)/- |/v)NK@8d@@@@@@@@@@8@@@@@@@@M@K[</span>
+<span class="err">@@8d@K@@@b@@@@@d!,   'VV\)\\)\7(-)4Jb@8@A@@@K@d@@@@@@@8@@@@@@@@[</span>
+<span class="err">M@@@@8@@K@Kb@@@d@v.       `-\\/v)88b@M@A@K@@M@@@A@@M@8@@A@d@8@M[</span>
+<span class="err">Zb@d@M@K@@@@@@@@@@m       -)!/stbb@b@@A@b@@@@@Kb@@@@@@@b@@@K@@@[</span>
+<span class="err">K@@d@@@@@d@M@8@@@@@Ks   ,-/vJD@@8d@K@@@@@@8@@@@@@@@@@MK@@@b@@M@[</span>
+<span class="err">tN@b@@d@d@M@@@@@@@@@@LL4JKd@A@@d@@K@@@@MK@@@@8@@@@@@@@@@@b@@@@@[</span>
+<span class="err">)NM@8b@@A@@@A@@@@@@@@@@@@@@A@@A@@8@@K@d@@@@M@@K@@K@A@@@8@@M@@@@[</span>
+<span class="err">(tMM@@@d@@M8@@@@A@@@@A@@@A@@@@@@@@@A@@@@8b@@8d@@@@@@@@@@@@@@@@M[</span>
+<span class="err">tNZ@@K@@@d@@@@A@@@@@8@@@/4N@@8@b@@d@@M@8@MK@M8@K@@@@@@d@@@@@@@@[</span>
+<span class="err">M/KA8@@@MA@@@M@@@@@@@@@@[|t*Z@N@@@@8@@M8ZAZZ@M@@@A@d@@@@@K@@@d@[</span>
+<span class="err">bYJ4M@@@@@@A@@@@@@@@@@@@D.\'(YKKZD@8dK@5A84YZ@dM@@@@@@@@@@@@d@@[</span>
+<span class="err">K5dM8@8d@d@@@@@@@@8@@@@@@..-!/))ZK5AK4)AY(/XY/Z@@@A@@@d@@@M@@@@[</span>
+<span class="err">Y8dNA@@AK@@d@@@b@@@@@@@@@L,-,\!]]\X(5)Z/7c\\t5/K@@@@@@@@b@@@@@@[</span>
+<span class="err">8M8@@@A@@@A@@8@@@@@@@@@KDLt! !,-|t'(-\\!,\/,\!ZJG@@@d@Md@@@G@@@[</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 3</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">i`it)v|[[[[(//s+)`(-\\/JJgbdd@@@@@@@dmKK(c!(/-[2=/cct/!-v\!_L\)|</span>
+<span class="err">]-!/(!-)\L\)v|c5(!,!Ldd@@@@@@@@@@@@@@@@@@@dK/]!c\\\v|i\/cT\v((c-</span>
+<span class="err">]!`/v\//(-|t\VvcL!m@@@@@M@@@@@@@@@@@@@@@@@@@@bLt\\|)c/2-vv)/it\.</span>
+<span class="err">--/-,\,\v\,|)/v/m@@@@@@K@@@@@@@@@@@@@@@@@@@@@@@bK!v!-( )-!.[/cT</span>
+<span class="err">//.\--'--|-/c(e@@@@@@@DD@@@@@@@@@@@@@@@@@@@@@@@@@@s\\\\-||/v!c\.</span>
+<span class="err">-,-|\`||\-\/id@@@@@@@@N@@@@@@@@@@@@@@@@@@@@@@@@@@@@b.),`-,-/c-`i</span>
+<span class="err">!,\!-!-!'!-!d@@@@@@@P[+~**AAA@@@@@@@@@@@@@@@@@@@@@@@b/./`c-/.\7-</span>
+<span class="err">--'.-- -/,id@@@*P!`          \'Z8@@@@@@@@@@@@@@@@@@@@@i.\\'.\.c</span>
+<span class="err">',`,`\'-,-J@@5`-           -- `-iYA@@@@@@@@@@b@@@@@@@@@_\-|-\c-</span>
+<span class="err">'. -.,`/.G@@K- `               - )7KM@@@@@@@@@@@@@@@@@@@c-----/</span>
+<span class="err">- `-  --i@@Ai                    -!ZZ@@@@@@@@@@@@@@@@@@@b! \`|-`</span>
+<span class="err"> `-,'- G@@@[,                    '.D8K@@@@@@@@@@@@@@@@@@@[/-,-/.</span>
+<span class="err">-` .-/v@@@A)                      -)ZdMd@@@@@@@@@@@@@@@@@@\' _\</span>
+<span class="err">- ` ,iVJ@@@!                     '-!(K5K@@@@@@@@@@@@@@@@@@[(/s[.</span>
+<span class="err">  - i\G@@@Z-                    ' ! -i55ZZ@@@@@@@@@@@@@@@@@)(4)`</span>
+<span class="err"> , -|b@@@@!\                     '  ` |-tYG@@@@@@@@@@@@@@@@XNYZ-</span>
+<span class="err">   tt@@@@A-,                        '  `)(d@@@@@@@@@@@@@@@@D)8A[</span>
+<span class="err">   )8@@@@@\                         ,-'-/Kd@@@@@@@@@@@@@@@@@KD@[</span>
+<span class="err">  ]]Z@@@@d|-              ,ii.c,, -.icLZKK@@@@@@8@K@@@@@@@@@(@8[</span>
+<span class="err">  KN8@@@@@( .i!vGG_      J4Kb8ZKb@bbK@d@88@@@@@@@b@@@@@@@@@@dK@-</span>
+<span class="err"> )/8K@@@K@b@dP~~~T4(    Jd@@7`___s@M@@@@MM8d@@@d@@@@@@@@@@@@LM8[</span>
+<span class="err">\!48@K@@@@8@@d*@@@bVi   bAKLY~~@@@@@@*ff/\NM8@@@@@@@@@@@@@@@db@[</span>
+<span class="err">,\\Kb@@@d@.~t` !*~!`.  -MA)    '~'.).` `,'K@@@@@@@@@@@@@@@@@AKb[</span>
+<span class="err">,`8M@@@@@@ -`,,gvZ``    A//-  ..c\+\`    i]d@@@@@@M@@@@@@@@@@@8[</span>
+<span class="err">i\@8@K@@@D              \!'             !iZ8@@@8A@@@@@8d@b@@@8M[</span>
+<span class="err">e8d5@@@@@@             '!-             '-)8@@@@@@@@@@@@@@@@@@M8i</span>
+<span class="err">8dZ8@M@@@@-             v  ,          ,\tK@@@@@@@@@@@@A@@@@@@Z2|</span>
+<span class="err">@b@AK@@@b@[              //           cctbA@@@AK@@d@@d@@@K@@@bmi</span>
+<span class="err">@@8@M@8@@@P-            -=/.         /iD8d@@@@@@@@@@@@@@A@@@d@@[</span>
+<span class="err">@8@@@MA@@@@\-      .   _)g2i        -((dKK@@@@@d@@@@d@@K@@@@@@K[</span>
+<span class="err">@@@bAK@@K@@)i     'c,,Kb@@bK       )X)Kb@M@@d@@@Mb@@A@d@@@@@@8@[</span>
+<span class="err">@K@b@@@@A@AA/i-     ~M@@@@Mc    .,\c=)D8d@@b@@@d@@@@@@@@@@8d@@A[</span>
+<span class="err">@@@@Mb@@@@@@('c\`     PPK((,i]v|-\-v)8XNAdMK@@@@@@@b@@MK@A@@@@@[</span>
+<span class="err">@@8@@MK@d@A@L!--c)s_, ,(ZsbLb@\`- .-N]/KM@@@@@@@d@@@A@@@@@@@@d@[</span>
+<span class="err">@@Kb@@@K@b@@@/-  !''~~Vff*N5f -` -,\))KK@@@@@@@MK@@d@@@M8d@b@@@[</span>
+<span class="err">@b@@@KAK@@@@@@2--    ,,_JJ/i)/- |/v)NK@8d@@@@@@@@@@8@@@@@@@@M@K[</span>
+<span class="err">@@8d@K@@@b@@@@@d!,   'VV\)\\)\7(-)4Jb@8@A@@@K@d@@@@@@@8@@@@@@@@[</span>
+<span class="err">M@@@@8@@K@Kb@@@d@v.       `-\\/v)88b@M@A@K@@M@@@A@@M@8@@A@d@8@M[</span>
+<span class="err">Zb@d@M@K@@@@@@@@@@m       -)!/stbb@b@@A@b@@@@@Kb@@@@@@@b@@@K@@@[</span>
+<span class="err">K@@d@@@@@d@M@8@@@@@Ks   ,-/vJD@@8d@K@@@@@@8@@@@@@@@@@MK@@@b@@M@[</span>
+<span class="err">tN@b@@d@d@M@@@@@@@@@@LL4JKd@A@@d@@K@@@@MK@@@@8@@@@@@@@@@@b@@@@@[</span>
+<span class="err">)NM@8b@@A@@@A@@@@@@@@@@@@@@A@@A@@8@@K@d@@@@M@@K@@K@A@@@8@@M@@@@[</span>
+<span class="err">(tMM@@@d@@M8@@@@A@@@@A@@@A@@@@@@@@@A@@@@8b@@8d@@@@@@@@@@@@@@@@M[</span>
+<span class="err">tNZ@@K@@@d@@@@A@@@@@8@@@/4N@@8@b@@d@@M@8@MK@M8@K@@@@@@d@@@@@@@@[</span>
+<span class="err">M/KA8@@@MA@@@M@@@@@@@@@@[|t*Z@N@@@@8@@M8ZAZZ@M@@@A@d@@@@@K@@@d@[</span>
+<span class="err">bYJ4M@@@@@@A@@@@@@@@@@@@D.\'(YKKZD@8dK@5A84YZ@dM@@@@@@@@@@@@d@@[</span>
+<span class="err">K5dM8@8d@d@@@@@@@@8@@@@@@..-!/))ZK5AK4)AY(/XY/Z@@@A@@@d@@@M@@@@[</span>
+<span class="err">Y8dNA@@AK@@d@@@b@@@@@@@@@L,-,\!]]\X(5)Z/7c\\t5/K@@@@@@@@b@@@@@@[</span>
+
+<span class="err">|)\L_!\v-!/tcc/=2[-/(!c(KKmd@@@@@@@ddbgJJ/\\-(`)+s//([[[[|v)ti`i</span>
+<span class="err">-c((v\Tc/\i|v\\\c!]/Kd@@@@@@@@@@@@@@@@@@@ddL!,!(5c|v)\L\)-!(/!-]</span>
+<span class="err">.\ti/)vv-2/c)|\\tLb@@@@@@@@@@@@@@@@@@@@M@@@@@m!LcvV\t|-(//\v/`!]</span>
+<span class="err">Tc/[.!-) (-!v!Kb@@@@@@@@@@@@@@@@@@@@@@@K@@@@@@m/v/)|,\v\,\,-/--</span>
+<span class="err">.\c!v/||-\\\\s@@@@@@@@@@@@@@@@@@@@@@@@@@DD@@@@@@@e(c/-|--'--\.//</span>
+<span class="err">i`-c/-,-`,).b@@@@@@@@@@@@@@@@@@@@@@@@@@@@N@@@@@@@@di/\-\||`\|-,-</span>
+<span class="err">-7\./-c`/./b@@@@@@@@@@@@@@@@@@@@@@@AAA**~+[P@@@@@@@d!-!'!-!-!\,!</span>
+<span class="err">c.\.'\\.i@@@@@@@@@@@@@@@@@@@@@8Z'\          `!P*@@@di,/- --.'--</span>
+<span class="err">-c\-|-\_@@@@@@@@@b@@@@@@@@@@AYi-` --           -`5@@J-,-'\`,`,'</span>
+<span class="err">/-----c@@@@@@@@@@@@@@@@@@@MK7) -               ` -K@@G./`,.- .'</span>
+<span class="err">`-|`\ !b@@@@@@@@@@@@@@@@@@@ZZ!-                    iA@@i--  -` -</span>
+<span class="err">./-,-/[@@@@@@@@@@@@@@@@@@@K8D.'                    ,[@@@G -',-` </span>
+<span class="err">\_ '\@@@@@@@@@@@@@@@@@@dMdZ)-                      )A@@@v/-. `-</span>
+<span class="err">.[s/([@@@@@@@@@@@@@@@@@@K5K(!-'                     !@@@JVi, ` -</span>
+<span class="err">`)4()@@@@@@@@@@@@@@@@@ZZ55i- ! '                    -Z@@@G\i -  </span>
+<span class="err">-ZYNX@@@@@@@@@@@@@@@@GYt-| `  '                     \!@@@@b|- , </span>
+<span class="err">[A8)D@@@@@@@@@@@@@@@@d()`  '                        ,-A@@@@tt   </span>
+<span class="err">[@DK@@@@@@@@@@@@@@@@@dK/-'-,                         \@@@@@8)   </span>
+<span class="err">[8@(@@@@@@@@@K@8@@@@@@KKZLci.- ,,c.ii,              -|d@@@@Z]]  </span>
+<span class="err">-@Kd@@@@@@@@@@b@@@@@@@88@d@Kbb@bKZ8bK4J      _GGv!i. (@@@@@8NK  </span>
+<span class="err">[8ML@@@@@@@@@@@@d@@@d8MM@@@@M@s___`7@@dJ    (4T~~~Pd@b@K@@@K8/) </span>
+<span class="err">[@bd@@@@@@@@@@@@@@@8MN\/ff*@@@@@@~~YLKAb   iVb@@@*d@@8@@@@K@84!\</span>
+<span class="err">[bKA@@@@@@@@@@@@@@@@@K',` `.).'~'    )AM-  .`!~*! `t~.@d@@@bK\\,</span>
+<span class="err">[8@@@@@@@@@@@M@@@@@@d]i    `\+\c..  -//A    ``Zvg,,`- @@@@@@M8`,</span>
+<span class="err">[M8@@@b@d8@@@@@A8@@@8Zi!             '!\              D@@@K@8@\i</span>
+<span class="err">i8M@@@@@@@@@@@@@@@@@@8)-'             -!'             @@@@@@5d8e</span>
+<span class="err">|2Z@@@@@@A@@@@@@@@@@@@Kt\,          ,  v             -@@@@M@8Zd8</span>
+<span class="err">imb@@@K@@@d@@d@@KA@@@Abtcc           //              [@b@@@KA@b@</span>
+<span class="err">[@@d@@@A@@@@@@@@@@@@@@d8Di/         ./=-            -P@@@8@M@8@@</span>
+<span class="err">[K@@@@@@K@@d@@@@d@@@@@KKd((-        i2g)_   .      -\@@@@AM@@@8@</span>
+<span class="err">[@8@@@@@@d@A@@bM@@@d@@M@bK)X)       Kb@@bK,,c'     i)@@K@@KAb@@@</span>
+<span class="err">[A@@d8@@@@@@@@@@d@@@b@@d8D)=c\,.    cM@@@@M~     -i/AA@A@@@@b@K@</span>
+<span class="err">[@@@@@A@KM@@b@@@@@@@KMdANX8)v-\-|v]i,((KPP     `\c'(@@@@@@bM@@@@</span>
+<span class="err">[@d@@@@@@@@A@@@d@@@@@@@MK/]N-. -`\@bLbsZ(, ,_s)c--!L@A@d@KM@@8@@</span>
+<span class="err">[@@@b@d8M@@@d@@KM@@@@@@@KK))\,- `- f5N*ffV~~''!  -/@@@b@K@@@bK@@</span>
+<span class="err">[K@M@@@@@@@@8@@@@@@@@@@d8@KN)v/| -/)i/JJ_,,    --2@@@@@@KAK@@@b@</span>
+<span class="err">[@@@@@@@@8@@@@@@@d@K@@@A@8@bJ4)-(7\)\\)\VV'   ,!d@@@@@b@@@K@d8@@</span>
+<span class="err">[M@8@d@A@@8@M@@A@@@M@@K@A@M@b88)v/\\-`       .v@d@@@bK@K@@8@@@@M</span>
+<span class="err">[@@@K@@@b@@@@@@@bK@@@@@b@A@@b@bbts/!)-       m@@@@@@@@@@K@M@d@bZ</span>
+<span class="err">[@M@@b@@@KM@@@@@@@@@@8@@@@@@K@d8@@DJv/-,   sK@@@@@8@M@d@@@@@d@@K</span>
+<span class="err">[@@@@@b@@@@@@@@@@@8@@@@KM@@@@K@@d@@A@dKJ4LL@@@@@@@@@@M@d@d@@b@Nt</span>
+<span class="err">[@@@@M@@8@@@A@K@@K@@M@@@@d@K@@8@@A@@A@@@@@@@@@@@@@@A@@@A@@b8@MN)</span>
+<span class="err">[M@@@@@@@@@@@@@@@@d8@@b8@@@@A@@@@@@@@@A@@@A@@@@A@@@@8M@@d@@@MMt(</span>
+<span class="err">[@@@@@@@@d@@@@@@K@8M@KM@8@M@@d@@b@8@@N4/@@@8@@@@@A@@@@d@@@K@@ZNt</span>
+<span class="err">[@d@@@K@@@@@d@A@@@M@ZZAZ8M@@8@@@@N@Z*t|[@@@@@@@@@@M@@@AM@@@8AK/M</span>
+<span class="err">[@@d@@@@@@@@@@@@Md@ZY48A5@Kd8@DZKKY('\.D@@@@@@@@@@@@A@@@@@@M4JYb</span>
+<span class="err">[@@@@M@@@d@@@A@@@Z/YX/(YA)4KA5KZ))/!-..@@@@@@8@@@@@@@@d@d8@8Md5K</span>
+<span class="err">[@@@@@@b@@@@@@@@K/5t\\c7/Z)5(X\]]!\,-,L@@@@@@@@@b@@@d@@KA@@ANd8Y</span>
+
+<span class="err">Y8dNA@@AK@@d@@@b@@@@@@@@@L,-,\!]]\X(5)Z/7c\\t5/K@@@@@@@@b@@@@@@[</span>
+<span class="err">K5dM8@8d@d@@@@@@@@8@@@@@@..-!/))ZK5AK4)AY(/XY/Z@@@A@@@d@@@M@@@@[</span>
+<span class="err">bYJ4M@@@@@@A@@@@@@@@@@@@D.\'(YKKZD@8dK@5A84YZ@dM@@@@@@@@@@@@d@@[</span>
+<span class="err">M/KA8@@@MA@@@M@@@@@@@@@@[|t*Z@N@@@@8@@M8ZAZZ@M@@@A@d@@@@@K@@@d@[</span>
+<span class="err">tNZ@@K@@@d@@@@A@@@@@8@@@/4N@@8@b@@d@@M@8@MK@M8@K@@@@@@d@@@@@@@@[</span>
+<span class="err">(tMM@@@d@@M8@@@@A@@@@A@@@A@@@@@@@@@A@@@@8b@@8d@@@@@@@@@@@@@@@@M[</span>
+<span class="err">)NM@8b@@A@@@A@@@@@@@@@@@@@@A@@A@@8@@K@d@@@@M@@K@@K@A@@@8@@M@@@@[</span>
+<span class="err">tN@b@@d@d@M@@@@@@@@@@LL4JKd@A@@d@@K@@@@MK@@@@8@@@@@@@@@@@b@@@@@[</span>
+<span class="err">K@@d@@@@@d@M@8@@@@@Ks   ,-/vJD@@8d@K@@@@@@8@@@@@@@@@@MK@@@b@@M@[</span>
+<span class="err">Zb@d@M@K@@@@@@@@@@m       -)!/stbb@b@@A@b@@@@@Kb@@@@@@@b@@@K@@@[</span>
+<span class="err">M@@@@8@@K@Kb@@@d@v.       `-\\/v)88b@M@A@K@@M@@@A@@M@8@@A@d@8@M[</span>
+<span class="err">@@8d@K@@@b@@@@@d!,   'VV\)\\)\7(-)4Jb@8@A@@@K@d@@@@@@@8@@@@@@@@[</span>
+<span class="err">@b@@@KAK@@@@@@2--    ,,_JJ/i)/- |/v)NK@8d@@@@@@@@@@8@@@@@@@@M@K[</span>
+<span class="err">@@Kb@@@K@b@@@/-  !''~~Vff*N5f -` -,\))KK@@@@@@@MK@@d@@@M8d@b@@@[</span>
+<span class="err">@@8@@MK@d@A@L!--c)s_, ,(ZsbLb@\`- .-N]/KM@@@@@@@d@@@A@@@@@@@@d@[</span>
+<span class="err">@@@@Mb@@@@@@('c\`     PPK((,i]v|-\-v)8XNAdMK@@@@@@@b@@MK@A@@@@@[</span>
+<span class="err">@K@b@@@@A@AA/i-     ~M@@@@Mc    .,\c=)D8d@@b@@@d@@@@@@@@@@8d@@A[</span>
+<span class="err">@@@bAK@@K@@)i     'c,,Kb@@bK       )X)Kb@M@@d@@@Mb@@A@d@@@@@@8@[</span>
+<span class="err">@8@@@MA@@@@\-      .   _)g2i        -((dKK@@@@@d@@@@d@@K@@@@@@K[</span>
+<span class="err">@@8@M@8@@@P-            -=/.         /iD8d@@@@@@@@@@@@@@A@@@d@@[</span>
+<span class="err">@b@AK@@@b@[              //           cctbA@@@AK@@d@@d@@@K@@@bmi</span>
+<span class="err">8dZ8@M@@@@-             v  ,          ,\tK@@@@@@@@@@@@A@@@@@@Z2|</span>
+<span class="err">e8d5@@@@@@             '!-             '-)8@@@@@@@@@@@@@@@@@@M8i</span>
+<span class="err">i\@8@K@@@D              \!'             !iZ8@@@8A@@@@@8d@b@@@8M[</span>
+<span class="err">,`8M@@@@@@ -`,,gvZ``    A//-  ..c\+\`    i]d@@@@@@M@@@@@@@@@@@8[</span>
+<span class="err">,\\Kb@@@d@.~t` !*~!`.  -MA)    '~'.).` `,'K@@@@@@@@@@@@@@@@@AKb[</span>
+<span class="err">\!48@K@@@@8@@d*@@@bVi   bAKLY~~@@@@@@*ff/\NM8@@@@@@@@@@@@@@@db@[</span>
+<span class="err"> )/8K@@@K@b@dP~~~T4(    Jd@@7`___s@M@@@@MM8d@@@d@@@@@@@@@@@@LM8[</span>
+<span class="err">  KN8@@@@@( .i!vGG_      J4Kb8ZKb@bbK@d@88@@@@@@@b@@@@@@@@@@dK@-</span>
+<span class="err">  ]]Z@@@@d|-              ,ii.c,, -.icLZKK@@@@@@8@K@@@@@@@@@(@8[</span>
+<span class="err">   )8@@@@@\                         ,-'-/Kd@@@@@@@@@@@@@@@@@KD@[</span>
+<span class="err">   tt@@@@A-,                        '  `)(d@@@@@@@@@@@@@@@@D)8A[</span>
+<span class="err"> , -|b@@@@!\                     '  ` |-tYG@@@@@@@@@@@@@@@@XNYZ-</span>
+<span class="err">  - i\G@@@Z-                    ' ! -i55ZZ@@@@@@@@@@@@@@@@@)(4)`</span>
+<span class="err">- ` ,iVJ@@@!                     '-!(K5K@@@@@@@@@@@@@@@@@@[(/s[.</span>
+<span class="err">-` .-/v@@@A)                      -)ZdMd@@@@@@@@@@@@@@@@@@\' _\</span>
+<span class="err"> `-,'- G@@@[,                    '.D8K@@@@@@@@@@@@@@@@@@@[/-,-/.</span>
+<span class="err">- `-  --i@@Ai                    -!ZZ@@@@@@@@@@@@@@@@@@@b! \`|-`</span>
+<span class="err">'. -.,`/.G@@K- `               - )7KM@@@@@@@@@@@@@@@@@@@c-----/</span>
+<span class="err">',`,`\'-,-J@@5`-           -- `-iYA@@@@@@@@@@b@@@@@@@@@_\-|-\c-</span>
+<span class="err">--'.-- -/,id@@@*P!`          \'Z8@@@@@@@@@@@@@@@@@@@@@i.\\'.\.c</span>
+<span class="err">!,\!-!-!'!-!d@@@@@@@P[+~**AAA@@@@@@@@@@@@@@@@@@@@@@@b/./`c-/.\7-</span>
+<span class="err">-,-|\`||\-\/id@@@@@@@@N@@@@@@@@@@@@@@@@@@@@@@@@@@@@b.),`-,-/c-`i</span>
+<span class="err">//.\--'--|-/c(e@@@@@@@DD@@@@@@@@@@@@@@@@@@@@@@@@@@s\\\\-||/v!c\.</span>
+<span class="err">--/-,\,\v\,|)/v/m@@@@@@K@@@@@@@@@@@@@@@@@@@@@@@bK!v!-( )-!.[/cT</span>
+<span class="err">]!`/v\//(-|t\VvcL!m@@@@@M@@@@@@@@@@@@@@@@@@@@bLt\\|)c/2-vv)/it\.</span>
+<span class="err">]-!/(!-)\L\)v|c5(!,!Ldd@@@@@@@@@@@@@@@@@@@dK/]!c\\\v|i\/cT\v((c-</span>
+<span class="err">i`it)v|[[[[(//s+)`(-\\/JJgbdd@@@@@@@dmKK(c!(/-[2=/cct/!-v\!_L\)|</span>
+
+<span class="err">[@@@@@@b@@@@@@@@K/5t\\c7/Z)5(X\]]!\,-,L@@@@@@@@@b@@@d@@KA@@ANd8Y</span>
+<span class="err">[@@@@M@@@d@@@A@@@Z/YX/(YA)4KA5KZ))/!-..@@@@@@8@@@@@@@@d@d8@8Md5K</span>
+<span class="err">[@@d@@@@@@@@@@@@Md@ZY48A5@Kd8@DZKKY('\.D@@@@@@@@@@@@A@@@@@@M4JYb</span>
+<span class="err">[@d@@@K@@@@@d@A@@@M@ZZAZ8M@@8@@@@N@Z*t|[@@@@@@@@@@M@@@AM@@@8AK/M</span>
+<span class="err">[@@@@@@@@d@@@@@@K@8M@KM@8@M@@d@@b@8@@N4/@@@8@@@@@A@@@@d@@@K@@ZNt</span>
+<span class="err">[M@@@@@@@@@@@@@@@@d8@@b8@@@@A@@@@@@@@@A@@@A@@@@A@@@@8M@@d@@@MMt(</span>
+<span class="err">[@@@@M@@8@@@A@K@@K@@M@@@@d@K@@8@@A@@A@@@@@@@@@@@@@@A@@@A@@b8@MN)</span>
+<span class="err">[@@@@@b@@@@@@@@@@@8@@@@KM@@@@K@@d@@A@dKJ4LL@@@@@@@@@@M@d@d@@b@Nt</span>
+<span class="err">[@M@@b@@@KM@@@@@@@@@@8@@@@@@K@d8@@DJv/-,   sK@@@@@8@M@d@@@@@d@@K</span>
+<span class="err">[@@@K@@@b@@@@@@@bK@@@@@b@A@@b@bbts/!)-       m@@@@@@@@@@K@M@d@bZ</span>
+<span class="err">[M@8@d@A@@8@M@@A@@@M@@K@A@M@b88)v/\\-`       .v@d@@@bK@K@@8@@@@M</span>
+<span class="err">[@@@@@@@@8@@@@@@@d@K@@@A@8@bJ4)-(7\)\\)\VV'   ,!d@@@@@b@@@K@d8@@</span>
+<span class="err">[K@M@@@@@@@@8@@@@@@@@@@d8@KN)v/| -/)i/JJ_,,    --2@@@@@@KAK@@@b@</span>
+<span class="err">[@@@b@d8M@@@d@@KM@@@@@@@KK))\,- `- f5N*ffV~~''!  -/@@@b@K@@@bK@@</span>
+<span class="err">[@d@@@@@@@@A@@@d@@@@@@@MK/]N-. -`\@bLbsZ(, ,_s)c--!L@A@d@KM@@8@@</span>
+<span class="err">[@@@@@A@KM@@b@@@@@@@KMdANX8)v-\-|v]i,((KPP     `\c'(@@@@@@bM@@@@</span>
+<span class="err">[A@@d8@@@@@@@@@@d@@@b@@d8D)=c\,.    cM@@@@M~     -i/AA@A@@@@b@K@</span>
+<span class="err">[@8@@@@@@d@A@@bM@@@d@@M@bK)X)       Kb@@bK,,c'     i)@@K@@KAb@@@</span>
+<span class="err">[K@@@@@@K@@d@@@@d@@@@@KKd((-        i2g)_   .      -\@@@@AM@@@8@</span>
+<span class="err">[@@d@@@A@@@@@@@@@@@@@@d8Di/         ./=-            -P@@@8@M@8@@</span>
+<span class="err">imb@@@K@@@d@@d@@KA@@@Abtcc           //              [@b@@@KA@b@</span>
+<span class="err">|2Z@@@@@@A@@@@@@@@@@@@Kt\,          ,  v             -@@@@M@8Zd8</span>
+<span class="err">i8M@@@@@@@@@@@@@@@@@@8)-'             -!'             @@@@@@5d8e</span>
+<span class="err">[M8@@@b@d8@@@@@A8@@@8Zi!             '!\              D@@@K@8@\i</span>
+<span class="err">[8@@@@@@@@@@@M@@@@@@d]i    `\+\c..  -//A    ``Zvg,,`- @@@@@@M8`,</span>
+<span class="err">[bKA@@@@@@@@@@@@@@@@@K',` `.).'~'    )AM-  .`!~*! `t~.@d@@@bK\\,</span>
+<span class="err">[@bd@@@@@@@@@@@@@@@8MN\/ff*@@@@@@~~YLKAb   iVb@@@*d@@8@@@@K@84!\</span>
+<span class="err">[8ML@@@@@@@@@@@@d@@@d8MM@@@@M@s___`7@@dJ    (4T~~~Pd@b@K@@@K8/) </span>
+<span class="err">-@Kd@@@@@@@@@@b@@@@@@@88@d@Kbb@bKZ8bK4J      _GGv!i. (@@@@@8NK  </span>
+<span class="err">[8@(@@@@@@@@@K@8@@@@@@KKZLci.- ,,c.ii,              -|d@@@@Z]]  </span>
+<span class="err">[@DK@@@@@@@@@@@@@@@@@dK/-'-,                         \@@@@@8)   </span>
+<span class="err">[A8)D@@@@@@@@@@@@@@@@d()`  '                        ,-A@@@@tt   </span>
+<span class="err">-ZYNX@@@@@@@@@@@@@@@@GYt-| `  '                     \!@@@@b|- , </span>
+<span class="err">`)4()@@@@@@@@@@@@@@@@@ZZ55i- ! '                    -Z@@@G\i -  </span>
+<span class="err">.[s/([@@@@@@@@@@@@@@@@@@K5K(!-'                     !@@@JVi, ` -</span>
+<span class="err">\_ '\@@@@@@@@@@@@@@@@@@dMdZ)-                      )A@@@v/-. `-</span>
+<span class="err">./-,-/[@@@@@@@@@@@@@@@@@@@K8D.'                    ,[@@@G -',-` </span>
+<span class="err">`-|`\ !b@@@@@@@@@@@@@@@@@@@ZZ!-                    iA@@i--  -` -</span>
+<span class="err">/-----c@@@@@@@@@@@@@@@@@@@MK7) -               ` -K@@G./`,.- .'</span>
+<span class="err">-c\-|-\_@@@@@@@@@b@@@@@@@@@@AYi-` --           -`5@@J-,-'\`,`,'</span>
+<span class="err">c.\.'\\.i@@@@@@@@@@@@@@@@@@@@@8Z'\          `!P*@@@di,/- --.'--</span>
+<span class="err">-7\./-c`/./b@@@@@@@@@@@@@@@@@@@@@@@AAA**~+[P@@@@@@@d!-!'!-!-!\,!</span>
+<span class="err">i`-c/-,-`,).b@@@@@@@@@@@@@@@@@@@@@@@@@@@@N@@@@@@@@di/\-\||`\|-,-</span>
+<span class="err">.\c!v/||-\\\\s@@@@@@@@@@@@@@@@@@@@@@@@@@DD@@@@@@@e(c/-|--'--\.//</span>
+<span class="err">Tc/[.!-) (-!v!Kb@@@@@@@@@@@@@@@@@@@@@@@K@@@@@@m/v/)|,\v\,\,-/--</span>
+<span class="err">.\ti/)vv-2/c)|\\tLb@@@@@@@@@@@@@@@@@@@@M@@@@@m!LcvV\t|-(//\v/`!]</span>
+<span class="err">-c((v\Tc/\i|v\\\c!]/Kd@@@@@@@@@@@@@@@@@@@ddL!,!(5c|v)\L\)-!(/!-]</span>
+<span class="err">|)\L_!\v-!/tcc/=2[-/(!c(KKmd@@@@@@@ddbgJJ/\\-(`)+s//([[[[|v)ti`i</span>
+</pre></div>
+</div></div></div>

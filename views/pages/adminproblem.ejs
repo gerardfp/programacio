@@ -12,16 +12,13 @@
 
 <br>
 
-<textarea id="testcases"  rows="20" cols="160">
-<% for(const [index,testcase] of testcases.entries()){ %>
-  #in<%= index %>
-  <%= testcase.input %>
-  #out<%= index %>
-  <%= testcase.output %>
-  #ex<%= index %>
-  <%= testcase.explanation %>
-<% } %>
-</textarea>
+<textarea id="testcases"  rows="20" cols="160"><% for(const [index,testcase] of testcases.entries()){ %>
+#in<%= index %>
+<%= testcase.input %>
+#out<%= index %>
+<%= testcase.output %>
+#ex<%= index %>
+<%= testcase.explanation %><% } %></textarea>
 
 <br>
 
@@ -29,23 +26,7 @@
 <%= problem.template %>
 </textarea>
 
-<textarea id="code" rows="20" cols="160">
-import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args){
-        Scanner scanner = new Scanner(System.in);
-
-        int[] a = new int[4];
-
-        int b = scanner.nextInt();
-
-        for(int i =0; i<b; i++){
-          System.out.println(a[i]);        
-        }
-    }
-}
-</textarea>
 <input type="submit" onclick="_submit()" value="CHECK">
 
 <div id="response"></div>
@@ -80,24 +61,33 @@ public class Main {
 
   async function _save(){
       const title = document.getElementById('title').value;
-      const statement = document.getElementById('statement').value;
+      const statement = document.getElementById('statement').value;e.method
       const testcases = document.getElementById('testcases').value;
       const template = document.getElementById('template').value;
 
-      const response = await f('/admin/save/<%= problem.slug %>', 
-        {data: {slug: '<%= problem.slug %>', title: title, statement: statement, testcases: testcases, template: template}});
+      const tarr = testcases.split(/#(?:in|out|ex)\d+\n/);
 
-      console.log(response);
-      if (response.redirect) {
-          window.location.replace(response.redirect);
+      const tobj = [];
+      for(let i=1; i<tarr.length; i+=3){
+          tobj.push({input: tarr[i], output: tarr[i+1], explanation: tarr[i+2]});
       }
+
+      console.log(tobj);
+
+      // const response = await f('/admin/save/<%= problem.slug %>', 
+      //   {data: {slug: '<%= problem.slug %>', title: title, statement: statement, testcases: testcases, template: template}});
+
+      // console.log(response);
+      // if (response.redirect) {
+      //     window.location.replace(response.redirect);
+      // }
   }
 
   async function f(url, data){
     const response = await fetch(url, { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)});
     await response;
     console.log(response);
-      return (await response).json();
+    return (await response).json();
   }
 </script>
 

@@ -20,11 +20,15 @@ class ProblemsRepository {
     }
 
     async insert(data) {
-        await this.db.none('INSERT INTO problems(title, statement, template, slug) VALUES(${title}, ${statement}, ${template}, ${slug})', data)
+        return this.db.one('INSERT INTO problems(title, statement, inputformat, outputformat, constraints, template, slug) VALUES(${title}, ${statement}, ${inputformat}, ${outputformat}, ${constraints}, ${template}, ${slug}) RETURNING problem_id', data)
     }
 
     async slugAvailable(slug){
         return this.db.result('SELECT slug FROM problems WHERE slug = $1', slug, r => r.rowCount > 0);
+    }
+
+    async insertTestcase(data){
+        this.db.none('INSERT INTO testcases(problem_id, input, output, explanation) VALUES(${problem_id}, ${input}, ${output}, ${explanation})', data);
     }
 }
 

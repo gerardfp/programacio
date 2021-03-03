@@ -13,6 +13,20 @@ router.get('/problems/:slug', async (req, res) => {
 
     const testcases = await db.problems.testcases(req.params.slug);
 
+
+    if(!problem.template || problem.template === ""){
+        problem.template = `import java.io.*;
+import java.util.Scanner;
+        
+public class Main {        
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        
+    }
+}`;
+    }
+
     res.render('pages/problem', {problem: problem, testcases: testcases});
 });
 

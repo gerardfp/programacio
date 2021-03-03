@@ -1,0 +1,264 @@
+<div class='challenge_problem_statement'><div class='msB challenge_problem_statement_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>El servidor web emmagaztema el registre (log) dels accessos a l'arxiu 'access.log'.
+Cada accés s'emmagatzema en una línia de l'arxiu amb aquest format:</p>
+
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">h</span> <span class="o">%</span><span class="n">l</span> <span class="o">%</span><span class="n">u</span> <span class="o">%</span><span class="n">t</span> <span class="s">"%r"</span> <span class="o">%</span><span class="n">s</span> <span class="o">%</span><span class="n">b</span> <span class="s">"%f"</span> <span class="s">"%a"</span>
+</pre></div>
+
+
+<p>El significat d'aquests camps és el següent:</p>
+
+<ul>
+<li>%h és l'adreça IP del client que ha realitzat la petició al servidor</li>
+<li>%l és la identitat de la màquina del client</li>
+<li>%u és l'userid de la persona determinada per l'autenticació HTTP</li>
+<li>%t és el temps en que s'ha rebut la petició. El format és:</li>
+</ul>
+
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="n">day</span><span class="o">/</span><span class="n">month</span><span class="o">/</span><span class="nl">year</span><span class="p">:</span><span class="nl">hour</span><span class="p">:</span><span class="nl">minute</span><span class="p">:</span><span class="n">second</span> <span class="n">zone</span><span class="p">]</span>
+<span class="n">day</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">digit</span>
+<span class="n">month</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">letter</span>
+<span class="n">year</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">digit</span>
+<span class="n">hour</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">digit</span>
+<span class="n">minute</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">digit</span>
+<span class="n">second</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">digit</span>
+<span class="n">zone</span> <span class="o">=</span> <span class="p">(</span><span class="err">`</span><span class="o">+</span><span class="err">'</span> <span class="o">|</span> <span class="err">`</span><span class="o">-</span><span class="err">'</span><span class="p">)</span> <span class="mi">4</span><span class="o">*</span><span class="n">digit</span>
+</pre></div>
+
+
+<ul>
+<li>%r és la lína de petició realitzada pel client. El format és:</li>
+</ul>
+
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">M</span> <span class="o">%</span><span class="n">U</span><span class="o">%</span><span class="n">q</span> <span class="o">%</span><span class="n">H</span>
+</pre></div>
+
+
+<ul>
+<li>%M és el Mètode (GET, POST, ...)</li>
+<li>%U és el path del recurs sol·licitat</li>
+<li>%q és la query realitzada sobre el recurs</li>
+<li><p>%H és el protocol (HTTP/1.0, HTTP/1.1, ...)</p></li>
+<li><p>%s és l'status code que el servidor retorna al client</p></li>
+<li>%b és el tamany de l'objecte retornat al client</li>
+<li>%f és el lloc del qual el client reporta que ha estat referenciat</li>
+<li>%a és l'user-agent: la identificació del navegador web del client</li>
+</ul>
+
+<p>Es desitja fer una anàlisi d'aquest registre per tal d'esbrinar:
+- El host que més peticions realitza al servidor
+- El recurs més solicitat
+- El lloc que més ens referencia
+- El navegador més usat pels clients
+- L'hora del dia en que més peticions rep el servidor</p></div></div></div><div class='challenge_input_format'><div class='msB challenge_input_format_title'><p><strong>Input Format</strong></p></div><div class='msB challenge_input_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>L'entrada consta de diverses línies de registre amb el format indicat.
+El registre acaba amb la línia "<strong>END</strong>"</p></div></div></div><div class='challenge_constraints'><div class='msB challenge_constraints_title'><p><strong>Constraints</strong></p></div><div class='msB challenge_constraints_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>No hi ha</p></div></div></div><div class='challenge_output_format'><div class='msB challenge_output_format_title'><p><strong>Output Format</strong></p></div><div class='msB challenge_output_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>S'imprimirà en distintes línies:
+- El host que més peticions ha realitzat
+- El recurs que més peticions ha rebut
+- El referrer que més ens ha direccionat
+- L'User Agent més utilitzat pels visitants
+- L'hora del dia que més peticions s'han realitzat</p></div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 0</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">233.192.62.103 - - [28/05/2019:12:00:06] "POST /stems HTTP/1.0" 200 10037 "http://www.casualcyclist.com" "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25"</span>
+<span class="err">16.180.70.237 - - [28/05/2019:12:00:55] "POST /Store/cart.jsp HTTP/1.1" 403 4796 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">123.221.14.56 - - [28/05/2019:12:04:04] "GET /shifters HTTP/1.1" 404 8391 "http://www.casualcyclist.com" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">237.43.24.118 - - [28/05/2019:12:08:44] "GET /stems HTTP/1.0" 403 10931 "-" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">237.43.24.118 - - [28/05/2019:12:09:50] "POST /wheelsets HTTP/1.0" 401 8476 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">__END__</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 0</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">237.43.24.118</span>
+<span class="err">/stems</span>
+<span class="err">http://bestcyclingreviews.com/top_online_shops</span>
+<span class="err">Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">12</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 1</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">237.43.24.118 - - [28/05/2019:12:04:37] "POST /saddles HTTP/1.0" 200 4957 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">237.43.24.118 - - [28/05/2019:12:07:05] "GET /shifters HTTP/1.1" 200 6769 "http://www.casualcyclist.com" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">10.182.189.79 - - [28/05/2019:12:07:05] "POST /handle-bars HTTP/1.0" 404 3640 "http://bleater.com" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">233.192.62.103 - - [28/05/2019:12:11:49] "POST /stems HTTP/1.1" 403 8969 "http://bleater.com" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">16.180.70.237 - - [28/05/2019:12:14:57] "POST /shifters HTTP/1.1" 200 5314 "-" "Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0"</span>
+<span class="err">218.193.16.244 - - [28/05/2019:12:17:47] "GET /stems HTTP/1.0" 404 9107 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">__END__</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 1</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">237.43.24.118</span>
+<span class="err">/shifters</span>
+<span class="err">http://bestcyclingreviews.com/top_online_shops</span>
+<span class="err">Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">12</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 2</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">123.221.14.56 - - [28/05/2019:12:05:17] "POST /forks HTTP/1.1" 404 9342 "http://www.casualcyclist.com" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">16.180.70.237 - - [28/05/2019:12:09:21] "POST /shifters HTTP/1.0" 400 5067 "-" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">237.43.24.118 - - [28/05/2019:12:12:07] "POST /stems HTTP/1.1" 403 5667 "http://bleater.com" "Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0"</span>
+<span class="err">237.43.24.118 - - [28/05/2019:12:14:21] "POST /saddles HTTP/1.0" 401 5998 "http://www.casualcyclist.com" "Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">233.192.62.103 - - [28/05/2019:12:15:34] "POST /forks HTTP/1.0" 500 10796 "http://bleater.com" "Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">233.192.62.103 - - [28/05/2019:12:17:00] "GET /Store/cart.jsp HTTP/1.0" 400 4157 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">198.122.118.164 - - [28/05/2019:12:18:09] "POST /forks HTTP/1.1" 403 10388 "http://searchengine.com" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">218.193.16.244 - - [28/05/2019:12:21:12] "POST /shifters HTTP/1.1" 200 6273 "http://www.casualcyclist.com" "Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">__END__</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 2</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">237.43.24.118</span>
+<span class="err">/forks</span>
+<span class="err">http://www.casualcyclist.com</span>
+<span class="err">Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">12</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 3</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">233.192.62.103 - - [28/05/2019:12:05:12] "POST /forks HTTP/1.1" 404 7702 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">123.221.14.56 - - [28/05/2019:12:08:23] "POST /handle-bars HTTP/1.1" 400 8411 "http://www.casualcyclist.com" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">244.157.45.12 - - [28/05/2019:12:11:05] "GET /forks HTTP/1.0" 403 9187 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0"</span>
+<span class="err">244.157.45.12 - - [28/05/2019:12:11:20] "POST /handle-bars HTTP/1.0" 200 10467 "http://bleater.com" "Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">198.122.118.164 - - [28/05/2019:12:15:13] "POST /shifters HTTP/1.1" 401 6747 "http://www.casualcyclist.com" "Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">10.182.189.79 - - [28/05/2019:12:15:46] "POST /shifters HTTP/1.0" 400 8622 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">16.180.70.237 - - [28/05/2019:12:20:14] "POST /wheelsets HTTP/1.1" 500 4121 "http://searchengine.com" "Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">123.221.14.56 - - [28/05/2019:12:23:20] "GET /stems HTTP/1.1" 500 8238 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">244.157.45.12 - - [28/05/2019:12:24:47] "GET /forks HTTP/1.0" 404 8916 "-" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">233.192.62.103 - - [28/05/2019:12:29:30] "POST /forks HTTP/1.0" 500 5805 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">198.122.118.164 - - [28/05/2019:12:34:15] "GET /wheelsets HTTP/1.1" 400 4020 "http://searchengine.com" "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25"</span>
+<span class="err">244.157.45.12 - - [28/05/2019:12:38:58] "POST /shifters HTTP/1.1" 200 8719 "http://www.casualcyclist.com" "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25"</span>
+<span class="err">233.192.62.103 - - [28/05/2019:12:39:18] "GET /saddles HTTP/1.1" 400 4576 "http://www.casualcyclist.com" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">123.221.14.56 - - [28/05/2019:12:42:40] "GET /stems HTTP/1.0" 401 7821 "http://bleater.com" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">10.182.189.79 - - [28/05/2019:12:46:08] "POST /Store/cart.jsp HTTP/1.0" 400 5196 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0"</span>
+<span class="err">__END__</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 3</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">244.157.45.12</span>
+<span class="err">/forks</span>
+<span class="err">http://bestcyclingreviews.com/top_online_shops</span>
+<span class="err">Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))"</span>
+<span class="err">12</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 4</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">218.193.16.244 - - [28/05/2019:18:40:43] "GET /seatposts HTTP/1.1" 200 10910 "http://www.casualcyclist.com" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">244.157.45.12 - - [29/05/2019:02:29:38] "GET /seatposts HTTP/1.1" 500 4523 "http://bleater.com" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">233.192.62.103 - - [29/05/2019:06:23:52] "GET /handle-bars HTTP/1.1" 404 6068 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">10.182.189.79 - - [29/05/2019:06:45:48] "POST /forks HTTP/1.1" 500 4985 "-" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">233.192.62.103 - - [29/05/2019:14:44:21] "GET /handle-bars HTTP/1.1" 400 6577 "http://searchengine.com" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">237.43.24.118 - - [29/05/2019:17:01:05] "POST /forks HTTP/1.1" 401 7205 "http://searchengine.com" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">16.180.70.237 - - [29/05/2019:19:02:47] "POST /shifters HTTP/1.1" 400 3676 "http://bleater.com" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">10.182.189.79 - - [30/05/2019:01:03:22] "POST /forks HTTP/1.1" 404 6688 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0"</span>
+<span class="err">244.157.45.12 - - [30/05/2019:02:14:42] "POST /handle-bars HTTP/1.0" 200 4146 "http://bleater.com" "Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0"</span>
+<span class="err">233.192.62.103 - - [30/05/2019:08:53:15] "GET /forks HTTP/1.1" 403 7010 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">237.43.24.118 - - [30/05/2019:13:11:25] "POST /seatposts HTTP/1.0" 404 7092 "-" "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25"</span>
+<span class="err">114.214.178.92 - - [30/05/2019:17:16:27] "GET /forks HTTP/1.0" 403 8924 "http://www.casualcyclist.com" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">244.157.45.12 - - [31/05/2019:00:41:00] "POST /Store/cart.jsp HTTP/1.1" 401 8000 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">218.193.16.244 - - [31/05/2019:03:07:23] "GET /forks HTTP/1.1" 400 6922 "http://searchengine.com" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">114.214.178.92 - - [31/05/2019:09:11:50] "POST /shifters HTTP/1.1" 401 9599 "http://bleater.com" "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201"</span>
+<span class="err">123.221.14.56 - - [31/05/2019:11:08:59] "GET /wheelsets HTTP/1.0" 500 10947 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">123.221.14.56 - - [31/05/2019:12:06:40] "GET /shifters HTTP/1.1" 404 9615 "http://searchengine.com" "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25"</span>
+<span class="err">81.73.150.239 - - [31/05/2019:18:45:16] "POST /shifters HTTP/1.1" 403 8930 "http://bestcyclingreviews.com/top_online_shops" "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25"</span>
+<span class="err">114.214.178.92 - - [01/06/2019:00:30:09] "GET /shifters HTTP/1.0" 401 5170 "http://www.casualcyclist.com" "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25"</span>
+<span class="err">114.214.178.92 - - [01/06/2019:02:11:09] "POST /Store/cart.jsp HTTP/1.1" 400 6587 "http://www.casualcyclist.com" "Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"</span>
+<span class="err">__END__</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 4</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">114.214.178.92</span>
+<span class="err">/forks</span>
+<span class="err">http://bestcyclingreviews.com/top_online_shops</span>
+<span class="err">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36"</span>
+<span class="err">2</span>
+</pre></div>
+</div></div></div>

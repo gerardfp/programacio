@@ -1,0 +1,456 @@
+<div class='challenge_problem_statement'><div class='msB challenge_problem_statement_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>Hänsel i Gretel són dos germans d'una família de llenyataires molt pobra. La madrastra convenç el seu pare d'abandonar-los al bosc per no haver de repartir amb ells el menjar familiar però ells poden tornar a casa seguint un rastre de pedretes que havien deixat al camí. Els nens repeteixen l'operació i aquest cop el rastre està fet d'engrunes de pa, que es mengen els ocells i per tant els nens es perden...</p>
+
+<p>Ajuda a Hansel i Gretel a fer el camí de tornada a casa!</p></div></div></div><div class='challenge_input_format'><div class='msB challenge_input_format_title'><p><strong>Input Format</strong></p></div><div class='msB challenge_input_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>La entrada consisteix en un mapa del bosc on es marca la casa, les engrunes de pa i el lloc on s'han perdut Hansel i Gretel.</p>
+
+<p>La casa està marcada amb la lletra 'A', les engrunes amb un punt '.', i Hansel i Gretel amb una 'H'.</p>
+
+<p>El mapa està envoltat d'un marc amb coixinets '#'.</p></div></div></div><div class='challenge_constraints'><div class='msB challenge_constraints_title'><p><strong>Constraints</strong></p></div><div class='msB challenge_constraints_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>El camí de punts només avança a en direcció Nord, Sud, Est o Oest. Per a cada punt només hi ha una direcció possible.</p>
+
+<p>Es considera que Hansel i Gretel han arribat a la casa quan la lletra 'H', està tocant la lletra 'A'.</p></div></div></div><div class='challenge_output_format'><div class='msB challenge_output_format_title'><p><strong>Output Format</strong></p></div><div class='msB challenge_output_format_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><p>S'imprimirà el mapa del bosc a cada passa que hagin donat Hansel i Gretel recuperant les engrunes de pa.</p></div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 0</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">7</span>
+<span class="err">#########</span>
+<span class="err">#       #</span>
+<span class="err"># A..   #</span>
+<span class="err">#   .   #</span>
+<span class="err">#   ..H #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 0</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">#########</span>
+<span class="err">#       #</span>
+<span class="err"># A..   #</span>
+<span class="err">#   .   #</span>
+<span class="err">#   ..H #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err">#       #</span>
+<span class="err"># A..   #</span>
+<span class="err">#   .   #</span>
+<span class="err">#   .H  #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err">#       #</span>
+<span class="err"># A..   #</span>
+<span class="err">#   .   #</span>
+<span class="err">#   H   #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err">#       #</span>
+<span class="err"># A..   #</span>
+<span class="err">#   H   #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err">#       #</span>
+<span class="err"># A.H   #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err">#       #</span>
+<span class="err"># AH    #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 1</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">5</span>
+<span class="err">######</span>
+<span class="err">#A.. #</span>
+<span class="err">#  . #</span>
+<span class="err">#H.. #</span>
+<span class="err">######</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 1</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">######</span>
+<span class="err">#A.. #</span>
+<span class="err">#  . #</span>
+<span class="err">#H.. #</span>
+<span class="err">######</span>
+<span class="err">######</span>
+<span class="err">#A.. #</span>
+<span class="err">#  . #</span>
+<span class="err"># H. #</span>
+<span class="err">######</span>
+<span class="err">######</span>
+<span class="err">#A.. #</span>
+<span class="err">#  . #</span>
+<span class="err">#  H #</span>
+<span class="err">######</span>
+<span class="err">######</span>
+<span class="err">#A.. #</span>
+<span class="err">#  H #</span>
+<span class="err">#    #</span>
+<span class="err">######</span>
+<span class="err">######</span>
+<span class="err">#A.H #</span>
+<span class="err">#    #</span>
+<span class="err">#    #</span>
+<span class="err">######</span>
+<span class="err">######</span>
+<span class="err">#AH  #</span>
+<span class="err">#    #</span>
+<span class="err">#    #</span>
+<span class="err">######</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 2</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">7</span>
+<span class="err">#########</span>
+<span class="err"># A     #</span>
+<span class="err"># ...   #</span>
+<span class="err">#   .   #</span>
+<span class="err">#   ... #</span>
+<span class="err">#     H #</span>
+<span class="err">#########</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 2</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">#########</span>
+<span class="err"># A     #</span>
+<span class="err"># ...   #</span>
+<span class="err">#   .   #</span>
+<span class="err">#   ... #</span>
+<span class="err">#     H #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err"># A     #</span>
+<span class="err"># ...   #</span>
+<span class="err">#   .   #</span>
+<span class="err">#   ..H #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err"># A     #</span>
+<span class="err"># ...   #</span>
+<span class="err">#   .   #</span>
+<span class="err">#   .H  #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err"># A     #</span>
+<span class="err"># ...   #</span>
+<span class="err">#   .   #</span>
+<span class="err">#   H   #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err"># A     #</span>
+<span class="err"># ...   #</span>
+<span class="err">#   H   #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err"># A     #</span>
+<span class="err"># ..H   #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err"># A     #</span>
+<span class="err"># .H    #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+<span class="err">#########</span>
+<span class="err"># A     #</span>
+<span class="err"># H     #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#       #</span>
+<span class="err">#########</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_input'><div class='msB challenge_sample_input_title'><p><strong>Sample Input 3</strong></p></div><div class='msB challenge_sample_input_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">8</span>
+<span class="err">##########</span>
+<span class="err">#  ....H #</span>
+<span class="err">#  .     #</span>
+<span class="err">#  ......#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+</pre></div>
+</div></div></div><div class='challenge_sample_output'><div class='msB challenge_sample_output_title'><p><strong>Sample Output 3</strong></p></div><div class='msB challenge_sample_output_body'><div class='hackdown-content'><style id="MathJax_SVG_styles">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_LineBox {display: table!important}
+.MathJax_SVG_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+</style><svg style="display: none;"><defs id="MathJax_SVG_glyphs"></defs></svg><div class="highlight"><pre><span></span><span class="err">##########</span>
+<span class="err">#  ....H #</span>
+<span class="err">#  .     #</span>
+<span class="err">#  ......#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#  ...H  #</span>
+<span class="err">#  .     #</span>
+<span class="err">#  ......#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#  ..H   #</span>
+<span class="err">#  .     #</span>
+<span class="err">#  ......#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#  .H    #</span>
+<span class="err">#  .     #</span>
+<span class="err">#  ......#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#  H     #</span>
+<span class="err">#  .     #</span>
+<span class="err">#  ......#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#  H     #</span>
+<span class="err">#  ......#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#  H.....#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#   H....#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#    H...#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#     H..#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#      H.#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#       H#</span>
+<span class="err">#A      .#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A      H#</span>
+<span class="err">#.      .#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#.      H#</span>
+<span class="err">#........#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#.       #</span>
+<span class="err">#.......H#</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#.       #</span>
+<span class="err">#......H #</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#.       #</span>
+<span class="err">#.....H  #</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#.       #</span>
+<span class="err">#....H   #</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#.       #</span>
+<span class="err">#...H    #</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#.       #</span>
+<span class="err">#..H     #</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#.       #</span>
+<span class="err">#.H      #</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#.       #</span>
+<span class="err">#H       #</span>
+<span class="err">##########</span>
+<span class="err">##########</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#        #</span>
+<span class="err">#A       #</span>
+<span class="err">#H       #</span>
+<span class="err">#        #</span>
+<span class="err">##########</span>
+</pre></div>
+</div></div></div>

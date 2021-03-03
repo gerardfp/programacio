@@ -2,25 +2,62 @@
 
 <h1><%= problem.title %></h1>
 
-<p><%= problem.statement %></p>
+<p><%- problem.statement %></p>
 
-<% testcases.forEach(function(testcase){ %>
-  <h2>Input</h2>
+<% if (problem.inputformat) {%>
+<h2>Input format</h2>
+<p><%- problem.inputformat %></p>
+<% } %>
+
+<% if (problem.constraints) {%>
+<h2>Constraints</h2>
+<p><%- problem.constraints %></p>
+<% } %>
+
+<% if (problem.outputformat) {%>
+<h2>Output format</h2>
+<p><%- problem.outputformat %></p>
+<% } %>
+
+<% for([index,testcase] of testcases.entries()){ %>
+  <div class="testcase">
+  <h3>Input <%= index %></h3>
   <pre><%= testcase.input %></pre>
-  <h2>Output</h2>
+  <h3>Output <%= index %></h3>
   <pre><%= testcase.output %></pre>
-<% }); %>
+  <% if (testcase.explanation) {%>
+  <h3>Explanation <%= index %></h3>
+  <p><%- testcase.explanation %></p>
+  <% } %>
+  </div>
+<% } %>
 
-<textarea id="code" rows="20" cols="80">
-<%= problem.template %>
-</textarea>
+<div id="container" style="height:800px;border:1px solid grey"></div>
+
+<script type="text/javascript" src="/monaco-editor/min/vs/loader.js" ></script>
+
+<script>
+    var editor;
+    require.config({ paths: { 'vs': '/monaco-editor/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+         editor = monaco.editor.create(document.getElementById('container'), {
+            value: [
+`<%- problem.template %>`,
+            ].join('\n'),
+            language: 'java',
+            theme: "vs-dark"
+        });
+    });
+</script>
+
 <input type="submit" onclick="_submit()" value="CHECK">
 
 <div id="response"></div>
 
 <script>
   async function _submit() {
-    const code = document.getElementById('code').value;
+    const code = editor.getValue(); //document.getElementById('code').value;
+    console.log(editor.value);
 
     const response = await (await fetch('/submit/<%= problem.slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code})})).json();
 
