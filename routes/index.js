@@ -38,6 +38,8 @@ router.post('/submit/:slug/', async (req, res) => {
     var s = { testcases: []};
     for (testcase of testcases){
         const result = await runjava(code, testcase.input);
+        console.log(result);
+        
         if (result.stderr) {
             s.testcases.push({ stderr: result.stderr });
         } else {
