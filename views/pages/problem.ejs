@@ -46,7 +46,11 @@
 `<%- problem.template %>`,
             ].join('\n'),
             language: 'java',
-            theme: "vs-dark"
+            theme: "vs-dark",
+            scrollBeyondLastLine: false,
+            scrollbar: {
+              alwaysConsumeMouseWheel: false
+            }
         });
     });
 </script>
