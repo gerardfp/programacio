@@ -19,6 +19,7 @@ router.get('/problems/:slug', async (req, res) => {
 import java.util.Scanner;
         
 public class Main {        
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
@@ -39,16 +40,16 @@ router.post('/submit/:slug/', async (req, res) => {
     for (testcase of testcases){
         const result = await runjava(code, testcase.input);
         console.log(result);
-        
-        if (result.stderr) {
-            s.testcases.push({ stderr: result.stderr });
-        } else {
+
+        if(result.stdout) {
             const resultre = result.stdout.replace(/(\s+)\n/g,'').replace(/\s+$/g,'');
             if(resultre === testcase.output) {
                 s.testcases.push({ result: 'ok', stdout: resultre }); 
             } else {
                 s.testcases.push({ result: 'fail', expected: testcase.output, stdout: resultre });
             }
+        } else {
+            s.testcases.push({ stderr: result.stderr });            
         }
     }
 
