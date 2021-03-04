@@ -19,7 +19,7 @@ router.get('/problems/:slug', async (req, res) => {
 import java.util.Scanner;
         
 public class Main {        
-    
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
@@ -39,16 +39,18 @@ router.post('/submit/:slug/', async (req, res) => {
     var s = { testcases: []};
     for (testcase of testcases){
         const result = await runjava(code, testcase.input);
-        console.log(result);
+        // console.log(result);
 
-        if(result.stdout) {
+        if(typeof result.stdout != 'undefined') {
+            // console.log("checking output");
             const resultre = result.stdout.replace(/(\s+)\n/g,'').replace(/\s+$/g,'');
             if(resultre === testcase.output) {
-                s.testcases.push({ result: 'ok', stdout: resultre }); 
+                s.testcases.push({ result: 'ok', stdout: resultre, expected: testcase.output }); 
             } else {
                 s.testcases.push({ result: 'fail', expected: testcase.output, stdout: resultre });
             }
         } else {
+            // console.log("exec error");
             s.testcases.push({ stderr: result.stderr });            
         }
     }

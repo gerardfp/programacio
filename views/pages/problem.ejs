@@ -55,35 +55,65 @@
     });
 </script>
 
-<input type="submit" onclick="_submit()" value="CHECK">
+<input id="check" type="submit" onclick="_submit()" value="CHECK">
 
 <div id="response"></div>
 
 <script>
-  async function _submit() {
-    const code = editor.getValue(); //document.getElementById('code').value;
-    console.log(editor.value);
+  let selectedprev = 0;
+
+  function _submit(){
+    const v = document.getElementById('check');
+    v.value = "CHECKING";
+    v.disabled = true;
+
+    var dots = window.setInterval( function() {
+    if ( v.value.length > 16 ) 
+        v.value = "CHECKING";
+    else 
+        v.value += " . ";
+    }, 700);
+
+    _check().then(() => {    
+      v.value = "CHECK";
+      clearInterval(dots);
+      v.disabled = false;
+    });
+  }
+
+  async function _check() {
+
+    const code = editor.getValue();
 
     const response = await (await fetch('/submit/<%= problem.slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code})})).json();
-
-    console.log(response);
-    var r = "";
+    
+    let testtabs = "<div class='testcheck'>";
+    let testpage = "";
     for(const [i, testcase] of response.testcases.entries()){
-      if(testcase.result === 'ok'){
-        r += "<p>Testcase " + i + "...ok</p>";
+      testtabs += "<p id='testtab"+i+"' class='testtab + "+ testcase.result+ "' onclick='select("+i+")'>Testcase " + i + " " + testcase.result + "</p>"; 
+      testpage += "<div id='testpage"+i+"' class='testpage'>";
+      if(testcase.stderr){
+        testpage += "<p>Error. Java output:</p>";
+        testpage += "<pre>" + testcase.stderr + "</pre>";
       } else {
-        if(testcase.stderr){
-          r += "<p>Testcase " + i + "...error</p>";
-          r += "<pre>" + testcase.stderr + "</pre>";
-        } else {
-          r += "<p>Testcase " + i + "...fail</p>";
-          r += "<div>Output</div>";
-          r += "<pre>" + testcase.stdout + "</pre>";
-          r += "<div>Expected</div>";
-          r += "<pre>" + testcase.expected + "</pre>";
-        }
+        testpage += "<div>Output</div>";
+        testpage += "<pre>" + testcase.stdout + "</pre>";
+        testpage += "<div>Expected</div>";
+        testpage += "<pre>" + testcase.expected + "</pre>";
       }
+      testpage += "</div>";
     }
-    document.getElementById('response').innerHTML = r;
+    testtabs += "</div>"
+    document.getElementById('response').innerHTML = testtabs + testpage;
+
+    select(0);
+  }
+
+  function select(i){
+    document.getElementById("testpage"+selectedprev).classList.remove('selected');
+    document.getElementById("testpage"+i).classList.add('selected');
+    document.getElementById("testtab"+selectedprev).classList.remove('selected');
+    document.getElementById("testtab"+i).classList.add('selected');
+    selectedprev = i;
   }
 </script>

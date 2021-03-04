@@ -7,6 +7,7 @@ html {
 
 body {
   padding: 1em;
+  margin-bottom: 2em;
 }
 
 pre {
@@ -21,4 +22,40 @@ div.testcase {
 
 div.testcase h3 {
   font-size: 1.1rem;
+}
+
+.testcheck {
+  display:flex; 
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-top: 2em;
+}
+
+.testtab {
+  padding: 0.5em;
+
+}
+
+.testtab.ok.selected {
+  background-color: green;
+}
+
+.testtab.fail.selected {
+  background-color: red;
+}
+
+.testtab.ok {
+  border: 1px solid green;
+}
+
+.testtab.fail {
+  border: 1px solid red;
+}
+
+.testpage {
+  display: none;
+}
+
+.testpage.selected {
+  display: block;
 }

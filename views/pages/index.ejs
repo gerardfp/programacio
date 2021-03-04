@@ -1,7 +1,7 @@
 <%- include ("../partials/header.ejs") %>
 
-<h1>Welcome <%= user %> <a href="/logout">logout</a></h1>
+<h1>Welcome <%= user %> <a href="/logout">[logout]</a></h1>
 
 <% problems.forEach(function(problem){ %>
-  <a href="/problems/<%= problem.slug %>"><%= problem.title %></p>
+  <a href="/problems/<%= problem.slug %>"><%= problem.title %><br>
 <% }); %>

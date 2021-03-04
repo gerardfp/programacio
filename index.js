@@ -2,12 +2,16 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-
+const nodemailer = require('nodemailer');
 const routes = require('./routes');
 const db = require('./db');
-const runjava = require('./runjava')
+const crypto = require('./lib/crypto');
 
 const app = express();
+
+const production  = 'https://programacio.herokuapp.com';
+const development = 'http://localhost:5000';
+const url = (process.env.NODE_ENV ? production : development);
 
 app.use(session({
     secret: 'keyboard cat',
@@ -24,6 +28,24 @@ app.use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs');
 
+
+// TODO: config
+const password = "holaquetal";
+
+
+async function getTransport()  {
+    const smtpconfig = await db.config.getSMTP();
+
+    return nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: smtpconfig.smtpuser,
+          pass: smtpconfig.smtppass
+        }
+    });
+}
+
+const gettransport = getTransport();
 
 
 function restrict(req, res, next) {
@@ -42,16 +64,8 @@ function restrictAdmin(req, res, next) {
     }
 }
 
-    
-app.get('/logout', (req, res) => { req.session.destroy(() => { res.redirect('/') }) });
-  
-app.get('/login', (req, res) => { res.render('pages/login') });
-  
-app.post('/login', async (req, res) => {
-    var username = req.body.username;
-    var password = req.body.password;
-
-    if(user = await db.auth.auth(username, password)){
+const postlogin = async (req, res) => {
+    if(user = await db.auth.auth(req.body.email, req.body.password)){
         req.session.regenerate(function(){
             req.session.user = user.email;
 
@@ -65,31 +79,65 @@ app.post('/login', async (req, res) => {
     } else {
         res.redirect('/login');
     }
+};
+
+
+app.get('/signup', (req, res) => { res.render('pages/signup') });
+
+app.post('/signup', async (req, res) => {
+    const encryptedEmail = crypto.encryptString(req.body.email, password);
+
+    const transporter = await gettransport;
+
+    var mailOptions = {
+        from: 'ocnwaatte@gmail.com',
+        to: req.body.email,
+        subject: 'Sending Email via Node.js',
+        html: `Bienvenido a ocnwaatte! <a href='http://${url}/verify/${encryptedEmail}'>Haz clic aquí para crear la cuenta</a>`
+    };
+      
+    const info = await transporter.sendMail(mailOptions);
+    res.send("Email sent. Check your email");
 });
 
+app.get('/verify/*', async (req, res) => {
+
+    let decryptedEmail;
+    try {
+        decryptedEmail = crypto.decryptString(req.params[0], password);
+    } catch(e){
+        res.send("error, clave invalida");   
+        return;
+    }
+    
+    res.render('pages/signuppass', {email: decryptedEmail, encryptedEmail: req.params[0]});
+});
+
+app.post('/setpass', async (req, res, next) => {
+
+    let decryptedEmail;
+    try {
+        decryptedEmail = crypto.decryptString(req.body.encryptedemail, password);
+    } catch(e){
+        res.render("error, clave invalida");     
+        return;   
+    }
+    
+    if(req.body.email === decryptedEmail){
+        await db.auth.upsert(decryptedEmail, req.body.password);
+        next();
+    } else {
+        res.render("error, la clave no coincide con el email");        
+    }
+}, postlogin);
+
+
+app.get('/logout', (req, res) => { req.session.destroy(() => { res.redirect('/') }) });
+app.get('/login', (req, res) => { res.render('pages/login') });
+app.post('/login', postlogin);
 app.use('/admin', restrictAdmin, routes.admin);
 app.use('/', restrict, routes.index);
 
-
-GET('/java', () => runjava());
-GET('/db', () => db.posts.all());
   
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-function GET(url, handler) {
-  app.get(url, async (req, res) => {
-      try {
-          const data = await handler(req);
-          res.json({
-              success: true,
-              data
-          });
-      } catch (error) {
-          res.json({
-              success: false,
-              error: error.message || error
-          });
-      }
-  });
-}
