@@ -93,7 +93,7 @@ app.post('/signup', async (req, res) => {
         from: 'ocnwaatte@gmail.com',
         to: req.body.email,
         subject: 'Sending Email via Node.js',
-        html: `Bienvenido a ocnwaatte! <a href='http://${url}/verify/${encryptedEmail}'>Haz clic aquí para crear la cuenta</a>`
+        html: `Bienvenido a ocnwaatte! <a href='${url}/verify/${encryptedEmail}'>Haz clic aquí para crear la cuenta</a>`
     };
       
     const info = await transporter.sendMail(mailOptions);
