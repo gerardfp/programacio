@@ -3,6 +3,7 @@
 html {
   background-color: black;
   color: white;
+  font-family: "DejaVu Sans Mono";
 }
 
 body {
@@ -11,7 +12,8 @@ body {
 }
 
 pre {
-  background-color: #333;
+  background-color: #1e1e1e;
+  color:#d4d4d4;
   padding: .5em;
 }
 
@@ -19,6 +21,15 @@ div.testcase {
   padding: 1em;
   border: 1px solid white;
 }
+
+
+
+.problem-list li.true{
+  opacity: 0.7;
+}
+
+
+
 
 div.testcase h3 {
   font-size: 1.1rem;
@@ -58,4 +69,35 @@ div.testcase h3 {
 
 .testpage.selected {
   display: block;
+}
+
+#editor {
+  height: 600px;
+  border: 1px solid white;
+}
+
+
+pre {
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 14px;
+  /* display: block; */
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+  /* -ms-overflow-style: scrollbar; */
+}
+
+input {
+  height: auto;
+  max-width: 100%;  
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  background-color: transparent;
+  border: 1px solid WindowFrame;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0.25em 0.375em;
 }

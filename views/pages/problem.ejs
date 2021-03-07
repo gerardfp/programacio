@@ -1,49 +1,66 @@
 <%- include ("../partials/header.ejs") %>
 
-<h1><%= problem.title %></h1>
+<h1><%= problem.problem_title %></h1>
 
-<p><%- problem.statement %></p>
+<p><%- problem.problem_statement %></p>
 
-<% if (problem.inputformat) {%>
+<% if (problem.problem_input) {%>
 <h2>Input format</h2>
-<p><%- problem.inputformat %></p>
+<p><%- problem.problem_input %></p>
 <% } %>
 
-<% if (problem.constraints) {%>
-<h2>Constraints</h2>
-<p><%- problem.constraints %></p>
-<% } %>
-
-<% if (problem.outputformat) {%>
+<% if (problem.problem_output) {%>
 <h2>Output format</h2>
-<p><%- problem.outputformat %></p>
+<p><%- problem.problem_output %></p>
 <% } %>
 
 <h2>Testcases</h2>
 <% for([index,testcase] of testcases.entries()){ %>
   <div class="testcase">
   <h3>Input <%= index %></h3>
-  <pre><%= testcase.input %></pre>
+  <pre><%= testcase.testcase_input %></pre>
   <h3>Output <%= index %></h3>
-  <pre><%= testcase.output %></pre>
-  <% if (testcase.explanation) {%>
+  <pre><%= testcase.testcase_output %></pre>
+  <% if (testcase.testcase_explanation) {%>
   <h3>Explanation <%= index %></h3>
-  <p><%- testcase.explanation %></p>
+  <p><%- testcase.testcase_explanation %></p>
   <% } %>
   </div>
 <% } %>
 
-<div id="container" style="height:800px;border:1px solid grey"></div>
+<div id="editor"></div>
 
 <script type="text/javascript" src="/monaco-editor/min/vs/loader.js" ></script>
 
 <script>
     var editor;
     require.config({ paths: { 'vs': '/monaco-editor/min/vs' }});
+    
     require(['vs/editor/editor.main'], function() {
-         editor = monaco.editor.create(document.getElementById('container'), {
+    monaco.languages.registerCompletionItemProvider('java', {
+      provideCompletionItems: () => {
+            return {
+                suggestions: [
+                    {
+                        label: '"sout"',
+                        kind: monaco.languages.CompletionItemKind.Function,
+                        insertText: 'System.out.println(${1:});',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: '"fori"',
+                        kind: monaco.languages.CompletionItemKind.Function,
+                        insertText: 'for (int ${1:i} = 0; ${1:i} < ${2:}; ${1:i}++) {\n}',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }       
+                ]
+            };
+        }
+    });
+
+         editor = monaco.editor.create(document.getElementById('editor'), {
             value: [
-`<%- problem.template %>`,
+`<%- problem.problem_template %>`,
             ].join('\n'),
             language: 'java',
             theme: "vs-dark",
@@ -55,15 +72,21 @@
     });
 </script>
 
-<input id="check" type="submit" onclick="_submit()" value="CHECK">
+<input id="check" type="submit" onclick="_submit(0)" value="CHECK">
+<input id="submit" type="submit" onclick="_submit(1)" value="SUBMIT">
 
 <div id="response"></div>
 
 <script>
   let selectedprev = 0;
 
-  function _submit(){
-    const v = document.getElementById('check');
+  function _submit(save){
+    let v;
+    if(save){
+      v = document.getElementById('submit');
+    } else {
+      v = document.getElementById('check');
+    }
     v.value = "CHECKING";
     v.disabled = true;
 
@@ -74,18 +97,23 @@
         v.value += " . ";
     }, 700);
 
-    _check().then(() => {    
+    __submit(save).then(() => {    
       v.value = "CHECK";
       clearInterval(dots);
       v.disabled = false;
     });
   }
 
-  async function _check() {
+  async function __submit(save) {
 
     const code = editor.getValue();
 
-    const response = await (await fetch('/submit/<%= problem.slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code})})).json();
+    let response;
+    if(save){
+      response = await (await fetch('/submit/<%= problem.problem_slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code})})).json();
+    } else {
+      response = await (await fetch('/check/<%= problem.problem_slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code})})).json();
+    }
     
     let testtabs = "<div class='testcheck'>";
     let testpage = "";

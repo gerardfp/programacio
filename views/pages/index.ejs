@@ -1,7 +1,9 @@
 <%- include ("../partials/header.ejs") %>
 
-<h1>Welcome <%= user %> <a href="/logout">[logout]</a></h1>
+<h1>Welcome <%= user_email %> <a href="/logout">[logout]</a></h1>
 
+<ol class="problem-list">
 <% problems.forEach(function(problem){ %>
-  <a href="/problems/<%= problem.slug %>"><%= problem.title %><br>
+  <li class="<%= problem.submission_ok %>"><a href="/problems/<%= problem.problem_slug %>"><%= problem.problem_title %></a>&nbsp; &nbsp; &nbsp; <%= problem.problem_id %></li>
 <% }); %>
+</ol>

@@ -8,19 +8,19 @@ router.get('/problems/create', async (req, res) => {
     res.render('pages/adminproblem', {problem: {}, testcases: []});
 });
 
-router.get('/problems/edit/:slug', async (req, res) => {
-    const problem = await db.problems.slug(req.params.slug);
+router.get('/problems/edit/:problem_slug', async (req, res) => {
+    const problem = await db.problems.slug(req.params.problem_slug);
 
-    const testcases = await db.problems.testcases(req.params.slug);
+    const testcases = await db.problems.testcases(req.params.problem_slug);
 
     res.render('pages/adminproblem', {problem: problem, testcases: testcases});
 });
 
 router.post('/save/', async (req, res) => {
 
-    if(req.body.data.slug === ""){
+    if(req.body.data.problem_slug === ""){
 
-        const slug = req.body.data.title.replace(/[^0-9a-z]/gi, '');
+        const slug = req.body.data.problem_title.replace(/[^0-9a-z]/gi, '');
 
         var i = 0;
 
@@ -32,15 +32,15 @@ router.post('/save/', async (req, res) => {
 
         console.log("NEWSLUGG = " + newslug);
 
-        req.body.data.slug = newslug;
+        req.body.data.problem_slug = newslug;
     }
 
     await db.problems.insert(req.body.data);
 
-    res.send(JSON.stringify({redirect: "/admin/problems/edit/" + req.body.data.slug}));
+    res.send(JSON.stringify({redirect: "/admin/problems/edit/" + req.body.data.problem_slug}));
 });
 
-router.post('/save/:slug', async (req, res) => {
+router.post('/save/:problem_slug', async (req, res) => {
     await db.problems.save(req.body.data);
 
     res.send('{}');
@@ -48,7 +48,7 @@ router.post('/save/:slug', async (req, res) => {
 
 router.get('/', async (req, res) => { 
     const problems = await db.problems.all();
-    res.render('pages/adminindex', {user: req.session.user, problems: problems});
+    res.render('pages/adminindex', {user_email: req.session.user_email, problems: problems});
 });
 
 module.exports = router;

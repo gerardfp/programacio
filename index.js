@@ -49,7 +49,7 @@ const gettransport = getTransport();
 
 
 function restrict(req, res, next) {
-    if (req.session.user) {
+    if (req.session.user_email) {
       next();
     } else {
       res.redirect('/login');
@@ -57,7 +57,7 @@ function restrict(req, res, next) {
 }
 
 function restrictAdmin(req, res, next) {
-    if (req.session.isAdmin) {
+    if (req.session.user_admin) {
       next();
     } else if(!req.session.user){
       res.redirect('/login');
@@ -65,12 +65,13 @@ function restrictAdmin(req, res, next) {
 }
 
 const postlogin = async (req, res) => {
-    if(user = await db.auth.auth(req.body.email, req.body.password)){
+    if(user = await db.auth.auth(req.body.user_email, req.body.user_password)){
         req.session.regenerate(function(){
-            req.session.user = user.email;
+            req.session.user_email = user.user_email;
+            req.session.user_id = user.user_id;
 
             if(user.admin){
-                req.session.isAdmin = user.admin; 
+                req.session.user_admin = user.user_admin; 
                 res.redirect('/admin');
             } else {
                 res.redirect('/');
@@ -85,13 +86,13 @@ const postlogin = async (req, res) => {
 app.get('/signup', (req, res) => { res.render('pages/signup') });
 
 app.post('/signup', async (req, res) => {
-    const encryptedEmail = crypto.encryptString(req.body.email, password);
+    const encryptedEmail = crypto.encryptString(req.body.user_email, password);
 
     const transporter = await gettransport;
 
     var mailOptions = {
         from: 'ocnwaatte@gmail.com',
-        to: req.body.email,
+        to: req.body.user_email,
         subject: 'Sending Email via Node.js',
         html: `Bienvenido a ocnwaatte! <a href='${url}/verify/${encryptedEmail}'>Haz clic aquí para crear la cuenta</a>`
     };
@@ -110,7 +111,7 @@ app.get('/verify/*', async (req, res) => {
         return;
     }
     
-    res.render('pages/signuppass', {email: decryptedEmail, encryptedEmail: req.params[0]});
+    res.render('pages/signuppass', {user_email: decryptedEmail, encryptedEmail: req.params[0]});
 });
 
 app.post('/setpass', async (req, res, next) => {
@@ -123,8 +124,8 @@ app.post('/setpass', async (req, res, next) => {
         return;   
     }
     
-    if(req.body.email === decryptedEmail){
-        await db.auth.upsert(decryptedEmail, req.body.password);
+    if(req.body.user_email === decryptedEmail){
+        await db.auth.upsert(decryptedEmail, req.body.user_password);
         next();
     } else {
         res.render("error, la clave no coincide con el email");        

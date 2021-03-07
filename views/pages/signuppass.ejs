@@ -1,9 +1,9 @@
 <%- include ("../partials/header.ejs") %>
 
-<h1>Enter your password</h1>
+<h1>Set your password</h1>
 <form action="/setpass" method="POST">
-  <input type="hidden" name="email" value="<%= email %>">
+  <input type="hidden" name="user_email" value="<%= user_email %>">
   <input type="hidden" name="encryptedemail" value="<%= encryptedEmail %>">
-  <input type="text" name="password" placeholder="Password" required>
+  <input type="password" name="user_password" placeholder="Password" required>
   <input type="submit">
 </form>

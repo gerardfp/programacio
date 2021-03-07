@@ -581,7 +581,6 @@ canvas,
 video {
   display: inline;
   display: inline-block;
-  zoom: 1;
   max-width: 100%;
 }
 audio:not([controls]) {

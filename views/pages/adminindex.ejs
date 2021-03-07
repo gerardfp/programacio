@@ -1,6 +1,6 @@
 <%- include ("../partials/header.ejs") %>
 
-<h1>Administration: <%= user %> <a href="/logout">logout</a></h1>
+<h1>Administration: <%= user_email %> <a href="/logout">logout</a></h1>
 
 <a href="/admin/problems/create">Crear problema</a>
 
@@ -10,6 +10,6 @@
 <ul>
 
 <% problems.forEach(function(problem){ %>
-  <li><a href="/admin/problems/edit/<%= problem.slug %>"><%= problem.title %></a></li>
+  <li><a href="/admin/problems/edit/<%= problem.problem_slug %>"><%= problem.problem_title %></a></li>
 <% }); %>
 </ul>

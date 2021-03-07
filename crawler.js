@@ -355,9 +355,9 @@ const get = async url => {
     //     }
     // }
 
-    console.log("--------");
-    console.log(down);
-    console.log("--------");
+    // console.log("--------");
+    // console.log(down);
+    // console.log("--------");
 
     //down = { 'metro-circular':'204596' };
     // down = { 'a-hello-world': '107234'};
@@ -403,7 +403,7 @@ const get = async url => {
                     var num = element.querySelector("p").textContent.match(/(\d+)/)[0];
                     var pre = element.querySelector("pre").textContent.replace(/\n+$/g,'');
 
-                    tests[num] = { input: pre};
+                    tests[num] = { testcase_input: pre};
                 }    
             }
 
@@ -417,7 +417,7 @@ const get = async url => {
                     // console.log("OUT " + num + " ====>>> " + pre);
 
                     if(!tests[num]) tests[num] = {};
-                    tests[num].output = pre;
+                    tests[num].testcase_output = pre;
 
                 }    
             }
@@ -431,7 +431,7 @@ const get = async url => {
                     var pre = element.querySelector(".hackdown-content").innerHTML.replace(/https\:\/\/s3.amazonaws.com\/hr-assets\/0\//, '/assets/');
                     // console.log("EX " + num + " ====>>> " + pre);
 
-                    tests[num].explanation = pre;
+                    tests[num].testcase_explanation = pre;
 
                 }    
             }
@@ -444,22 +444,21 @@ const get = async url => {
             // console.log(statement + inputformat + constraints + outputformat);
             
             const id = await db.problems.insert({
-                 title: resp.model.name,
-                 slug: resp.model.slug,
-                 statement: statement,
-                 inputformat: inputformat,
-                 outputformat: outputformat,
-                 constraints: constraints,
-                 template: resp.model.java8_template ? resp.model.java8_template : ""
+                 problem_title: resp.model.name,
+                 problem_slug: resp.model.slug,
+                 problem_statement: statement,
+                 problem_input: inputformat + constraints != "<p>-</p>" ? constraints : "",
+                 problem_output: outputformat,
+                 problem_template: resp.model.java8_template ? resp.model.java8_template : ""
             });
 
             // console.log(id);
 
             for (testcase of tests){
                 testcase.problem_id = id.problem_id;
-                testcase.input = testcase.input ? testcase.input : null,
-                testcase.output = testcase.output ? testcase.output : null,
-                testcase.explanation = testcase.explanation ? testcase.explanation : null;
+                testcase.testcase_input = testcase.testcase_input ? testcase.testcase_input : null,
+                testcase.testcase_output = testcase.testcase_output ? testcase.testcase_output : null,
+                testcase.testcase_explanation = testcase.testcase_explanation ? testcase.testcase_explanation : null;
 
                 db.problems.insertTestcase(testcase);
             }

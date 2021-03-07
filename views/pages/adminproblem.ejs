@@ -2,28 +2,28 @@
 
 <input type="submit" onclick="_save()" value="SAVE">
 
-<input id="slug" value="<%= problem.slug %>">
+<input id="problem_slug" value="<%= problem.problem_slug %>">
 
-<input id="title" value="<%= problem.title %>">
+<input id="problem_title" value="<%= problem.problem_title %>">
 
 <br>
 
-<textarea id="statement" rows="20" cols="160"><%= problem.statement %></textarea>
+<textarea id="problem_statement" rows="20" cols="160"><%= problem.problem_statement %></textarea>
 
 <br>
 
 <textarea id="testcases"  rows="20" cols="160"><% for(const [index,testcase] of testcases.entries()){ %>
 #in<%= index %>
-<%= testcase.input %>
+<%= testcase.testcase_input %>
 #out<%= index %>
-<%= testcase.output %>
+<%= testcase.testcase_output %>
 #ex<%= index %>
-<%= testcase.explanation %><% } %></textarea>
+<%= testcase.testcase_explanation %><% } %></textarea>
 
 <br>
 
 <textarea id="template" rows="20" cols="160">
-<%= problem.template %>
+<%= problem.problem_template %>
 </textarea>
 
 
@@ -35,7 +35,7 @@
   async function _submit() {
     const code = document.getElementById('code').value;
 
-    const response = await (await fetch('/submit/<%= problem.slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code})})).json();
+    const response = await (await fetch('/submit/<%= problem.problem_slug %>', { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({code: code})})).json();
 
     console.log(response);
     var r = "";
@@ -60,10 +60,10 @@
 
 
   async function _save(){
-      const title = document.getElementById('title').value;
-      const statement = document.getElementById('statement').value;e.method
+      const title = document.getElementById('problem_title').value;
+      const statement = document.getElementById('problem_statement').value;e.method
       const testcases = document.getElementById('testcases').value;
-      const template = document.getElementById('template').value;
+      const template = document.getElementById('problem_template').value;
 
       const tarr = testcases.split(/#(?:in|out|ex)\d+\n/);
 
@@ -74,8 +74,8 @@
 
       console.log(tobj);
 
-      // const response = await f('/admin/save/<%= problem.slug %>', 
-      //   {data: {slug: '<%= problem.slug %>', title: title, statement: statement, testcases: testcases, template: template}});
+      // const response = await f('/admin/save/<%= problem.problem_slug %>', 
+      //   {data: {slug: '<%= problem.problem_slug %>', problem_title: problem_title, problem_statement: problem_statement, testcases: testcases, problem_template: problem_template}});
 
       // console.log(response);
       // if (response.redirect) {
