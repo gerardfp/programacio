@@ -70,7 +70,7 @@ const postlogin = async (req, res) => {
             req.session.user_email = user.user_email;
             req.session.user_id = user.user_id;
 
-            if(user.admin){
+            if(user.user_admin){
                 req.session.user_admin = user.user_admin; 
                 res.redirect('/admin');
             } else {

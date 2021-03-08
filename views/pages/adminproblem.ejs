@@ -1,6 +1,6 @@
 <%- include ("../partials/header.ejs") %>
 
-<input type="submit" onclick="_save()" value="SAVE">
+<input type="submit" onclick="_save()" value="SAVE" style="position: sticky; top:0">
 
 <input id="problem_slug" value="<%= problem.problem_slug %>">
 
@@ -8,23 +8,28 @@
 
 <br>
 
-<textarea id="problem_statement" rows="20" cols="160"><%= problem.problem_statement %></textarea>
-
+<textarea id="problem_statement" rows="12" cols="160"><%= problem.problem_statement %></textarea>
+<textarea id="problem_input" rows="8" cols="160"><%= problem.problem_input %></textarea>
+<textarea id="problem_output" rows="4" cols="160"><%= problem.problem_output %></textarea>
+<textarea id="problem_template" rows="12" cols="160"><%= problem.problem_template %></textarea>
+  
 <br>
 
 <textarea id="testcases"  rows="20" cols="160"><% for(const [index,testcase] of testcases.entries()){ %>
-#in<%= index %>
+>>>>>>>>>>
 <%= testcase.testcase_input %>
-#out<%= index %>
+
+<<<<<<<<<<
 <%= testcase.testcase_output %>
-#ex<%= index %>
-<%= testcase.testcase_explanation %><% } %></textarea>
+
+??????????
+<%= testcase.testcase_explanation %>
+
+<% } %>
+</textarea>
 
 <br>
 
-<textarea id="template" rows="20" cols="160">
-<%= problem.problem_template %>
-</textarea>
 
 
 <input type="submit" onclick="_submit()" value="CHECK">
@@ -60,27 +65,31 @@
 
 
   async function _save(){
-      const title = document.getElementById('problem_title').value;
-      const statement = document.getElementById('problem_statement').value;e.method
+      const problem_title = document.getElementById('problem_title').value;
+      const problem_statement = document.getElementById('problem_statement').value;
+      const problem_input = document.getElementById('problem_input').value;
+      const problem_output = document.getElementById('problem_output').value;
       const testcases = document.getElementById('testcases').value;
-      const template = document.getElementById('problem_template').value;
+      const problem_template = document.getElementById('problem_template').value;
 
-      const tarr = testcases.split(/#(?:in|out|ex)\d+\n/);
+      const tarr = testcases.split(/(?:>>>>>>>>>>+|<<<<<<<<<<+|\?\?\?\?\?\?\?\?\?+)\n/);
+
+      console.log(tarr);
 
       const tobj = [];
       for(let i=1; i<tarr.length; i+=3){
-          tobj.push({input: tarr[i], output: tarr[i+1], explanation: tarr[i+2]});
+          tobj.push({input: tarr[i].replace(/(\s+)\n/g,'').replace(/\s+$/g,''), output: tarr[i+1].replace(/(\s+)\n/g,'').replace(/\s+$/g,''), explanation: tarr[i+2].replace(/(\s+)\n/g,'').replace(/\s+$/g,'')});
       }
 
       console.log(tobj);
 
-      // const response = await f('/admin/save/<%= problem.problem_slug %>', 
-      //   {data: {slug: '<%= problem.problem_slug %>', problem_title: problem_title, problem_statement: problem_statement, testcases: testcases, problem_template: problem_template}});
+      const response = await f('/admin/save/<%= problem.problem_slug %>', 
+        {data: {problem_title: problem_title, problem_statement: problem_statement, problem_input: problem_input, problem_output: problem_output, testcases: tobj, problem_template: problem_template}});
 
-      // console.log(response);
-      // if (response.redirect) {
-      //     window.location.replace(response.redirect);
-      // }
+      console.log(response);
+      if (response.redirect) {
+           window.location.replace(response.redirect);
+      }
   }
 
   async function f(url, data){

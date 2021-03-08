@@ -17,7 +17,7 @@ INSERT INTO users (user_id, user_email, user_password, user_admin) VALUES ('a3aa
 
 -- PROBLEMS
 DROP TABLE IF EXISTS problems CASCADE;
-CREATE TABLE problems(problem_id uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY, problem_slug text, problem_title text, problem_statement text, problem_template text, problem_input text, problem_output text);
+CREATE TABLE problems(problem_id uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY, problem_slug text UNIQUE, problem_title text, problem_statement text, problem_template text, problem_input text, problem_output text);
 
 INSERT INTO problems(problem_id, problem_slug, problem_title, problem_statement, problem_template, problem_input, problem_output) 
     VALUES('b1aa5b60-779c-4b94-a7b7-661ff93c667c', 'repeat-with-me', 'Repeat with me', 'Donada una paraula, repeteixla', null, 'Una paraula', 'La mateixa paraula');

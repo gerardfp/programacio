@@ -16,9 +16,8 @@ router.get('/problems/:problem_slug', async (req, res) => {
     const testcases = await db.problems.testcases(req.params.problem_slug);
 
 
-    if(!problem.template || problem.template === ""){
-        problem.template = `import java.io.*;
-import java.util.Scanner;
+    if(!problem.problem_template || problem.problem_template === ""){
+        problem.problem_template = `import java.util.Scanner;
         
 public class Main {        
 
@@ -45,25 +44,10 @@ router.post('/check/:problem_slug/', async (req, res) => {
 
     const testcases = await db.problems.testcases(req.params.problem_slug);
 
-    var s = { testcases: []};
-    for (testcase of testcases){
-        const result = await runjava(code, testcase.input);
-        // console.log(result);
+    const s = await runjava.check(code, testcases);
 
-        if (result.stderr){
-            console.log("YEAAA");
-            s.testcases.push({ result: 'fail', stderr: result.stderr });
-        } else {
-            const resultre = result.stdout.replace(/(\s+)\n/g,'').replace(/\s+$/g,'');
-            if(resultre === testcase.output) {
-                s.testcases.push({ result: 'ok', stdout: resultre, expected: testcase.output }); 
-            } else {
-                s.testcases.push({ result: 'fail', expected: testcase.output, stdout: resultre });
-            }
-        }
-    }
 
-    // console.log(s);
+    console.log(s);
     res.send(JSON.stringify(s));
 });
 
@@ -104,7 +88,7 @@ router.post('/submit/:problem_slug/', async (req, res) => {
 router.post('/save/:problem_slug', async (req, res) => {
     const code = req.body.code;
 
-    db.problems.insertSubmission({submission_code: code, user_id: req.session.user_id, problem_slug: req.params.problem_slug, submission_ok: ok});
+    db.problems.saveProblem({submission_code: code, user_id: req.session.user_id, problem_slug: req.params.problem_slug, submission_ok: ok});
 });
 
 module.exports = {

@@ -101,3 +101,17 @@ input {
   letter-spacing: inherit;
   padding: 0.25em 0.375em;
 }
+
+input[type=submit] {
+  background-color: #104261;
+  padding: 0.2em 1em;
+}
+
+input[type=submit]:hover {
+  background-color: #166596;
+  padding: 0.2em 1em;
+}
+
+input, textarea {
+  background-color: #1e1e1e;
+}
