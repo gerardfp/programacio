@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav> 
+<header>
+    <h1>Classes i objectes</h1>
+    <div class="abstract">
+        <p>        </p>
+        <p>Aprendràs:</p>
+        <div class="check">A declarar <strong>classes</strong></div>
+        <div class="check">A crear <strong>objectes</strong> d'aquestes classes</div>
+    </div>
+</header>
+
+<!--Analogy, Diagram, Example, Plain English, Technical-->
+<section>
+    <h2>Classes i objectes</h2>
+
+    <p>Un objecte és una agrupació de variables (i mètodes, que veurem més endavant). S'utilitzen per a organitzar el codi, agrupant aquelles
+        variables i mètodes que estan relacionades entre sí.</p>
+
+    <p>Si seguim l'analogia de les capses que vam utilitzar per a les variables i arrays, podríem veure un objecte com una capsa
+        que a dintre conté altres capses.
+    </p>
+    
+
+    <p>Per exemple, si estem fent un programa per a gestionar un institut, segurament necessitem guardar dades dels alumnes.
+        Per exemple, podríem utilitzar aquestes tres variables per a guardar les dades d'un alumne:
+    </p>
+
+    <div class="sc" java>
+        String nom = "Joan";
+        int edat = 25;
+        float nota = 7.5f;
+    </div>
+
+    <img style="width: 340px" src="img/c1.png">
+
+    <p>Un objecte ens permetria tenir aquestes tres variables agrupades.</p>
+
+    <h3>Crear objectes</h3>
+
+    <p>Per a crear objectes, primer s'ha de definir una classe especificant quines variables tindran aquests objectes.</p>
+
+    <p>Definim la classe <code class="w">Alumne</code> i especifiquem les tres variables que tindran els objectes d'aquesta classe:</p>
+    <div class="sc" java>
+        class Alumne {
+            String nom;
+            int edat;
+            float nota;
+        }
+    </div>
+
+    <p>Un cop definida la classe, es poden crear objectes a partir d'ella d'aquesta manera:</p>
+
+    <div class="sc" java>
+        Alumne unAlumne = new Alumne();
+    </div>
+
+    <p>A partir de la definició de la classe <code class="w">Alumne</code> hem creat un objecte i l'hem assignat a la variable <code class="w">unAlumne</code>.
+        L'objecte al que fa referència la variable <code class="w">unAlumne</code> conté totes les variables que s'han definit a classe <code class="w">Alumne</code>. 
+    Se sol dir que la definició d'una classe és com el plànol amb el qual s'han de construir els objectes d'aquesta classe.
+    </p>
+
+    <img style="width: 600px"  src="img/c2.png">
+
+    <p>Podem utilitzar la definició de la classe <code class="w">Alumne</code> per a crear nous objectes d'aquesta classe. Per exemple, podem crear 
+    un nou objecte per a guardar les dades d'un altre alumne:</p>
+
+    <div class="sc" java>
+        Alumne unAltreAlumne = new Alumne();
+    </div>
+
+    <img style="width: 600px" src="img/c4.png">
+
+
+    <p>Per a accedir a les variables que hi ha a dintre d'un objecte utilitzarem l'operador punt <code class="w">.</code>:</p>
+
+    <div class="sc" java>
+        unAlumne.nom = "Joan";
+        unAlumne.edat = 25;
+        unAlumne.nota = 7.5f;
+    </div>
+
+    <img style="width: 300px"  src="img/c3.png">
+
+    <p>Així doncs, la sintaxi per a definir una classe és:</p>
+
+    <div class="sc" java>
+        class NomClasse {
+            tipus nomCamp;
+            tipus nomCamp2;
+
+            ...
+        }
+    </div>
+
+    <p>Per a crear objectes d'una classe:</p>
+
+    <div class="sc" java>
+        NomClasse nomObjecte = new NomClasse();
+    </div>
+
+    <p>Per a accedir als camps d'un objecte utilitzarem:</p>
+
+    <div class="sc" java>
+        nomObjecte.nomCamp
+    </div>
+
+    <h3>Arrays d'objectes</h3>
+
+    <p>Si destijem guardar dades de diversos alumnes, posem que en són tres, ens serà convinent utilitzar un array d'objectes de classe <code class="w">Alumne</code>:</p>
+
+    <div class="sc" java>
+        Alumne[] alumnes = new Alumne[3];
+
+        alumnes[0] = new Alumne();
+        alumnes[0].nom = "Joan";
+        alumnes[0].edat = 25;
+        alumnes[0].nota = 7.5f;
+
+        alumnes[1] = new Alumne();
+        alumnes[1].nom = "Anna";
+        alumnes[1].edat = 30;
+        alumnes[1].nota = 8.75f;
+
+        alumnes[2] = new Alumne();
+        alumnes[2].nom = "Marc";
+        alumnes[2].edat = 18;
+        alumnes[2].nota = 6.2f;
+    </div>
+
+    <img src="img/obj1.png">
+    <!--
+    // TODOOO
+    <p>
+    Sharing references
+
+    More than one variable can refer to the same object.
+    </p>
+
+    <p>
+        It is important to understand that two variables refer to the same data in memory rather than two independent copies. Since our class is mutable, we can modify the object using both references.
+    </p>
+    <p>Les variables de les clases s'anomenen camps</p>
+    <p>
+        Nullability
+
+As for any reference types, a variable of a class-type can be null which means it is not initialized yet.
+
+Patient patient = null;
+
+This is a common feature in Java available for classes since they are reference types.
+    </p>
+    <div class="sc" java>
+        class Patient {
+
+            String name;
+            int age;
+            float height;
+        }
+    </div>
+
+    -->
+</section>
+
+
+
+<section>
+
+    <div class="quizz">
+        <div class="question" single>
+            <div class="statement">
+                <p>Per a definir una classe amb un camp enter, quina és la forma correcta de fer-ho?</p>
+            </div>
+            <div class="o">
+                <div class="sc" java>
+                    new LaMevaClasse() { }
+                </div>
+            </div>
+            <div class="o">
+                <div class="sc" java>
+                    class LaMevaClasse(){
+                        int elMeuCamp;
+                    }
+                </div>
+            </div>
+            <div class="o">
+                <div class="sc" java>
+                    LaMevaClasse {
+                        int elMeuCamp;
+                    }
+                </div>
+            </div>
+            <div class="o" correct>
+                <div class="sc" java>
+                    class LaMevaClasse {
+                        int elMeuCamp;
+                    }
+                </div>
+            </div>
+            <div class="o">
+                <div class="sc" java>
+                    LaMevaClasse() {
+                        int elMeuCamp;
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="question" multi>
+            <div class="statement">
+                <p>Donada la següent classe:</p>
+                <div class="sc" java>
+                    class Point3D {
+                        double x, y, z;
+                    }
+                </div>
+                <p>Diges les afirmacions correctes sobre ella:</p>
+            </div>
+            <div class="o" correct>La classe té tres camps del mateix tipus</div>
+            <div class="o" correct>La sentència <code class="w">Ponint3D p = new Ponint3D();</code> crea un objecte d'aquesta classe</div>
+            <div class="o">La declaració de la classe és incorrecta</div>
+            <div class="o">Els valors dels camps són sempre els mateixos per a tots els objectes de la classe.</div>
+        </div>
+        <div class="question" single>
+            <div class="statement">
+                <p>Quina és la paraula-clau per a crear objectes d'una classe?</p>
+            </div>
+            <div class="o">throw</div>
+            <div class="o">type</div>
+            <div class="o" correct>new</div>
+            <div class="o">create</div>
+        </div>
+        <div class="question" single>
+            <div class="statement">
+                <p>Suposa qe tens aquesta classe al teu programa:</p>
+                <div class="sc" java>
+                    class Hotel {
+                        String name;
+                        String address;
+                        int rating;
+                    }
+                </div>
+                <p>Hi han diversos objectes d'aquesta classe:</p>
+                <div class="sc" java>
+                    Hotel h1 = new Hotel();
+                    Hotel h2 = new Hotel();
+                    Hotel h3 = h2;
+
+                    h2.rating = 9;
+                    h3.rating = 8;
+                    h1.rating = 7;
+                </div>
+                <p>Quin és el valor de <code class="w">h2.rating</code> després d'executar el codi anterior?</p>
+            </div>
+            <div class="o">0</div>
+            <div class="o">9</div>
+            <div class="o">7</div>
+            <div class="o" correct>8</div>
+
+        </div>
+    </div>
+
+    <div class="challenge">
+        <a href="https://www.hackerrank.com/contests/dam-m3/challenges/definir-la-classe-comptecorrent">Definir la classe CompteCorrent</a>
+        
+    </div>
+</section>

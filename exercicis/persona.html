@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exercici i Qüestionari RA4: Classe Persona | Exercicis Java 26</title>
+    <script src="../sofi/js/script.js"></script>
+    <script src='../sofi/mermaid/mermaid.js'></script>
+    <link rel="stylesheet" href="../sofi/css/estil.css">
+    <script>
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({ securityLevel: 'loose', theme: 'dark' });
+        }
+    </script>
+</head>
+<body>
+<nav></nav>
+<header>
+    <p><a href="index.html">← Tornar a l'índex d'exercicis</a></p>
+    <h1>Exercici i Qüestionari RA4: Classe Persona</h1>
+</header>
+<section>
+
+    <div class="info">
+        <h3>Autoavaluació interactiva de POO</h3>
+        <p>Comprova els teus coneixements sobre la definició de classes, la creació d'objectes amb <code class="w">new</code> i l'accés als camps i mètodes.</p>
+    </div>
+
+    <h2>1. Qüestionari sobre Classes i Objectes</h2>
+    <div class="quizz">
+<div class="question" single="">
+<div class="statement">
+<p>Per a definir una classe amb un camp enter, quina és la forma correcta de fer-ho?</p>
+</div>
+<div class="o">
+<div class="sc" java="">
+                    new LaMevaClasse() { }
+                </div>
+</div>
+<div class="o">
+<div class="sc" java="">
+                    class LaMevaClasse(){
+                        int elMeuCamp;
+                    }
+                </div>
+</div>
+<div class="o">
+<div class="sc" java="">
+                    LaMevaClasse {
+                        int elMeuCamp;
+                    }
+                </div>
+</div>
+<div class="o" correct="">
+<div class="sc" java="">
+                    class LaMevaClasse {
+                        int elMeuCamp;
+                    }
+                </div>
+</div>
+<div class="o">
+<div class="sc" java="">
+                    LaMevaClasse() {
+                        int elMeuCamp;
+                    }
+                </div>
+</div>
+</div>
+<div class="question" multi="">
+<div class="statement">
+<p>Donada la següent classe:</p>
+<div class="sc" java="">
+                    class Point3D {
+                        double x, y, z;
+                    }
+                </div>
+<p>Diges les afirmacions correctes sobre ella:</p>
+</div>
+<div class="o" correct="">La classe té tres camps del mateix tipus</div>
+<div class="o" correct="">La sentència <code class="w">Ponint3D p = new Ponint3D();</code> crea un objecte d'aquesta classe</div>
+<div class="o">La declaració de la classe és incorrecta</div>
+<div class="o">Els valors dels camps són sempre els mateixos per a tots els objectes de la classe.</div>
+</div>
+<div class="question" single="">
+<div class="statement">
+<p>Quina és la paraula-clau per a crear objectes d'una classe?</p>
+</div>
+<div class="o">throw</div>
+<div class="o">type</div>
+<div class="o" correct="">new</div>
+<div class="o">create</div>
+</div>
+<div class="question" single="">
+<div class="statement">
+<p>Suposa qe tens aquesta classe al teu programa:</p>
+<div class="sc" java="">
+                    class Hotel {
+                        String name;
+                        String address;
+                        int rating;
+                    }
+                </div>
+<p>Hi han diversos objectes d'aquesta classe:</p>
+<div class="sc" java="">
+                    Hotel h1 = new Hotel();
+                    Hotel h2 = new Hotel();
+                    Hotel h3 = h2;
+
+                    h2.rating = 9;
+                    h3.rating = 8;
+                    h1.rating = 7;
+                </div>
+<p>Quin és el valor de <code class="w">h2.rating</code> després d'executar el codi anterior?</p>
+</div>
+<div class="o">0</div>
+<div class="o">9</div>
+<div class="o">7</div>
+<div class="o" correct="">8</div>
+</div>
+</div>
+
+    <h2>2. Exercici Pràctic: Modelat de la classe Persona</h2>
+    <div class="work">
+        <h3>Modelat d'una classe: Persona</h3>
+        <p>Crea una classe anomenada <code class="w">Persona</code> per a representar persones en un sistema informàtic.</p>
+        <ul>
+            <li><p>Afegeix a la classe tres camps de tipus <span class="sc" java>String</span>: <code class="w">nombre</code>, <code class="w">apellido1</code> i <code class="w">apellido2</code>.</p></li>
+            <li><p>Afegeix un constructor per inicialitzar els tres camps a partir de paràmetres.</p></li>
+            <li><p>Afegeix mètodes <em>getter</em> i <em>setter</em> per a cadascun dels camps per complir el principi d'encapsulació.</p></li>
+            <li><p>Afegeix un mètode que retorni un <span class="sc" java>String</span> amb el nom complet amb el format: <code class="w">apellido1 apellido2, nombre</code>.</p></li>
+            <li><p>En el programa principal, crea diverses instàncies de <code class="w">Persona</code>, modifica els seus valors i mostra el seu nom complet per consola.</p></li>
+        </ul>
+    </div>
+
+</section>
+</body>
+</html>

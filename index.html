@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Curs de Java 26 | Currículum Oficial</title>
+    <script src="sofi/js/script.js"></script>
+    <link rel="stylesheet" href="sofi/css/estil.css">
+    <style>
+        .hero-banner {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-lg);
+            padding: 2.5em 2em;
+            margin: 1.5em auto 2.5em auto;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+        .hero-banner h1 {
+            margin-top: 0;
+            color: #ffffff;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+        }
+        .version-badge {
+            display: inline-block;
+            background: var(--accent-green);
+            color: #064e3b;
+            font-weight: 700;
+            padding: 0.25em 0.8em;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            margin-bottom: 1em;
+            letter-spacing: 0.05em;
+        }
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5em;
+            margin: 2em 0;
+        }
+        .ra-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            padding: 1.5em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-md);
+        }
+        .ra-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        .ra-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.8em;
+        }
+        .ra-pill {
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 0.2em 0.7em;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .pill-ra1 { background: #0284c7; color: white; }
+        .pill-ra2 { background: #059669; color: white; }
+        .pill-ra3 { background: #d97706; color: white; }
+        .pill-ra4 { background: #7c3aed; color: white; }
+        .pill-ra5 { background: #db2777; color: white; }
+        .pill-ra6 { background: #0891b2; color: white; }
+        .pill-ra7 { background: #4f46e5; color: white; }
+
+        .ra-card h2 {
+            margin: 0.2em 0 0.5em 0;
+            font-size: 1.3rem;
+            border: none;
+            padding: 0;
+            color: var(--text-bright);
+        }
+        .ra-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5em;
+            line-height: 1.6;
+        }
+        .card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 1em;
+        }
+        .card-link {
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+        .card-link:hover {
+            text-decoration: underline;
+        }
+        .ex-link-pill {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            background: #1e293b;
+            padding: 0.3em 0.7em;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-default);
+            transition: all 0.15s ease;
+        }
+        .ex-link-pill:hover {
+            color: #ffffff;
+            border-color: var(--accent-green);
+            background: #064e3b;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<nav></nav>
+
+<section>
+    <div class="hero-banner">
+        <span class="version-badge">JAVA 26 COMPATIBLE</span>
+        <h1>Curs Complet de Programació en Java</h1>
+        <p>Alineat al 100% amb els Resultats d'Aprenentatge del currículum oficial (RA1 a RA7). Dissenyat per a aprendre de forma pràctica, moderna i sense barreres innecessàries des del primer dia.</p>
+        <div style="margin-top: 1.5em; display: flex; gap: 1em; justify-content: center; flex-wrap: wrap;">
+            <a href="ra1/index.html" class="exercise-btn">Començar pel Tema 1</a>
+            <a href="exercicis/index.html" class="exercise-btn" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">Portal d'Exercicis</a>
+        </div>
+    </div>
+
+    <h2>Unitats Didàctiques del Currículum</h2>
+    <div class="curriculum-grid">
+        <div class="ra-card">
+            <div>
+                <div class="ra-header">
+                    <span class="ra-pill pill-ra1">RA1</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Tema 1</span>
+                </div>
+                <h2>Estructura i Elements Bàsics</h2>
+                <p>Classes implícites en Java 26, void main(), IDE IntelliJ, variables, tipus primitius, inferència amb var, constants, operadors, càsting i expressions.</p>
+            </div>
+            <div class="card-actions">
+                <a href="ra1/index.html" class="card-link">Estudiar Unitat →</a>
+                <a href="exercicis/ra1-basics.html" class="ex-link-pill">Exercicis</a>
+            </div>
+        </div>
+
+        <div class="ra-card">
+            <div>
+                <div class="ra-header">
+                    <span class="ra-pill pill-ra2">RA2</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Tema 2</span>
+                </div>
+                <h2>Ús d'Objectes Predefinits</h2>
+                <p>Introducció a objectes, classes de la biblioteca estàndard (String, Scanner, Math, Random), mètodes d'instància i estàtics, paràmetres i importació.</p>
+            </div>
+            <div class="card-actions">
+                <a href="ra2/index.html" class="card-link">Estudiar Unitat →</a>
+                <a href="exercicis/ra2-objectes.html" class="ex-link-pill">Exercicis</a>
+            </div>
+        </div>
+
+        <div class="ra-card">
+            <div>
+                <div class="ra-header">
+                    <span class="ra-pill pill-ra3">RA3</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Tema 3</span>
+                </div>
+                <h2>Estructures de Control i Errors</h2>
+                <p>Selecció amb if-else i switch modern amb expressions ->, bucles while, do-while, for, salts break/continue, control d'excepcions i depuració.</p>
+            </div>
+            <div class="card-actions">
+                <a href="ra3/index.html" class="card-link">Estudiar Unitat →</a>
+                <a href="exercicis/ra3-control.html" class="ex-link-pill">Exercicis</a>
+            </div>
+        </div>
+
+        <div class="ra-card">
+            <div>
+                <div class="ra-header">
+                    <span class="ra-pill pill-ra4">RA4</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Tema 4</span>
+                </div>
+                <h2>Disseny de Classes i POO</h2>
+                <p>Definició de classes pròpies, atributs, mètodes, constructors i this, encapsulació i visibilitat (private/public), mètodes estàtics i Records moderns.</p>
+            </div>
+            <div class="card-actions">
+                <a href="ra4/index.html" class="card-link">Estudiar Unitat →</a>
+                <a href="exercicis/persona.html" class="ex-link-pill">Exercici Persona</a>
+            </div>
+        </div>
+
+        <div class="ra-card">
+            <div>
+                <div class="ra-header">
+                    <span class="ra-pill pill-ra5">RA5</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Tema 5</span>
+                </div>
+                <h2>Entrada/Sortida i Fitxers</h2>
+                <p>E/S avançada per consola (IO, printf, text blocks), lectura i escriptura de fitxers de text amb java.nio.file (Path, Files) i nocions d'interfícies gràfiques.</p>
+            </div>
+            <div class="card-actions">
+                <a href="ra5/index.html" class="card-link">Estudiar Unitat →</a>
+                <a href="exercicis/ra5-fitxers.html" class="ex-link-pill">Exercicis</a>
+            </div>
+        </div>
+
+        <div class="ra-card">
+            <div>
+                <div class="ra-header">
+                    <span class="ra-pill pill-ra6">RA6</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Tema 6</span>
+                </div>
+                <h2>Tipus Avançats i Col·leccions</h2>
+                <p>Arrays i matrius 2D, Marc de Col·leccions (List, ArrayList, Set, Map), col·leccions seqüenciades, genèrics, expressions regulars (regex) i Streams.</p>
+            </div>
+            <div class="card-actions">
+                <a href="ra6/index.html" class="card-link">Estudiar Unitat →</a>
+                <a href="exercicis/ra6-arrays-matrius.html" class="ex-link-pill">Exercicis</a>
+            </div>
+        </div>
+
+        <div class="ra-card">
+            <div>
+                <div class="ra-header">
+                    <span class="ra-pill pill-ra7">RA7</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">Tema 7</span>
+                </div>
+                <h2>POO Avançada i Jerarquies</h2>
+                <p>Herència amb extends i super, sobreescriptura (@Override), polimorfisme, classes abstractes, classes segellades (sealed), interfícies i composició.</p>
+            </div>
+            <div class="card-actions">
+                <a href="ra7/index.html" class="card-link">Estudiar Unitat →</a>
+                <a href="exercicis/ra7-herencia.html" class="ex-link-pill">Exercicis</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="challenge" style="margin-top: 3em;">
+        <h3>Reptes i Avaluació Automàtica</h3>
+        <p>Tots els exercicis estan preparats per ser practicats en el teu IDE local o pujats a la plataforma d'avaluació en línia de HackerRank:</p>
+        <p><a href="https://hackerrank.com/dam-m3" target="_blank">Accedir al contest de HackerRank DAM-M3</a></p>
+    </div>
+</section>
+</body>
+</html>

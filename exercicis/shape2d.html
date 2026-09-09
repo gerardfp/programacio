@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exercici: Shape2D (Interfícies i Gràfics) | Exercicis Java 26</title>
+    <script src="../sofi/js/script.js"></script>
+    <script src='../sofi/mermaid/mermaid.js'></script>
+    <link rel="stylesheet" href="../sofi/css/estil.css">
+    <script>
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({ securityLevel: 'loose', theme: 'dark' });
+        }
+    </script>
+</head>
+<body>
+<nav></nav>
+<header>
+    <p><a href="index.html">← Tornar a l'índex d'exercicis</a></p>
+    <h1>Exercici: Shape2D (Interfícies i Gràfics)</h1>
+</header>
+<section>
+<div class="work">
+        <h2>Classes Abstractes i Interfícies: Shape2D</h2>
+        <p>Implementa un sistema per a dibuixar figures geomètriques de colors mitjançant polimorfisme.</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
+            classDiagram
+            class Figure {
+                +int x
+                +int y 
+                +Color color
+                +Figure(int x, int y, Color color)
+                +abstract getShape(): Shape
+            }
+        </div>
+
+        <p>Fes subclasses per a rectangles, cercles i triangles que retornin la seva instància de <code class="w">java.awt.Shape</code>.</p>
+    </div>
+</section>
+</body>
+</html>

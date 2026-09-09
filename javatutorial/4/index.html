@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>Conversió de tipus</h1>
+
+    <div class="abstract">
+        <p>En aquesta activitat aprendràs les distintes formes de convertir un valor 
+            d'un tipus a un altre tipus.
+        </p>
+        <p>Aprendràs:</p>
+        <div class="check">Casting (implícit i explícit).</div>
+        <div class="check">Mètodes de conversió.</div>
+    </div>
+</header>
+
+<section>
+    <h2>Casting</h2>
+    <p>La conversió entre tipus primitius es realitza mitjançant el <em>casting</em>. 
+    Java proporciona dos tipus de casting: implicit i explícit. L'implicit es realitza 
+    automàticament, mentre que l'explicit l'hem d'escriure nosaltres.</p>
+
+    <h3>Casting implicit</h3>
+
+    <p>El compilador realitza automàticament el casting implícit quan el tipus al que s'ha de convertir
+        una dada és més ampli que el tipus original.</p>
+    <p>És a dir, Java farà el casting implícit automàticament quan convertim:</p>
+
+    <ul>
+        <li><p>de <code class="w">char</code> a <code class="w">int</code> o de <code class="w">char</code> a <code class="w">float</code></p></li>
+        <li><p>de <code class="w">int</code> a <code class="w">float</code></p></li>
+    </ul>
+
+    <img src="img/casting.png">
+
+    <p>Per exemple: </p>
+
+    <div class="sc" java>
+        float foo = 'a';   // convertim el char 'a' a float. El valor de foo sera 97.0f
+
+        int bar = 'a';     // convertim el char 'a' a int. EL valor de bar sera 97
+
+        float baz = 97;    // convertim el int 97 a float. El valor de baz sera 97.0f
+    </div>
+
+    <p>Si tractem de fer un casting implícit a l'inrevés, el compilador ens donarà un error:</p>
+    <div class="sc" java>
+        char bar = 65633;   // error, casting implicit de int a char no permes
+        
+        char baz = 97f;   // error, casting implicit de float a char no permes
+
+        int qux = 97f;    // error, casting implicit de float a int no permes
+    </div>
+
+
+    <div class="warn">
+        <p>El casting amb els tipus <code class="w">boolean</code> i <code class="w">String</code> no es pot realitzar.</p>
+    </div>
+
+    <h3>Casting explícit</h3>
+    <p>Hem vist que el casting implícit no es pot realitzar quan volem convertir a un tipus més estret (per exemple, 
+        convertir de <code class="w">float</code> a <code class="w">int</code>, ja que es perden els decimals). Però a voltes necessitem
+        fer-ho, tot sabent que perdrem precisió. En aquest cas hem d'explicitar el casting.
+    </p>
+
+    <p>Per a realitzar un casting explícit, s'ha d'escriure el <strong>tipus al que es vol convertir</strong> entre parèntesi, just
+        abans del <strong>valor que es vol convertir</strong>.
+    </p>
+
+    <div class="sc" java>
+        (tipus) valor
+    </div>
+
+    <p>Els següents exemples il·lustren l'ús del casting explícit:</p>
+
+    <div class="sc" java>
+        // de int a char
+        char bar = (char) 65633;   // bar es 97 (el valor màxim de char es 65535)
+
+        // de float a char
+        char baz = (char) 97.53f;  // baz es 97, es perden els decimals
+
+        // de float a int
+        int quux = (int) 14.67565f;  // quux es 14, es perden els decimals
+    </div>
+
+    <div class="sc" java>
+        // de int a char
+        int fooa = 65633;
+        char bar = (char) fooa;   // bar es 97, el valor màxim de char es 65535
+
+        // de float a char
+        float foob = 97.53f;
+        char baz = (char) foob;  // baz es 97, es perden els decimals
+
+        // de float a int
+        float fooc = 14.67565f;
+        int quux = (int) fooc;  // quux es 14, es perden els decimals
+    </div>
+
+    <div class="sc" java>
+        float foo = 5 / 2;          // foo es 2.0f
+
+        float bar = (float) 5 / 2;  // bar es 2.5f
+    </div>
+
+    <div class="quizz">
+        <div class="question" multi>
+            <div class="statement">
+                <p>Selecciona les línies on es requereix el casting explícit.</p>
+
+                <div class="sc" java data-line="1,2,3,4,5,6">
+                    float a = 10;
+                    int b = a;
+                    char d = a;
+                    float c = b;
+                    int e = d;
+                    char f = c;
+                </div>
+            </div>
+            <div class="o">1</div>
+            <div class="o" correct>2</div>
+            <div class="o" correct>3</div>
+            <div class="o">4</div>
+            <div class="o">5</div>
+            <div class="o" correct>6</div>
+        </div>
+    </div>
+
+    <div class="challenge">
+        <a href="https://www.hackerrank.com/contests/dam-m3/challenges/arrodonir-la-nota">Arrodonir la nota</a>
+        <br>
+        <a href="https://www.hackerrank.com/contests/dam-m3/challenges/unicode-points">Unicode points</a>
+    </div>
+</section>
+
+<section>
+    <h2>Conversió textual</h2>
+
+    <p>A més a més de les conversions amb casting, Java incorpora una sèrie de mètodes per a fer altres conversions.</p>
+
+    <h3>Concatenació</h3>
+    <p>Es pot convertir qualsevol valor en un <code class="w">String</code> només concatenant-lo amb un String buit <code class="w">""</code>.</p>
+    <div class="sc" java>
+        String foo = "" + 'a';    // foo es "a"
+        String bar = "" + 865;    // bar es "865"
+        String baz = "" + 23.78f; // baz es "23.78"
+        String quux = "" + true;  // quux es "true"
+    </div>
+
+    <h3>String.valueOf()</h3>
+    <p>De forma equivalent a la concatenació, es pot utilitzar el mètode <code class="w">String.valueOf()</code> per a convertir a <code class="w">String</code>.</p>
+
+    <div class="sc" java>
+        String foo = String.valueOf('a');    // foo es "a"
+        String bar = String.valueOf(865);    // bar es "865"
+        String baz = String.valueOf(23.78f); // baz es "23.78"
+        String quux = String.valueOf(true);  // quux es "true"
+    </div>
+
+    <h3>charAt()</h3>
+    <p>Lògicament, no podem convertir un <code class="w">String</code> en un <code class="w">char</code>, ja que l'String pot tenir varis caracters.
+    Però podem usar el mètode <code class="w">charAt()</code> per a obtenir un caracter que estigui en una determinada posició.</p>
+    <div class="sc" java>
+        char foo = "java8".charAt(0);  // foo es 'j' 
+        char baz = "java8".charAt(4);  // baz es '8' 
+    </div>
+
+    <p>Cal tenir en compte que les posicions comencen per <code class="w">0</code>.</p>
+
+    <h3>Character.getNumericValue()</h3>
+    <p>Al punt anterior hem vist que si fem el casting implícit per a convertir un <code class="w">char</code> en un <code class="w">int</code>, 
+        obtenim el valor Unicode del caracter.</p>
+    <p>Si volem obtenir el valor que representa el caracter es pot fer amb el mètode <code class="w">Character.getNumericValue()</code>.</p>
+    <div class="sc" java>
+        char foo = '9';
+
+        int bar = foo; // bar es 57, amb el casting obtenim el valor unicode
+        
+        int baz = Character.getNumericValue(foo); // baz es 9, obtenim el valor representat pel caracter
+    </div>
+
+    <h3>parseInt() i parseFloat()</h3>
+    <p>Per a obtenir el valor numèric representat per un <code class="w">String</code> podem utilitzar <code class="w">parseInt()</code> o <code class="w">parseFloat()</code>.</p>
+    <div class="sc" java>
+        String foo = "213";
+
+        int bar = Integer.parseInt(foo);  // bar es 213
+    </div>
+    <div class="sc" java>
+        String foo = "23.78";
+
+        float bar = Float.parseFloat(foo);  // bar es 23.78f
+    </div>
+
+    <div class="challenge">
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/palindromo-de-5-letras">Palíndromo de 5 letras</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l2-8-notacio-algebraica-als-escacs">Notació algebraica als escacs</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l2-2-prova-mecanografica">Prova mecanogràfica</a>
+        </p>
+    </div>
+</section>

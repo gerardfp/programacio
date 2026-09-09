@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>Variables i Scanner</h1>
+
+    <div class="abstract">
+        <p>En aquesta activitat aprendràs a fer programes interactius, que demanen 
+            dades i després les utilitzen.
+        </p>
+        <p>Aprendràs:</p>
+        <div class="check">Què són les variables i com utilitzar-les</div>
+        <div class="check">Com obtenir dades de l'entrada estàndard i guardar-les en variables</div>
+    </div>
+</header>
+
+<section>
+    <h2>Tipus i variables</h2>
+    <h3>Declaració i inicialització</h3>
+
+    <p>Una <strong>variable</strong> és un espai reservat a la memòria per a
+    emmagatzemar valors d'un tipus particular: un string, un número, o altres.
+    Cada variable té un <strong>nom</strong> (o <strong>identificador</strong>)
+    per a distingir-la d'altres. Abans d'utilitzar una variable, l'has de declarar.
+    </p>
+
+    <p>La forma general de declarar una variable és així:</p>
+
+    <div class="sc" java>
+        TipusDada nomVariable = inicialitzacio;
+    </div>
+
+    <p>La part esquerra d'aquesta sentència descriu la variable, i la part dreta
+        descriu el valor que se li ha assignat.
+    </p>
+    <ul>
+        <li>El <strong>tipus</strong> de la variable determina quines possibles
+        operacions es poden realitzar sobre la variable i quins valors es poden
+        guardar en ella. Aquí hem utilitzat un tipus de dada que no existeix 
+        (<code class="w">TipusDada</code>) per a demostrar la forma general de declaració.</li>
+        <li>El <strong>nom</strong> (o <strong>identificador</strong>) distingeix
+        la variable de les altres. El nom d'una variable no pot començar amb un dígit;
+        normalment comença amb una lletra. Sempre s'ha de tractar de escollir noms
+        amb significat i que siguin legibles per a fer el codi més fàcil d'entendre.
+        </li>
+        <li>L'<strong>operador d'assignació</strong> denotat amb <code class="w">=</code> s'utilitza
+        per a assignar un valor o un resultat d'una expressió a una variable.</li>
+        <li>La <strong>inicialització</strong> és un valor que se li assigna a una
+        variable.</li>
+    </ul>
+    <p>D'acord amb això, podem declarar una variable de tipus <code class="w">String</code> i 
+    assignar-li la paraula <span class="string">java</span>:</p>
+
+    <div class="sc" java>
+        String llenguatge = "java";
+    </div>
+    <img src="img/memoria1.png">
+
+    <p>També podem declarar una variable de tipus <code class="w">int</code> i guardar en ella un 
+    número enter:</p>
+
+    <div class="sc" java>
+        int nombreDePomes = 5;
+    </div>
+    <img src="img/memoria2.png">
+
+
+    <div class="warn">
+        <p>Lés majúscules i minúscules importen! No és el mateix <code class="w">llenguatge</code>
+        que <code class="w">Llenguatge</code>.</p>
+    </div>
+
+    <p>Les variables no solament poden emmagatzemar strings i enters, sinò també 
+        caracters, booleans, decimals, i altres tipus que veurem més endavant.
+    </p>
+
+    <div class="info">
+        <p>Una forma habitual d’entendre les variables és imaginar una variable com una <strong>capsa</strong> 
+            on s’hi emmagatzema una dada o valor.</p>
+        <img src="img/variable1.png">
+        <hr>
+        
+        <p>Així, hi ha capses de diferents colors, per a emmagatzemar diferents
+            <strong>tipus de dades</strong>.
+        <br>Per exemple, capses blaves per a <code class="w">String</code> i capses verdes per a <code class="w">int</code>:</p>
+        <img src="img/variable2.png">
+        <hr>
+        
+        <p>A les capses se'ls hi ha de posar un <strong>identificador</strong> per
+        a distingir-les. L'identificador ha de descriure la dada que s'hi guardarà.</p>
+        <img src="img/variable3.png">
+        <hr>
+        
+        <p>Per exemple, si es volen guardar el nom i l'edat d'una persona, es poden
+            tenir aquestes capses:
+        </p>
+        <img src="img/variable4.png">
+        <hr>
+        
+        <p>En cadascuna d'elles s'emmagatzema el valor corresponent:</p>
+        <img src="img/variable5.png">
+        <div class="sc" java>
+            String nom = "Joan";
+            int edat = 24;
+        </div>
+        <hr>
+
+        <p>És un <strong>error</strong> tractar de guardar un tipus de dada en el tipus
+        de capsa inadequat:</p>
+        <img src="img/variable6.png">
+        <div class="sc" java>
+            int edat = "Joan";  // error!, la variable és int i el valor string
+        </div>
+        <hr>
+
+        <p>Per una altra banda, és vàlid posar els <strong>identificadors</strong> que 
+            desitjem a les capses, però s'entendrà millor si posem un nom que descrigui
+            la dada que s'hi ha de guardar:
+        </p>
+        <img src="img/variable7.png">
+        <div class="sc" java>
+            int nom = 24; // vàlid! però no té sentit ¿?¿?
+        </div>
+        
+        </p>
+    </div>
+
+    <div class="challenge">
+        <p>Resol aquest problema:
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/declaracio-invalida-de-variables">Declaració invàlida de variables</a>
+        </p>
+    </div>
+
+    <h3>Accedir al valor d'una variable</h3>
+
+    <p>Un cop una variable ha estat declarada, el seu valor pot ser accedit i 
+        modificat utilitzant el seu nom (identificador). En aquest exemple, declarem
+        una variable i després l'imprimim:
+    </p>
+
+    <div class="sc" java>
+        String diaDeLaSetmana = "Dilluns";
+        System.out.println(diaDeLaSetmana); // Dilluns
+    </div>
+
+    <p>També es possible assignar el valor d'una variable a una altra variable. A la
+        línia <span class="ln">2</span> d'aquest codi estem assignant a <code class="w">avui</code> el valor de <code class="w">diaDelMes</code>:
+    </p>
+    <div class="sc" java data-line="2">
+        int diaDelMes = 25;
+        int avui = diaDelMes;
+        System.out.println(avui); // 25
+        System.out.println(diaDelMes); // 25
+    </div>
+    <img src="img/variable8.png">
+
+    <div class="observe">
+        <p>És important notar que no es perd el valor d'una variable quan l'assignem a una altra variable.</p>
+    </div>
+
+    <p>Una característica important de les variables és que el seu valor pot canviar.
+        No s'ha de tornar a declarar la variable per a canviar-li el valor; únicament
+        se li ha d'assignar el nou valor utilitzant l'operador <code class="w">=</code>.
+    </p>
+
+    <p>Anem a declarar una variable anomenada <code class="w">diaDeLaSetmana</code> i imprimirem
+    el seu valor abans i després de canviar-li'l:</p>
+    
+    <div class="sc" java>
+        String diaDeLaSetmana = "Dilluns";
+        System.out.println(diaDeLaSetmana); // Dilluns
+
+        diaDeLaSetmana = "Dimarts";
+        System.out.println(diaDeLaSetmana); // Dimarts
+    </div>
+    
+
+    <p>Hi ha una restricció en les variables: només pots assignar un valor del mateix
+        tipus que el tipus inicial de la variable. Així, el següent codi és incorrecte</p>
+    <div class="sc" java>
+        int dia = 10;    // ok
+        dia = 11;        // ok
+        dia = "Dilluns"; // error! El tipus inicial era int
+    </div>
+
+    <div class="warn">
+        <p>Recorda: una variable només pot tenir <strong>un únic valor a la vegada</strong>. 
+            És a dir, quan guardem un valor en una variable, el valor que tenia abans es sobreescriu:
+        </p>
+    
+        <div class="sc" java>
+            int edat = 24;
+    
+            edat = 25;
+        </div>
+
+        <img src="img/variable9.png">
+
+    </div>
+    <div class="challenge">
+        <p>Exercicis:
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/assignacions">Assignacions</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/completa-la-declaracio">Completa la declaració</a>            
+        </p>
+    </div>
+
+    <h3>Formes alternatives de declaració</h3>
+    <p>Hi han vàries formes alternatives de declarar variables que són menys 
+        utilitzades en la pràctica. Aquí hi han alguns exemples:
+    </p>
+    <ul>
+        <li>
+            <p>Declarar vàries variables <strong>del mateix tipus</strong>
+            en una única sentència separant-les amb comes <code class="w">,</code></p>
+            <div class="sc" java>
+                String llenguatge = "java", versio = "8 o superior";
+            </div>
+        </li>
+        <li>
+            <p>Separar la declaració i la inicialització:</p>
+            <div class="sc" java data-line="1,2">
+                int edat;   // declaració
+                edat = 18;  // inicialització
+            </div>
+
+            <ul>
+                <li>
+                    <p>A la línia <span class="ln">1</span>, reservem un espai a la memòria
+                        per a guardar un <code class="w">int</code> i l'identifiquem amb <code class="w">edat</code>.
+                    </p>
+                    <img src="img/memoria3.png">
+                </li>
+                <li>
+                    <p>A <span class="ln">2</span> estem assignant el valor <code class="w">18</code> en la zona
+                    de memòria reservada per a la variable <code class="w">edat</code>.</p>
+                    <img src="img/memoria4.png">
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Tipus de variables</h3>
+    <p>A la documentació oficial d'Oracle pots trobar els
+        <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">
+        tipus de dades del llenguatge Java</a>. 
+        En aquest curs utilitzarem més sovint els següents:</p>
+    <ul>
+        <li><code class="w">int</code></li>
+        <li><code class="w">float</code></li>
+        <li><code class="w">boolean</code></li>
+        <li><code class="w">char</code></li>
+        <li><code class="w">String</code></li>
+    </ul>
+
+    <p>A la següent taula pots veure els valors que permeten guardar aquests tipus de dades:</p>
+
+    <table>
+        <thead><th>Tipus</th><th>Valors permesos</th></thead>
+        <tr><td><code class="w">int</code></td> <td>un número enter (entre <code class="w">-2_147_483_648</code> i <code class="w">2_147_483_647</code>)</td></tr>
+        <tr><td><code class="w">float</code></td><td>número decimal (e.g. <code class="w">123.975f</code>)</td></tr>
+        <tr><td><code class="w">boolean</code></td><td>un booleà (<code class="w">true</code> / <code class="w">false</code>)</td></tr>
+        <tr><td><code class="w">char</code></td><td>un caracter (entre cometes simples, e.g. <code class="w">'a'</code>)</td></tr>
+        <tr><td><code class="w">String</code></td><td>un string (entre cometes dobles, e.g. <code class="w">"java"</code>)</td></tr>
+    </table>
+
+    <p>Aquí tens un exemple de declaració d'una variable de cada tipus:</p>
+
+    <div class="sc" java>
+        int edat = 18;
+        float notaMitjana = 8.75f;
+        boolean estaMatriculat = true;
+        char grup = 'A';
+        String email = "alumne@ins.com";
+    </div>
+
+    <h3>Inferència de tipus</h3>
+    <p>A partir de Java 10, es pot escriure <code class="w">var</code> en lloc d'un tipus específic
+    per a forçar la inferència de tipus basada en el tipus del valor assignat.</p>
+
+    <div class="sc" java>
+        var nomVariable = inicialització;
+    </div>
+
+    <p>Aquí tens dos exemples:</p>
+    <div class="sc" java>
+        var llenguatge = "java";  // String
+        var versio = 10;          // int
+    </div>
+
+    <p>En aquest curs no utilitzarem la inferència de tipus, ja que utilitzarem
+        fonamentalment la versió 8 de Java, que de moment segueix sent la més 
+        utilitzada.
+    </p>
+
+    <div class="quizz">
+        <div class="question" single>
+            <div class="statement">
+                <p>Donada la següent declaració d'una variable:</p>
+                <div class="sc" java>String speed = "high";</div>
+                <p>Quin és el nom de la variable?</p>
+            </div>
+            <div class="o" correct><code class="m">speed</code></div>
+            <div class="o"><code class="m">"high"</code></div>
+            <div class="o"><code class="m">high</code></div>
+            <div class="o"><code class="m">String</code></div>
+        </div>
+
+        <div class="question" text>
+            <div class="statement">
+                <p>Donat el següent codi:</p>
+                <div class="sc" java>
+                    int a = 10;
+                    int b = 12;
+                    int c = b;
+                    int d = a;
+                    int e = c;
+                </div>    
+                <p>Introdueix el valor de la variable <code class="w">e</code>.</p>
+            </div>
+
+            <div class="o">12</div>    
+        </div>
+
+        <div class="question" text>
+            <div class="statement">
+                <p>Escriu el valor de cada variable, després de que s'executi 
+                    cada sentència d'aquest programa:
+                </p>
+            </div>
+
+            <table>
+                <tr> <th style="width: 15ch;"></th>                  <th style="width: 5ch;"><code class="w">a</code></th> <th style="width: 5ch;"><code class="w">b</code></th> <th style="width: 5ch;"><code class="w">c</code></th>  </tr>
+                <tr> <td><code class="m">int a = 0;</code></td> <td><div class="o">0</div></td> <td></td>         <td></td></tr>
+                <tr> <td><code class="m">int b = 0;</code></td> <td><div class="o">0</div></td> <td><div class="o">0</div></td> <td></td></tr>
+                <tr> <td><code class="m">a = 2;</code></td>     <td><div class="o">2</div></td> <td><div class="o">0</div></td> <td></td></tr>
+                <tr> <td><code class="m">int c = b;</code></td> <td><div class="o">2</div></td> <td><div class="o">0</div></td> <td><div class="o">0</div></td></tr>
+            </table>
+        </div>
+
+        <div class="question" single>
+            <div class="statement">
+                <p>Quin és el valor d'aquesta variable?</p>
+                <div class="sc" java>
+                    String animal = "tigre";
+                </div>
+            </div>
+            <div class="o"><code class="m">"animal"</code></div>
+            <div class="o"><code class="m">"String"</code></div>
+            <div class="o"><code class="m">animal</code></div>
+            <div class="o" correct><code class="m">tigre</code></div>
+        </div>
+
+        <div class="question" single>
+            <div class="statement"><p>L'operador d'assignació en Java és:</p></div>
+            <div class="o"><code class="w">&lt;-</code></div>
+            <div class="o" correct><code class="w">=</code></div>
+            <div class="o"><code class="w">:=</code></div>
+            <div class="o"><code class="w">-&gt;</code></div>
+        </div>
+
+        <div class="question" multi>
+            <div class="statement"><p>Selecciona les afirmacions correctes sobre les variables.</p></div>
+            <div class="o" correct>Una variable té un tipus específic</div>
+            <div class="o">El tipus determina el nom d'una variable</div>
+            <div class="o">No es pot assignar un valor a una variable</div>
+            <div class="o" correct>Es pot llegir el valor d'una variable</div>
+        </div>
+
+        <div class="question" text>
+            <div class="statement"><p>Quantes variables s'han declarat al següent codi?</p>
+                <div class="sc" java>
+                    int i = 0, j = 0, k = 0;
+                    String s = "s", str = "str";
+                </div>
+                <div class="o">5</div>
+            </div>
+        </div>
+
+        <div class="question" multi>
+            <div class="statement"><p>Selecciona les declaracions vàlides</p></div>
+            <div class="o"><code class="w">float aFloat = "23.75f";</code></div>
+            <div class="o" correct><code class="w" java>String mFloat = "98.7";</code></div>
+            <div class="o"><code class="w">int cFloat = 44.3;</code></div>
+            <div class="o"><code class="w">String kFloat = float;</code></div>
+            <div class="o" correct><code class="w">char dFloat = '.';</code></div>
+            <div class="o" correct><code class="w">String tFloat = "float";</code></div>
+        </div>
+
+        <div class="question" single>
+            <div class="statement">
+                <p>El següent codi:</p>
+                <div class="sc" java>
+                    boolean turnedOn = true;
+                    turnedOn = false;
+                    String turnedOff = turnedOn;
+                    System.out.println(turnedOff);
+                </div>
+            </div>
+            <div class="o">Imprimeix&nbsp;<code class="m">false</code></div>
+            <div class="o">Imprimeix&nbsp;<code class="m">true</code></div>
+            <div class="o">S'executa però dona un error</div>
+            <div class="o" correct>No es pot executar</div>
+
+        </div>
+    </div>
+
+    <div class="challenge">
+        <p>Resol aquests problemes:</p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/tipus-correctes">Tipus correctes</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/valors-correctes">Valors correctes</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/noms-correctes">Noms correctes</a></p>
+    </div>
+</section>
+
+<section>
+    <h2>Anomenar variables</h2>
+
+    <h3>Per què el nom és important?</h3>
+    <p>Com ja saps, cada variable té un nom que l'identifica de forma única respecte a les
+        altres variables. Donar un bon nom a una variable potser no és tan simple com sembla.
+        Els programadors amb experiència posen molt de compte en posar els noms per a fer els 
+        seus programes més fàcils de comprendre. És molt important perquè els programadors
+        dediquen molt de temps a llegir i comprendre programes escrits per altres programadors.
+        Si les variables tenen noms dolents, inclús el teu propi codi et semblarà poc clar en uns
+        pocs mesos.
+    </p>
+    <p>Sempre tracta de ser descriptiu i concís al posar nom a les variables. A la llarga 
+        ho agrairàs.
+    </p>
+
+    <p>A més a més, per a posar noms has de seguir les regles i les convencions.</p>
+
+
+
+    <h3>Regles per a anomenar variables</h3>
+    <p>Les regles de Java per als noms de variables són:</p>
+    <ul>
+        <li>distingeix majúscules i minúscules</li>
+        <li>pot incloure lletres Unicode, digits, i els caracters <code class="w">$</code> &nbsp; <code class="w">_</code></li>
+        <li>no pot començar per un dígit</li>
+        <li>no pot ser una paraula-clau (<code class="w">class</code>, <code class="w">static</code>, <code class="w">void</code>, <code class="w">int</code>, són il·legals)</li>
+    </ul>
+    <p>En base a aquestes regles, pots concloure que els espais en blanc no estan permesos en el nom
+        d'una variable.
+    </p>
+
+    <div class="warn">
+        <p>Si trenques alguna d'aquestes regles el teu programa no funcionarà</p>
+    </div>
+
+    <p>Aquí tens alguns exemples de noms vàlids:</p>
+    <div class="sc" java>
+        numero, $ident, bigValue, _val, abc, k
+    </div>
+
+    <p>Aquests són invàlids:</p>
+    <div class="sc" java>
+        @ab, 1c, !ab, class
+    </div>
+
+
+
+    <h3>Convencions per a anomenar variables</h3>
+    <p>També hi ha una sèrie de convencions per a anomenar variables en Java:</p>
+    <ul>
+        <li>si el nom de la variable és una única paraula, s'escriu en minúscula (e.g. 
+            <code class="w">numero</code>, <code class="w">preu</code>)
+        </li>
+        <li>si el nom de la variable inclou vàries paraules, s'han d'escriure en 
+            <code class="w">lowerCamelCase</code>, això és, la primera paraula ha de ser en minúscula i la resta 
+            han de tenir la primera lletra en majúscula (e.g. <code class="w">numeroDeMonedes</code>)
+        </li>
+        <li>no han de començar per <code class="w">$</code> ni per <code class="w">_</code>, encara que estigui permés</li>
+        <li>escull noms amb significat, e.g <code class="w">punts</code> té més sentit que <code class="w">p</code>, tot i 
+            que els dos són vàlids.</li>
+    </ul>
+
+    <p>Aquestes convencions són opcionals, tot i que es recomana seguir-les. Com hem dit 
+        al principi, aquestes convencions faran el teu programa més legible per a tu i per
+        als altres programadors Java.
+    </p>
+
+    <div class="quizz">
+        <div class="question" single>
+            <div class="statement"><p>Vols declarar una variable anomenada <code class="w">int</code>.</p>
+            <p>Determina si el nom es vàlid o no (i per què?). Un nom és valid si el programa funcionarà.</p>
+            </div>
+
+            <div class="o">Es nom és vàlid</div>
+            <div class="o">El nom no és vàlid perquè no té sentit (què és int?)</div>
+            <div class="o">El nom no és vàlid perquè comença per una lletra</div>
+            <div class="o" correct>El nom no és vàlid perquè és una paraula-clau</div>
+        </div>
+
+        <div class="question" multi>
+            <div class="statement"><p>Selecciona els noms de variable vàlids, és a dir, que el programa funcionarà.</p></div>
+            <div class="o">1poma</div>
+            <div class="o" correct>numero1</div>
+            <div class="o">boolean</div>
+            <div class="o" correct>_var</div>
+        </div>
+
+        <div class="question" text>
+            <div class="statement">
+                <p>Recordes les convencions per anomenar variables? Fes que la variable
+                    <code class="w">ALTURA@CACTUS</code> no solament sigui sintàcticament correcta, sinò
+                    que també compleixi les recomanacions.
+                </p>
+            </div>
+            <div class="o">alturaCactus</div>
+        </div>
+
+        <div class="question" single>
+            <div class="statement">
+                <p>Quin és el millor nom per una variable d'acord amb les convencions?</p>
+            </div>
+            <div class="o"><code class="m">_uha</code></div>
+            <div class="o" correct><code class="m">userHomeAdress</code></div>
+            <div class="o"><code class="m">userhomeaddress</code></div>
+            <div class="o"><code class="m">user_home_address</code></div>
+            <div class="o"><code class="m">UserHomeAddress</code></div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Escanejar l'entrada</h2>
+
+    <p>L'<strong>entrada estàndard</strong> és un flux de dades que van cap al programa.
+    Està suportada pel sistema operatiu. Per defecte, l'entrada estàndard obté les dades del 
+    teclat, tot i que és possible redirigir-la per a obtenir les dades d'un fitxer.</p>
+    <p>De fet, no tots els programes utilitzen l'entrada estàndard. Però nosaltres l'utilitzarem 
+        molt sovint per a demanar dades als usuaris per teclat, o per a obtenir les dades dels casos
+        de prova en els exercicis.
+    </p>
+        
+    <p>La forma típica en que resoldrem problemes és aquesta:</p>
+    <ol>
+        <li><p>Llegir dades de l'entrada estàndard (<code class="w">System.in</code>)</p></li>
+        <li><p>Processar les dades per a obtenir un resultat</p></li>
+        <li><p>Imprimir el resultat a la sortida estàndard (<code class="w">System.out</code>)</p></li>
+    </ol>
+
+    <p>Aquest tipus de problemes de programació es poden provar fàcilment amb diferents 
+        formats de dades d'entrada, i per aquest motiu, els utilitzarem molt.
+    </p>
+
+    <h3>Llegir dades amb un scanner</h3>
+
+    <p>La forma més simple d'obtenir dades de l'entrada estàndard és utilitzar la 
+        classe <code class="w">Scanner</code>. Permet als programes llegir valors de diferents tipus
+        (strings, números, etc.) de l'entrada estàndard.
+    </p>
+
+    <p>Per a utilitzar la classe <code class="w">Scanner</code> s'ha d'afegir aquesta sentència d'importació 
+    al principi del fitxer de codi:</p>
+
+    <div class="sc" java>
+        import java.util.Scanner;
+    </div>
+
+    <p>Després s'ha d'afegir aquesta construcció a dintre del mètode <code class="w">main</code>:</p>
+
+    <div class="sc" java>
+        Scanner scanner = new Scanner(System.in); 
+    </div>
+
+    <p>En aquesta línia hem creat un objecte de la classe <code class="w">Scanner</code>, que ens 
+    permet utilitzar els seus mètodes. Aprendrem més sobre classes i objectes més 
+    endavant. <code class="w">System.in</code> indica que es llegirà el flux de dades de l'entrada 
+    estàndard (habitualment, el teclat). De moment, no és necessari que comprenguis aquesta línia, solament 
+    escriu-la exactament així.</p>
+
+    <p>Anem a escriure el primer programa que llegeix dades del teclat:</p>
+
+    <div class="challenge">
+        <p>Prova a escriure i executar aquest programa a l'IntelliJ.</p>
+    </div>
+
+    <div class="sc" java data-line="1,6,10,13">
+        import java.util.Scanner; 
+
+        public class Main {
+
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);  
+
+                System.out.println("Hola, com et dius?");
+
+                String nom = scanner.nextLine();
+
+                System.out.print("Hola ");
+                System.out.print(nom);
+                System.out.println("!");
+            }
+        }
+    </div>
+
+
+    
+    <p>Quan l'executem, veurem el següent (en verd es mostra l'entrada 
+        introduïda per teclat):
+    </p>
+    <div class="shell">
+        Hola, com et dius?
+        <span class="in">Josep Ramon</span> 
+        Hola Josep Ramon!
+    </div>
+
+    <p>Veiem pas a pas, l'execució del programa:</p>
+    <ul>
+        <li>A <span class="ln">1</span> importem la classe <code class="w">Scanner</code></li>
+        <li>A <span class="ln">6</span> creem l'objecte <code class="w">scanner</code> que s'utilitza per llegir 
+        dades introduïdes per teclat.</li>
+        <li>A <span class="ln">10</span> utilitzem el mètode <code class="w">nextLine()</code> per a llegir una 
+        línia de dades del teclat. Guardem les dades llegides a la variable <code class="w">nom</code></li>
+        <li>A <span class="ln">13</span> imprimim la variable <code class="w">nom</code>, que conté les dades que s'han 
+        llegit a <span class="ln">10</span></li>
+    </ul>
+
+    <h3>Mètodes de la classe Scanner</h3>
+    <p>Hi ha diversos mètodes a la classe <code class="w">Scanner</code> que ens permeten llegir 
+        diferents tipus de dades de l'entrada estàndard. En aquesta taula tens un
+        resum dels mètodes que més utilitzarem en aquest curs: </p>
+    <table>
+        <thead><tr><th>Mètode</th><th>Tipus</th><th>Utilitat</th></tr></thead>
+        <tr><td><code class="w">nextInt()</code></td><td><code class="w">int</code></td><td>llegeix un número enter</td></tr>
+        <tr><td><code class="w">nextFloat()</code></td><td><code class="w">float</code></td><td>llegeix un número decimal</td></tr>
+        <tr><td><code class="w">nextBoolean()</code></td><td><code class="w">boolean</code></td><td>llegeix un valor booleà</td></tr>
+        <tr><td><code class="w">next()</code></td><td><code class="w">String</code></td><td>llegeix una paraula</td></tr>
+        <tr><td><code class="w">nextLine()</code></td><td><code class="w">String</code></td><td>llegeix fins al final de línia</td></tr>
+    </table>
+
+    <p>Quan llegim dades utilitzant aquests mètodes hem d'utilitzar les variables del tipus 
+        adequat per a guardar la dada que es llegeix. Per exemple:
+    </p>
+
+    <div class="sc" java>
+        import java.util.Scanner;
+
+        public class Main {
+            public static void main(String[] args){
+                Scanner scanner = new Scanner(System.in);
+
+                int quantitat = scanner.nextInt();
+                float preu = scanner.nextFloat();
+                boolean pagat = scanner.nextBoolean();
+                String codi = scanner.next();
+                String nom = scanner.nextLine();
+
+                System.out.println(quantitat);
+                System.out.println(preu);
+                System.out.println(pagat);
+                System.out.println(codi);
+                System.out.println(nom);
+            }
+        } 
+    </div>
+
+    <div class="shell">
+        <span class="in">5 1,99 true PR101 Galetes Maria</span>     
+        5
+        1.99
+        true
+        PR101
+         Galetes Maria
+    </div>
+
+    <div class="observe">
+        <p>Observa que el preu introduït per teclat s'ha escrit utilitzant una coma
+        <code class="w">,</code> en lloc d'un punt <code class="w">.</code> per a separar les xifres decimals 
+        (<code class="w">1,99</code> en lloc de <code class="w">1.99</code>). Això es degut a que l'<code class="w">Scanner</code> 
+        utilitza l'idioma del Sistema Operatiu per al format d'entrada, i en 
+        castellà/català els decimals es separen amb una coma <code class="w">,</code>. Si tinguèssim el 
+        Sistema Operatiu configurat en anglès, caldria haver introduït el número decimal 
+        utlitzant un punt.</p>
+
+        <p>Es pot forçar a l'Scanner a utilitzar l'idioma anglès per al format de dades 
+            d'entrada, és a dir, a utilitzar el punt en els decimals. Ho podem fer amb 
+            el mètode <code class="w">setLocale()</code>, just després de crear l'<code class="w">scanner</code>, així:
+        </p>
+
+        <div class="sc" java>
+            Scanner scanner = new Scanner(System.in);
+            scanner.useLocale(Locale.US);   // usar el format angles
+        </div>
+
+        <p>Per contra, els mètodes <code class="w">print()</code> i <code class="w">println()</code> sempre imprimeixen 
+            separant els decimals amb un punt.
+        </p>
+    </div>
+
+    <p>Hem vist que cal utilitzar el <strong>tipus</strong> de variable adequat 
+    al mètode que utilitzem per a llegir. Si no utilitzem el tipus adequat, el programa
+    no s'executarà. Per exemple, no podem utilitzar una variable de tipus <code class="w">String</code> 
+    per a guardar un valor llegit amb <code class="w">nextInt()</code>:</p>
+
+    <div class="sc" java>
+        String a = scanner.nextInt();   // error, cal utlitzar el tipus int
+    </div>
+
+    <p>Per sort, l'IDE ens ajuda a detectar i solucionar aquests errors, indicant en 
+        subratllat vermell l'error i proporcionant ajuda sobre com solucionar-lo:
+    </p>
+
+    <img src="img/typeerror.png">
+
+    <h3>InputMismatchException</h3>
+    <p>Una altre error que pot ocòrrer és que l'usuari no introdueixi una dada que 
+        correspongui amb el tipus que s'ha de llegir. En aquest cas, el programa donarà 
+        una excepció i s'aturarà inesperadament.
+    </p>
+
+    <p>Per exemple, el següent programa tracta de llegir un enter del teclat, però 
+        l'usuari introdueix un text (<span class="string">holaaa</span>). L'execució del programa s'abortarà amb una excepció 
+        de tipus <code class="w">InputMismatchException</code>:
+    </p>
+
+    <div class="sc" java>
+        System.out.println("Introdueix un número:");
+        int numero = scanner.nextInt();
+    </div>
+
+    <div class="shell">
+        Introdueix un número:
+        <span class="in">holaaa</span>
+        <span class="exception">
+        Exception in thread "main" java.util.<strong>InputMismatchException</strong>
+            at java.base/java.util.Scanner.throwFor(Scanner.java:939)
+            at java.base/java.util.Scanner.next(Scanner.java:1594)
+            at java.base/java.util.Scanner.nextInt(Scanner.java:2258)
+        </span>
+    </div>
+
+    <div class="info">
+        <p>Més endavant veurem com prevenir aquestes situacions, i fer el nostre 
+        programa resistent a qualsevol entrada que introdueixi l'usuari.
+        </p>
+    </div>
+
+
+    <h3>Consumir dades de l'entrada</h3>
+
+    <p>Les crides als mètodes de lectura de l'<code class="w">scanner</code> van consumint dades de l'entrada
+        sempre que hi hagi, i si no hi han dades esperaran fins que hi hagin.
+    </p>
+
+    <p>Vegem-ho amb un exemple. Aquest programa llegeix dos números de l'entrada:</p>
+
+    <div class="sc" java data-line="2,4">
+        System.out.println("Introdueix el primer número:")
+        int a = scanner.nextInt();
+        System.out.println("Introdueix el segon número:")
+        int b = scanner.nextInt();
+
+        System.out.println("Els números introduïts són:")
+        System.out.println(a);
+        System.out.println(b);
+    </div>
+
+    <p>Quan executem el programa, la primera crida a <code class="w">nextInt()</code> <span class="ln">2</span>, quedarà 
+    esperant a que l'usuari introdueixi un número. Si l'usuari <strong>introdueix un únic 
+    número</strong>, aquest serà consumit de l'entrada i assignat a la variable <code class="w">a</code>. 
+    Quan es fa la segona crida a <code class="w">nextInt()</code> <span class="ln">4</span>, el programa tornarà a esperar 
+    a que s'introdueixi un altre número.</p>
+
+    <div class="shell">
+        Introdueix el primer número:
+        <span class="in">1234</span>
+        Introdueix el segon número:
+        <span class="in">6789</span>
+        Els números introduïts són:
+        1234
+        6789
+    </div>
+
+    <p>Però, si a la primera crida a <code class="w">nextInt()</code> <span class="ln">2</span>, l'usuari <strong>introdueix 
+    dos números</strong>, el primer d'ells serà consumit per l'<code class="w">scanner</code> i assignat a la 
+    variable <code class="w">a</code>, i el segon número quedarà pendent per consumir. Així, a la segona crida 
+    a <code class="w">nextInt()</code> <span class="ln">4</span>, l'<code class="w">scanner</code> no esperarà a que s'introdueixi un 
+    altre número, sinò que consumirà el número que havia quedat per consumir i quedarà 
+    assignat a la variable <code class="w">b</code> sense esperar a que s'introdueixi un altre número.</p>
+    <div class="shell">
+        Introdueix el primer número:
+        <span class="in">1234 6789</span>                    <span class="comment">// introdueix dos numeros</span>
+        Introdueix el segon número:  <span class="comment">// consumeix el segon número</span>
+        Els números introduïts són:
+        1234
+        6789
+    </div>
+
+    <p>Hi ha situacions en què és una mica enrevesada la lectura de dades. Cal tenir en 
+        compte la posició del cursor i la forma en que llegeixen les dades els mètodes.
+    </p>
+
+    <p>El primer a tenir en compte és que tots els mètodes, excepte el <code class="w">nextLine()</code>, 
+    descarten qualsevol espai-en-blanc o salt-de-línia que troben al flux de dades de l'entrada,
+    fins que troben una dada per a llegir. Per contra, <code class="w">nextLine()</code>, llegirà tots els 
+    caracters (incloent espais-en-blanc) fins que trobi un salt-de-línia (que descartarà).</p>
+
+    <p>Vejem els comportaments d'aquests mètodes amb varis exemples. Al flux de dades 
+        d'entrada indicarem els espais-en-blanc amb el símbol <code class="w">␣</code> i els salts-de-línia 
+        amb el símbol <code class="w">⏎</code>.
+    </p>
+
+    <ul>
+        <li><p>Exemple 1</p>
+            <p>Veiem un exmple amb el mètode <code class="w">nextInt()</code>. Si tenim aquest programa:</p>
+
+            <div class="sc" java>
+                int a = scanner.nextInt();
+            </div>
+
+            <p>i al flux d'entrada s'introdueix el següent:</p>
+
+            <div class="shell">
+                ␣␣␣␣␣␣␣␣1234␣␣␣␣␣␣␣␣6789⏎
+            </div>
+
+            <p>el mètode <code class="w">nextInt()</code> descartarà els espais-en-blanc que hi ha al principi,
+            i llegirà unicament el número <code class="w">1234</code>. Els espais-en-blanc de després i el 
+            número <code class="w">6789</code> quedaran a l'espera de ser consumits.</p>
+
+            <div class="shell">
+                <span class="discard">␣␣␣␣␣␣␣␣</span><span class="consume">1234</span>␣␣␣␣␣␣␣␣6789⏎
+            </div>
+
+        </li>
+        <li>
+            <p>Exemple 2</p>
+            <p>Si tenim aquest programa:</p>
+            <div class="sc" java>
+                boolean a = scanner.nextBoolean();
+                float b = scanner.nextFloat();
+                String c = scanner.next();
+                int d = scanner.nextInt();
+                String e = scanner.nextLine();
+            </div>
+
+            <p>i al flux d'entrada tenim el següent:</p>
+
+            <div class="shell">
+                ␣␣␣true␣␣⏎
+                ␣14.5␣␣␣hola␣␣⏎
+                ␣␣2345␣␣␣que tal?␣␣⏎
+            </div>
+
+            <p>La crida a <code class="w">nextBoolean()</code> descartarà els espais/salts fins a llegir 
+            la dada <code class="w">true</code>:</p>
+                <div class="shell">
+                    <span class="discard">␣␣␣</span><span class="consume">true</span>␣␣⏎
+                    ␣14.5␣␣␣hola␣␣⏎
+                    ␣␣2345␣␣␣que tal?␣␣⏎
+                </div>
+
+            <p>La crida a <code class="w">nextFloat()</code> descartarà els espais/salts fins a llegir 
+                la dada <code class="w">14.5</code>:</p>
+                <div class="shell">
+                    <span class="consumed">␣␣␣true</span><span class="discard">␣␣⏎</span>
+                    <span class="discard">␣</span><span class="consume">14.5</span>␣␣␣hola␣␣⏎
+                    ␣␣2345␣␣␣que tal?␣␣⏎
+                </div>
+            <p>La crida a <code class="w">next()</code> ignorarà els espais/salts fins a llegir 
+                la dada <code class="w">hola</code>:</p>
+                <div class="shell">
+                    <span class="consumed">␣␣␣true␣␣⏎</span>
+                    <span class="consumed">␣14.5</span><span class="discard">␣␣␣</span><span class="consume">hola</span>␣␣⏎
+                    ␣␣2345␣␣␣que tal?␣␣⏎
+                </div>
+            <p>La crida a <code class="w">nextInt()</code> ignorarà els espais/salts fins a llegir 
+                la dada <code class="w">2345</code>:</p>
+                <div class="shell">
+                    <span class="consumed">␣␣␣true␣␣⏎
+                    >␣14.5␣␣␣hola</span><span class="discard">␣␣⏎
+                    ␣␣</span><span class="consume">2345</span>␣␣␣que tal?␣␣⏎
+                </div>
+            <p>La crida a <code class="w">nextLine()</code> no descartarà els espais i llegirà 
+                la dada <code class="w">␣␣␣que tal?␣␣</code>, però sí que descartarà el salt-de-línia:</p>
+                <div class="shell">
+                    <span class="consumed">␣␣␣true⏎
+                    14.5␣␣␣hola␣␣⏎
+                    ␣␣2345</span><span class="consume">␣␣␣que tal?␣␣</span><span class="discard">⏎</span>
+                </div>
+        </li>
+        <li><p>Exemple 3</p>
+            <p>Aquest exemple mostra una situació que és una font de confusió
+                molt comuna quan s'està aprenent a utilitzar l'<code class="w">Scanner</code>.            
+            </p>
+            <p>Considera el següent programa:</p>
+            <div class="sc" java data-line="8,10">
+                import java.util.Scanner;
+
+                public class Main {
+                    public static void main(String[] args){
+                        Scanner scanner = new Scanner(System.in);
+
+                        System.out.println("Introdueix un número:");
+                        int numero = scanner.nextInt();
+                        System.out.println("Introdueix un text:");
+                        String text = scanner.nextLine();
+                
+                        System.out.println("El numero és " + numero);
+                        System.out.println("El text és " + text);
+                    }
+                }
+            </div>
+
+            <div class="warn">
+                <p>Abans de seguir amb l'exemple, és interessant que escriguis aquest programa
+                i l'executis a l'IDE.</p>
+            </div>
+
+            <p>Si has executat aquest programa, veuràs una comportament força extrany. El programa llegeix 
+                correctament el número que introduïm <span class="ln">8</span>, però es "salta" la lectura del text <span class="ln">10</span>!
+            </p>
+
+            <div class="shell">
+                Introdueix un número:
+                <span class="in">1234</span>
+                Introdueix un text:
+                El numero és 1234
+                El text és 
+            </div>
+
+            <p>Veiem perquè ocorre això i com corregir-ho.</p>
+
+            <p>Quan introduim un número i després polsem <kbd>Intro</kbd>, les dades que estem 
+            posant a l'entrada estàndard són el número i un salt-de-línia:</p>
+
+            <div class="shell">
+                1234⏎
+            </div>
+
+            <p>La primera crida a <code class="w">nextInt()</code> <span class="ln">8</span> llegeix el número, però no descarta el salt-de-línia:</p>
+
+            <div class="shell">
+                <span class="consume">1234</span>⏎
+            </div>
+
+            <p>La següent crida a <code class="w">nextLine()</code> troba el salt-de-línia i el descarta. Per tant el que ha llegit 
+            és un <code class="w">String</code> buit, i per això no ha esperat a que s'introdueixin més dades a l'entrada.</p>
+            <div class="shell">
+                <span class="consumed">1234</span><span class="discard">⏎</span>
+            </div>
+
+            <p>La forma de corregir aquest error, és realitzar un <code class="w">nextLine()</code> <strong>extra</strong> per 
+            a que consumeixi el salt-de-línia que hi ha a continuació del número. El programa quedaria així:</p>
+
+            <div class="sc" java data-line="2,3,5">
+                System.out.println("Introdueix un número:");
+                int numero = scanner.nextInt();
+                scanner.nextLine();   // consumim el salt-de-linia
+                System.out.println("Introdueix un text:");
+                String text = scanner.nextLine();
+            </div>
+
+            <p>D'aquesta manera el primer <code class="w">nextInt()</code> <span class="ln">2</span> llegirà el número:</p>
+
+            <div class="shell">
+                <span class="consume">1234</span>⏎
+            </div>
+
+            <p>El següent <code class="w">nextLine()</code> <span class="ln">3</span> descartarà el salt-de-línia</p>
+            <div class="shell">
+                <span class="consumed">1234</span><span class="discard">⏎</span>
+            </div>
+
+            <p>Com ja no queden dades a consumir a l'entrada, el <code class="w">nextLine()</code> <span class="ln">5</span> esperarà 
+            a que s'introdueixin més dades a l'entrada.</p>
+
+            <div class="info">
+                <p>
+                    Com a norma general, quan llegim dades línia a línia, 
+                    haurem de posar un <code class="w">nextLine()</code> <strong>extra</strong> 
+                    enmig d'un
+                    <br><code class="w">nextInt()</code>, <code class="w">nextBoolean()</code>, <code class="w">nextFloat()</code> o <code class="w">next()</code>, 
+                    <br>i un 
+                    <br><code class="w">nextLine()</code>.
+                </p>
+            </div>
+        </li>
+
+        <li>
+            <p>Exemple 4</p>
+            <p>L'últim exemple que veurem també és una situació que sovint costa de resoldre, i que
+                es dona quan llegim diferents dades en una mateixa línia.
+            </p>
+
+            <p>Considerem aquest programa:</p>
+            <div class="sc" java data-line="2,3">
+                System.out.println("Introdueixi la seva edat i el seu nom:");
+                int edat = scanner.nextInt();
+                String nom = scanner.nextLine();
+        
+                System.out.println("Edat:");
+                System.out.println(edat);
+                System.out.println("Nom:");
+                System.out.println(nom);
+            </div>
+
+            <div class="shell">
+                Introdueixi la seva edat i el seu nom:
+                <span class="in">24 Joan Ramon</span>
+                Edat:
+                24
+                Nom:
+                 Joan Ramon
+            </div>
+
+            <p>En aquest programa, l'usuari introdueix l'edat i el nom a la mateixa línia. L'edat es llegeix correctament 
+                però observa l'espai-en-blanc que s'ha llegit abans del nom.
+            </p>
+
+            <p>La crida a <code class="w">nextInt()</code> <span class="ln">2</span> ha llegit el número, i ha deixat el cursor just a continuació:</p>
+            <div class="shell">
+                <span class="consume">24</span>␣Joan␣Ramon⏎
+            </div>
+
+            <p>Com el <code class="w">nextLine()</code> <span class="ln">3</span> no descarta els espais, ha llegit els caracters restants fins el salt-de-línia.</p>
+            <div class="shell">
+                <span class="consumed">24</span><span class="consume">␣Joan␣Ramon</span><span class="discard">⏎</span>
+            </div>
+
+            <p>Per a corregir aquesta anomalia, podem utilitzar el mètode <code class="w">trim()</code>, que elimina els espais 
+            en blanc al principi d'un text. Així, quan vulguem llegir una línia, i estar segurs de que no tindrem 
+            espais molests al principi, ho podem fer així: <code class="w">nextLine().trim()</code>.</p>
+
+            <p>El programa quedaria així:</p>
+            <div class="sc" java data-line="3">
+                System.out.println("Introdueixi la seva edat i el seu nom:");
+                int edat = scanner.nextInt();
+                String nom = scanner.nextLine().trim();   // eliminem els espais al principi
+        
+                System.out.println("Edat:");
+                System.out.println(edat);
+                System.out.println("Nom:");
+                System.out.println(nom);
+            </div>
+        </li>
+    </ul>
+    
+    <div class="quizz">
+        <div class="question" match>
+            <div class="statement"><p>Fes coincidir els mètodes de la classe <code class="w">Scanner</code> amb el tipus de valor que llegeixen.</p></div>
+            <div class="o">nextInt()</div><div class="o">int</div>
+            <div class="o">nextBoolean()</div><div class="o">boolean</div>
+            <div class="o">nextFloat()</div><div class="o">float</div>
+            <div class="o">next()</div><div class="o">String</div>
+        </div>
+
+        <div class="question" single>
+            <div class="statement">
+                <p>Invoquem el mètode <code class="w">next()</code> i introduïm el número <code class="w">9</code> a l'entrada estàndard, quin tipus 
+                    de dada serà?</p>
+            </div>
+            <div class="o" correct>String</div>
+            <div class="o">char</div>
+            <div class="o">int</div>
+            <div class="o">float</div>
+        </div>
+    </div>
+    <div class="challenge">
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/a-hello-you">Hello you</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/cada-paraula-a-una-linia">Cada paraula a una línia</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/contractar-un-xef">Contractar un xef</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/carta-formal">Carta formal</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/arxius-de-codi-font">Arxius de codi font</a></p>         
+    </div>
+</section>

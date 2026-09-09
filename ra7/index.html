@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RA7: Programació Orientada a Objectes Avançada | Tutorial Java 26</title>
+    <script src="../sofi/js/script.js"></script>
+    <link rel="stylesheet" href="../sofi/css/estil.css">
+</head>
+<body>
+<nav></nav>
+
+<header>
+    <p><a href="../index.html">← Índex del curs</a></p>
+    <h1>RA7. Programació Orientada a Objectes Avançada</h1>
+
+    <div class="abstract">
+        <p><strong>Resultat d'Aprenentatge 7 (RA7):</strong></p>
+        <p>En aquesta unitat aprendràs:</p>
+        <div class="check">Herència: superclasses, subclasses i reutilització amb <code class="w">extends</code></div>
+        <div class="check">Execució de constructors amb <code class="w">super()</code> i cossos de constructor flexibles</div>
+        <div class="check">Sobreescriptura de mètodes (<code class="w">@Override</code>) i polimorfisme dinàmic</div>
+        <div class="check">Classes i mètodes abstractes (<code class="w">abstract</code>)</div>
+        <div class="check">Classes segellades modernes (<code class="w">sealed</code>, <code class="w">permits</code>)</div>
+        <div class="check">Interfícies (<code class="w">interface</code>) i mètodes per defecte (<code class="w">default</code>)</div>
+        <div class="check">Bones pràctiques: Composició enfront d'herència</div>
+    </div>
+</header>
+
+<section>
+<h2>El Concepte d'Herència (extends)</h2>
+    <p>L'<strong>herència</strong> permet crear noves classes basades en classes existents, heretant-ne els seus atributs i mètodes per evitar duplicar codi:</p>
+
+    <div class="sc" java>
+// Superclasse base:
+public class Vehicle {
+    protected String marca;
+    protected int velocitatMaxima;
+
+    public Vehicle(String marca, int velocitatMaxima) {
+        this.marca = marca;
+        this.velocitatMaxima = velocitatMaxima;
+    }
+
+    public void accelerar() {
+        println(marca + " està accelerant.");
+    }
+}
+
+// Subclasse filla:
+public class Cotxe extends Vehicle {
+    private int nombrePortes;
+
+    public Cotxe(String marca, int velocitatMaxima, int nombrePortes) {
+        super(marca, velocitatMaxima); // Crida al constructor de la superclasse
+        this.nombrePortes = nombrePortes;
+    }
+
+    @Override
+    public void accelerar() {
+        println(marca + " (cotxe de " + nombrePortes + " portes) accelera veloçment.");
+    }
+}
+    </div>
+
+    <h2>Polimorfisme Dinàmic</h2>
+    <p>El <strong>polimorfisme</strong> és la capacitat de tractar objectes de diferents subclasses com si fossin del tipus de la seva superclasse o interfície comuna, executant en temps d'execució la versió adequada del mètode sobreescrit:</p>
+
+    <div class="sc" java>
+void main() {
+    List<Vehicle> flota = List.of(
+        new Cotxe("Toyota", 180, 5),
+        new Cotxe("Tesla", 250, 4)
+    );
+
+    for (Vehicle v : flota) {
+        v.accelerar(); // S'executa la versió especialitzada de cada vehicle!
+    }
+}
+    </div>
+
+    <h2>Classes Abstractes i Interfícies</h2>
+    <p>Una <strong>classe abstracta</strong> és una classe que no es pot instanciar directament amb <code class="w">new</code> i que defineix operacions que les subclasses estan obligades a implementar:</p>
+
+    <div class="sc" java>
+public abstract class Figura {
+    protected String color;
+
+    public Figura(String color) {
+        this.color = color;
+    }
+
+    // Mètode abstracte (sense cos):
+    public abstract double calcularArea();
+}
+
+public class Cercle extends Figura {
+    private double radi;
+
+    public Cercle(String color, double radi) {
+        super(color);
+        this.radi = radi;
+    }
+
+    @Override
+    public double calcularArea() {
+        return Math.PI * radi * radi;
+    }
+}
+    </div>
+
+    <h3>Interfícies (interface)</h3>
+    <p>Una interfície defineix un <em>contracte</em> de comportament que qualsevol classe pot implementar amb <code class="w">implements</code>, donant suport a implementació múltiple:</p>
+
+    <div class="sc" java>
+public interface Dibuixable {
+    void dibuixar();
+
+    // Mètode default modern amb implementació per defecte:
+    default void mostrarDescripcio() {
+        println("Element gràfic dibuixable.");
+    }
+}
+    </div>
+
+    <h2>Classes Segellades en Java Modern (sealed)</h2>
+    <p>Les classes segellades permeten a una superclasse controlar i restringir de forma explícita quines altres classes poden heretar d'ella mitjançant la clàusula <code class="w">permits</code>:</p>
+
+    <div class="sc" java>
+public abstract sealed class Forma permits Cercle, Rectangle, Triangle {
+    // Només aquestes tres classes tenen autorització per heretar de Forma!
+}
+    </div>
+
+    <div class="exercise-card">
+        
+    <p>Observa el diagrama de classes següent que representa una jerarquia de figures geomètriques amb una classe segellada (<code class="w">sealed</code>):</p>
+    <div class="mermaid">
+    classDiagram
+        class Figura {
+            &lt;&lt;sealed abstract&gt;&gt;
+            +String color
+            +calcularArea()* double
+        }
+        class Cercle {
+            &lt;&lt;final&gt;&gt;
+            +double radi
+            +calcularArea() double
+        }
+        class Rectangle {
+            &lt;&lt;final&gt;&gt;
+            +double base
+            +double alcada
+            +calcularArea() double
+        }
+        Figura &lt;|-- Cercle : permits
+        Figura &lt;|-- Rectangle : permits
+        
+        style Figura fill:#1e3a8a,stroke:#38bdf8,stroke-width:2px,color:#fff
+        style Cercle fill:#0f172a,stroke:#34d399,stroke-width:1px,color:#fff
+        style Rectangle fill:#0f172a,stroke:#34d399,stroke-width:1px,color:#fff
+    </div>
+
+    <h3>Exercicis Pràctics i Reptes</h3>
+        <p>Aplica els conceptes apresos en aquesta unitat resolent la col·lecció d'exercicis dedicats:</p>
+        <a href="../exercicis/ra7-herencia.html" class="exercise-btn">Anar als exercicis de RA7 (Herència, interfícies i polimorfisme)</a>
+    </div>
+</section>
+</body>
+</html>

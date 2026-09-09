@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RA2: Programes Simples i Ús d'Objectes Predefinits | Tutorial Java 26</title>
+    <script src="../sofi/js/script.js"></script>
+    <link rel="stylesheet" href="../sofi/css/estil.css">
+</head>
+<body>
+<nav></nav>
+
+<header>
+    <p><a href="../index.html">← Índex del curs</a></p>
+    <h1>RA2. Programes Simples i Ús d'Objectes Predefinits</h1>
+
+    <div class="abstract">
+        <p><strong>Resultat d'Aprenentatge 2 (RA2):</strong></p>
+        <p>En aquesta unitat aprendràs:</p>
+        <div class="check">Concepte fonamental d'objecte, classe i instanciació</div>
+        <div class="check">Classes de la biblioteca estàndard de Java (<code class="w">String</code>, <code class="w">Scanner</code>, <code class="w">Random</code>, <code class="w">Math</code>)</div>
+        <div class="check">Crides a mètodes d'instància i pas de paràmetres</div>
+        <div class="check">Mètodes estàtics i ús de constants de classe</div>
+        <div class="check">Gestió de paquets i la instrucció <code class="w">import</code></div>
+    </div>
+</header>
+
+<section>
+<h2>Fonaments d'Objectes i Classes</h2>
+    <p>En Java, gairebé tot gira al voltant dels <strong>objectes</strong>. Un objecte representa una entitat del món real o un concepte del programa que conté:</p>
+    <ul>
+        <li><strong>Estat (dades / atributs):</strong> La informació que emmagatzema l'objecte.</li>
+        <li><strong>Comportament (mètodes):</strong> Les accions o operacions que l'objecte sap fer.</li>
+    </ul>
+    <p>Una <strong>classe</strong> és el motlle, plantilla o definició a partir de la qual es creen (instancien) els objectes concrets utilitzant l'operador <code class="w">new</code>.</p>
+
+    <h2>Treballant amb cadenes: La classe String</h2>
+    <p><code class="w">String</code> és una classe fonamental de Java que representa cadenes de text. En ser un objecte, disposa d'un conjunt molt potent de mètodes:</p>
+
+    <div class="sc" java>
+void main() {
+    String nom = "  Maria Garcia  ";
+
+    println("Longitud: " + nom.length());
+    println("Sense espais: " + nom.trim());
+    println("En majúscules: " + nom.toUpperCase());
+    println("Conté 'Garcia'? " + nom.contains("Garcia"));
+    println("Subcadena: " + nom.trim().substring(0, 5)); // Maria
+}
+    </div>
+
+    <h2>Lectura de dades per teclat: Scanner</h2>
+    <p>Per a llegir dades que l'usuari introdueix per la consola podem utilitzar la classe <code class="w">Scanner</code> del paquet <code class="w">java.util</code>:</p>
+
+    <div class="sc" java>
+import java.util.Scanner;
+
+void main() {
+    Scanner scanner = new Scanner(System.in);
+
+    print("Com et dius? ");
+    String nom = scanner.nextLine();
+
+    print("Quants anys tens? ");
+    int edat = scanner.nextInt();
+
+    println("Hola " + nom + ", tens " + edat + " anys!");
+}
+    </div>
+
+    <h2>Mètodes d'instància enfront de mètodes estàtics</h2>
+    <p>Hi ha dos tipus essencials de mètodes en Java:</p>
+    <ul>
+        <li><strong>Mètodes d'instància:</strong> S'invoquen sobre un objecte concret creat amb <code class="w">new</code> (ex: <code class="w">scanner.nextLine()</code> o <code class="w">text.toUpperCase()</code>).</li>
+        <li><strong>Mètodes estàtics:</strong> Pertanyen a la classe en general i s'invoquen directament amb el nom de la classe, sense necessitat de crear cap objecte (ex: <code class="w">Math.sqrt()</code>, <code class="w">Integer.parseInt()</code>).</li>
+    </ul>
+
+    <div class="sc" java>
+void main() {
+    // Math és una classe d'utilitats amb mètodes estàtics:
+    double arrel = Math.sqrt(144);
+    double potència = Math.pow(2, 8);
+    int maxim = Math.max(45, 80);
+
+    println("Arrel de 144: " + arrel); // 12.0
+    println("2^8: " + potència);        // 256.0
+    println("Màxim: " + maxim);          // 80
+}
+    </div>
+
+    <h2>Generació de valors aleatoris: Random</h2>
+    <p>La classe <code class="w">java.util.Random</code> permet generar números a l'atzar per a simulacions, jocs i proves:</p>
+
+    <div class="sc" java>
+import java.util.Random;
+
+void main() {
+    Random random = new Random();
+    int dau = random.nextInt(1, 7); // Genera un enter entre 1 i 6 (inclusiu)
+    println("Ha sortit el número de dau: " + dau);
+}
+    </div>
+
+    <div class="exercise-card">
+        
+    <h3>Taula de Mètodes Comuns: String i Scanner</h3>
+    <p>Aquesta taula recull els mètodes més habituals que utilitzaràs constantment. Pots cercar per nom de mètode o ordenar per tipus de retorn:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Classe</th>
+                <th>Mètode</th>
+                <th>Tipus Retorn</th>
+                <th>Descripció</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code class="w">String</code></td><td><code class="w">length()</code></td><td><code class="w">int</code></td><td>Retorna la longitud en caràcters</td></tr>
+            <tr><td><code class="w">String</code></td><td><code class="w">charAt(int idx)</code></td><td><code class="w">char</code></td><td>Retorna el caràcter a la posició indicada</td></tr>
+            <tr><td><code class="w">String</code></td><td><code class="w">substring(int inici, int fi)</code></td><td><code class="w">String</code></td><td>Extreu un subtext del rang especificat</td></tr>
+            <tr><td><code class="w">String</code></td><td><code class="w">contains(CharSequence s)</code></td><td><code class="w">boolean</code></td><td>Comprova si conté una cadena de text</td></tr>
+            <tr><td><code class="w">String</code></td><td><code class="w">toUpperCase()</code></td><td><code class="w">String</code></td><td>Converteix tot el text a majúscules</td></tr>
+            <tr><td><code class="w">String</code></td><td><code class="w">toLowerCase()</code></td><td><code class="w">String</code></td><td>Converteix tot el text a minúscules</td></tr>
+            <tr><td><code class="w">String</code></td><td><code class="w">equals(Object obj)</code></td><td><code class="w">boolean</code></td><td>Compara el contingut exacte de dues cadenes</td></tr>
+            <tr><td><code class="w">Scanner</code></td><td><code class="w">nextInt()</code></td><td><code class="w">int</code></td><td>Llegeix el següent nombre enter pel teclat</td></tr>
+            <tr><td><code class="w">Scanner</code></td><td><code class="w">nextDouble()</code></td><td><code class="w">double</code></td><td>Llegeix el següent nombre decimal</td></tr>
+            <tr><td><code class="w">Scanner</code></td><td><code class="w">nextLine()</code></td><td><code class="w">String</code></td><td>Llegeix tota la línia de text fins al salt</td></tr>
+            <tr><td><code class="w">Scanner</code></td><td><code class="w">hasNextInt()</code></td><td><code class="w">boolean</code></td><td>Verifica si el següent valor introduït és enter</td></tr>
+            <tr><td><code class="w">Random</code></td><td><code class="w">nextInt(int límit)</code></td><td><code class="w">int</code></td><td>Genera un enter aleatori entre 0 i límit - 1</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Exercicis Pràctics i Reptes</h3>
+        <p>Aplica els conceptes apresos en aquesta unitat resolent la col·lecció d'exercicis dedicats:</p>
+        <a href="../exercicis/ra2-objectes.html" class="exercise-btn">Anar als exercicis de RA2 (Classes estàndard i mètodes)</a>
+    </div>
+</section>
+</body>
+</html>

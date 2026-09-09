@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>if i switch</h1>
+
+    <div class="abstract">
+        <p>En aquesta activitat aprendràs a fer ús de les sentències condicionals, que permeten
+            a un programa fer distintes accions depenent del valor d'una expressió Booleana.
+        </p>
+        <p>Aprendràs:</p>
+        <div class="check">A utilitzar la sentència <strong>if-else</strong>.</div>
+        <div class="check">A utilitzar la sentència <strong>switch</strong>.</div>
+    </div>
+</header>
+
+<section>
+    <h2>Sentència if-else</h2>
+
+    <p>La sentència <code class="w">if-else</code> és una construcció que permet a un programa realitzar distintes accions
+        depenent del valor d'una expressió Booleana. Si és <code class="w">true</code>, el programa realitza unes accions,
+        en cas contrari, si és <code class="w">false</code>, el programa realitza unes altres operacions. Alguns exemples
+        de expressións Booleanes són: <code class="w">a > b</code>, <code class="w">i -j == 1</code>, <code class="w">p && q</code>, etc.
+    </p>
+    <p>La sentència <code class="w">if-else</code> te distintes formes. Anem a veure-les.</p>
+
+    <h3>if</h3>
+
+    <p>La forma més simple és la sentència <code class="w">if</code> única. Consisteix en la paraula-clau <code class="w">if</code>, una 
+    expressió Booleana entre parèntesi i un bloc tancat entre claus:</p>
+
+    <div class="sc" java>
+        if (expressio) {
+            // cos: fer alguna cosa
+        }
+    </div>
+
+    <p>Si l'expressió és <code class="w">true</code>, les sentències dintre del bloc s'executen; en cas contrari, el programa
+    se les salta.</p>
+
+    <p>Per exemple:</p>
+
+    <div class="sc" java>
+        int edat = ...; // l'edat que sigui
+        if (edat > 17) {
+            System.out.println("Pots votar");
+        }
+    </div>
+
+    <p>En aquest exemple, si l'<code class="w">edat</code> és més gran que 17 el codi imprimeix "Pots votar", 
+    en cas contrari, no fa res.</p>
+
+    <p>L'expressió també pot ser el valor d'una variable de tipus <code class="w">boolean</code>. Si el valor és <code class="w">true</code>, el
+    bloc s'executarà, i si és <code class="w">false</code> no.</p>
+
+    <div class="sc" java>
+        int edat = ...;
+        boolean majorEdat = edat > 17;
+        if (majorEdat) {
+            System.out.println("Pots votar");
+        }
+    </div>
+
+    <div class="challenge">
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/enquesta-frameworks">Enquesta frameworks</a>
+        </p>
+    </div>
+
+
+    <h3>if-else</h3>
+    <p>La sentència <code class="w">if</code> es pot extendre amb la paraula-clau <code class="w">else</code> i un altre bloc per a fer accions 
+    alternatives quan l'expressió és falsa.</p>
+
+    <div class="sc" java>
+        if (expressio) {
+            // fer una cosa
+        } else {
+            // fer una altra cosa
+        }
+    </div>
+
+    <p>En aquest cas, quan l'expressió és <code class="w">true</code>, s'executa el primer bloc de codi; en cas contrari s'executa 
+    el segon bloc, però mai els dos.</p>
+
+    <p>Al següent exemple, el programa imprimeix texts diferents depenent del valor de <code class="w">num</code> (parell o imparell).</p>
+
+    <div class="sc" java>
+        int num = ...;  // num s'inicialitza en algun valor
+        
+        if (num % 2 == 0) {
+            System.out.println("Nombre parell");
+        } else {
+            System.out.println("Nombre imparell");
+        }
+    </div>
+
+    <h3>if-else-if</h3>
+
+    <p>La forma més general de la sentència condicional consisteix en vàries condicions encadenades:</p>
+
+    <div class="sc" java>
+        if (expressio0) {
+            // accions0
+        } else if (expressio1) {
+            // accions1
+        } else if (expressio2) {
+            // accions2
+        // ...
+        } else {
+            // accions else
+        }
+    </div>
+
+    <p>En aquest cas el programa executa les accions en les que primer es compleix l'expressió. Si cap expressió 
+        es <code class="w">true</code>, aleshores s'executa l'última acció.
+    </p>
+
+    <p>El següent exemple recomana l'ordinador que es pot comprar depenent del pressupost.</p>
+
+    <div class="sc" java>
+        int pressupost = ...;
+
+        if (pressupost < 1000) {
+            System.out.println("Portatil");
+        } else if (pressupost < 2000) {
+            System.out.println("PC");
+        } else if (pressupost < 100_000) {
+            System.out.println("Servidor");
+        } else {
+            System.out.println("Comprat un data center o un ordinador quantic!");
+        }
+    </div>
+
+    <p>Una sentència condicional amb múlitples branques crea un <strong>arbre de decisió</strong>, el 
+    qual els seus nodes són expressions booleanes, i cada branca es marca amb <em>true</em> o <em>false</em>. 
+    La <em>branca-true</em> porta a un bloc de sentències i la <em>branca-false</em> porta a comprovar la 
+    següent expressió. L'última <em>branca-false</em> significa <em>"en qualsevol altre cas"</em>.</p>
+
+    <div class="info">
+        <p>Quan parlem sobre sentències condicionals, sovint els programadors utilitzen el terme 
+            "sentències de control de flux". El <strong>control de flux</strong> és l'ordre en que s'executen les 
+            diferents parts del programa.
+        </p>
+    </div>
+
+    <p>Aquest diagrama il·lustra l'arbre de decisió de l'exemple del pressupost.</p>
+
+    <img src="img/arbre decisio.png">
+
+    <h3>Niament de sentències if-else</h3>
+    <p>Les sentències <code class="w">if-else</code> es poden niar (posar unes dintre d'altres). És a dir, en el bloc
+    d'una condició es poden posar altres <code class="w">if-else</code>, que només seran executades si es compleix la condició ( 
+    i per tant s'executa el bloc).</p>
+    
+    <p>El següent exemple executa un editor específic depenent del Sistema Operatiu i la seva versió:</p>
+
+    <div class="sc" java>
+        import java.io.IOException;
+        import java.util.Scanner;
+
+        public class Main {
+            public static void main(String[] args) throws IOException {
+                Scanner scanner = new Scanner(System.in);
+
+                String os = scanner.nextLine();
+                String version = scanner.nextLine();
+
+                if (os.equals("Ubuntu")) {
+                    System.out.println("Checking Ubuntu version...");
+                    if(version.equals("20.04")) {
+                        Runtime.getRuntime().exec("gedit");
+                    } else if (version.equals("18.04")){
+                        Runtime.getRuntime().exec("nano");
+                    } else {
+                        System.out.println("Ubuntu version not supported");
+                    }
+                } else if (os.equals("Windows")) {
+                    System.out.println("All Windows versions supported");
+                    if(version.equals("10 Pro")) {
+                        Runtime.getRuntime().exec("notepad.exe");
+                    } else {
+                        Runtime.getRuntime().exec("write.exe");
+                    }
+                } else {
+                    System.out.println("OS not supported");
+                }
+            }
+        }
+    </div>
+    
+    <p>Aquest és l'arbre de decisió:</p>
+    <img src="img/arbre decisio OS.png">
+
+    <div class="quizz">
+        <div class="question" single>
+            <div class="statement">
+                <p>Si <code class="w">val</code> és 50, quina és la sortida d'aquest codi?</p>
+                <div class="sc" java>
+                    if (val == 10) {
+                        System.out.println("val == 10");
+                    } else if (val >= 20 && val &lt; 50) {
+                        System.out.println("20 &lt;= val &lt; 50");
+                    } else {
+                        if (val &lt; 20) {
+                            System.out.println("val &lt; 20");
+                        } else {
+                            System.out.println("val >= 50");
+                        }
+                    }
+                </div>
+            </div>
+            <div class="o">val &lt; 20</div>
+            <div class="o" correct>val >= 50</div>
+            <div class="o">val == 10</div>
+            <div class="o">20 &lt;= val &lt; 50</div>
+            <div class="o">Cap d'aquestes</div>
+        </div>
+
+        <div class="question" single>
+            <div class="statement">
+                <p>Selecciona l'exemple correcte de la sentència condicional</p>
+            </div>
+
+            <div class="o"><div class="sc" java>
+                if i &lt; j { 
+                    String a = "Hello";
+                 }</div></div>
+            <div class="o"><div class="sc" java>
+                if (i &lt; j): 
+                String a = "Hello";
+                </div></div>
+            <div class="o" correct><div class="sc" java>
+                if (i &lt; j) { 
+                    String a = "Hello";
+                }</div></div>
+            <div class="o"><div class="sc" java>
+                if {i &lt; j} ( 
+                    String a = "Hello";
+                )</div></div>
+            <div class="o"><div class="sc" java>
+                if [i &lt; j] 
+                    String a = "Hello";
+                </div></div>
+        </div>
+
+        <div class="question" multi>
+            <div class="statement">
+                <p>Selecciona la sortida del programa segons el valor de la variable <code class="w">a</code>.</p>
+                <div class="sc" java>
+                    if (a &lt;= 0) {
+                        if(a == 0) {
+                            System.out.println("a");
+                        } else { 
+                            System.out.println("b");
+                        }
+                    }
+                    System.out.print("c");
+                </div>
+            </div>
+            <p><code class="w">a = 0</code></p>
+            <div class="o">a</div>
+            <div class="o">ab</div>
+            <div class="o" correct>ac</div>
+            <div class="o">c</div>
+            <p><code class="w">a = -1</code></p>
+            <div class="o">ab</div>
+            <div class="o" correct>bc</div>
+            <div class="o">ac</div>
+            <div class="o">c</div>
+            <p><code class="w">a = 1</code></p>
+            <div class="o">ab</div>
+            <div class="o">bc</div>
+            <div class="o">ac</div>
+            <div class="o" correct>c</div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Sentència switch</h2>
+    <p>L'ús més habitual de la sentència <code class="w">switch</code> és quan es necessita realitzar diferents accions en funció del 
+    valor d'una variable o expressió.</p>
+    <p>Un ús molt típic es dona en les pantalles que mostren un menú d'opcions. Per exemple, escollir diferents accions
+        en el menú d'un joc. Utilitzant la sentència <code class="w">if-else</code> es pot fer així:</p>
+
+    <div class="sc" java>
+        System.out.println("1-Start\n2-Load\n3-Help\n4-Exit"); // es mostra el menu
+
+        int action = scanner.nextInt(); // l'usuari escull una opcio
+        
+        if (action == 1) {
+            System.out.println("Starting a new game...");
+        } else if (action == 2) {
+            System.out.println("Loading a saved game");
+        } else if (action == 3) {
+            System.out.println("Displaying help...");
+        } else if (action == 4) {
+            System.out.println("Exiting...");
+        } else {
+            System.out.println("Unsuitable action, please, try again");
+        }
+    </div>
+
+    <p>Aquest codi es perfectament vàlid, però en cas de que hi hagi moltes branques pot arribar a ser molt dens.</p>
+
+    <h3>switch, case, default</h3>
+    <p>La sentència <code class="w">switch</code> proporciona una forma d'escollir entre múltiples accions en el cas de que una 
+    variable o expressió tingui un valor o un altre.</p>
+
+    <p>Utilitzant la sentència <code class="w">switch</code> el codi anterior es veuria així:</p>
+
+    <div class="sc" java>
+        System.out.println("1-Start\n2-Load\n3-Help\n4-Exit"); // es mostra el menu
+
+        int action = scanner.nextInt(); // l'usuari escull una opcio
+
+        switch (action) {
+            case 1:
+                System.out.println("Starting a new game...");
+                break;
+            case 2:
+                System.out.println("Loading a saved game");
+                break;
+            case 3:
+                System.out.println("Displaying help...");
+                break;
+            case 4:
+                System.out.println("Exiting...");
+                break;
+            default:
+                System.out.println("Unsuitable action, please, try again");
+        }
+    </div>
+
+    <p>Tot i que no hem explicat les paraules-clau <code class="w">switch</code>, <code class="w">case</code>, <code class="w">default</code> i <code class="w">break</code>, 
+    et pots fer una idea del que fa el codi.</p>
+
+    <p>La forma més general d'utilització de la sentència <code class="w">switch</code> és aquesta:</p>
+
+    <div class="sc" java>
+        switch (expressio) {
+            case valor1:
+                // fer accio1
+                break;
+            case valor2:
+                // fer accio2
+                break;
+            
+            //... altres casos
+            
+            case valorN:
+                // fer accio N
+                break;
+            default:
+                // fer accio 'per defecte'
+        }
+    </div>
+
+    <p><code class="w">switch</code> avalua l'expressió (o variable), i després mira amb quin valor de cada cláusula <code class="w">case</code> coincideix, 
+    i aleshores executa les sentències que hi hagi a partir d'aquí fins que trobi un <code class="w">break</code>. En cas de que l'expressió no 
+    coincideixi amb el valor de cap <code class="w">case</code>, s'executen les sentències que hi hagi al <code class="w">default</code>.</p>
+
+    <p>Veiem un exmple d'una aplicació per a un supermercat on els clients escriuen el nom d'un producte i l'aplicació 
+        informa del seu preu:
+    </p>
+
+    <div class="sc" java>
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Producte: ");
+
+        String producte = scanner.nextLine();
+
+        switch (producte){
+            case "Taronjes":
+                System.out.println("1.55 euros/kilo");
+                break;
+            case "Pomes":
+                System.out.println("2.30 euros/kilo");
+                break;
+            case "Peres":
+                System.out.println("2.30 euros/kilo");
+                break;
+            case "Platans":
+                System.out.println("0.89 euros/kilo");
+                break;
+            default:
+                System.out.println("Producte no disponible");
+        }
+    </div>
+
+    <div class="shell">
+        Producte:
+        <span class="in">Peres</span>
+        2.30 euros/kilo
+    </div>
+
+    <p>Fixa't que en aquest exemple el preu de les Pomes i les Peres és el mateix. Podem simplificar 
+        el <code class="w">switch</code> una mica, així:</p>
+    <div class="sc" java data-line="5,6,7,8">
+        switch (producte){
+            case "Taronjes":
+                System.out.println("1.55 euros/kilo");
+                break;
+            case "Pomes":
+            case "Peres":
+                System.out.println("2.30 euros/kilo");
+                break;
+            case "Platans":
+                System.out.println("0.89 euros/kilo");
+                break;
+            default:
+                System.out.println("Producte no disponible");
+        }
+    </div>
+
+    <p>Recorda que s'executen totes les sentències a partir del <code class="w">case</code> que coincideix amb l'expressió fins que es troba
+    un <code class="w">break</code>, així doncs en el cas de que la variable <code class="w">producte</code> sigui <span class="string">Pomes</span>, també s'executarà 
+    la sentència <span class="ln">7</span>, fins a trobar el <code class="w">break</code> de la línia <span class="ln">8</span>.</p>
+
+    <!--TODO: switch fallthrough-->
+
+    <div class="info">
+        <p>A la versió 12 de Java s'incorpora una forma abreujada de la sentència <code class="w">switch</code> que utilitza fletxes <code class="w">-&gt;</code>
+        en lloc dels dos punts <code class="w">:</code> per a les cláules <code class="w">case</code>. En aquesta nova forma no cal utilitzar <code class="w">break</code>.</p>
+        <p>El programa anterior es podria escriure així:</p>
+
+        <div class="sc" java>
+            switch (producte) {
+                case "Taronjes" -> System.out.println("1.55 euros/kilo");
+                case "Pomes", "Peres" -> System.out.println("2.30 euros/kilo");
+                case "Platans" -> System.out.println("0.89 euros/kilo");
+                default -> System.out.println("Producte no disponible");
+            }    
+        </div>
+    </div>
+
+    <div class="quizz">
+        <div class="question" text>
+            <div class="statement">
+                <p>Què imprimeix el següent programa?</p>
+
+                <div class="sc" java>
+                    String foo = "B";
+                    int bar = 0;
+            
+                    switch (foo){
+                        case "A":
+                            bar += 10;
+                        case "B":
+                            bar += 20;
+                        case "C":
+                            bar += 30;
+                        default:
+                            bar += 40;
+                    }
+            
+                    System.out.println(bar);
+                </div>
+            </div>
+            <div class="o">90</div>
+        </div>
+    </div>
+
+    <div class="challenge">
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c2-l1-2-lletres-scrabble">Lletres de l'Scrabble</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c2-l1-7-saluda-en-diferents-llenguatges">Saluda en diferents idiomes</a>
+        </p>
+    </div>
+</section>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portal d'Exercicis | Java 26</title>
+    <script src="../sofi/js/script.js"></script>
+    <link rel="stylesheet" href="../sofi/css/estil.css">
+    <style>
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25em;
+            margin: 2em 0;
+        }
+        .ex-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            padding: 1.25em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .ex-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .ex-card h3 {
+            margin-top: 0;
+            color: #f1f5f9;
+            font-size: 1.2rem;
+        }
+        .ex-badge {
+            display: inline-block;
+            padding: 0.2em 0.6em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.8em;
+        }
+        .badge-ra1 { background: #0369a1; color: #e0f2fe; }
+        .badge-ra2 { background: #047857; color: #d1fae5; }
+        .badge-ra3 { background: #b45309; color: #fef3c7; }
+        .badge-ra4 { background: #6d28d9; color: #ede9fe; }
+        .badge-ra5 { background: #be185d; color: #fce7f3; }
+        .badge-ra6 { background: #0e7490; color: #cffafe; }
+        .badge-ra7 { background: #4338ca; color: #e0e7ff; }
+    </style>
+</head>
+<body>
+<nav></nav>
+<header>
+    <p><a href="../index.html">← Tornar al curs Java 26</a></p>
+    <h1>Portal d'Exercicis Java 26</h1>
+    <p>Col·lecció de qüestionaris interactius auto-avaluables, exercicis pràctics i reptes de programació organitzats per Resultats d'Aprenentatge del currículum.</p>
+</header>
+
+<section>
+    <h2>Exercicis i Qüestionaris Temàtics per RA</h2>
+    <div class="exercise-grid">
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra1">RA1</span>
+                <h3>Elements Bàsics</h3>
+                <p>13 qüestionaris auto-avaluables (literals, variables, operadors, càsting) i reptes pràctics.</p>
+            </div>
+            <a href="ra1-basics.html" class="exercise-btn">Qüestionaris i Exercicis</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra2">RA2</span>
+                <h3>Ús d'Objectes Estàndard</h3>
+                <p>Qüestionari de la classe Scanner, mètodes d'String, Math, Random i reptes pràctics.</p>
+            </div>
+            <a href="ra2-objectes.html" class="exercise-btn">Qüestionaris i Exercicis</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra3">RA3</span>
+                <h3>Control de Flux</h3>
+                <p>Qüestionaris de selecció (if, switch), bucles (for, while, do-while), break/continue i reptes.</p>
+            </div>
+            <a href="ra3-control.html" class="exercise-btn">Qüestionaris i Exercicis</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra4">RA4</span>
+                <h3>Disseny de Classes (POO)</h3>
+                <p>Qüestionari de POO (classes, camps, instanciació amb new) i projecte de la classe Persona.</p>
+            </div>
+            <a href="persona.html" class="exercise-btn">Qüestionari i Exercici</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra4">RA4</span>
+                <h3>Format Visual: TextBox</h3>
+                <p>Validació d'atributs i format visual enquadrat amb codis ASCII.</p>
+            </div>
+            <a href="textbox.html" class="exercise-btn">Exercici TextBox</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra4">RA4</span>
+                <h3>Simulador: Object Racing</h3>
+                <p>Interacció entre cotxes i cursa amb mètodes d'acceleració i moviment.</p>
+            </div>
+            <a href="racing.html" class="exercise-btn">Exercici Racing</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra5">RA5</span>
+                <h3>Fitxers i Entrada/Sortida</h3>
+                <p>Lectura i escriptura de fitxers de text amb java.nio.file i consola moderna.</p>
+            </div>
+            <a href="ra5-fitxers.html" class="exercise-btn">Veure exercicis</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra6">RA6</span>
+                <h3>Arrays i Matrius 2D</h3>
+                <p>Qüestionaris d'arrays unidimensionals i matrius 2D, índexs i reptes de cerca.</p>
+            </div>
+            <a href="ra6-arrays-matrius.html" class="exercise-btn">Qüestionaris i Exercicis</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra6">RA6</span>
+                <h3>String List Utils</h3>
+                <p>Manipulació de llistes, cerca d'ocurrències, filtrat i unió.</p>
+            </div>
+            <a href="string-list-utils.html" class="exercise-btn">Exercici StringListUtils</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra6">RA6</span>
+                <h3>Calendari d'Exàmens</h3>
+                <p>Composició de classes de data, hora i llistes d'exàmens.</p>
+            </div>
+            <a href="calendari.html" class="exercise-btn">Exercici Calendari</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra6">RA6</span>
+                <h3>Col·leccions i Streams</h3>
+                <p>Operacions sobre conjunts, mapes, filtres i operacions lambda.</p>
+            </div>
+            <a href="ra6-coleccions-streams.html" class="exercise-btn">Veure exercicis</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra7">RA7</span>
+                <h3>Jerarquia Animals</h3>
+                <p>Herència multinivell, mètodes constructor amb super() i sobreescriptura.</p>
+            </div>
+            <a href="animals.html" class="exercise-btn">Exercici Animals</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra7">RA7</span>
+                <h3>Jerarquia Workers</h3>
+                <p>Estructura organitzativa i polimorfisme d'impressió.</p>
+            </div>
+            <a href="workers.html" class="exercise-btn">Exercici Workers</a>
+        </div>
+
+        <div class="ex-card">
+            <div>
+                <span class="ex-badge badge-ra7">RA7</span>
+                <h3>Figures Gràfiques: Shape2D</h3>
+                <p>Classes abstractes, interfícies de forma i polimorfisme gràfic AWT.</p>
+            </div>
+            <a href="shape2d.html" class="exercise-btn">Exercici Shape2D</a>
+        </div>
+    </div>
+
+    <div class="challenge">
+        <h3>Reptes a HackerRank</h3>
+        <p>Inscriu-te al contest oficial de DAM per pujar i avaluar el teu codi de forma automàtica:</p>
+        <p><a href="https://hackerrank.com/dam-m3" target="_blank">Accedir al contest de HackerRank DAM-M3</a></p>
+    </div>
+</section>
+</body>
+</html>
