@@ -1,0 +1,2329 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/assets/js/script.js"></script>
+<link rel="stylesheet" href="/assets/css/estil.css">
+
+<nav></nav> 
+<header>
+    <h1>for, while, do-while</h1>
+    <div class="abstract">
+        <p>Les sentències de repetició permeten repetir l'execució 
+            d'un bloc de codi més d'una vegada.
+            Per a fer-ho, Java proporciona les sentències <code class="w">for</code>, <code class="w">while</code>
+            i <code class="w">do-while</code>.
+        </p>
+        <p>Aprendràs:</p>
+        <div class="check">A utilitzar la sentència <strong>for</strong></div>
+        <div class="check">A utilitzar les sentències <strong>while</strong> i <strong>do-while</strong></div>
+    </div>
+</header>
+
+<section>
+    <h2>Sentència for</h2>
+
+    <p>La sentència <code class="w">for</code> proporciona una forma comptacta 
+    d'iterar (<em>repetir</em>) un bloc de codi. Habitualment 
+    se l'anomena <strong>bucle for</strong>.</p>
+
+    <p>El <code class="w">for</code> té la següent sintaxi:</p>
+
+    <div class="sc" java>
+        for (inicialitzacio; condicio; modificacio) {
+            // bloc de codi
+        }
+    </div>
+
+    <p>Les parts del <em>bucle</em> són:</p>
+
+    <ul>
+        <li><p><strong>inicialització</strong>: s'executa una vegada abans 
+        que comenci el bucle. Normalment s'utilitza per a inicialitzar variables.
+        Aquestes variables només es poden utilitzar a dintre del bucle.</p></li>
+        <li><p><strong>condició</strong>: és una expressió booleana que determina
+        si s'ha de fer la següent iteració del bucle. Si és <code class="w">false</code> el 
+        bucle finalitza.</p></li>
+        <li><p><strong>modificació</strong>: s'executa després de cada iteració 
+        del bucle. Normalment s'utilitza per a modificar les variables del bucle.</p></li>
+    </ul>
+
+    <p>A dintre del bloc del bucle, el programa pot realitzar qualssevol sentències vàlides.
+        Pot inclús tenir altres sentències de bucle.
+    </p>
+
+    <p>El bucle <code class="w">for</code> s'utilitza freqüentment per a iterar en un rang de valors. Anem 
+    a escriure un bucle-for per a imprimir números de 0 a 9 a la mateixa línia:</p>
+
+    <div class="stepper" style="--sc-h:5; --mm-h:2; --sh-h:1; --ex-h:2; --sc-w:22;    --sc-mh:5; --mm-mh:2; --sh-mh:1; --ex-mh:3;">
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+
+            </div>
+            <div class="shell">
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                <span class="h">int n = 10;</span>
+                for (int i = 0; i &lt; n; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+
+            </div>
+            <div class="shell">
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                La primera vegada s'executa la <strong>inicialització</strong>
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (<span class="h">int i = 0</span>; i &lt; n; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                <b>n: 10</b>
+            </div>
+            <div class="shell">
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                S'avalua la <strong>condició</strong> <code class="w">i &lt; n</code>, com 0 és menor que 10, es fa una iteració.
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 0</b>
+            </div>
+            <div class="shell">
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ")</span>;
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 0
+            </div>
+            <div class="shell">
+
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                Després de cada iteració es fa la <strong>modificació</strong>
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 0
+            </div>
+            <div class="shell">
+                0␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                Es torna a avaluar la <strong>condició</strong> per veure si s'ha de fer una altra iteració.
+                Com <code class="w">1 &lt; 10</code> <u>no</u> és <code class="w">false</code>, es torna a iterar.
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n;</span> i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 1</b>
+            </div>
+            <div class="shell">
+                0␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ");</span>
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 1
+            </div>
+            <div class="shell">
+                0␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                Després de cada iteració es fa la <strong>modificacio</strong>
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 1
+            </div>
+            <div class="shell">
+                0␣1␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                Es torna a comprovar la <strong>condició</strong>. Com <code class="w">i</code> segueix sent menor que <code class="w">n</code>, 
+                es fa una nova iteració
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 2</b>
+            </div>
+            <div class="shell">
+                0␣1␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                Es torna a comprovar la <strong>condició</strong>. Com <code class="w">i</code> segueix sent menor que <code class="w">n</code>, 
+                es fa una nova iteració
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ");</span>
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 2
+            </div>
+            <div class="shell">
+                0␣1␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 2
+            </div>
+            <div class="shell">
+                0␣1␣2␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 3</b>
+            </div>
+            <div class="shell">
+                0␣1␣2␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ");</span>
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 3
+            </div>
+            <div class="shell">
+                0␣1␣2␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 3
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 4</b>
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ");</span>
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 4
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣
+            </div>
+        </div>
+        
+
+
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 4
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 5</b>
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ");</span>
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 5
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣
+            </div>
+        </div>
+
+
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 5
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 6</b>
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ");</span>
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 6
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣
+            </div>
+        </div>
+
+
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 6
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 7</b>
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ");</span>
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 7
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣
+            </div>
+        </div>
+
+
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 7
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣7␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 8</b>
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣7␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ");</span>
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 8
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣7␣
+            </div>
+        </div>
+
+
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 8
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣7␣8␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 9</b>
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣7␣8␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    <span class="h">System.out.print(i + " ");</span>
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 9
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣7␣8␣
+            </div>
+        </div>
+
+
+
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; <span class="h">i++</span>) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                i: 9
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣7␣8␣9␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                En aquest punt la <strong>condició</strong> s'avalua a <code class="w">false</code> (10 <u>no</u> és menor que 10), 
+                així que ja no es fa cap més iteració.
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; <span class="h">i &lt; n</span>; i++) {
+                    System.out.print(i + " ");
+                }  
+            </div>
+            <div class="mem">
+                n: 10
+                <b>i: 10</b>
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣7␣8␣9␣
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                En aquest punt la <strong>condició</strong> s'avalua a <code class="w">false</code> (10 <u>no</u> és menor que 10), 
+                així que ja no es fa cap més iteració.
+            </div>
+            <div class="sc" java>
+                int n = 10;
+                for (int i = 0; i &lt; n; i++) {
+                    System.out.print(i + " ");
+                }  
+                <span class="h">// el programa continuaria per aqui ...</span>
+            </div>
+            <div class="mem">
+                n: 10
+                       <span class="comment">// la variable i s'esborra de la memoria</span>
+            </div>
+            <div class="shell">
+                0␣1␣2␣3␣4␣5␣6␣7␣8␣9␣
+            </div>
+        </div>
+        
+    </div>
+
+    <p>Les variables declarades a la sentència d'<strong>inicialització</strong> només són visibles en l'àmbit (<em>scope</em>) del 
+    bucle -incloent totes les seves parts: condició, bloc i modificació-.</p>
+
+    <div class="info">
+        <p>És una pràctica molt comuna entre els programadors anomenar les variables dels bucles amb <code class="w">i</code>, <code class="w">j</code>, <code class="w">k</code>, ...
+        S'especula que l'origen ve dels <a href="https://en.wikipedia.org/wiki/Quaternion">Quaternions de Hamilton</a>.    
+        </p>
+    </div>
+
+    <p>Veiem un altre exemple. Calculem la suma dels números enters des de <code class="w">ini</code> fins a <code class="w">fin</code>.</p>
+
+    <p>Farem una execució del programa per a <code class="w">ini = 2</code> i <code class="w">fin = 5</code>, aleshores la suma serà <code class="w">2 + 3 + 4 + 5 = 14</code>.</p>
+    <div class="stepper" style="--sc-h:9; --mm-h:4; --sh-h:3; --ex-h:1; --sc-w:22;    --sc-mh:9; --mm-mh:4; --sh-mh:3; --ex-mh:1;">
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                <span class="h">int ini = scanner.nextInt();</span>
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+
+            </div>
+            <div class="shell">
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                <span class="h">int fin = scanner.nextInt();</span>
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                <b>ini: 2</b>
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                <span class="h">int sum = 0;</span>
+                for (int i = ini; i &lt= fin; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                <b>fin: 5</b>
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (<span class="h">int i = ini</span>; i &lt= fin; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                <b>sum: 0</b>
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                 2 és menor o igual a 5, es fa una iteració
+            </div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; <span class="h">i &lt= fin</span>; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 0
+                <b>i: 2</b>
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    <span class="h">sum += i;</span>
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 0
+                i: 2
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; <span class="h">i++</span>) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                <b>sum: 2</b>
+                i: 2
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                3 és menor o igual a 5, es fa una iteració
+            </div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; <span class="h">i &lt= fin</span>; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 2
+                <b>i: 3</b>
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    <span class="h">sum += i;</span>
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 2
+                i: 3
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; <span class="h">i++</span>) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                <b>sum: 5</b>
+                i: 3
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+
+
+
+        <div class="step">
+            <div class="explanation">
+                4 és menor o igual a 5, es fa una iteració
+            </div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; <span class="h">i &lt= fin</span>; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 5
+                <b>i: 4</b>
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    <span class="h">sum += i;</span>
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 5
+                i: 4
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; <span class="h">i++</span>) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                <b>sum: 9</b>
+                i: 4
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+
+
+
+        <div class="step">
+            <div class="explanation">
+                5 és menor o igual a 5, es fa una iteració
+            </div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; <span class="h">i &lt= fin</span>; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 9
+                <b>i: 5</b>
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    <span class="h">sum += i;</span>
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 9
+                i: 5
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; <span class="h">i++</span>) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                <b>sum: 14</b>
+                i: 5
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                6 <u>no</u> és menor o igual a 5, no es fan més iteracions
+            </div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; <span class="h">i &lt= fin</span>; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 14
+                <b>i: 6</b>
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    sum += i;
+                }
+                
+                <span class="h">System.out.println(sum);</span>
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 14
+                                <span class="comment">// i esborrada</span>
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int ini = scanner.nextInt();
+                int fin = scanner.nextInt();
+
+                int sum = 0;
+                for (int i = ini; i &lt= fin; i++) {
+                    sum += i;
+                }
+                
+                System.out.println(sum);
+            </div>
+            <div class="mem">
+                ini: 2
+                fin: 5
+                sum: 14
+                            
+            </div>
+            <div class="shell">
+                <span class="in">2</span>
+                <span class="in">5</span>
+                14
+            </div>
+        </div>
+    </div>
+
+    <h3>Ometre parts</h3>
+    <p>Les tres parts (inicialització, condició i modificació) són opcionals, es poden posar o no segons convingui.</p>
+    <p>Per exemple, el següent <code class="w">for</code> no utilitza cap de les tres:</p>
+    <div class="sc" java>
+        for (;;) {
+            System.out.println("all work and no play makes jack a dull boy");
+        }
+    </div>
+    <div class="shell">
+        all work and no play makes jack a dull boy
+        all work and no play makes jack a dull boy
+        all work and no play makes jack a dull boy
+        all work and no play makes jack a dull boy
+        ...
+        ...        
+    </div>
+
+    <p>El bucle for itera el bloc de codi fins que la condició és <code class="w">false</code>, 
+    com no hem posat cap condició, el bucle itera indefinidament.</p>
+
+    <p>Al següent exemple només s'especifica la condició, no la incialització 
+        ni la modificació. El <strong>for</strong> d'aquest exemple avalua 
+        si la paraula llegida amb l'scanner és igual a <span class="string">si</span>. 
+        El bucle farà iteracions del bloc fins que la condició sigui <code class="w">false</code>, és a dir,
+        fins que es llegeixi un String distint de <span class="string">si</span>.</p>
+    
+    <div class="sc" java>
+        Scanner scanner = new Scanner(System.in);
+
+        for(; scanner.next().equals("yes"); ){
+            System.out.println("Tornem a repetir");
+        }
+    </div>
+    <div class="shell">
+        <span class="in">yes</span>
+        Tornem a repetir
+        <span class="in">yes</span>
+        Tornem a repetir
+        <span class="in">yes</span>
+        Tornem a repetir
+        <span class="in">prou!</span>
+    </div>
+
+
+    <p>Una altre petit exemple, el programa "Endevina el número":</p>
+    <div class="stepper"  style="--sc-h:5; --mm-h:1; --sh-h:7; --ex-h:1; --sc-w:26;    --sc-mh:5; --mm-mh:1; --sh-mh:7; --ex-mh:1;">
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; scanner.nextInt() != 6;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                <span class="h">System.out.println("Endevina el número secret:");</span>
+                for(; scanner.nextInt() != 6;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; <span class="h">scanner.nextInt() != 6</span>;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; <span class="h">scanner.nextInt() != 6</span>;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                <code class="w">4 != 6</code> és <code class="w">true</code>, es fa la iteració
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; <span class="h">scanner.nextInt() != 6</span>;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+                scanner.nextInt(): 4
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; scanner.nextInt() != 6;) {
+                    <span class="h">System.out.println("Segueix intentant-ho");</span>
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; <span class="h">scanner.nextInt() != 6</span>;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+                Segueix intentant-ho
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; <span class="h">scanner.nextInt() != 6</span>;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+                Segueix intentant-ho
+                <span class="in">2</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                <code class="w">2 != 6</code> és <code class="w">true</code>, es fa la iteració
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; <span class="h">scanner.nextInt() != 6</span>;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+                scanner.nextInt(): 2
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+                Segueix intentant-ho
+                <span class="in">2</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; scanner.nextInt() != 6;) {
+                    <span class="h">System.out.println("Segueix intentant-ho");</span>
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+                Segueix intentant-ho
+                <span class="in">2</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; <span class="h">scanner.nextInt() != 6</span>;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+                Segueix intentant-ho
+                <span class="in">2</span>
+                Segueix intentant-ho
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="explanation">
+
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; <span class="h">scanner.nextInt() != 6</span>;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+                Segueix intentant-ho
+                <span class="in">2</span>
+                Segueix intentant-ho
+                <span class="in">6</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                <code class="w">6 != 6</code> és <code class="w">false</code>, ja no es fa cap iteració més
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; <span class="h">scanner.nextInt() != 6</span>;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+                scanner.nextInt(): 6
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+                Segueix intentant-ho
+                <span class="in">2</span>
+                Segueix intentant-ho
+                <span class="in">6</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; scanner.nextInt() != 6;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                <span class="h">System.out.println("L'has endevinat!");</span>
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+                Segueix intentant-ho
+                <span class="in">2</span>
+                Segueix intentant-ho
+                <span class="in">6</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                System.out.println("Endevina el número secret:");
+                for(; scanner.nextInt() != 6;) {
+                    System.out.println("Segueix intentant-ho");
+                }
+                System.out.println("L'has endevinat!");            
+            </div>
+            <div class="mem">
+            </div>
+            <div class="shell">
+                Endevina el número secret:
+                <span class="in">4</span>
+                Segueix intentant-ho
+                <span class="in">2</span>
+                Segueix intentant-ho
+                <span class="in">6</span>
+                L'has endevinat
+            </div>
+        </div>
+    </div>
+
+    <h3>Bucles niats</h3>
+    <p>És possible niar un bucle-for dintre d'un altre bucle-for. Ens pot servir per a processar 
+        estructures multidimensionals com taules (matrius), cubs, etc...
+    </p>
+
+    <p>Com a exemple, el següent programa imprimeix la taula de mutliplicar del <code class="w">1</code> fins al <code class="w">9</code>:</p>
+
+    <div class="sc" java>
+        for (int i = 1; i &lt; 10; i++) {
+            for (int j = 1; j &lt; 10; j++) {
+                System.out.print(i * j + "\t");
+            }
+            System.out.println();
+        }
+    </div>
+
+    <div class="shell">
+        1   2   3   4   5   6   7   8   9  
+        2   4   6   8   10  12  14  16  18  
+        3   6   9   12  15  18  21  24  27  
+        4   8   12  16  20  24  28  32  36  
+        5   10  15  20  25  30  35  40  45  
+        6   12  18  24  30  36  42  48  54  
+        7   14  21  28  35  42  49  56  63  
+        8   16  24  32  40  48  56  64  72  
+        9   18  27  36  45  54  63  72  81 
+    </div>
+
+    <div class="info">
+        <p>Quan niem un bucle dintre d'un altre cal tenir en compte que el bucle intern es repetirà
+            des del principi cada vegada que es faci una nova repetició de l'extern.
+        </p>
+
+        <p>Per exemple, als següents dos bucles niats, l'extern es repeteix 2 vegades, per tant l'intern 
+            es repetirà des del principi cadascuna d'aquestes dues vegades. És a dir, el bucle intern
+            es farà 3 vegades la primera repetetició de l'extern, i 3 vegades més a la segona repetició de 
+            l'extern.
+        </p>
+
+        <img src="img/for2.gif">
+
+        <p>Per a tres bucles niats la seqüència d'execució seria aquesta:</p>
+
+        <img src="img/for3.gif"/>
+    </div>
+
+    <div class="quizz">
+        <div class="question" single>
+            <div class="statement">
+                <p>El següent codi calcula la suma dels números en el rang <code class="w">ini</code> a <code class="w">fin</code> (inclusiu). El resultat
+                es va emmagatzemant en la variable <code class="w">acumulador</code>.</p>
+                <div class="sc" java>
+                    int accumulator = 0;                  
+                    for (int i = start; i &lt;= end; i++) { 
+                        accumulator += i;                 
+                    }
+                </div>
+
+                <p>Quin dels següents codis calcula la multiplicació dels números en el rang?</p>
+            </div>
+            <div class="o" correct>
+                <div class="sc" java>
+                    int accumulator = 1;                  
+                    for (int i = start; i &lt;= end; i++) { 
+                        accumulator *= i;                 
+                    }
+                </div>
+            </div>
+            <div class="o">
+                <div class="sc" java>
+                    int accumulator = 0;                  
+                    for (int i = 1; i &lt;= end; i++) { 
+                        accumulator *= i;                 
+                    }
+                </div>
+            </div>
+            <div class="o">
+                <div class="sc" java>
+                    int accumulator = 1;                  
+                    for (int i = start; i &lt;= end; i *= 1) { 
+                        accumulator += i;                 
+                    }
+                </div>
+            </div>
+            <div class="o">
+                <div class="sc" java>
+                    int accumulator = 1;                  
+                    for (int i = 1; i &lt;= end; i++) { 
+                        accumulator += i;                 
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="question" single>
+            <div class="statement">
+                <p>Què imprimeix el següent codi?</p>
+                <div class="sc" java>
+                    int i = 0; 
+                    for (int k = 0; k &lt; 100; k++) { 
+                        i++; 
+                    } 
+                    System.out.println(i);
+                </div>
+            </div>
+            <div class="o">101</div>
+            <div class="o" correct>100</div>
+            <div class="o">0</div>
+            <div class="o">99</div>
+        </div>
+    </div>
+
+    <div class="challenge">
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c3-l0-1-linia-de-punts">Línia de punts</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c3-l0-2-interval">Interval</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c3-l0-3-repeat-x">Repeat X</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c3-l0-4-divisibles-per-3">Divisibles per 3</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/fizz-buzz-for">FizzBuzz</a>
+            <br>
+        </p>
+    </div>
+</section>
+
+<section>
+    <h2>while i do-while</h2>
+    <p>Java proporciona les sentències <code class="w">while</code> i <code class="w">do-while</code> per a repetir un fragment de codi.</p>
+
+    <h3>while</h3>
+    <p>El bucle <code class="w">while</code> consisteix en un bloc de codi i una condició (expressió booleana). El codi es repeteix 
+    fins que la condició és <code class="w">false</code>. La seva sintaxi és:</p>
+
+    <div class="sc" java>
+        while (condicio) {
+            // bloc de codi
+        }
+    </div>
+
+    <p>El bloc de codi pot contenir qualssevol sentències Java incloent altres sentències condicionals o de repetició.</p>
+
+    <p>Veiem un petit exemple, que imprimeix una variable mentre sigui menor a 5:</p>
+    
+    <div class="stepper" style="--sc-h:5; --mm-h:1; --sh-h:1; --ex-h:1; --sc-w:24;    --sc-mh:5; --mm-mh:1; --sh-mh:1; --ex-mh:1;">
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </div>
+            <div class="mem"></div>
+            <div class="shell"></div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                <span class="h">int i = 0;</span>
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </div>
+            <div class="mem"></div>
+            <div class="shell"></div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                0 és menor que 5, es fa una iteració
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (<span class="h">i &lt; 5</span>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 0
+            </div>
+            <div class="shell"></div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <span class="h">System.out.print(i + " ");</span>
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 0
+            </div>
+            <div class="shell"></div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <span class="h">i++;</span>
+                }
+            </div>
+            <div class="mem">
+                i: 0
+            </div>
+            <div class="shell">
+                0
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                1 és menor que 5, es fa una iteració
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (<span class="h">i &lt; 5</span>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 1
+            </div>
+            <div class="shell">
+                0
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <span class="h">System.out.print(i + " ");</span>
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 1
+            </div>
+            <div class="shell">
+                0
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <span class="h">i++;</span>
+                }
+            </div>
+            <div class="mem">
+                i: 1
+            </div>
+            <div class="shell">
+                0 1
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                2 és menor que 5, es fa una iteració
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (<span class="h">i &lt; 5</span>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 2
+            </div>
+            <div class="shell">
+                0 1
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <span class="h">System.out.print(i + " ");</span>
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 2
+            </div>
+            <div class="shell">
+                0 1
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <span class="h">i++;</span>
+                }
+            </div>
+            <div class="mem">
+                i: 2
+            </div>
+            <div class="shell">
+                0 1 2
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                3 és menor que 5, es fa una iteració
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (<span class="h">i &lt; 5</span>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 3
+            </div>
+            <div class="shell">
+                0 1 2
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <span class="h">System.out.print(i + " ");</span>
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 3
+            </div>
+            <div class="shell">
+                0 1 2
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <span class="h">i++;</span>
+                }
+            </div>
+            <div class="mem">
+                i: 3
+            </div>
+            <div class="shell">
+                0 1 2 3
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                4 és menor que 5, es fa una iteració
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (<span class="h">i &lt; 5</span>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 4
+            </div>
+            <div class="shell">
+                0 1 2 3
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <span class="h">System.out.print(i + " ");</span>
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 4
+            </div>
+            <div class="shell">
+                0 1 2 3
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <span class="h">i++;</span>
+                }
+            </div>
+            <div class="mem">
+                i: 4
+            </div>
+            <div class="shell">
+                0 1 2 3 4
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                5 &lt; 5 és <code class="w">false</code>, ja no es fa cap iteració 
+            </div>
+            <div class="sc" java>
+                int i = 0;
+                while (<span class="h">i &lt; 5</span>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </div>
+            <div class="mem">
+                i: 5
+            </div>
+            <div class="shell">
+                0 1 2 3 4
+            </div>
+        </div>
+    </div>
+
+    <div class="info">
+        <p>Hauràs notat que el bucle <code class="w">while</code> és molt similar al <code class="w">for</code>. De fet són <em>equivalents</em>, l'exemple anterior
+        es podria haver escrit així:</p>
+        <div class="sc" java>
+            int i = 0;
+            for (; i &lt; 5;) {
+                System.out.print(i + " ");
+                i++;
+            }
+        </div>
+        <p>O així:</p>
+        <div class="sc" java>
+            int i = 0;
+            for (; i &lt; 5; i++) {
+                System.out.print(i + " ");
+            }
+        </div>
+        <p>O inclús així:</p>
+        <div class="sc" java>
+            for (int i = 0; i &lt; 5; i++) {
+                System.out.print(i + " ");
+            }
+        </div>
+        <p>És important notar que en aquest últim exemple, Java eliminarà la variable <code class="w">i</code> un cop acabi el <code class="w">for</code>, 
+        cosa que no passa en els exemples anteriors.</p>
+    </div>
+
+    <h3>do-while</h3>
+    <p>En el bucle <code class="w">do-while</code>, el bloc de codi s'executa primer, i la condició s'avalua després. Si la condició és 
+    <code class="w">true</code> el bloc es torna a executar. D'aquesta manera es garanteix que el bloc s'executarà al menys una vegada.</p>
+
+    <p>La seva sintaxi és:</p>
+    <div class="sc" java>
+        do {
+            // bloc de codi
+        } while (condicio);
+    </div>
+
+    <p>Un bon exemple és el següent programa, que llegeix dades de l'entrada stàndard fins que s'introdueix un cert valor.</p>
+
+    <div class="stepper" style="--sc-h:6; --mm-h:1; --sh-h:5; --ex-h:2; --sc-w:20;    --sc-mh:6; --mm-mh:1; --sh-mh:5; --ex-mh:3;">
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (valor != 0);
+            </div>
+            <div class="mem"></div>
+            <div class="shell">
+                <span class="in">3 5 7 0 11</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                <span class="h">int valor;</span>
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (valor != 0);
+            </div>
+            <div class="mem"></div>
+            <div class="shell">
+                <span class="in">3 5 7 0 11</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                La primera vegada s'executa el bloc sense avaluar la condició.
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    <span class="h">valor = scanner.nextInt();</span>
+                    System.out.println(valor);
+                } while (valor != 0);
+            </div>
+            <div class="mem">
+                valor: 
+            </div>
+            <div class="shell">
+                <span class="in">3 5 7 0 11</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    <span class="h">System.out.println(valor);</span>
+                } while (valor != 0);
+            </div>
+            <div class="mem">
+                valor: 3
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3</span> 5 7 0 11</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                S'avalua la condició per veure si es fa una altra iteració
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (<span class="h">valor != 0</span>);
+            </div>
+            <div class="mem">
+                valor: 3
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3</span> 5 7 0 11</span>
+                3
+            </div>
+        </div>
+
+
+
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    <span class="h">valor = scanner.nextInt();</span>
+                    System.out.println(valor);
+                } while (valor != 0);
+            </div>
+            <div class="mem">
+                valor: 3
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3</span> 5 7 0 11</span>
+                3
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    <span class="h">System.out.println(valor);</span>
+                } while (valor != 0);
+            </div>
+            <div class="mem">
+                valor: 5
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3 5</span> 7 0 11</span>
+                3
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                S'avalua la condició per veure si es fa una altra iteració
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (<span class="h">valor != 0</span>);
+            </div>
+            <div class="mem">
+                valor: 5
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3 5</span> 7 0 11</span>
+                3
+                5
+            </div>
+        </div>
+
+
+
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    <span class="h">valor = scanner.nextInt();</span>
+                    System.out.println(valor);
+                } while (valor != 0);
+            </div>
+            <div class="mem">
+                valor: 5
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3 5</span> 7 0 11</span>
+                3
+                5
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    <span class="h">System.out.println(valor);</span>
+                } while (valor != 0);
+            </div>
+            <div class="mem">
+                valor: 7
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3 5 7</span> 0 11</span>
+                3
+                5
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                S'avalua la condició per veure si es fa una altra iteració
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (<span class="h">valor != 0</span>);
+            </div>
+            <div class="mem">
+                valor: 7
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3 5 7</span> 0 11</span>
+                3
+                5
+                7
+            </div>
+        </div>
+
+
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    <span class="h">valor = scanner.nextInt();</span>
+                    System.out.println(valor);
+                } while (valor != 0);
+            </div>
+            <div class="mem">
+                valor: 7
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3 5 7</span> 0 11</span>
+                3
+                5
+                7
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    <span class="h">System.out.println(valor);</span>
+                } while (valor != 0);
+            </div>
+            <div class="mem">
+                valor: 0
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3 5 7 0</span> 11</span>
+                3
+                5
+                7
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation">
+                S'avalua la condició per veure si es fa una altra iteració.
+                Com <code class="w">0 != 0</code> és <code class="w">false</code>, no es torna a iterar. 
+            </div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (<span class="h">valor != 0</span>);
+            </div>
+            <div class="mem">
+                valor: 0
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3 5 7 0</span> 11</span>
+                3
+                5
+                7
+                0
+            </div>
+        </div>
+        <div class="step">
+            <div class="explanation"></div>
+            <div class="sc" java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (valor != 0);
+                <span class="h">// el programa continua per aqui...</span>
+            </div>
+            <div class="mem">
+                valor: 0
+            </div>
+            <div class="shell">
+                <span class="in"><span class="consumed">3 5 7 0</span> 11</span>
+                3
+                5
+                7
+                0
+            </div>
+        </div>
+    </div>
+
+    <p>En la pràctica, el bucle <code class="w">do-while</code> se sol utilitzar menys que el <code class="w">while</code>.</p>
+</section>
