@@ -957,152 +957,7 @@ function loadScript(src) {
 }
 
 // ==========================================================================
-// 6. Interactive Tables
-// ==========================================================================
-
-function initInteractiveTables() {
-  document.querySelectorAll('table').forEach(table => {
-    if (table.classList.contains('no-sort') || table.classList.contains('trace') || table.closest('stepper, .stepper, question, .question')) {
-      return;
-    }
-    if (table.parentElement && table.parentElement.classList.contains('table-responsive')) {
-      return;
-    }
-
-    const rows = Array.from(table.querySelectorAll('tbody tr, tr:not(:first-child)'));
-    const headers = Array.from(table.querySelectorAll('thead th, tr:first-child th'));
-
-    if (headers.length === 0 || rows.length < 2) return;
-    if (table.querySelector('.o, o, input')) return;
-
-    const responsiveWrap = document.createElement('div');
-    responsiveWrap.className = 'table-responsive';
-    table.parentNode.insertBefore(responsiveWrap, table);
-    responsiveWrap.appendChild(table);
-
-    const toolbar = document.createElement('div');
-    toolbar.className = 'table-toolbar';
-
-    const searchInput = document.createElement('input');
-    searchInput.type = 'search';
-    searchInput.className = 'table-search-input';
-    searchInput.placeholder = '🔍 Cercar a la taula...';
-    searchInput.setAttribute('aria-label', 'Cercar a la taula');
-
-    const countSpan = document.createElement('span');
-    countSpan.className = 'table-row-count';
-    countSpan.textContent = `Total: ${rows.length} files`;
-
-    toolbar.appendChild(searchInput);
-    toolbar.appendChild(countSpan);
-    responsiveWrap.parentNode.insertBefore(toolbar, responsiveWrap);
-
-    let currentSortCol = -1;
-    let sortAscending = true;
-
-    headers.forEach((th, colIdx) => {
-      th.classList.add('sortable');
-      const sortIcon = document.createElement('span');
-      sortIcon.className = 'sort-icon';
-      sortIcon.textContent = ' ⇅';
-      th.appendChild(sortIcon);
-
-      th.addEventListener('click', () => {
-        if (currentSortCol === colIdx) {
-          sortAscending = !sortAscending;
-        } else {
-          currentSortCol = colIdx;
-          sortAscending = true;
-        }
-
-        headers.forEach(h => {
-          h.classList.remove('sorted-asc', 'sorted-desc');
-          const icon = h.querySelector('.sort-icon');
-          if (icon) icon.textContent = ' ⇅';
-        });
-
-        th.classList.add(sortAscending ? 'sorted-asc' : 'sorted-desc');
-        sortIcon.textContent = sortAscending ? ' ▲' : ' ▼';
-
-        sortTableByColumn(table, colIdx, sortAscending);
-      });
-    });
-
-    searchInput.addEventListener('input', () => {
-      const q = searchInput.value.toLowerCase().trim();
-      let visibleCount = 0;
-
-      rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        if (text.includes(q)) {
-          row.style.display = '';
-          visibleCount++;
-        } else {
-          row.style.display = 'none';
-        }
-      });
-
-      if (q === '') {
-        countSpan.textContent = `Total: ${rows.length} files`;
-      } else {
-        countSpan.textContent = `Mostrant ${visibleCount} de ${rows.length} files`;
-      }
-
-      let emptyRow = table.querySelector('.table-empty-row');
-      if (visibleCount === 0) {
-        if (!emptyRow) {
-          emptyRow = document.createElement('tr');
-          emptyRow.className = 'table-empty-row';
-          const td = document.createElement('td');
-          td.colSpan = headers.length || 4;
-          td.textContent = 'No s\'han trobat coincidències amb la cerca.';
-          emptyRow.appendChild(td);
-          const tbody = table.querySelector('tbody') || table;
-          tbody.appendChild(emptyRow);
-        }
-        emptyRow.style.display = '';
-      } else if (emptyRow) {
-        emptyRow.style.display = 'none';
-      }
-    });
-  });
-}
-
-function sortTableByColumn(table, colIdx, ascending) {
-  const tbody = table.querySelector('tbody') || table;
-  const rows = Array.from(tbody.querySelectorAll('tr:not(:first-child, .table-empty-row)'));
-
-  function getCellValue(row, idx) {
-    const cell = row.children[idx];
-    return cell ? cell.textContent.trim() : '';
-  }
-
-  function parseSortValue(val) {
-    const cleaned = val.replace(/_/g, '').replace(/,/g, '.');
-    const num = parseFloat(cleaned);
-    if (!isNaN(num) && /^-?\d+(\.\d+)?/.test(cleaned)) {
-      return { isNum: true, val: num };
-    }
-    return { isNum: false, val: val.toLowerCase() };
-  }
-
-  rows.sort((rowA, rowB) => {
-    const vA = parseSortValue(getCellValue(rowA, colIdx));
-    const vB = parseSortValue(getCellValue(rowB, colIdx));
-
-    if (vA.isNum && vB.isNum) {
-      return ascending ? vA.val - vB.val : vB.val - vA.val;
-    }
-    return ascending
-      ? String(vA.val).localeCompare(String(vB.val))
-      : String(vB.val).localeCompare(String(vA.val));
-  });
-
-  rows.forEach(r => tbody.appendChild(r));
-}
-
-// ==========================================================================
-// 7. Navigation & Page Helpers
+// 6. Navigation & Page Helpers
 // ==========================================================================
 
 let sidenavItemClicked = false;
@@ -1270,7 +1125,6 @@ function initApp() {
     { name: 'autoAttributes', fn: autoAttributes },
     { name: 'syntaxHighlight', fn: syntaxHighlight },
     { name: 'initCopyCodeButtons', fn: initCopyCodeButtons },
-    { name: 'initInteractiveTables', fn: initInteractiveTables },
     { name: 'doStepper', fn: doStepper },
     { name: 'doQuizz', fn: doQuizz },
     { name: 'initMermaid', fn: initMermaid },
@@ -1305,5 +1159,4 @@ if (typeof window !== 'undefined') {
   window.doStepper = doStepper;
   window.doQuizz = doQuizz;
   window.initMermaid = initMermaid;
-  window.initInteractiveTables = initInteractiveTables;
 }

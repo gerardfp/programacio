@@ -595,21 +595,111 @@
 </div>
 </div>
 
-    <h2>5. Exercicis Pràctics i Reptes de Programació</h2>
-    <div class="work">
-        <h3>Exercicis proposats</h3>
-        <ul>
-            <li><p><strong>Calculadora bàsica:</strong> Crea un programa que demani dos enters i mostri la seva suma, resta, multiplicació, divisió entera i residu (mòdul).</p></li>
-            <li><p><strong>Conversor de temperatures:</strong> Transforma una temperatura en graus Celsius a Fahrenheit utilitzant la fórmula \(F = C \times 9/5 + 32\). Atenció a la divisió entera!</p></li>
-            <li><p><strong>Intercanvi de variables:</strong> Donades dues variables <code class="w">a = 5</code> i <code class="w">b = 10</code>, intercanvia els seus valors utilitzant una variable auxiliar.</p></li>
-        </ul>
+    <h2>5. Exercicis Pràctics de Programació</h2>
+    <div class="info">
+        <p><strong>Com demanar dades per teclat a l'usuari:</strong></p>
+        <p>Recorda fer servir la instrucció <code class="w">IO.readln()</code> de Java 26 per demanar dades per consola i convertir-les a números amb <code class="w">Integer.parseInt(...)</code> o <code class="w">Double.parseDouble(...)</code>:</p>
+        <div class="sc" java>
+int valor = Integer.parseInt(IO.readln("Introdueix un enter: "));
+double decimal = Double.parseDouble(IO.readln("Introdueix un decimal: "));
+        </div>
+    </div>
 
-        <h3>Reptes a HackerRank</h3>
-        <ul>
-            <li><a href="https://www.hackerrank.com/contests/dam-m3/challenges/quadrat-magic">Quadrat Màgic</a></li>
-            <li><a href="https://www.hackerrank.com/contests/dam-m3/challenges/calculadora-segons">Calculadora de Segons</a></li>
-            <li><a href="https://www.hackerrank.com/contests/dam-m3/challenges/notes-universitat">Notes d'Universitat</a></li>
-        </ul>
+    <div class="work">
+        <h3>Exercicis Proposats (Dificultat Progressiva)</h3>
+        <p>Crea un programa en Java 26 per a cadascun dels reptes següents. Estan ordenats de menor a major complexitat:</p>
+
+        <ol>
+            <li>
+                <p><strong>Salutació personalitzada:</strong></p>
+                <p>Demana a l'usuari el seu nom i el seu primer cognom mitjançant dues preguntes independents amb <code class="w">IO.readln()</code>. Mostra per pantalla una salutació completa unint els dos valors:</p>
+                <div class="shell">Com et dius? <span class="in">Maria</span>
+Quin és el teu primer cognom? <span class="in">Garcia</span>
+Hola, Maria Garcia! Benvinguda al curs de programació en Java 26.</div>
+            </li>
+
+            <li>
+                <p><strong>Doble i triple d'un nombre:</strong></p>
+                <p>Demana un nombre enter a l'usuari amb <code class="w">IO.readln()</code>, converteix-lo a número enter amb <code class="w">Integer.parseInt()</code> i mostra per pantalla el seu doble (<code class="w">n * 2</code>) i el seu triple (<code class="w">n * 3</code>):</p>
+                <div class="shell">Introdueix un nombre enter: <span class="in">7</span>
+El doble de 7 és: 14
+El triple de 7 és: 21</div>
+            </li>
+
+            <li>
+                <p><strong>Calculadora bàsica:</strong></p>
+                <p>Demana dos nombres enters a l'usuari (<code class="w">a</code> i <code class="w">b</code>). Calcula i mostra el resultat de la seva suma, resta, multiplicació, divisió entera i el residu de la divisió (mòdul <code class="w">%</code>):</p>
+                <div class="shell">Introdueix el primer enter: <span class="in">17</span>
+Introdueix el segon enter: <span class="in">5</span>
+Suma: 22
+Resta: 12
+Multiplicació: 85
+Divisió entera: 3
+Residu: 2</div>
+            </li>
+
+            <li>
+                <p><strong>Àrea i perímetre d'un rectangle:</strong></p>
+                <p>Demana la base i l'altura d'un rectangle com a nombres decimals (<code class="w">double</code>). Calcula i mostra el perímetre (<code class="w">2 * base + 2 * altura</code>) i l'àrea (<code class="w">base * altura</code>):</p>
+                <div class="shell">Introdueix la base: <span class="in">4.5</span>
+Introdueix l'altura: <span class="in">3.0</span>
+Perímetre: 15.0
+Àrea: 13.5</div>
+            </li>
+
+            <li>
+                <p><strong>Conversor de graus Celsius a Fahrenheit:</strong></p>
+                <p>Demana una temperatura en graus Celsius com a valor decimal (<code class="w">double</code>). Aplica la fórmula de conversió: <code class="w">F = C * 9.0 / 5.0 + 32</code>. <em>Atenció:</em> Recorda utilitzar valors literals decimals com <code class="w">9.0 / 5.0</code> per evitar que Java faci una divisió entera:</p>
+                <div class="shell">Introdueix la temperatura en °C: <span class="in">25.0</span>
+25.0 °C equivalen a 77.0 °F</div>
+            </li>
+
+            <li>
+                <p><strong>Càlcul de preu amb descompte i IVA:</strong></p>
+                <p>Demana el preu original d'un producte (decimal, en euros) i el percentatge de descompte a aplicar (enter, per exemple <code class="w">15</code> per a un 15%). Calcula el preu després del descompte i, sobre aquest preu rebaixat, calcula i suma un 21% d'IVA per obtenir el preu final a pagar:</p>
+                <div class="shell">Preu base (€): <span class="in">100.0</span>
+Percentatge de descompte (%): <span class="in">15</span>
+Preu rebaixat: 85.0 €
+IVA (21%): 17.85 €
+Preu final: 102.85 €</div>
+            </li>
+
+            <li>
+                <p><strong>Desglossament de temps (segons a minuts i segons):</strong></p>
+                <p>Demana una quantitat total de segons (enter). Mitjançant els operadors de divisió entera (<code class="w">/ 60</code>) i residu (<code class="w">% 60</code>), calcula quants minuts complets i quants segons restants representa:</p>
+                <div class="shell">Introdueix els segons totals: <span class="in">135</span>
+135 segons equivalen a: 2 minuts i 15 segons</div>
+            </li>
+
+            <li>
+                <p><strong>Mitjana de tres qualificacions i aprovat amb ternari:</strong></p>
+                <p>Demana les qualificacions de tres tasques (decimals entre 0 i 10). Calcula la nota mitjana aritmètica. Fent servir l'operador ternari (<code class="w">? :</code>), determina si la qualificació és <code class="w">"Aprovat"</code> (nota &gt;= 5.0) o <code class="w">"Suspès"</code> (nota &lt; 5.0) i mostra el resultat per pantalla:</p>
+                <div class="shell">Nota tasca 1: <span class="in">6.5</span>
+Nota tasca 2: <span class="in">4.0</span>
+Nota tasca 3: <span class="in">7.5</span>
+Nota mitjana: 6.0
+Qualificació final: Aprovat</div>
+            </li>
+
+            <li>
+                <p><strong>Descomposició de dígits d'un número de dues xifres:</strong></p>
+                <p>Demana un nombre enter positiu de dues xifres (entre 10 i 99). Sense utilitzar mètodes de cadenes de text, obtén la xifra de les desenes (utilitzant <code class="w">/ 10</code>) i la xifra de les unitats (utilitzant <code class="w">% 10</code>). Mostra les dues xifres separades i la suma de tots dos dígits:</p>
+                <div class="shell">Introdueix un nombre de dues xifres: <span class="in">83</span>
+Xifra de les desenes: 8
+Xifra de les unitats: 3
+Suma dels dígits: 11</div>
+            </li>
+
+            <li>
+                <p><strong>Caixer automàtic (desglossament òptim de bitllets):</strong></p>
+                <p>Un caixer automàtic ha de lliurar una quantitat entera d'euros (múltiple de 10, com per exemple 280 €) utilitzant el menor nombre possible de bitllets de 50 €, 20 € i 10 €. Mitjançant divisions enteres successives (<code class="w">/</code>) i càlculs de residu (<code class="w">%</code>), calcula quants bitllets de cada valor cal lliurar:</p>
+                <div class="shell">Introdueix la quantitat a retirar (múltiple de 10): <span class="in">280</span>
+Desglossament de bitllets:
+- Bitllets de 50 €: 5
+- Bitllets de 20 €: 1
+- Bitllets de 10 €: 1</div>
+            </li>
+        </ol>
     </div>
 
 </section>

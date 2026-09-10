@@ -557,6 +557,46 @@ nav.sidenav a.sidenav2 {
     text-decoration: none;
 }
 
+.ex-link-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #94a3b8;
+    background: #1e293b;
+    padding: 0.3em 0.7em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-default);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.ex-link-pill:hover {
+    color: #ffffff;
+    border-color: var(--accent-green);
+    background: #064e3b;
+    text-decoration: none;
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.exercise-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
 /* ==========================================================================
    Code Styling, Syntax Highlighting & Copy Buttons
    ========================================================================== */
@@ -873,7 +913,19 @@ shell, .shell, mem, .mem {
 
 shell, .shell {
     color: #4ade80;
+    color: #e2e8f0;
     border-left: 4px solid #22c55e;
+}
+
+:is(shell, .shell) pre code {
+    color: inherit !important;
+}
+
+/* IntelliJ IDEA console user input (stdin): bright green */
+shell :is(.in, .input, .stdin, .user-input),
+.shell :is(.in, .input, .stdin, .user-input) {
+    color: #4ade80 !important;
+    font-weight: 600;
 }
 
 mem, .mem {
@@ -1403,56 +1455,20 @@ quizz, .quizz {
 }
 
 /* ==========================================================================
-   Interactive Tables (Search Filter & Column Sorting)
+   Static Tables
    ========================================================================== */
-
-.table-responsive {
-    overflow-x: auto;
-    margin: 1.5em 0;
-    border: 1px solid var(--border-default);
-    border-radius: var(--radius-md);
-    background: var(--bg-surface);
-    box-shadow: var(--shadow-sm);
-}
-
-.table-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1em;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-}
-
-.table-search-input {
-    background: #030712;
-    border: 1px solid var(--border-default);
-    color: #ffffff;
-    padding: 0.5em 1em;
-    border-radius: var(--radius-sm);
-    font-size: 0.9rem;
-    min-width: 240px;
-    font-family: var(--font-sans);
-    transition: all 0.15s ease;
-}
-
-.table-search-input:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
-}
-
-.table-row-count {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
 
 table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.94rem;
     text-align: left;
+    margin: 1.5em 0;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
 }
 
 thead {
@@ -1465,32 +1481,6 @@ th {
     font-weight: 700;
     color: #ffffff;
     letter-spacing: 0.03em;
-    user-select: none;
-}
-
-th.sortable {
-    cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-th.sortable:hover {
-    background-color: #1e293b;
-    color: var(--accent-blue);
-}
-
-th .sort-icon {
-    display: inline-block;
-    margin-left: 0.4em;
-    font-size: 0.8em;
-    color: var(--text-dim);
-}
-
-th.sorted-asc .sort-icon {
-    color: var(--accent-blue);
-}
-
-th.sorted-desc .sort-icon {
-    color: var(--accent-blue);
 }
 
 td {
@@ -1512,12 +1502,6 @@ tbody tr:hover {
     background-color: rgba(56, 189, 248, 0.08);
 }
 
-.table-empty-row td {
-    padding: 2em;
-    text-align: center;
-    color: var(--text-muted);
-    font-style: italic;
-}
 
 /* ==========================================================================
    Responsive Utilities
