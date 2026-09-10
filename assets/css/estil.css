@@ -368,6 +368,23 @@ nav.sidenav a.sidenav2 {
     text-transform: uppercase;
 }
 
+.work-header + :is(.work, work),
+.warn-header + :is(.warn, warn),
+.info-header + :is(.info, info),
+.observe-header + :is(.observe, observe),
+.challenge-header + :is(.challenge, challenge),
+.tldr-header + :is(.tldr, tldr),
+.optional-header + :is(.optional, optional),
+.project-header + :is(.project, project),
+.quizz-header + :is(.quizz, quizz) {
+    margin-top: 0 !important;
+}
+
+:is(.work, work, .warn, warn, .info, info, .optional, optional, .tldr, tldr, 
+.observe, observe, .quizz, quizz, .challenge, challenge, .project, project) > :first-child {
+    margin-top: 0;
+}
+
 /* Info (Blue) */
 .info, info {
     background-color: rgba(14, 116, 144, 0.12);
@@ -571,6 +588,44 @@ sc, .sc, pre {
     box-shadow: var(--shadow-sm);
 }
 
+/* Reset inner pre and code-toolbar inside code containers so there is never a double border or nested margin */
+:is(sc, .sc) pre,
+:is(sc, .sc) div.code-toolbar {
+    margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+:is(shell, .shell, mem, .mem) pre,
+:is(shell, .shell, mem, .mem) div.code-toolbar {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+}
+
+/* Hide Prism default toolbar buttons */
+div.code-toolbar > .toolbar,
+.copy-to-clipboard-button {
+    display: none !important;
+}
+
+/* Inline span.sc */
+span.sc {
+    display: inline !important;
+    margin: 0 !important;
+    background: rgba(15, 23, 42, 0.85) !important;
+    border: 1px solid var(--border-default) !important;
+    border-radius: 4px !important;
+    padding: 0.15em 0.45em !important;
+    box-shadow: none !important;
+}
+
 pre {
     padding: 1.25em !important;
     overflow-x: auto;
@@ -725,6 +780,10 @@ sc:hover .copy-code-btn,
 .sc:hover .copy-code-btn,
 pre:hover .copy-code-btn,
 .shell:hover .copy-code-btn {
+shell:hover .copy-code-btn,
+.shell:hover .copy-code-btn,
+mem:hover .copy-code-btn,
+.mem:hover .copy-code-btn {
     opacity: 1;
 }
 

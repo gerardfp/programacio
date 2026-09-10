@@ -44,6 +44,7 @@ Prism.languages.sql={comment:{pattern:/(^|[^\\])(?:\/\*[\s\S]*?\*\/|(?:--|\/\/|#
 !function(){if("undefined"!=typeof Prism){var i={pattern:/(.)\bdata:[^\/]+\/[^,]+,(?:(?!\1)[\s\S]|\\\1)+(?=\1)/,lookbehind:!0,inside:{"language-css":{pattern:/(data:[^\/]+\/(?:[^+,]+\+)?css,)[\s\S]+/,lookbehind:!0},"language-javascript":{pattern:/(data:[^\/]+\/(?:[^+,]+\+)?javascript,)[\s\S]+/,lookbehind:!0},"language-json":{pattern:/(data:[^\/]+\/(?:[^+,]+\+)?json,)[\s\S]+/,lookbehind:!0},"language-markup":{pattern:/(data:[^\/]+\/(?:[^+,]+\+)?(?:html|xml),)[\s\S]+/,lookbehind:!0}}},a=["url","attr-value","string"];Prism.plugins.dataURIHighlight={processGrammar:function(n){n&&!n["data-uri"]&&(Prism.languages.DFS(n,(function(n,r,e){a.indexOf(e)>-1&&!Array.isArray(r)&&(r.pattern||(r=this[n]={pattern:r}),r.inside=r.inside||{},"attr-value"==e?Prism.languages.insertBefore("inside",r.inside["url-link"]?"url-link":"punctuation",{"data-uri":i},r):r.inside["url-link"]?Prism.languages.insertBefore("inside","url-link",{"data-uri":i},r):r.inside["data-uri"]=i)})),n["data-uri"]=i)}},Prism.hooks.add("before-highlight",(function(a){if(i.pattern.test(a.code))for(var n in i.inside)if(i.inside.hasOwnProperty(n)&&!i.inside[n].inside&&i.inside[n].pattern.test(a.code)){var r=n.match(/^language-(.+)/)[1];Prism.languages[r]&&(i.inside[n].inside={rest:(e=Prism.languages[r],Prism.plugins.autolinker&&Prism.plugins.autolinker.processGrammar(e),e)})}var e;Prism.plugins.dataURIHighlight.processGrammar(a.grammar)}))}}();
 !function(){if("undefined"!=typeof Prism&&"undefined"!=typeof document){var e=[],t={},n=function(){};Prism.plugins.toolbar={};var a=Prism.plugins.toolbar.registerButton=function(n,a){var r;r="function"==typeof a?a:function(e){var t;return"function"==typeof a.onClick?((t=document.createElement("button")).type="button",t.addEventListener("click",(function(){a.onClick.call(this,e)}))):"string"==typeof a.url?(t=document.createElement("a")).href=a.url:t=document.createElement("span"),a.className&&t.classList.add(a.className),t.textContent=a.text,t},n in t?console.warn('There is a button with the key "'+n+'" registered already.'):e.push(t[n]=r)},r=Prism.plugins.toolbar.hook=function(a){var r=a.element.parentNode;if(r&&/pre/i.test(r.nodeName)&&!r.parentNode.classList.contains("code-toolbar")){var o=document.createElement("div");o.classList.add("code-toolbar"),r.parentNode.insertBefore(o,r),o.appendChild(r);var i=document.createElement("div");i.classList.add("toolbar");var l=e,d=function(e){for(;e;){var t=e.getAttribute("data-toolbar-order");if(null!=t)return(t=t.trim()).length?t.split(/\s*,\s*/g):[];e=e.parentElement}}(a.element);d&&(l=d.map((function(e){return t[e]||n}))),l.forEach((function(e){var t=e(a);if(t){var n=document.createElement("div");n.classList.add("toolbar-item"),n.appendChild(t),i.appendChild(n)}})),o.appendChild(i)}};a("label",(function(e){var t=e.element.parentNode;if(t&&/pre/i.test(t.nodeName)&&t.hasAttribute("data-label")){var n,a,r=t.getAttribute("data-label");try{a=document.querySelector("template#"+r)}catch(e){}return a?n=a.content:(t.hasAttribute("data-url")?(n=document.createElement("a")).href=t.getAttribute("data-url"):n=document.createElement("span"),n.textContent=r),n}})),Prism.hooks.add("complete",r)}}();
 !function(){function t(t){var e=document.createElement("textarea");e.value=t.getText(),e.style.top="0",e.style.left="0",e.style.position="fixed",document.body.appendChild(e),e.focus(),e.select();try{var o=document.execCommand("copy");setTimeout((function(){o?t.success():t.error()}),1)}catch(e){setTimeout((function(){t.error(e)}),1)}document.body.removeChild(e)}"undefined"!=typeof Prism&&"undefined"!=typeof document&&(Prism.plugins.toolbar?Prism.plugins.toolbar.registerButton("copy-to-clipboard",(function(e){var o=e.element,n=function(t){var e={copy:"Copy","copy-error":"Press Ctrl+C to copy","copy-success":"Copied!","copy-timeout":5e3};for(var o in e){for(var n="data-prismjs-"+o,c=t;c&&!c.hasAttribute(n);)c=c.parentElement;c&&(e[o]=c.getAttribute(n))}return e}(o),c=document.createElement("button");c.className="copy-to-clipboard-button",c.setAttribute("type","button");var r=document.createElement("span");return c.appendChild(r),u("copy"),function(e,o){e.addEventListener("click",(function(){!function(e){navigator.clipboard?navigator.clipboard.writeText(e.getText()).then(e.success,(function(){t(e)})):t(e)}(o)}))}(c,{getText:function(){return o.textContent},success:function(){u("copy-success"),i()},error:function(){u("copy-error"),setTimeout((function(){!function(t){window.getSelection().selectAllChildren(t)}(o)}),1),i()}}),c;function i(){setTimeout((function(){u("copy")}),n["copy-timeout"])}function u(t){r.textContent=n[t],c.setAttribute("data-copy-state",t)}})):console.warn("Copy to Clipboard plugin loaded before Toolbar plugin."))}();
+// Prism toolbar and copy-to-clipboard plugins disabled to avoid duplicate buttons
 !function(){if("undefined"!=typeof Prism&&"undefined"!=typeof document){var e={"(":")","[":"]","{":"}"},t={"(":"brace-round","[":"brace-square","{":"brace-curly"},n={"${":"{"},r=0,c=/^(pair-\d+-)(close|open)$/;Prism.hooks.add("complete",(function(c){var i=c.element,d=i.parentElement;if(d&&"PRE"==d.tagName){var u=[];if(Prism.util.isActive(i,"match-braces")&&u.push("(","[","{"),0!=u.length){d.__listenerAdded||(d.addEventListener("mousedown",(function(){var e=d.querySelector("code"),t=s("brace-selected");Array.prototype.slice.call(e.querySelectorAll("."+t)).forEach((function(e){e.classList.remove(t)}))})),Object.defineProperty(d,"__listenerAdded",{value:!0}));var f=Array.prototype.slice.call(i.querySelectorAll("span."+s("token")+"."+s("punctuation"))),h=[];u.forEach((function(c){for(var i=e[c],d=s(t[c]),u=[],p=[],v=0;v<f.length;v++){var m=f[v];if(0==m.childElementCount){var b=m.textContent;(b=n[b]||b)===c?(h.push({index:v,open:!0,element:m}),m.classList.add(d),m.classList.add(s("brace-open")),p.push(v)):b===i&&(h.push({index:v,open:!1,element:m}),m.classList.add(d),m.classList.add(s("brace-close")),p.length&&u.push([v,p.pop()]))}}u.forEach((function(e){var t="pair-"+r+++"-",n=f[e[0]],c=f[e[1]];n.id=t+"open",c.id=t+"close",[n,c].forEach((function(e){e.addEventListener("mouseenter",a),e.addEventListener("mouseleave",o),e.addEventListener("click",l)}))}))}));var p=0;h.sort((function(e,t){return e.index-t.index})),h.forEach((function(e){e.open?(e.element.classList.add(s("brace-level-"+(p%12+1))),p++):(p=Math.max(0,p-1),e.element.classList.add(s("brace-level-"+(p%12+1))))}))}}}))}function s(e){var t=Prism.plugins.customClass;return t?t.apply(e,"none"):e}function i(e){var t=c.exec(e.id);return document.querySelector("#"+t[1]+("open"==t[2]?"close":"open"))}function a(){Prism.util.isActive(this,"brace-hover",!0)&&[this,i(this)].forEach((function(e){e.classList.add(s("brace-hover"))}))}function o(){[this,i(this)].forEach((function(e){e.classList.remove(s("brace-hover"))}))}function l(){Prism.util.isActive(this,"brace-select",!0)&&[this,i(this)].forEach((function(e){e.classList.add(s("brace-selected"))}))}}();
 !function(){if("undefined"!=typeof Prism){var e=/^diff-([\w-]+)/i,i=/<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/g,a=RegExp("(?:__|[^\r\n<])*(?:\r\n?|\n|(?:__|[^\r\n<])(?![^\r\n]))".replace(/__/g,(function(){return i.source})),"gi"),s=!1;Prism.hooks.add("before-sanity-check",(function(i){var a=i.language;e.test(a)&&!i.grammar&&(i.grammar=Prism.languages[a]=Prism.languages.diff)})),Prism.hooks.add("before-tokenize",(function(i){s||Prism.languages.diff||Prism.plugins.autoloader||(s=!0,console.warn("Prism's Diff Highlight plugin requires the Diff language definition (prism-diff.js).Make sure the language definition is loaded or use Prism's Autoloader plugin."));var a=i.language;e.test(a)&&!Prism.languages[a]&&(Prism.languages[a]=Prism.languages.diff)})),Prism.hooks.add("wrap",(function(s){var r,n;if("diff"!==s.language){var g=e.exec(s.language);if(!g)return;r=g[1],n=Prism.languages[r]}var f=Prism.languages.diff&&Prism.languages.diff.PREFIXES;if(f&&s.type in f){var u,l=s.content.replace(i,"").replace(/&lt;/g,"<").replace(/&amp;/g,"&"),t=l.replace(/(^|[\r\n])./g,"$1");u=n?Prism.highlight(t,n,r):Prism.util.encode(t);var o,m=new Prism.Token("prefix",f[s.type],[/\w+/.exec(s.type)[0]]),d=Prism.Token.stringify(m,s.language),c=[];for(a.lastIndex=0;o=a.exec(u);)c.push(d+o[0]);/(?:^|[\r\n]).$/.test(l)&&c.push(d),s.content=c.join(""),n&&s.classes.push("language-"+r)}}))}}();
 "undefined"!=typeof Prism&&(Prism.languages.treeview={"treeview-part":{pattern:/^.+/m,inside:{"entry-line":[{pattern:/\|-- |├── /,alias:"line-h"},{pattern:/\| {3}|│ {3}/,alias:"line-v"},{pattern:/`-- |└── /,alias:"line-v-last"},{pattern:/ {4}/,alias:"line-v-gap"}],"entry-name":{pattern:/.*\S.*/,inside:{operator:/ -> /}}}}},Prism.hooks.add("wrap",(function(e){if("treeview"===e.language&&"entry-name"===e.type){var t=e.classes,n=/(^|[^\\])\/\s*$/;if(n.test(e.content))e.content=e.content.replace(n,"$1"),t.push("dir");else{e.content=e.content.replace(/(^|[^\\])[=*|]\s*$/,"$1");for(var a=e.content.toLowerCase().replace(/\s+/g,"").split(".");a.length>1;)a.shift(),t.push("ext-"+a.join("-"))}"."===e.content[0]&&t.push("dotfile")}})));
@@ -92,6 +93,21 @@ function syntaxHighlight() {
   document.querySelectorAll('sc, .sc').forEach(b => {
     if (b.getAttribute('data-highlighted') === 'true') return;
     b.setAttribute('data-highlighted', 'true');
+
+    if (b.tagName === 'SPAN') {
+      let lang = 'java';
+      for (const a of b.getAttributeNames()) {
+        if (['java', 'html', 'css', 'javascript', 'js', 'bash', 'sh', 'python', 'py', 'sql', 'json'].includes(a.toLowerCase())) {
+          lang = a.toLowerCase();
+          break;
+        }
+      }
+      b.classList.add('language-' + lang);
+      try {
+        Prism.highlightElement(b);
+      } catch (e) {}
+      return;
+    }
 
     const isPre = b.tagName === 'PRE';
     const preWrap = isPre ? b : document.createElement('pre');
@@ -201,8 +217,11 @@ function syntaxHighlight() {
 // ==========================================================================
 
 function initCopyCodeButtons() {
-  document.querySelectorAll('sc, .sc, pre, shell, .shell').forEach(block => {
-    if (block.closest('p') || block.querySelector('.copy-code-btn') || block.tagName === 'CODE') return;
+  document.querySelectorAll('sc, .sc, pre, shell, .shell, mem, .mem').forEach(block => {
+    if (block.tagName === 'SPAN' || block.closest('p') || block.tagName === 'CODE') return;
+    // Do not add a button to pre if it is already nested inside an sc, shell, or mem container
+    if (block.tagName === 'PRE' && block.closest('sc, .sc, shell, .shell, mem, .mem') && block.closest('sc, .sc, shell, .shell, mem, .mem') !== block) return;
+    if (block.querySelector(':scope > .copy-code-btn') || block.querySelector('.copy-code-btn')) return;
 
     const copyBtn = document.createElement('button');
     copyBtn.className = 'copy-code-btn';
@@ -212,8 +231,16 @@ function initCopyCodeButtons() {
 
     copyBtn.addEventListener('click', async (e) => {
       e.stopPropagation();
-      const codeEl = block.querySelector('code') || block;
-      const textToCopy = codeEl.innerText.replace(/\n\s*\n/g, '\n');
+      let textToCopy = '';
+      const codeEl = block.querySelector('code');
+      if (codeEl) {
+        textToCopy = codeEl.innerText;
+      } else {
+        const clone = block.cloneNode(true);
+        clone.querySelectorAll('.copy-code-btn').forEach(btn => btn.remove());
+        textToCopy = clone.innerText;
+      }
+      textToCopy = textToCopy.replace(/\n\s*\n/g, '\n');
 
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) {

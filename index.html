@@ -3,34 +3,95 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Curs de Java 26 | Currículum Oficial</title>
+    <title>Mòdul Programació | CFGS DAM - IES Benigasló</title>
     <script src="assets/js/script.js"></script>
     <link rel="stylesheet" href="assets/css/estil.css">
     <style>
         .hero-banner {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             border: 1px solid var(--border-default);
             border-radius: var(--radius-lg);
-            padding: 2.5em 2em;
-            margin: 1.5em auto 2.5em auto;
+            padding: 1.75rem 1.5rem;
+            margin: 1.25rem auto 2rem auto;
             text-align: center;
             box-shadow: var(--shadow-lg);
         }
-        .hero-banner h1 {
-            margin-top: 0;
-            color: #ffffff;
-            font-size: clamp(2rem, 4vw, 2.8rem);
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.75rem;
         }
-        .version-badge {
-            display: inline-block;
-            background: var(--accent-green);
-            color: #064e3b;
-            font-weight: 700;
-            padding: 0.25em 0.8em;
+        .hero-logo-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            padding: 3px 8px;
             border-radius: 999px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+            vertical-align: middle;
+        }
+        .hero-logo {
+            height: 22px;
+            width: auto;
+            display: block;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.22rem 0.65rem;
+            border-radius: 999px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        .badge-institute {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+        .badge-cycle {
+            background: rgba(56, 189, 248, 0.15);
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+        }
+        .badge-version {
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+        .hero-banner h1 {
+            margin: 0.25rem 0;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.015em;
+            line-height: 1.25;
+        }
+        .hero-cycle {
+            margin: 0 auto 1.25rem auto;
+            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+            color: #cbd5e1;
+            line-height: 1.5;
+            max-width: 680px;
+            font-weight: 400;
+        }
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .hero-actions .btn-primary,
+        .hero-actions .btn-secondary {
+            padding: 0.55em 1.2em;
             font-size: 0.9rem;
-            margin-bottom: 1em;
-            letter-spacing: 0.05em;
         }
         .curriculum-grid {
             display: grid;
@@ -124,12 +185,19 @@
 
 <section>
     <div class="hero-banner">
-        <span class="version-badge">JAVA 26 COMPATIBLE</span>
-        <h1>Curs Complet de Programació en Java</h1>
-        <p>Alineat al 100% amb els Resultats d'Aprenentatge del currículum oficial (RA1 a RA7). Dissenyat per a aprendre de forma pràctica, moderna i sense barreres innecessàries des del primer dia.</p>
-        <div style="margin-top: 1.5em; display: flex; gap: 1em; justify-content: center; flex-wrap: wrap;">
-            <a href="ra1/index.html" class="exercise-btn">Començar pel Tema 1</a>
-            <a href="exercicis/index.html" class="exercise-btn" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">Portal d'Exercicis</a>
+        <div class="hero-meta">
+            <div class="hero-logo-box img">
+                <img src="assets/logo.svg" alt="IES Benigasló" class="hero-logo">
+            </div>
+            <span class="hero-badge badge-institute">IES Benigasló</span>
+            <span class="hero-badge badge-cycle">CFGS DAM</span>
+            <span class="hero-badge badge-version">JAVA 26</span>
+        </div>
+        <h1>Mòdul Programació</h1>
+        <p class="hero-cycle">Cicle Formatiu de Grau Superior en Desenvolupament d'Aplicacions Multiplataforma</p>
+        <div class="hero-actions">
+            <a href="ra1/index.html" class="btn-primary">Començar pel Tema 1 →</a>
+            <a href="exercicis/index.html" class="btn-secondary">Portal d'Exercicis</a>
         </div>
     </div>
 
@@ -241,8 +309,8 @@
         </div>
     </div>
 
-    <div class="challenge" style="margin-top: 3em;">
-        <h3>Reptes i Avaluació Automàtica</h3>
+    <div class="challenge-header" style="margin-top: 3em;">Reptes i Avaluació Automàtica</div>
+    <div class="challenge">
         <p>Tots els exercicis estan preparats per ser practicats en el teu IDE local o pujats a la plataforma d'avaluació en línia de HackerRank:</p>
         <p><a href="https://hackerrank.com/dam-m3" target="_blank">Accedir al contest de HackerRank DAM-M3</a></p>
     </div>
