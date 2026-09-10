@@ -102,40 +102,15 @@
 </div>
 </div>
     <div class="quizz">
-<div class="question" multi="">
-<div class="statement">
-<p>Selecciona les afirmacions correctes sobre el següent programa:</p>
-<div class="sc" java="">
-                    public class HelloWorldProgram {
-                        public static void main(String[] args) {
-                            System.out.println("Hello, World!");
-                        }
-                    }  
-                </div>
-</div>
-<div class="o" correct=""><code class="w">HelloWorldProgram</code> és un nom</div>
-<div class="o"><code class="w">main</code> és una paraula-clau</div>
-<div class="o"><code class="w">void</code> és una sentència</div>
-<div class="o" correct=""><code class="w">class</code> és una paraula-clau</div>
-</div>
-<div class="question" multi="">
-<div class="statement">Selecciona les afirmacions correctes</div>
-<div class="o">El mètode <code class="w">main</code> pot tenir un altre nom (<code class="w">start</code>, <code class="w">run</code>, <code class="w">program</code>)</div>
-<div class="o" correct="">Una classe que contingui el mètode <code class="w">main</code> pot tenir qualsevol nom vàlid (<code class="w">Main</code>, <code class="w">App</code>, <code class="w">Demo</code>, etc.)</div>
-<div class="o" correct="">Per a mostrar un string li'l passem a <code class="w">System.out.println(...)</code></div>
-<div class="o">El mètode <code class="w">main</code> es pot posar a fora de la classe</div>
-</div>
-</div>
-    <div class="quizz">
 <div class="question" single="">
 <div class="statement">
 <p>Què imprimirà el següent codi?</p>
 <div class="sc" java="">
-                    System.out.print("1");
-                    System.out.print("2");
-                    System.out.println("3");
-                    System.out.println();
-                    System.out.println("4");
+                    IO.print("1");
+                    IO.print("2");
+                    IO.println("3");
+                    IO.println();
+                    IO.println("4");
                 </div>
 </div>
 <div class="o">
@@ -168,10 +143,10 @@
 <div class="statement">
 <p>Què imprimirà el següent codi?</p>
 <div class="sc" java="">
-                    System.out.print("**");
-                    System.out.println();
-                    System.out.println("**");
-                    System.out.print("**");
+                    IO.print("**");
+                    IO.println();
+                    IO.println("**");
+                    IO.print("**");
                 </div>
 </div>
 <div class="o">
@@ -306,7 +281,7 @@
                     boolean turnedOn = true;
                     turnedOn = false;
                     String turnedOff = turnedOn;
-                    System.out.println(turnedOff);
+                    IO.println(turnedOff);
                 </div>
 </div>
 <div class="o">Imprimeix <code class="m">false</code></div>
@@ -367,7 +342,7 @@
 <div class="statement">
 <p>Què imprimirà aquesta sentència?</p>
 <div class="sc" java="">
-                    System.out.println(2 + (-3) + 5 + (-8));
+                    IO.println(2 + (-3) + 5 + (-8));
                 </div>
 </div>
 <div class="o">-4</div>
@@ -405,9 +380,9 @@
 <div class="statement">
 <p>Què imprimeixen aquestes sentències?</p>
 </div>
-<div class="sc" java="">System.out.println((5 / 2) * (5 / 2));</div> <div class="o">4</div>
+<div class="sc" java="">IO.println((5 / 2) * (5 / 2));</div> <div class="o">4</div>
 <br/>
-<div class="sc" java="">System.out.println((5 / 2) * (5f / 2));</div> <div class="o">5.0</div>
+<div class="sc" java="">IO.println((5 / 2) * (5f / 2));</div> <div class="o">5.0</div>
 <br/>
 </div>
 </div>
@@ -416,15 +391,15 @@
 <div class="statement">
 <p>Què imprimiran les següents sentències?</p>
 </div>
-<div class="sc" java="">System.out.println("Hola " + "mon");</div> <div class="o">Hola mon</div>
+<div class="sc" java="">IO.println("Hola " + "mon");</div> <div class="o">Hola mon</div>
 <br/>
-<div class="sc" java="">System.out.println("Hola " + 330);</div> <div class="o">Hola 330</div>
+<div class="sc" java="">IO.println("Hola " + 330);</div> <div class="o">Hola 330</div>
 <br/>
-<div class="sc" java="">System.out.println("Hola " + 'm' + 'o' + 'n');</div> <div class="o">Hola mon</div>
+<div class="sc" java="">IO.println("Hola " + 'm' + 'o' + 'n');</div> <div class="o">Hola mon</div>
 <br/>
-<div class="sc" java="">System.out.println("Hola " + ('m' + 'o' + 'n'));</div> <div class="o">Hola 330</div>
+<div class="sc" java="">IO.println("Hola " + ('m' + 'o' + 'n'));</div> <div class="o">Hola 330</div>
 <br/>
-<div class="sc" java="">System.out.println('m' + 'o' + 'n' + "Hola");</div> <div class="o">330Hola</div>
+<div class="sc" java="">IO.println('m' + 'o' + 'n' + "Hola");</div> <div class="o">330Hola</div>
 </div>
 </div>
     <div class="quizz">
@@ -546,7 +521,7 @@
 <div class="statement">
 <p>Què imprimeix aquest programa?</p>
 <div class="sc" java="">
-                    System.out.println("java".equals('j' + 'a' + 'v' + 'a'));
+                    IO.println("java".equals('j' + 'a' + 'v' + 'a'));
                 </div>
 </div>
 <div class="o"><code class="w">true</code></div>
@@ -560,7 +535,7 @@
 <div class="sc" java="">
                     int number = 1000;
                     boolean result = number + 10 &gt; number + 9;
-                    System.out.println(result);
+                    IO.println(result);
                 </div>
 </div>
 <div class="o">true</div>

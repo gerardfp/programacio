@@ -779,11 +779,8 @@ span.string,
 sc:hover .copy-code-btn,
 .sc:hover .copy-code-btn,
 pre:hover .copy-code-btn,
-.shell:hover .copy-code-btn {
 shell:hover .copy-code-btn,
-.shell:hover .copy-code-btn,
-mem:hover .copy-code-btn,
-.mem:hover .copy-code-btn {
+.shell:hover .copy-code-btn {
     opacity: 1;
 }
 
@@ -1029,6 +1026,7 @@ mem, .mem {
 }
 
 /* Stepper Controls Bar */
+/* Stepper Controls Bar (Top Toolbar) */
 :is(stepper, .stepper) div.controls {
     display: flex;
     flex-wrap: wrap;
@@ -1037,6 +1035,10 @@ mem, .mem {
     margin-top: 1.25em;
     padding-top: 1em;
     border-top: 1px solid var(--border-subtle);
+    margin-top: 0;
+    margin-bottom: 1.25em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 :is(stepper, .stepper) div.prevnext {
@@ -1091,6 +1093,13 @@ mem, .mem {
     height: 6px;
     background: #1e293b;
     border-radius: 3px;
+    border: none;
+    outline: none;
+}
+
+:is(stepper, .stepper) input[type=range]:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 /* ==========================================================================
@@ -1276,6 +1285,13 @@ quizz, .quizz {
     max-width: 340px;
     margin: 0.75em 0;
     transition: all 0.15s ease;
+}
+
+:is(question, .question) table .quiz-text-input {
+    max-width: 100%;
+    margin: 0;
+    padding: 0.3em 0.5em;
+    text-align: center;
 }
 
 .quiz-text-input:focus {
