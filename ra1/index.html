@@ -21,10 +21,12 @@
         <p><strong>Resultat d'Aprenentatge 1:</strong></p>
         <p>En aquesta unitat aprendràs:</p>
         <div class="check">Com s'executa un programa informàtic pas a pas des del principi</div>
-        <div class="check">Estructura bàsica en Java 26 amb void main() i sortida per pantalla amb println()</div>
+        <div class="check">Estructura bàsica en Java 26</div>
+        <div class="check">Sortida per pantalla amb <code>IO.println()</code></div>
         <div class="check">Literals: enters, decimals, textos, caràcters i valors booleans</div>
-        <div class="check">Variables a la memòria: declaració, assignació, var i constants final</div>
-        <div class="check">Operadors aritmètics, relacionals i lògics, i conversió de tipus (càsting i parsing amb <code>Integer.parseInt()</code> i <code>Double.parseDouble()</code>)</div>
+        <div class="check">Variables: declaració, assignació, <code>var</code> i constants <code>final</code></div>
+        <div class="check">Operadors aritmètics, relacionals i lògics</div>
+        <div class="check">Conversió de tipus (càsting i parsing)</div>
         <div class="check">Entrada interactiva de dades per consola amb <code>IO.readln()</code></div>
     </div>
 </header>
@@ -93,14 +95,14 @@ println(true);
 println(false);
     </div>
 
-    <h2>2. Variables: Capses amb Nom a la Memòria</h2>
-    <p>Un ordinador té memòria RAM. Per recordar dades que necessitarem més endavant, reservem un espai a la memòria i li donem un nom. Aquest espai s'anomena <strong>variable</strong>.</p>
-    <p>Podem imaginar una variable com una capsa etiquetada amb un nom que conté un valor d'un tipus determinat:</p>
+    <h2>2. Variables: Valors amb Nom a la Memòria</h2>
+    <p>Per recordar dades que necessitarem més endavant, reservem un espai a la memòria RAM i li donem un nom. Aquest espai s'anomena <strong>variable</strong>.</p>
 
     <div class="sc" java>
 int edat = 20;
 double pes = 68.5;
 boolean teCarnet = true;
+char lletra = 'A';
 String nom = "Laura";
     </div>
 
@@ -109,21 +111,63 @@ String nom = "Laura";
 edat: 20
 pes: 68.5
 teCarnet: true
+lletra: 'A'
 nom: "Laura"
+    </div>
+
+        <p>Podem imaginar una variable com un full de paper que per la cara de davant té un nom i per la cara de darrere té un valor:</p>
+
+    <style>  
+    .varpaper { margin: 0; padding: 1em; display: flex; 
+    justify-content: center; align-items: center; 
+    font-family: Arial, sans-serif; }
+
+    .escena { width: 320px; height: 210px; perspective: 1000px; } 
+    
+    .paper { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transform-origin: center; 
+    animation: girar 5s ease-in-out infinite; } 
+    /* Les dues cares */ 
+    .cara { position: absolute; inset: 0; display: flex; 
+    align-items: center; justify-content: center; 
+    border: 3px solid #26364d; border-radius: 10px; 
+    background: white; color: #26364d; font-size: 64px; 
+    font-weight: bold; box-shadow: 0 12px 25px rgba(0, 0, 0, .15); 
+    /* * Evita el parpelleig quan les dues cares * estan pràcticament 
+    en el mateix pla. */ 
+    transform-style: preserve-3d; backface-visibility: hidden; 
+    -webkit-backface-visibility: hidden; } 
+    /* * Cara del nom * * La separem lleugerament cap a l'observador. */ 
+    .nom { transform: translateZ(1px); } 
+    /* * Cara del valor * * Està darrere del paper i girada 180º. */ 
+    .valor { transform: rotateY(180deg) translateZ(1px); 
+    background: #eef5ff; } 
+    /* * El paper gira completament: * * edat * ↓ * gira * ↓ * 20 * ↓ * gira * ↓ * edat */ 
+    @keyframes girar { /* EDAT */ 0%, 20% { transform: rotateY(0deg); } /* Gir cap al valor */ 50%, 70% { transform: rotateY(180deg); } /* Tornem al nom */ 100% { transform: rotateY(360deg); } } 
+    </style> 
+    <div class="varpaper"> 
+        <div class="escena"> 
+            <div class="paper"> 
+                <div class="cara nom"><code>edat</code></div> 
+                <div class="cara valor"><code>20</code> </div> 
+            </div> 
+        </div>
     </div>
 
     <div class="info">
         <p><strong>Inferència de tipus amb <code class="w">var</code>:</strong></p>
         <p>En Java modern podem utilitzar la paraula clau <code class="w">var</code> quan inicialitzem la variable immediatament. El compilador dedueix el tipus automàticament:</p>
         <div class="sc" java>
-var comptador = 0;       // El compilador dedueix que és un int
-var missatge = "Hola";   // El compilador dedueix que és un String
+var edat = 20;          // El compilador dedueix que és un int
+var pes = 68.5;         // El compilador dedueix que és un double
+var teCarnet = true;    // El compilador dedueix que és un boolean
+var lletra = 'A';       // El compilador dedueix que és un char
+var nom = "Laura";      // El compilador dedueix que és un String 
         </div>
     </div>
 
     
     <h3>Taula de Tipus Primitius en Java 26</h3>
-    <p>La següent taula recull tots els tipus primitius del llenguatge:</p>
+    <p>La següent taula recull els tipus primitius del llenguatge que més utilitzarem en el curs:</p>
 
     <table>
         <thead>
@@ -136,16 +180,16 @@ var missatge = "Hola";   // El compilador dedueix que és un String
             </tr>
         </thead>
         <tbody>
-            <tr><td><code class="w">byte</code></td><td>8</td><td>-128 a 127</td><td><code class="w">0</code></td><td><code class="w">byte nivell = 100;</code></td></tr>
-            <tr><td><code class="w">short</code></td><td>16</td><td>-32_768 a 32_767</td><td><code class="w">0</code></td><td><code class="w">short any = 2026;</code></td></tr>
-            <tr><td><code class="w">int</code></td><td>32</td><td>-2_147_483_648 a 2_147_483_647</td><td><code class="w">0</code></td><td><code class="w">int poblacio = 1_500_000;</code></td></tr>
-            <tr><td><code class="w">long</code></td><td>64</td><td>-9_223_372_036_854_775_808 a 9_223_372_036_854_775_807</td><td><code class="w">0L</code></td><td><code class="w">long id = 9_000_000_000L;</code></td></tr>
-            <tr><td><code class="w">float</code></td><td>32</td><td>~±1.4E-45 a ~±3.4E+38 (6-7 decimals)</td><td><code class="w">0.0f</code></td><td><code class="w">float preu = 19.99f;</code></td></tr>
-            <tr><td><code class="w">double</code></td><td>64</td><td>~±4.9E-324 a ~±1.8E+308 (15 decimals)</td><td><code class="w">0.0d</code></td><td><code class="w">double pi = 3.14159265;</code></td></tr>
+            <tr><td><code class="w">int</code></td><td>32</td><td>-2_147_483_648 a 2_147_483_647</td><td><code class="w">0</code></td><td><code class="w">int poblacio = 1_500;</code></td></tr>
+            <tr><td><code class="w">double</code></td><td>64</td><td>~±4.9E-324 a ~±1.8E+308 (15 decimals)</td><td><code class="w">0.0</code></td><td><code class="w">double pi = 3.141592;</code></td></tr>
             <tr><td><code class="w">char</code></td><td>16</td><td>Caràcters Unicode UTF-16 (0 a 65_535)</td><td><code class="w">'\u0000'</code></td><td><code class="w">char lletra = 'Z';</code></td></tr>
             <tr><td><code class="w">boolean</code></td><td>1</td><td>true o false</td><td><code class="w">false</code></td><td><code class="w">boolean actiu = true;</code></td></tr>
         </tbody>
     </table>
+
+    <div class="info">
+        <p>A la <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">documentació oficial de Java</a> pots trobar tots els tipus de dades i les seves característiques.</p>
+    </div>
 
     <h2>3. Operadors i Expressions</h2>
     <p>Un <strong>operador</strong> és un símbol especial que indica a l'ordinador que realitzi una operació matemàtica, relacional o lògica sobre un o diversos valors, anomenats <strong>operands</strong>.</p>
