@@ -20,8 +20,6 @@
     <div class="abstract">
         <p><strong>Resultat d'Aprenentatge 1:</strong></p>
         <p>En aquesta unitat aprendràs:</p>
-        <div class="check">Com s'executa un programa informàtic pas a pas des del principi</div>
-        <div class="check">Estructura bàsica en Java 26</div>
         <div class="check">Sortida per pantalla amb <code>IO.println()</code></div>
         <div class="check">Literals: enters, decimals, textos, caràcters i valors booleans</div>
         <div class="check">Variables: declaració, assignació, <code>var</code> i constants <code>final</code></div>
@@ -32,10 +30,6 @@
 </header>
 
 <section>
-
-    <h2>Què és un programa informàtic?</h2>
-    <p>Un ordinador no és res més que una màquina molt ràpida que segueix instruccions cegament. Un <strong>programa</strong> és una seqüència ordenada d'ordres (anomenades <em>sentències</em>) que indiquen a la màquina què ha de fer pas a pas.</p>
-    <p>L'ordinador executa les ordres de <strong>dalt a baix</strong>, una rere l'altra, igual que quan una persona llegeix una recepta de cuina.</p>
 
     <h2>El teu primer programa amb Java 26</h2>
     <p>El HelloWorld!™️ es el clàssic primer programa que veu tot programador. Aquí el tens en Java 26:</p>
@@ -56,7 +50,7 @@ void main() {
         </ul>
     </div>
 
-    <h2>1. Literals: Les Dades Bàsiques</h2>
+    <h2>1. Literals</h2>
     <p>Un <strong>literal</strong> és un valor fix que apareix directament escrit al codi font del programa. La màquina distingeix diferents tipus de dades segons la seva naturalesa:</p>
 
     <h3>Nombres Enters</h3>
@@ -68,13 +62,13 @@ println(1_000_000); // Un milió
     </div>
 
     <h3>Nombres Decimals</h3>
-    <p>S'escriuen amb un punt (<code class="w">.</code>) com a separador decimal (no pas amb una coma):</p>
+    <p>S'escriuen amb un punt (<code class="w">.</code>) com a separador decimal (<b>no</b> amb una coma):</p>
     <div class="sc" java>
 println(3.14159);
 println(-0.5);
     </div>
 
-    <h3>Text (Cadenes de Caràcters o Strings)</h3>
+    <h3>Text (<i>Strings</i>)</h3>
     <p>Qualsevol seqüència de caràcters envoltada entre cometes dobles (<code class="w">"..."</code>):</p>
     <div class="sc" java>
 println("Benvinguts al curs de programació!");
@@ -89,13 +83,13 @@ println('9');
     </div>
 
     <h3>Booleans (Cert o Fals)</h3>
-    <p>Només poden tenir dos valors: <code class="w">true</code> (cert) o <code class="w">false</code> (fals). Són la base per a prendre decisions:</p>
+    <p>Només poden tenir dos valors: <code class="w">true</code> o <code class="w">false</code>. Són la base per a prendre decisions:</p>
     <div class="sc" java>
 println(true);
 println(false);
     </div>
 
-    <h2>2. Variables: Valors amb Nom a la Memòria</h2>
+    <h2>2. Variables</h2>
     <p>Per recordar dades que necessitarem més endavant, reservem un espai a la memòria RAM i li donem un nom. Aquest espai s'anomena <strong>variable</strong>.</p>
 
     <div class="sc" java>
@@ -115,7 +109,7 @@ lletra: 'A'
 nom: "Laura"
     </div>
 
-        <p>Podem imaginar una variable com un full de paper que per la cara de davant té un nom i per la cara de darrere té un valor:</p>
+ <!--       <p>Podem imaginar una variable com un full de paper que per la cara de davant té un nom i per la cara de darrere té un valor:</p>
 
     <style>  
     .varpaper { margin: 0; padding: 1em; display: flex; 
@@ -152,7 +146,7 @@ nom: "Laura"
             </div> 
         </div>
     </div>
-
+-->
     <div class="info">
         <p><strong>Inferència de tipus amb <code class="w">var</code>:</strong></p>
         <p>En Java modern podem utilitzar la paraula clau <code class="w">var</code> quan inicialitzem la variable immediatament. El compilador dedueix el tipus automàticament:</p>
@@ -165,7 +159,7 @@ var nom = "Laura";      // El compilador dedueix que és un String
         </div>
     </div>
 
-    
+    <!--
     <h3>Taula de Tipus Primitius en Java 26</h3>
     <p>La següent taula recull els tipus primitius del llenguatge que més utilitzarem en el curs:</p>
 
@@ -190,12 +184,12 @@ var nom = "Laura";      // El compilador dedueix que és un String
     <div class="info">
         <p>A la <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">documentació oficial de Java</a> pots trobar tots els tipus de dades i les seves característiques.</p>
     </div>
-
+-->
     <h2>3. Operadors i Expressions</h2>
     <p>Un <strong>operador</strong> és un símbol especial que indica a l'ordinador que realitzi una operació matemàtica, relacional o lògica sobre un o diversos valors, anomenats <strong>operands</strong>.</p>
     <p>La combinació d'operadors, variables i literals s'anomena <strong>expressió</strong>. Tota expressió, en avaluar-se, produeix <strong>un únic valor d'un tipus concret</strong>.</p>
 
-    <h3>3.1 Operadors Aritmètics</h3>
+    <h3>3.1 OperadorsAritmètics</h3>
     <p>Són els operadors matemàtics bàsics per realitzar càlculs numèrics:</p>
     <ul>
         <li><code class="w">+</code> : Suma</li>
@@ -457,8 +451,8 @@ println("S'ha trobat " + fitxersTrobats + (fitxersTrobats == 1 ? " fitxer" : " f
             <tr>
                 <td>Increment / Decrement</td>
                 <td><code class="w">++</code>, <code class="w">--</code></td>
-                <td>Variable numèrica (<code class="w">int</code>, etc.)</td>
-                <td>El mateix tipus numèric</td>
+                <td><code class="w">int</code> <code class="w">double</code> <code class="w">char</code></td>
+                <td><code class="w">int</code> <code class="w">double</code> <code class="w">char</code></td>
                 <td><code class="w">comptador++</code></td>
             </tr>
             <tr>
@@ -471,15 +465,15 @@ println("S'ha trobat " + fitxersTrobats + (fitxersTrobats == 1 ? " fitxer" : " f
             <tr>
                 <td>Multiplicació / Divisió / Mòdul</td>
                 <td><code class="w">*</code>, <code class="w">/</code>, <code class="w">%</code></td>
-                <td>Numèrics (<code class="w">int</code>, <code class="w">double</code>, etc.)</td>
-                <td>Numèric (<code class="w">int</code> si ambdós són enters; sinó decimal)</td>
+                <td><code class="w">int</code> <code class="w">double</code> <code class="w">char</code></td>
+                <td><code class="w">int</code> <code class="w">double</code> <code class="w">char</code></td>
                 <td><code class="w">7 % 2</code> &rarr; <code class="w">1</code></td>
             </tr>
             <tr>
                 <td>Suma / Resta aritmètica</td>
                 <td><code class="w">+</code>, <code class="w">-</code></td>
-                <td>Numèrics o <code class="w">char</code></td>
-                <td>Numèric (<code class="w">int</code>, <code class="w">double</code>)</td>
+                <td><code class="w">int</code> <code class="w">double</code> <code class="w">char</code></td>
+                <td><code class="w">int</code> <code class="w">double</code> <code class="w">char</code></td>
                 <td><code class="w">10 + 20</code> &rarr; <code class="w">30</code></td>
             </tr>
             <tr>
@@ -487,33 +481,33 @@ println("S'ha trobat " + fitxersTrobats + (fitxersTrobats == 1 ? " fitxer" : " f
                 <td><code class="w">+</code></td>
                 <td>Almenys un <code class="w">String</code></td>
                 <td><code class="w">String</code></td>
-                <td><code class="w">"Java " + 26</code> &rarr; <code class="w">"Java 26"</code></td>
+                <td><code class="w">"JDK" + 26</code> &rarr; <code class="w">"JDK26"</code></td>
             </tr>
             <tr>
                 <td>Relacionals d'ordre</td>
                 <td><code class="w">&lt;</code>, <code class="w">&gt;</code>, <code class="w">&lt;=</code>, <code class="w">&gt;=</code></td>
-                <td>Numèrics o <code class="w">char</code></td>
+                <td><code class="w">int</code> <code class="w">double</code> <code class="w">char</code></td>
                 <td><code class="w">boolean</code></td>
                 <td><code class="w">edat &gt;= 18</code> &rarr; <code class="w">true</code></td>
             </tr>
             <tr>
                 <td>Relacionals d'igualtat</td>
                 <td><code class="w">==</code>, <code class="w">!=</code></td>
-                <td>Primitius o referències</td>
+                <td><code class="w">int</code> <code class="w">double</code> <code class="w">char</code> <code class="w">boolean</code></td>
                 <td><code class="w">boolean</code></td>
                 <td><code class="w">x != 0</code> &rarr; <code class="w">true</code></td>
             </tr>
             <tr>
                 <td>Lògic AND (I)</td>
                 <td><code class="w">&amp;&amp;</code></td>
-                <td><code class="w">boolean</code>, <code class="w">boolean</code></td>
+                <td><code class="w">boolean</code></td>
                 <td><code class="w">boolean</code></td>
                 <td><code class="w">edat &gt;= 18 &amp;&amp; teCarnet</code></td>
             </tr>
             <tr>
                 <td>Lògic OR (O)</td>
                 <td><code class="w">||</code></td>
-                <td><code class="w">boolean</code>, <code class="w">boolean</code></td>
+                <td><code class="w">boolean</code></td>
                 <td><code class="w">boolean</code></td>
                 <td><code class="w">esMenor || esJubilat</code></td>
             </tr>
