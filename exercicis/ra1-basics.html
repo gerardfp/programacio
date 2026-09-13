@@ -489,6 +489,46 @@
 </tr>
 </table>
 </div>
+<div class="question" text="">
+<div class="statement">
+<p>Introdueix el valor de cada variable, <strong>després</strong> de cada sentència d'aquest programa:</p>
+</div>
+<table>
+<thead>
+<th style="width: 14em;"></th><th><code class="w">x</code></th><th><code class="w">y</code></th>
+</thead>
+<tr>
+<td><code class="w">int x = 5;</code></td>
+<td><div class="o">5</div></td>
+<td></td>
+</tr>
+<tr>
+<td><code class="w">int y = 2;</code></td>
+<td><div class="o">5</div></td>
+<td><div class="o">2</div></td>
+</tr>
+<tr>
+<td><code class="w">x += 3;</code></td>
+<td><div class="o">8</div></td>
+<td><div class="o">2</div></td>
+</tr>
+<tr>
+<td><code class="w">y *= x;</code></td>
+<td><div class="o">8</div></td>
+<td><div class="o">16</div></td>
+</tr>
+<tr>
+<td><code class="w">x++;</code></td>
+<td><div class="o">9</div></td>
+<td><div class="o">16</div></td>
+</tr>
+<tr>
+<td><code class="w">y -= x;</code></td>
+<td><div class="o">9</div></td>
+<td><div class="o">7</div></td>
+</tr>
+</table>
+</div>
 </div>
     <div class="quizz">
 <div class="question" text="">
@@ -517,6 +557,37 @@
 </div>
 </div>
     <div class="quizz">
+<div class="question" multi="">
+<div class="statement">
+<p>Selecciona les operacions que són <strong>invàlides</strong> en Java (produeixen un error de compilació perquè els tipus dels operands no són compatibles amb l'operador):</p>
+</div>
+<div class="o" correct=""><code class="w">"Hola" - "Món"</code></div>
+<div class="o"><code class="w">"Java " + 26</code></div>
+<div class="o" correct=""><code class="w">!5</code></div>
+<div class="o"><code class="w">100 &gt; 50</code></div>
+<div class="o" correct=""><code class="w">true + 1</code></div>
+<div class="o"><code class="w">8.5 * 2</code></div>
+</div>
+<div class="question" single="">
+<div class="statement">
+<p>Quin tipus de dada han de tenir <strong>obligatòriament</strong> els operands dels operadors lògics (<code class="w">&amp;&amp;</code>, <code class="w">||</code>, <code class="w">!</code>) en Java?</p>
+</div>
+<div class="o" correct=""><code class="w">boolean</code> (expressions o variables que valguin <code class="w">true</code> o <code class="w">false</code>)</div>
+<div class="o"><code class="w">int</code> (on el 0 és fals i qualsevol altre enter és cert)</div>
+<div class="o"><code class="w">String</code> (cadenes de text)</div>
+<div class="o">Qualsevol tipus numèric primitiu</div>
+</div>
+</div>
+    <div class="quizz">
+<div class="question" single="">
+<div class="statement">
+<p>Volem comprovar si el text guardat a la variable <code class="w">nom</code> és igual a <code class="w">"Anna"</code>. Quina és la manera correcta de fer-ho en Java?</p>
+</div>
+<div class="o" correct=""><code class="w">nom.equals("Anna")</code></div>
+<div class="o"><code class="w">nom = "Anna"</code> (és una assignació de valor, no una comparació)</div>
+<div class="o"><code class="w">nom == "Anna"</code> (no és segur: compara si apunten al mateix objecte en memòria, no el contingut del text)</div>
+<div class="o"><code class="w">nom === "Anna"</code> (aquest operador no existeix en Java)</div>
+</div>
 <div class="question" single="">
 <div class="statement">
 <p>Què imprimeix aquest programa?</p>
@@ -542,6 +613,25 @@
 </div>
 </div>
     <div class="quizz">
+<div class="question" match="">
+<div class="statement">
+<p>Emparella cada expressió amb el <strong>tipus de dada</strong> que retorna:</p>
+</div>
+<div class="o"><code class="w">10 / 4</code></div> <div class="o"><code class="w">int</code> (divisió entera)</div>
+<div class="o"><code class="w">10 / 4.0</code></div> <div class="o"><code class="w">double</code> (divisió decimal)</div>
+<div class="o"><code class="w">10 &gt;= 4</code></div> <div class="o"><code class="w">boolean</code> (comparació)</div>
+<div class="o"><code class="w">"Preu: " + 10</code></div> <div class="o"><code class="w">String</code> (concatenació)</div>
+</div>
+<div class="question" single="">
+<div class="statement">
+<p>Quin <strong>tipus de dada</strong> retorna l'avaluació final d'aquesta expressió combinada?</p>
+<div class="sc" java="">(15 + 5 &gt; 10) &amp;&amp; (20 / 2 == 10)</div>
+</div>
+<div class="o" correct=""><code class="w">boolean</code> (l'operació final és l'operador lògic &amp;&amp;)</div>
+<div class="o"><code class="w">int</code> (perquè s'estan calculant nombres enters)</div>
+<div class="o"><code class="w">double</code> (perquè hi ha una divisió)</div>
+<div class="o"><code class="w">String</code></div>
+</div>
 <div class="question" single="">
 <div class="statement">
 <p>Quin valor retorna aquesta expressió?</p>
@@ -552,6 +642,17 @@
 </div>
 </div>
     <div class="quizz">
+<div class="question" single="">
+<div class="statement">
+<p>Quin valor contindrà la variable <code class="w">estat</code> després d'executar aquest codi?</p>
+<div class="sc" java="">int edat = 17;
+String estat = edat &gt;= 18 ? "Major d'edat" : "Menor d'edat";</div>
+</div>
+<div class="o" correct="">"Menor d'edat"</div>
+<div class="o">"Major d'edat"</div>
+<div class="o">"17"</div>
+<div class="o">false</div>
+</div>
 <div class="question" single="">
 <div class="statement">
 <p>Quin valor tindrà la variable <code class="w">x</code>?</p>
@@ -606,7 +707,7 @@ double decimal = Double.parseDouble(IO.readln("Introdueix un decimal: "));
     </div>
 
     <div class="work">
-        <h3>Exercicis Proposats (Dificultat Progressiva)</h3>
+        <h3>Exercicis Proposats</h3>
         <p>Crea un programa en Java 26 per a cadascun dels reptes següents. Estan ordenats de menor a major complexitat:</p>
 
         <ol>
