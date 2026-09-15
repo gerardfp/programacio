@@ -1,0 +1,86 @@
+BLOQUE 1
+RA1.a. Se han identificado los bloques que componen la estructura de un programa informático.
+RA1.b. Se han creado proyectos de desarrollo de aplicaciones.
+RA1.c. Se han utilizado entornos integrados de desarrollo.
+RA1.d. Se han identificado los distintos tipos de variables y la utilidad específica de cada uno.
+RA1.e. Se ha modificado el código de un programa para crear y utilizar variables.
+RA1.f. Se han creado y utilizado constantes y literales.
+RA1.g. Se han clasificado, reconocido y utilizado en expresiones los operadores del lenguaje.
+RA1.h. Se ha comprobado el funcionamiento de las conversiones de tipo explícitas e implícitas.
+RA1.i. Se han introducido comentarios en el código.
+RA2.b. Se han escrito programas simples.
+RA2.e. Se han escrito llamadas a métodos estáticos.
+RA2.f. Se han utilizado parámetros en la llamada a métodos.
+RA2.i. Se ha utilizado el entorno integrado de desarrollo en la creación y compilación de programas simples.
+
+BLOQUE 2
+RA3.a. Se ha escrito y probado código que haga uso de estructuras de selección.
+RA3.b. Se han utilizado estructuras de repetición.
+RA3.c. Se han reconocido las posibilidades de las sentencias de salto.
+RA3.e. Se han creado programas ejecutables utilizando diferentes estructuras de control.
+RA3.f. Se han probado y depurado los programas.
+RA3.g. Se ha comentado y documentado el código.
+
+BLOQUE 3
+RA2.a. Se han identificado los fundamentos de la programación orientada a objetos.
+RA2.c. Se han instanciado objetos a partir de clases predefinidas.
+RA2.d. Se han utilizado métodos y propiedades de los objetos.
+RA2.g. Se han incorporado y utilizado librerías de objetos.
+RA2.h. Se han utilizado constructores.
+RA5.a. Se ha utilizado la consola para realizar operaciones de entrada y salida de información.
+RA5.c. Se han reconocido las posibilidades de entrada / salida del lenguaje y las librerías asociadas.
+RA5.b. Se han aplicado formatos en la visualización de la información.
+
+BLOQUE 4
+RA6.a. Se han escrito programas que utilicen matrices (arrays).
+
+BLOQUE 5
+RA4.a. Se ha reconocido la sintaxis, estructura y componentes típicos de una clase.
+RA4.b. Se han definido clases.
+RA4.c. Se han definido propiedades y métodos.
+RA4.d. Se han creado constructores.
+RA4.e. Se han desarrollado programas que instancien y utilicen objetos de las clases creadas anteriormente.
+RA4.f. Se han utilizado mecanismos para controlar la visibilidad de las clases y de sus miembros.
+RA4.g. Se han definido y utilizado clases heredadas.
+RA4.h. Se han creado y utilizado métodos estáticos.
+RA4.i. Se han creado y utilizado conjuntos y librerías de clases.
+RA7.a. Se han identificado los conceptos de herencia, superclase y subclase.
+RA7.b. Se han utilizado modificadores para bloquear y forzar la herencia de clases y métodos.
+RA7.c. Se ha reconocido la incidencia de los constructores en la herencia.
+RA7.d. Se han creado clases heredadas que sobrescriben la implementación de métodos de la superclase.
+RA7.e. Se han diseñado y aplicado jerarquías de clases.
+RA7.f. Se han probado y depurado las jerarquías de clases.
+RA7.g. Se han realizado programas que implementen y utilicen jerarquías de clases.
+RA7.h. Se ha comentado y documentado el código.
+RA7.i. Se han identificado y evaluado los escenarios de uso de interfaces.
+RA7.j. Se han identificado y evaluado los escenarios de utilización de la herencia y la composición
+RA3.d. Se ha escrito código utilizando control de excepciones.
+RA3.h. Se han creado excepciones.
+RA3.i. Se han utilizado aserciones para la detección y corrección de errores durante la fase de desarrollo.
+
+BLOQUE 6
+RA6.b. Se han reconocido las librerías de clases relacionadas con tipos de datos avanzados.
+RA6.c. Se han utilizado listas para almacenar y procesar información.
+RA6.d. Se han utilizado iteradores para recorrer los elementos de las listas.
+RA6.e. Se han reconocido las características y ventajas de cada una de las colecciones de datos disponibles.
+RA6.f. Se han creado clases y métodos genéricos.
+RA6.j. Se han utilizado operaciones agregadas para el manejo de información almacenada en colecciones.
+RA6.g. Se han utilizado expresiones regulares en la búsqueda de patrones en cadenas de texto.
+
+BLOQUE 7
+RA5.d. Se han utilizado ficheros para almacenar y recuperar información.
+RA5.e. Se han creado programas que utilicen diversos métodos de acceso al contenido de los ficheros.
+RA6.h. Se han identificado las clases relacionadas con el tratamiento de documentos escritos en diferentes lenguajes de intercambio de datos.
+RA6.i. Se han realizado programas que realicen manipulaciones sobre documentos escritos en diferentes lenguajes de intercambio de datos.
+RA9.a. Se han identificado las características y métodos de acceso a sistemas gestores de bases de datos.
+RA9.b. Se han programado conexiones con bases de datos.
+RA9.c. Se ha escrito un código para almacenar información en bases de datos.
+RA9.d. Se han creado programas para recuperar y mostrar información almacenada en bases de datos.
+RA9.e. Se han efectuado borrados y modificaciones sobre la información almacenada.
+RA9.f. Se han creado aplicaciones que muestren la información almacenada en bases de datos.
+RA9.g. Se han creado aplicaciones para gestionar la información presente en bases de datos.
+
+BLOQUE 8
+RA5.f. Se han utilizado las herramientas del entorno de desarrollo para crear interfaces gráficos de usuario simples.
+RA5.g. Se han programado controladores de eventos.
+RA5.h. Se han escrito programas que utilicen interfaces gráficos para la entrada y salida de información.
