@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unitat 1: Estructura d'un Programa i Elements Bàsics | Tutorial Java 26</title>
+    <script src="../assets/js/script.js"></script>
+    <link rel="stylesheet" href="../assets/css/estil.css">
+</head>
+<body>
+<nav></nav>
+
+<header>
+    <div class="header-nav">
+        <a href="../index.html">← Índex del curs</a>
+        <a href="../exercicis/u1/index.html" class="ex-link-pill">Exercicis</a>
+    </div>
+    <h1>Unitat 1. Estructura d'un Programa i Elements Bàsics</h1>
+
+    <div class="abstract">
+        <p><strong>Unitat Didàctica 1:</strong></p>
+        <p>En aquesta unitat aprendràs:</p>
+        <div class="check">Sortida per pantalla amb <code>IO.println()</code></div>
+        <div class="check">Literals: enters, decimals, booleans, caràcters i textos</div>
+        <div class="check">Variables: declaració, assignació, <code>var</code> i constants <code>final</code></div>
+        <div class="check">Operadors aritmètics, relacionals i lògics</div>
+        <div class="check">Operador ternari <code>? :</code></div>
+        <div class="check">Expressions <code>switch</code></div>
+        <div class="check">Conversió de tipus (càsting i parsing)</div>
+        <div class="check">Entrada interactiva de dades per consola amb <code>IO.readln()</code></div>
+    </div>
+</header>
+
+<section>
+
+    <h2>El teu primer programa amb Java 26</h2>
+    <p>El HelloWorld!™️ es el clàssic primer programa que veu tot programador. Aquí el tens en Java 26:</p>
+
+    <div class="sc" java>
+void main() {
+    IO.println("Hola, Món!");
+}
+    </div>
+
+    <div class="observe">
+        <p><strong>Observa la sintaxi:</strong></p>
+        <ul>
+            <li><code class="w">void main()</code> és el punt on la màquina comença a executar el teu programa.</li>
+            <li>Les claus <code class="w">{ ... }</code> delimiten el cos d'ordres que formen el programa.</li>
+            <li>La funció <code class="w">println(...)</code> indica a l'ordinador que mostri un text a la pantalla i salti a la línia següent.</li>
+            <li>Cada instrucció simple acaba obligatòriament amb un punt i coma (<code class="w">;</code>).</li>
+        </ul>
+    </div>
+
+    <h2>1. Literals</h2>
+    <p>Un <strong>literal</strong> és un valor fix que apareix directament escrit al codi font del programa. La màquina distingeix diferents tipus de dades segons la seva naturalesa:</p>
+
+    <h3>Nombres Enters</h3>
+    <p>Són números sense part decimal. Poden ser positius o negatius. Per millorar la llegibilitat de nombres llargs, Java permet fer servir guions baixos (<code class="w">_</code>):</p>
+    <div class="sc" java>
+println(42);
+println(-17);
+println(1_000_000); // Un milió
+    </div>
+
+    <h3>Nombres Decimals</h3>
+    <p>S'escriuen amb un punt (<code class="w">.</code>) com a separador decimal (<b>no</b> amb una coma):</p>
+    <div class="sc" java>
+println(3.14159);
+println(-0.5);
+    </div>
+
+    <h3>Text (<i>Strings</i>)</h3>
+    <p>Qualsevol seqüència de caràcters envoltada entre cometes dobles (<code class="w">"..."</code>):</p>
+    <div class="sc" java>
+println("Benvinguts al curs de programació!");
+println("El resultat és: " + 10); // L'operador + concatena textos
+    </div>
+
+    <h3>Caràcters individuals</h3>
+    <p>Un sol caràcter envoltat entre cometes simples (<code class="w">'...'</code>):</p>
+    <div class="sc" java>
+println('A');
+println('9');
+    </div>
+
+    <h3>Booleans (Cert o Fals)</h3>
+    <p>Només poden tenir dos valors: <code class="w">true</code> o <code class="w">false</code>. Són la base per a prendre decisions:</p>
+    <div class="sc" java>
+println(true);
+println(false);
+    </div>
+
+    <h2>2. Variables</h2>
+    <p>Per recordar dades que necessitarem més endavant, reservem un espai a la memòria RAM i li donem un nom. Aquest espai s'anomena <strong>variable</strong>.</p>
+
+    <div class="sc" java>
+int edat = 20;
+double pes = 68.5;
+boolean teCarnet = true;
+char lletra = 'A';
+String nom = "Laura";
+    </div>
+
+    <p>Com es veu a la memòria de l'ordinador?</p>
+    <div class="mem">
+edat: 20
+pes: 68.5
+teCarnet: true
+lletra: 'A'
+nom: "Laura"
+    </div>
+
+ <!--       <p>Podem imaginar una variable com un full de paper que per la cara de davant té un nom i per la cara de darrere té un valor:</p>
+
+    <style>  
+    .varpaper { margin: 0; padding: 1em; display: flex; 
+    justify-content: center; align-items: center; 
+    font-family: Arial, sans-serif; }
+
+    .escena { width: 320px; height: 210px; perspective: 1000px; } 
+    
+    .paper { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transform-origin: center; 
+    animation: girar 5s ease-in-out infinite; } 
+    /* Les dues cares */ 
+    .cara { position: absolute; inset: 0; display: flex; 
+    align-items: center; justify-content: center; 
+    border: 3px solid #26364d; border-radius: 10px; 
+    background: white; color: #26364d; font-size: 64px; 
+    font-weight: bold; box-shadow: 0 12px 25px rgba(0, 0, 0, .15); 
+    /* * Evita el parpelleig quan les dues cares * estan pràcticament 
+    en el mateix pla. */ 
+    transform-style: preserve-3d; backface-visibility: hidden; 
+    -webkit-backface-visibility: hidden; } 
+    /* * Cara del nom * * La separem lleugerament cap a l'observador. */ 
+    .nom { transform: translateZ(1px); } 
+    /* * Cara del valor * * Està darrere del paper i girada 180º. */ 
+    .valor { transform: rotateY(180deg) translateZ(1px); 
+    background: #eef5ff; } 
+    /* * El paper gira completament: * * edat * ↓ * gira * ↓ * 20 * ↓ * gira * ↓ * edat */ 
+    @keyframes girar { /* EDAT */ 0%, 20% { transform: rotateY(0deg); } /* Gir cap al valor */ 50%, 70% { transform: rotateY(180deg); } /* Tornem al nom */ 100% { transform: rotateY(360deg); } } 
+    </style> 
+    <div class="varpaper"> 
+        <div class="escena"> 
+            <div class="paper"> 
+                <div class="cara nom"><code>edat</code></div> 
+                <div class="cara valor"><code>20</code> </div> 
+            </div> 
+        </div>
+    </div>
+-->
+    <div class="info">
+        <p><strong>Inferència de tipus amb <code class="w">var</code>:</strong></p>
+        <p>En Java modern podem utilitzar la paraula clau <code class="w">var</code> quan inicialitzem la variable immediatament. El compilador dedueix el tipus automàticament:</p>
+        <div class="sc" java>
+var edat = 20;          // El compilador dedueix que és un int
+var pes = 68.5;         // El compilador dedueix que és un double
+var teCarnet = true;    // El compilador dedueix que és un boolean
+var lletra = 'A';       // El compilador dedueix que és un char
+var nom = "Laura";      // El compilador dedueix que és un String 
+        </div>
+    </div>
+
+    <!--
+    <h3>Taula de Tipus Primitius en Java 26</h3>
+    <p>La següent taula recull els tipus primitius del llenguatge que més utilitzarem en el curs:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Tipus</th>
+                <th>Mida (bits)</th>
+                <th>Valors Permesos / Rang</th>
+                <th>Valor per Defecte</th>
+                <th>Exemple de Declaració</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code class="w">int</code></td><td>32</td><td>-2_147_483_648 a 2_147_483_647</td><td><code class="w">0</code></td><td><code class="w">int poblacio = 1_500;</code></td></tr>
+            <tr><td><code class="w">double</code></td><td>64</td><td>~±4.9E-324 a ~±1.8E+308 (15 decimals)</td><td><code class="w">0.0</code></td><td><code class="w">double pi = 3.141592;</code></td></tr>
+            <tr><td><code class="w">char</code></td><td>16</td><td>Caràcters Unicode UTF-16 (0 a 65_535)</td><td><code class="w">'\u0000'</code></td><td><code class="w">char lletra = 'Z';</code></td></tr>
+            <tr><td><code class="w">boolean</code></td><td>1</td><td>true o false</td><td><code class="w">false</code></td><td><code class="w">boolean actiu = true;</code></td></tr>
+        </tbody>
+    </table>
+
+    <div class="info">
+        <p>A la <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">documentació oficial de Java</a> pots trobar tots els tipus de dades i les seves característiques.</p>
+    </div>
+-->
+    <h2>3. Operadors</h2>
+    <p>Un <strong>operador</strong> és un símbol especial que indica a l'ordinador que realitzi una operació matemàtica, relacional o lògica sobre un o diversos valors, anomenats <strong>operands</strong>.</p>
+    <p>La combinació d'operadors, variables i literals s'anomena <strong>expressió</strong>. Tota expressió, en avaluar-se, produeix <strong>un únic valor d'un tipus concret</strong>.</p>
+
+    <h3>3.1 Operadors Aritmètics</h3>
+    <p>Són els operadors matemàtics bàsics per realitzar càlculs numèrics:</p>
+    <ul>
+        <li><code class="w">+</code> : Suma</li>
+        <li><code class="w">-</code> : Resta</li>
+        <li><code class="w">*</code> : Multiplicació</li>
+        <li><code class="w">/</code> : Divisió</li>
+        <li><code class="w">%</code> : Mòdul o residu de la divisió entera</li>
+    </ul>
+
+    <p><strong>Precedència aritmètica:</strong> Igual que a les matemàtiques escolars, <code class="w">*</code>, <code class="w">/</code> i <code class="w">%</code> tenen prioritat respecte a <code class="w">+</code> i <code class="w">-</code>. Pots fer servir parèntesis <code class="w">( )</code> per forçar o clarificar l'ordre d'avaluació:</p>
+    <div class="sc" java>
+int r1 = 2 + 3 * 4;     // Dóna 14 (primer 3 * 4 = 12, després + 2)
+int r2 = (2 + 3) * 4;   // Dóna 20 (primer 2 + 3 = 5, després * 4)
+    </div>
+
+    <div class="warn">
+        <p><strong>Tipus dels operands i divisió entera:</strong></p>
+        <p>El tipus del resultat depèn del tipus dels operands utilitzats:</p>
+        <ul>
+            <li>Si tots dos operands són enters (<code class="w">int</code>), el resultat és obligatòriament un <code class="w">int</code>. A la divisió, <strong>es descarta la part decimal</strong> (es trunca cap a zero).</li>
+            <li>Si almenys un dels operands és un nombre decimal (<code class="w">float</code> o <code class="w">double</code>), el resultat es promociona automàticament a decimal.</li>
+        </ul>
+        <div class="sc" java>
+println(7 / 2);     // 3 (divisió entera: es descarta el .5!)
+println(7.0 / 2);   // 3.5 (com que 7.0 és double, el resultat és double)
+println(7 / 2.0);   // 3.5
+println(7 % 2);     // 1 (el residu de dividir 7 entre 2: 7 = 3 * 2 + 1)
+        </div>
+    </div>
+
+    <p><strong>Ús de suma i resta amb cadenes (<code class="w">String</code>) i caràcters (<code class="w">char</code>):</strong></p>
+    <ul>
+        <li><strong>Concatenació amb <code class="w">String</code>:</strong> Quan l'operador <code class="w">+</code> s'utilitza i un dels operands és un text, Java no suma matemàticament, sinó que <strong>concatena</strong> (uneix) les dades en una nova cadena de text (<code class="w">String</code>):
+            <div class="sc" java>
+String salutacio = "Hola, " + "Joan!";        // "Hola, Joan!"
+String missatge = "Tens " + 3 + " missatges";   // "Tens 3 missatges"
+
+// Atenció a l'ordre d'avaluació (d'esquerra a dreta):
+println("Punts: " + 5 + 3);     // "Punts: 53" (concatena "Punts: 5" i després "3")
+println("Punts: " + (5 + 3));   // "Punts: 8" (primer suma matemàtica dels parèntesis)
+            </div>
+        </li>
+        <li><strong>Aritmètica amb caràcters (<code class="w">char</code>):</strong> A Java, els caràcters s'emmagatzemen a la memòria amb el seu codi numèric Unicode/ASCII (per exemple, <code class="w">'A'</code> és 65, <code class="w">'B'</code> és 66, i <code class="w">'a'</code> és 97). Per tant, es poden sumar i restar amb nombres o entre ells:
+            <div class="sc" java>
+char lletra = 'A';
+int codi = lletra + 1;              // 66 (el codi numèric de 'B')
+char seguent = (char) (lletra + 1);   // 'B' (fent càsting explícit a char)
+
+// Calcular la distància o desplaçament entre lletres:
+int distancia = 'e' - 'a';          // 4 (perquè 'e' està 4 posicions després de 'a')
+            </div>
+        </li>
+    </ul>
+
+    <p><strong>Operadors d'assignació composta (<code class="w">+=</code>, <code class="w">-=</code>, <code class="w">*=</code>, <code class="w">/=</code>, <code class="w">%=</code>):</strong></p>
+    <p>Són una drecera molt habitual per modificar el valor d'una variable i reassignar el resultat a ella mateixa en un sol pas:</p>
+    <div class="sc" java>
+int punts = 10;
+punts += 5;   // Equivalent a: punts = punts + 5; (ara val 15)
+punts -= 3;   // Equivalent a: punts = punts - 3; (ara val 12)
+punts *= 2;   // Equivalent a: punts = punts * 2; (ara val 24)
+punts /= 4;   // Equivalent a: punts = punts / 4; (ara val 6)
+punts %= 5;   // Equivalent a: punts = punts % 5; (ara val 1)
+    </div>
+
+    <p><strong>Operadors unaris d'increment i decrement (<code class="w">++</code>, <code class="w">--</code>):</strong></p>
+    <p>Permeten sumar o restar 1 a una variable numèrica de manera ràpida. S'escriuen després del nom de la variable (post-increment i post-decrement):</p>
+    <ul>
+        <li><code class="w">x++</code> : Incrementa el valor de la variable en 1 (equivalent a <code class="w">x = x + 1</code>).</li>
+        <li><code class="w">x--</code> : Decrementa el valor de la variable en 1 (equivalent a <code class="w">x = x - 1</code>).</li>
+    </ul>
+    <div class="sc" java>
+int vides = 3;
+vides++;  // vides passa a valdre 4
+vides--;  // vides torna a valdre 3
+    </div>
+
+    <h3>3.2 Operadors Relacionals (de Comparació)</h3>
+    <p>Permeten comparar dos valors entre si. <strong>El resultat d'una comparació és SEMPRE un valor booleà (<code class="w">boolean</code>: <code class="w">true</code> o <code class="w">false</code>)</strong>:</p>
+    <ul>
+        <li><code class="w">==</code> : Igual a</li>
+        <li><code class="w">!=</code> : Diferent de</li>
+        <li><code class="w">&lt;</code> : Menor que</li>
+        <li><code class="w">&gt;</code> : Major que</li>
+        <li><code class="w">&lt;=</code> : Menor o igual que</li>
+        <li><code class="w">&gt;=</code> : Major o igual que</li>
+    </ul>
+
+    <div class="sc" java>
+int edat = 18;
+boolean esMajor = edat >= 18;        // true
+boolean esMenor = edat < 18;         // false
+boolean teDivuit = edat == 18;       // true
+boolean noTeVint = edat != 20;       // true
+
+// Els caràcters també es comparen pel seu ordre alfabètic/Unicode:
+boolean ordre = 'a' < 'b';           // true (97 < 98)
+    </div>
+
+    <div class="warn">
+        <p><strong>Molt important: Com es comparen les cadenes de text (<code class="w">String</code>)?</strong></p>
+        <p>L'operador <code class="w">==</code> en cadenes de text <strong>no compara el text contingut</strong>, sinó si les dues variables apunten exactament a la mateixa referència física a la memòria RAM. Si compares cadenes amb <code class="w">==</code>, el teu programa tindrà errors imprevisibles!</p>
+        <p>Per comparar el contingut d'un text cal utilitzar sempre el mètode <code class="w">.equals()</code> o <code class="w">.equalsIgnoreCase()</code>:</p>
+        <div class="sc" java>
+String clauIntroduida = "admin";
+String clauCorrecta = "admin";
+
+// CORRECTE: Compara els caràcters del text
+boolean accioPermesa = clauIntroduida.equals(clauCorrecta); // true
+
+// Per comparar sense distingir majúscules de minúscules:
+boolean coincideix = "java".equalsIgnoreCase("JAVA");      // true
+
+// INCORRECTE per a Strings:
+// boolean fallara = (clauIntroduida == clauCorrecta); // NO utilitzar per comparar contingut!
+        </div>
+    </div>
+
+    <h3>3.3 Operadors Lògics o Booleans</h3>
+    <p>A diferència dels aritmètics i relacionals (que ja coneixes de les matemàtiques bàsiques), els <strong>operadors lògics</strong> són nous per a molts estudiants. S'utilitzen per combinar múltiples condicions o invertir-ne el resultat. Els seus operands han de ser de tipus <code class="w">boolean</code> i <strong>retornen sempre un <code class="w">boolean</code></strong>:</p>
+
+    <ul>
+        <li>
+            <strong><code class="w">&amp;&amp;</code> (AND lògic / conjunció "I"):</strong>
+            <p>Retorna <code class="w">true</code> <strong>únicament si TOTS DOS operands són <code class="w">true</code></strong>. Si un d'ells (o tots dos) és <code class="w">false</code>, el resultat final és <code class="w">false</code>.</p>
+            <p><em>Exemple de la vida quotidiana:</em> "Per conduir legalment cal tenir 18 anys o més <strong>I</strong> tenir el carnet vigent".</p>
+            <div class="sc" java>
+int edat = 20;
+boolean teCarnet = true;
+boolean potConduir = (edat >= 18) && teCarnet; // true (ambdues condicions són certes)
+            </div>
+        </li>
+        <li>
+            <strong><code class="w">||</code> (OR lògic / disjunció "O"):</strong>
+            <p>Retorna <code class="w">true</code> <strong>si ALMENYS UN dels operands és <code class="w">true</code></strong> (o si tots dos ho són). Només retorna <code class="w">false</code> quan tots dos operands són falsos.</p>
+            <p><em>Exemple de la vida quotidiana:</em> "Tens descompte al transport si ets menor de 25 anys <strong>O</strong> si ets pensionista".</p>
+            <div class="sc" java>
+int edat = 22;
+boolean esPensionista = false;
+boolean teDescompte = (edat < 25) || esPensionista; // true (la primera condició és certa)
+            </div>
+        </li>
+        <li>
+            <strong><code class="w">!</code> (NOT lògic / negació):</strong>
+            <p>És un operador unari que <strong>inverteix</strong> el valor de la condició: converteix <code class="w">true</code> en <code class="w">false</code>, i <code class="w">false</code> en <code class="w">true</code>.</p>
+            <p><em>Exemple de la vida quotidiana:</em> "Si <strong>NO</strong> està plovent, sortirem a córrer".</p>
+            <div class="sc" java>
+boolean plou = false;
+boolean sortimACorrer = !plou; // true
+            </div>
+        </li>
+    </ul>
+
+    <div class="observe">
+        <p><strong>Avaluació en curtcircuit (Short-circuit Evaluation):</strong></p>
+        <p>Java optimitza l'avaluació d'expressions lògiques d'esquerra a dreta i s'atura tan bon punt el resultat final ja és segur:</p>
+        <ul>
+            <li>A l'operador <code class="w">A &amp;&amp; B</code>: si <code class="w">A</code> és <code class="w">false</code>, el resultat serà fals amb total certesa; per tant, Java <strong>mai no arriba a avaluar <code class="w">B</code></strong>.</li>
+            <li>A l'operador <code class="w">A || B</code>: si <code class="w">A</code> és <code class="w">true</code>, el resultat serà cert amb total certesa; per tant, Java <strong>tampoc no avalua <code class="w">B</code></strong>.</li>
+        </ul>
+        <p>Això és clau per escriure condicions segures, com ara evitar divisions per zero:</p>
+        <div class="sc" java>
+int divisor = 0;
+// Com que (divisor != 0) és false, Java NO avalua la divisió i no es produeix cap error ArithmeticException:
+boolean divisioSegura = (divisor != 0) && (100 / divisor > 2); // false (sense errors)
+        </div>
+    </div>
+
+    <p><strong>Precedència entre operadors lògics:</strong></p>
+    <p>Si s'escriuen diversos operadors lògics seguits sense parèntesis, l'ordre d'avaluació és:</p>
+    <ol>
+        <li><code class="w">!</code> (Negació: màxima prioritat)</li>
+        <li><code class="w">&amp;&amp;</code> (AND: té prioritat sobre l'OR, equivalent a la multiplicació)</li>
+        <li><code class="w">||</code> (OR: menor prioritat, equivalent a la suma)</li>
+    </ol>
+    <div class="sc" java>
+// L'expressió:
+boolean res = true || false && false;
+// S'avalua com: true || (false && false) -> true || false -> true!
+// Si vols forçar que s'avaluï primer l'OR, utilitza parèntesis: (true || false) && false -> false
+    </div>
+
+    <h3>3.4 Combinació d'Operadors i Ordre de Precedència General</h3>
+    <p>Als programes reals és habitual combinar operadors aritmètics, de comparació i lògics en una única expressió. Java resol cada part seguint una jerarquia de precedència estricta:</p>
+
+    <div class="sc" java>
+int edat = 19;
+double notaMitjana = 8.5;
+double ingressosFamiliars = 14_000.0;
+boolean teExpedientDisciplinari = false;
+
+// Comprovació de beca universitària:
+boolean teBeca = edat <= 25 && (notaMitjana >= 8.0 || ingressosFamiliars < 15_000.0) && !teExpedientDisciplinari;
+println("Té dret a beca? " + teBeca); // true
+    </div>
+
+    <div class="info">
+        <p><strong>Jerarquia de precedència general en Java (de major a menor prioritat):</strong></p>
+        <ol>
+            <li><strong>Parèntesis <code class="w">( )</code>:</strong> Màxima prioritat absoluta. Utilitza'ls sempre per garantir l'ordre desitjat i facilitar la lectura del codi!</li>
+            <li><strong>Operadors unaris:</strong> <code class="w">++</code>, <code class="w">--</code>, <code class="w">!</code>, <code class="w">(càsting)</code></li>
+            <li><strong>Aritmètics multiplicatius:</strong> <code class="w">*</code>, <code class="w">/</code>, <code class="w">%</code></li>
+            <li><strong>Aritmètics additius:</strong> <code class="w">+</code>, <code class="w">-</code> (i concatenació de text <code class="w">+</code>)</li>
+            <li><strong>Relacionals d'ordre:</strong> <code class="w">&lt;</code>, <code class="w">&gt;</code>, <code class="w">&lt;=</code>, <code class="w">&gt;=</code></li>
+            <li><strong>Relacionals d'igualtat:</strong> <code class="w">==</code>, <code class="w">!=</code></li>
+            <li><strong>Lògic AND:</strong> <code class="w">&amp;&amp;</code></li>
+            <li><strong>Lògic OR:</strong> <code class="w">||</code></li>
+            <li><strong>Operador ternari:</strong> <code class="w">? :</code> i <strong>Expressions <code class="w">switch</code></strong></li>
+            <li><strong>Assignació:</strong> <code class="w">=</code>, <code class="w">+=</code>, <code class="w">-=</code>, <code class="w">*=</code>, <code class="w">/=</code>, <code class="w">%=</code> (prioritat mínima)</li>
+        </ol>
+    </div>
+
+    <h2>4. L'Operador Ternari (<code class="w">? :</code>)</h2>
+    <p>L'operador ternari és una construcció concisa i elegant que permet <strong>escollir entre dos valors possibles segons una condició booleana</strong>. És l'únic operador del llenguatge que compta amb <strong>tres operands</strong>:</p>
+
+    <div class="sc" java>
+condicio ? valor_si_cert : valor_si_fals
+    </div>
+
+    <p><strong>Com funciona?</strong></p>
+    <ol>
+        <li>S'avalua la <code class="w">condicio</code> (que ha de resultar en un <code class="w">boolean</code>: <code class="w">true</code> o <code class="w">false</code>).</li>
+        <li>Si la condició és <code class="w">true</code>, l'operador retorna el resultat de l'expressió situada abans dels dos punts (<code class="w">:</code>).</li>
+        <li>Si la condició és <code class="w">false</code>, l'operador retorna el resultat de l'expressió situada després dels dos punts.</li>
+    </ol>
+
+    <p><strong>Tipus de retorn:</strong> Les dues branques (valor cert i valor fals) han de retornar valors de tipus compatibles entre si (per exemple, ambdues cadenes <code class="w">String</code> o ambdues valors numèrics):</p>
+
+    <div class="sc" java>
+// Exemple 1: Aprovat o suspès segons la qualificació
+int nota = 7;
+String resultat = (nota >= 5) ? "Aprovat" : "Suspès";
+println(resultat); // Imprimeix: Aprovat
+
+// Exemple 2: Determinar el màxim de dos nombres
+int num1 = 45;
+int num2 = 78;
+int maxim = (num1 > num2) ? num1 : num2; // valdrà 78
+
+// Exemple 3: Pluralització gramatical de missatges
+int fitxersTrobats = 1;
+println("S'ha trobat " + fitxersTrobats + (fitxersTrobats == 1 ? " fitxer" : " fitxers"));
+    </div>
+
+    <h2>5. Expressions switch</h2>
+    <p>Mentre que l'operador ternari (<code class="w">? :</code>) és ideal per escollir entre <strong>dos</strong> valors segons una condició booleana, les <strong>expressions <code class="w">switch</code></strong> permeten avaluar un valor i seleccionar el resultat corresponent entre <strong>múltiples opcions possibles</strong> d'una forma molt neta, segura i directa.</p>
+
+    <p>A diferència de les estructures tradicionals, una <strong>expressió switch</strong>:</p>
+    <ul>
+        <li><strong>Retorna un valor directament</strong> que es pot desar en una variable, passar com a paràmetre o imprimir.</li>
+        <li>Fa servir la sintaxi de fletxa (<code class="w">-&gt;</code>) a cada cas, <strong>sense necessitat d'escriure <code class="w">break</code></strong> (evitant errors de caiguda accidental).</li>
+        <li>Permet agrupar múltiples valors en un sol cas separant-los per comes (<code class="w">case 1, 2, 3 -&gt;</code>).</li>
+        <li>És <strong>exhaustiva</strong>: quan s'utilitza com a expressió ha de cobrir totes les possibilitats mitjançant la branca <code class="w">default</code>.</li>
+    </ul>
+
+    <div class="sc" java>
+// Exemple 1: Obtenir el tipus de jornada segons el dia de la setmana
+int dia = 3;
+
+String tipusJornada = switch (dia) {
+    case 1, 2, 3, 4, 5 -> "Dia feiner";
+    case 6, 7          -> "Cap de setmana";
+    default            -> "Número de dia incorrecte";
+};
+
+println(tipusJornada); // Imprimeix: Dia feiner
+
+// Exemple 2: Determinar l'estació de l'any a partir del mes
+int mes = 4;
+
+String estacio = switch (mes) {
+    case 12, 1, 2  -> "Hivern";
+    case 3, 4, 5   -> "Primavera";
+    case 6, 7, 8   -> "Estiu";
+    case 9, 10, 11 -> "Tardor";
+    default        -> "Mes desconegut";
+};
+
+println("L'estació és: " + estacio); // L'estació és: Primavera
+
+// Exemple 3: Assignació d'un descompte basat en un codi de text
+String codiClient = "VIP";
+
+double descompte = switch (codiClient) {
+    case "VIP"      -> 0.20; // 20%
+    case "PREMIUM"  -> 0.15; // 15%
+    case "STANDARD" -> 0.05; // 5%
+    default         -> 0.0;
+};
+    </div>
+
+
+
+    <h2>6. Conversió de Tipus: Càsting i Parsing</h2>
+    <p>Quan treballem amb dades, molt sovint necessitem transformar un valor d'un tipus a un altre. En Java hem de distingir dos escenaris clarament diferenciats segons la naturalesa de les dades:</p>
+    <ol>
+        <li><strong>Càsting:</strong> Conversió directa entre <em>tipus primitius compatibles</em> (per exemple, nombres entre si com <code class="w">int</code> i <code class="w">double</code>).</li>
+        <li><strong>Parsing:</strong> Interpretació i extracció d'un valor numèric a partir d'un text (<code class="w">String</code>).</li>
+    </ol>
+
+    <h3>6.1 Càsting entre tipus primitius</h3>
+    <p>Quan convertim entre tipus numèrics primitius, trobem dues situacions:</p>
+    <ul>
+        <li><strong>Conversió implícita (automàtica o promoció):</strong> Es produeix en passar d'un tipus més petit o estret a un de més gran o ample (per exemple, de <code class="w">int</code> a <code class="w">double</code>). Com que el tipus destí té més capacitat de bits, no hi ha cap perill de pèrdua d'informació i Java ho fa automàticament:
+            <div class="sc" java>
+int a = 10;
+double b = a; // Correcte i automàtic: b valdrà 10.0
+            </div>
+        </li>
+        <li><strong>Càsting explícit:</strong> Es produeix en voler passar d'un tipus més gran a un de més petit (per exemple, de <code class="w">double</code> a <code class="w">int</code>). Com que hi pot haver pèrdua de precisió o desbordament, el compilador ens obliga a indicar el tipus destí explícitament entre parèntesis <code class="w">(tipus)</code>:
+            <div class="sc" java>
+double preu = 9.99;
+int partEntera = (int) preu; // partEntera valdrà 9 (es trunquen els decimals, no s'arrodoneix)
+            </div>
+        </li>
+    </ul>
+
+    <h3>6.2 Parsing: Conversió de cadenes de text (String) a nombres</h3>
+    <p>Què passa si tenim el text <code class="m">"42"</code> i volem tractar-lo com a nombre? Un <code class="w">String</code> <strong>NO</strong> és un tipus primitiu numèric, sinó una seqüència de caràcters de text emmagatzemada com a objecte. Per tant, <strong>no és possible fer un càsting directe</strong>:</p>
+    <div class="sc" java>
+// int num = (int) "42"; // ERROR DE COMPILACIÓ: Tipus incompatibles (inconvertible types)
+    </div>
+
+    <p>Per obtenir el valor numèric real a partir dels caràcters d'un text cal <strong>interpretar o analitzar</strong> el text símbol a símbol. Aquest procés s'anomena en informàtica <strong>parsing</strong>. Java proporciona funcions estàndard per fer aquest procés:</p>
+    <ul>
+        <li><code class="w">Integer.parseInt(text)</code> : Analitza el text i en retorna el valor enter (<code class="w">int</code>).</li>
+        <li><code class="w">Double.parseDouble(text)</code> : Analitza el text i en retorna el valor decimal (<code class="w">double</code>).</li>
+    </ul>
+
+    <div class="sc" java>
+String textEdat = "25";
+int edat = Integer.parseInt(textEdat); // Ara edat és un int que val 25
+
+String textPreu = "19.95";
+double preu = Double.parseDouble(textPreu); // Ara preu és un double que val 19.95
+    </div>
+
+    <div class="observe">
+        <p><strong>Compte amb el contingut del text!</strong></p>
+        <p>Si el text que passem a <code class="w">Integer.parseInt()</code> o <code class="w">Double.parseDouble()</code> no és un número vàlid (per exemple, conté lletres com <code class="m">"hola"</code> o caràcters invàlids), el programa s'aturarà amb un error en temps d'execució (<em>NumberFormatException</em>) perquè la màquina no pot interpretar caràcters no numèrics com a xifres.</p>
+    </div>
+
+    <h2>7. Entrada de Dades per Teclat: IO.readln()</h2>
+    <p>Fins ara, els nostres programes només mostraven informació fixa amb <code class="w">println()</code>. Però els programes reals són <strong>interactius</strong>: demanen dades a l'usuari a través de la consola i calculen respostes segons el que aquest introdueixi.</p>
+
+    <p>En Java 26 podem llegir el que l'usuari escriu pel teclat mitjançant la instrucció <code class="w">IO.readln()</code>:</p>
+
+    <div class="sc" java>
+void main() {
+    String nom = IO.readln("Com et dius? ");
+    println("Hola, " + nom + "! Benvingut/da al curs de programació.");
+}
+    </div>
+
+    <div class="observe">
+        <p><strong>Com funciona <code class="w">IO.readln()</code>?</strong></p>
+        <ul>
+            <li>Pots passar-li un text d'indicació (anomenat <em>prompt</em>) entre cometes perquè es mostri a la pantalla just abans d'esperar l'entrada.</li>
+            <li>El programa s'atura i <strong>espera que l'usuari escrigui el text i premi la tecla Retorn (<kbd>Enter</kbd>)</strong>.</li>
+            <li><strong>Molt important:</strong> <code class="w">IO.readln()</code> retorna <strong>SEMPRE un text (<code class="w">String</code>)</strong>. Encara que l'usuari escrigui un número com el <code class="m">42</code>, la màquina rep la cadena <code class="m">"42"</code>.</li>
+        </ul>
+    </div>
+
+    <h3>Lectura de nombres combinant IO.readln() i Parsing</h3>
+    <p>Com que el que l'usuari escriu és sempre un <code class="w">String</code>, si intentem fer operacions matemàtiques directament amb l'operador <code class="w">+</code>, Java concatenarà el text en lloc de sumar-lo:</p>
+    <div class="sc" java>
+String edatText = IO.readln("Quina edat tens? "); // L'usuari escriu 20
+println("L'any que ve tindràs: " + (edatText + 1)); // Imprimirà "201", NO 21!
+    </div>
+
+    <p>Per poder operar amb nombres introduïts per l'usuari, apliquem el que hem après a la secció anterior: fem servir el <strong>parsing</strong> (<code class="w">Integer.parseInt()</code> o <code class="w">Double.parseDouble()</code>) sobre el text llegit:</p>
+
+    <div class="sc" java>
+void main() {
+    // Demanem un enter i fem el parsing directament:
+    int n1 = Integer.parseInt(IO.readln("Introdueix el primer número enter: "));
+
+    // Demanem un decimal:
+    double n2 = Double.parseDouble(IO.readln("Introdueix el segon número decimal: "));
+
+    // Ja podem operar matemàticament amb n1 i n2!
+    println("Suma: " + (n1 + n2));
+    println("Resta: " + (n1 - n2));
+    println("Multiplicació: " + (n1 * n2));
+    println("Divisió: " + (n1 / n2));
+    println("Residu: " + (n1 % n2));
+}
+    </div>
+
+    <div class="exercise-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h3 style="margin: 0 0 0.3rem 0; color: #f1f5f9;">Exercicis Pràctics i Qüestionaris</h3>
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Posa a prova el que has après completant els qüestionaris interactius auto-avaluables i els reptes de programació.</p>
+            </div>
+            <a href="../exercicis/u1/index.html" class="ex-link-pill">Exercicis</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

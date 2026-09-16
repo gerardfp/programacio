@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exercicis i Qüestionaris U4: Arrays i Matrius | Exercicis Java 26</title>
+    <script src="../../assets/js/script.js"></script>
+    <script src='../../assets/mermaid/mermaid.js'></script>
+    <link rel="stylesheet" href="../../assets/css/estil.css">
+    <script>
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({ securityLevel: 'loose', theme: 'dark' });
+        }
+    </script>
+</head>
+<body>
+<nav></nav>
+<header>
+    <p><a href="../index.html">← Tornar a l'índex d'exercicis</a></p>
+    <h1>Exercicis i Qüestionaris U4: Arrays i Matrius</h1>
+</header>
+<section>
+
+    <div class="info">
+        <h3>Autoavaluació interactiva d'U4: Arrays i Matrius</h3>
+        <p>Els arrays són la primera estructura de dades que permet emmagatzemar múltiples elements consecutius a la memòria. Resol els qüestionaris per assegurar-te que entens com funcionen els índexs i les dimensions.</p>
+    </div>
+
+    <h2>1. Qüestionari d'Arrays Unidimensionals</h2>
+    <p>Índexs, accés a elements i comportament durant l'execució de bucles.</p>
+    <div class="quizz">
+<div class="question" match="">
+<div class="statement">
+<p>Si tenim aquest array:</p>
+<div class="sc" java="">
+                    int[] numbers = { 1, 2, 3, 5, 4, 6, 4 };
+                </div>
+<p>Emparella les següents operacions amb el seu resultat:</p>
+</div>
+<div class="o">numbers[0]</div> <div class="o">1</div>
+<div class="o">numbers[6]</div> <div class="o">4</div>
+<div class="o">numbers.length</div> <div class="o">7</div>
+<div class="o">numbers[7]</div> <div class="o">OutOfBounds</div>
+</div>
+<div class="question" single="">
+<div class="statement">
+<p>Quin serà el valor de l'array <code class="w">numbers</code> després d'executar aquest codi?</p>
+<div class="sc" java="">
+                    int[] numbers = new int[5];
+
+                    numbers[3] = 79;
+                </div>
+</div>
+<div class="o"><div class="mem">{ 0, 0, 79, 0, 0 }</div></div>
+<div class="o"><div class="mem">{ 5, 5, 79, 5, 5 }</div></div>
+<div class="o" correct=""><div class="mem">{ 0, 0, 0, 79, 0 }</div></div>
+<div class="o">Execpció OutOfBounds</div>
+</div>
+</div>
+
+    <h2>2. Qüestionari de Matrius Bidimensionals (2D)</h2>
+    <p>Definició de files i columnes i inicialització de matrius.</p>
+    <div class="quizz">
+<div class="question" single="">
+<div class="statement">
+<p>Per a definir una matriu d'enters de dues files i tres columnes, podem utilitzar</p>
+</div>
+<div class="o"><code class="w">int[][] matriu = new matriu[2][3];</code></div>
+<div class="o" correct=""><code class="w">int[][] matriu = new int[2][3];</code></div>
+<div class="o"><code class="w">int[2][3] matriu = new int[3][2];</code></div>
+<div class="o"><code class="w">int[][] matriu = new matriu[2][3];</code></div>
+</div>
+<div class="question" single="">
+<div class="statement">
+<p>Indica si la forma d'inicialitzar aquesta matriu és correcta:</p>
+<div class="sc" java="">
+                    float[][] mat = new float[2][2];
+
+                    mat[0] = new float[]{ 1.5f, 1.3f };
+                    mat[1] = new float[]{ 2.3f, 2.7f };
+                </div>
+</div>
+<div class="o" correct="">Sí</div>
+<div class="o">No</div>
+</div>
+</div>
+
+    <h2>3. Exercicis Pràctics de Codi</h2>
+    <div class="work">
+        <h3>Exercicis proposats</h3>
+        <ul>
+            <li><p><strong>Suma i mitjana d'un array:</strong> Donat un array d'enters introduït per l'usuari, calcula la suma de tots els elements i la mitjana aritmètica.</p></li>
+            <li><p><strong>Màxim i mínim d'un array:</strong> Troba el valor més gran i el més petit d'un array d'enters i la posició on es troben.</p></li>
+            <li><p><strong>Inversió d'un array:</strong> Inverteix l'ordre dels elements d'un array sense utilitzar un segon array auxiliar.</p></li>
+            <li><p><strong>Matriu Identitat:</strong> Genera i mostra una matriu identitat de mida N x N (valors 1 a la diagonal principal, 0 a la resta).</p></li>
+        </ul>
+
+        <h3>Reptes addicionals</h3>
+        <ul>
+            <li><p><strong>Inicialitzar array:</strong> Llegeix N enters des del teclat i desa'ls en un array per mostrar-los en ordre invers.</p></li>
+            <li><p><strong>Cercant mines:</strong> En una matriu que representa un tauler de joc, compta quantes mines hi ha al voltant d'una casella (fila, columna).</p></li>
+            <li><p><strong>Suma de matrius:</strong> Suma dues matrius bidimensionals de les mateixes dimensions i mostra la matriu resultant.</p></li>
+            <li><p><strong>Bomberman:</strong> Simula l'explosió en creu d'una bomba en un tauler 2D, buidant els obstacles adjacents.</p></li>
+        </ul>
+    </div>
+
+</section>
+</body>
+</html>

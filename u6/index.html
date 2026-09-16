@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unitat 6: Col·leccions Avançades | Tutorial Java 26</title>
+    <script src="../assets/js/script.js"></script>
+    <link rel="stylesheet" href="../assets/css/estil.css">
+</head>
+<body>
+<nav></nav>
+
+<header>
+    <div class="header-nav">
+        <a href="../index.html">← Índex del curs</a>
+        <a href="../exercicis/u6/index.html" class="ex-link-pill">Exercicis</a>
+    </div>
+    <h1>Unitat 6. Col·leccions Avançades</h1>
+
+    <div class="abstract">
+        <p><strong>Unitat Didàctica 6:</strong></p>
+        <p>En aquesta unitat aprendràs:</p>
+        <div class="check">Col·leccions dinàmiques: <code>List</code> (ArrayList), <code>Set</code> (HashSet) i <code>Map</code> (HashMap)</div>
+        <div class="check">Classes i mètodes genèrics per a tipificació segura</div>
+        <div class="check">Processament funcional i operacions agregades amb Streams i lambdas</div>
+        <div class="check">Cerca de patrons i validació de cadenes amb Expressions Regulars (Regex)</div>
+    </div>
+</header>
+
+<section>
+
+    <h2>Estructures de Dades Dinàmiques: Col·leccions i Fluxos</h2>
+    <p>Quan el volum de dades varia en temps d'execució, els arrays es queden curts. Java ofereix un conjunt extens de col·leccions dinàmiques a <code>java.util</code> optimitzades per a diferents escenaris d'accés, cerca i transformació.</p>
+
+<h2>3. El Marc de Col·leccions de Java (Collections Framework)</h2>
+    <p>Els arrays tenen un desavantatge fonamental: la seva mida és fixa un cop creats. Per a col·leccions dinàmiques que creixen o es redueixen segons les necessitats, utilitzem el Marc de Col·leccions:</p>
+
+    <h3>List i ArrayList</h3>
+    <p>Llista ordenada que permet duplicats i redimensionament automàtic:</p>
+    <div class="sc" java>
+import java.util.ArrayList;
+import java.util.List;
+
+List&lt;String&gt; llista = new ArrayList&lt;&gt;();
+llista.add("Poma");
+llista.add("Plàtan");
+llista.add("Taronja");
+
+println("Nombre d'elements: " + llista.size());
+println("Primer element: " + llista.get(0));
+    </div>
+
+    <h3>Set i HashSet</h3>
+    <p>Col·lecció d'elements únics (sense duplicats) ideal per comprovar pertinència:</p>
+    <div class="sc" java>
+import java.util.HashSet;
+import java.util.Set;
+
+Set&lt;Integer&gt; codis = new HashSet&lt;&gt;();
+codis.add(101);
+codis.add(102);
+codis.add(101); // No s'afegirà duplicat
+println("Total codis únics: " + codis.size()); // 2
+    </div>
+
+    <h3>Map i HashMap</h3>
+    <p>Estructura de parells <em>clau-valor</em> que permet buscar dades de forma immediata:</p>
+    <div class="sc" java>
+import java.util.HashMap;
+import java.util.Map;
+
+Map&lt;String, Double&gt; preus = new HashMap&lt;&gt;();
+preus.put("Cafè", 1.50);
+preus.put("Croissant", 1.80);
+
+println("Preu del Cafè: " + preus.get("Cafè") + " €");
+    </div>
+
+    <h2>4. Col·leccions Seqüenciades i Streams</h2>
+    <p>En versions modernes de Java disposem de les interfícies de col·lecció seqüenciada (<code class="w">SequencedCollection</code>) amb mètodes còmodes com <code class="w">getFirst()</code>, <code class="w">getLast()</code> i <code class="w">reversed()</code>.</p>
+    <p>A més, l'API de <strong>Streams</strong> permet processar col·leccions de dades de forma elegant mitjançant operacions de canonada (<code class="w">filter</code>, <code class="w">map</code>, <code class="w">reduce</code>, <code class="w">collect</code>):</p>
+
+    <div class="sc" java>
+List&lt;Integer&gt; nombres = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+List&lt;Integer&gt; quadratsParells = nombres.stream()
+    .filter(n -&gt; n % 2 == 0)      // Filtra només els parells
+    .map(n -&gt; n * n)              // Eleva cada nombre al quadrat
+    .toList();
+
+println(quadratsParells); // [4, 16, 36, 64, 100]
+    </div>
+
+
+    
+
+    <h2>3. Classes i Mètodes Genèrics (&lt;T&gt;)</h2>
+    <p>La genericitat permet definir classes, interfícies i mètodes amb <strong>paràmetres de tipus</strong>, garantint la comprovació de tipus en temps de compilació i eliminant la necessitat de càstings manuals:</p>
+
+    <div class="sc" java>
+// Classe genèrica que pot guardar qualsevol tipus de dada:
+public class Caixa&lt;T&gt; {
+    private T contingut;
+
+    public void guardar(T element) {
+        this.contingut = element;
+    }
+
+    public T obtenir() {
+        return this.contingut;
+    }
+}
+
+// Ús:
+Caixa&lt;String&gt; caixaText = new Caixa&lt;&gt;();
+caixaText.guardar("Document important");
+String text = caixaText.obtenir(); // Sense necessitat de càsting!
+    </div>
+
+    <h2>4. Expressions Regulars en Java (Regex)</h2>
+    <p>Les <strong>expressions regulars</strong> són patrons de caràcters que permeten validar formats (com correus electrònics, DNIs o dates) i cercar o substituir fragments de text de forma altament eficient:</p>
+
+    <div class="sc" java>
+void main() {
+    String text = "Pots contactar a info@iesbenigaslo.com o support@oracle.com";
+
+    // Comprovació ràpida amb matches():
+    String cp = "12530";
+    boolean esCodiPostalValid = cp.matches("\d{5}"); // 5 dígits exactes
+    println("Codi postal vàlid? " + esCodiPostalValid); // true
+
+    // Cerca de patrons amb java.util.regex:
+    var pattern = java.util.regex.Pattern.compile("[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}");
+    var matcher = pattern.matcher(text);
+
+    while (matcher.find()) {
+        println("Correu trobat: " + matcher.group());
+    }
+}
+    </div>
+
+
+    <div class="exercise-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h3 style="margin: 0 0 0.3rem 0; color: #f1f5f9;">Exercicis Pràctics i Qüestionaris</h3>
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Posa a prova el que has après completant els exercicis de List, Set, Map, StringListUtils, Calendari d'Exàmens i reptes de Streams.</p>
+            </div>
+            <a href="../exercicis/u6/index.html" class="ex-link-pill">Exercicis</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

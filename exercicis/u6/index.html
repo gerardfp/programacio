@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exercicis U6: Col·leccions Avançades | Exercicis Java 26</title>
+    <script src="../../assets/js/script.js"></script>
+    <script src='../../assets/mermaid/mermaid.js'></script>
+    <link rel="stylesheet" href="../../assets/css/estil.css">
+    <script>
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({ securityLevel: 'loose', theme: 'dark' });
+        }
+    </script>
+</head>
+<body>
+<nav></nav>
+<header>
+    <p><a href="../index.html">← Tornar a l'índex d'exercicis</a></p>
+    <h1>Exercicis U6: Col·leccions Avançades</h1>
+</header>
+<section>
+
+    <div class="info">
+        <h3>Estructures de Dades Dinàmiques i Processament de Text</h3>
+        <p>Aquesta unitat aprofundeix en les col·leccions dinàmiques del Marc de Java (<code class="w">List</code>, <code class="w">Set</code>, <code class="w">Map</code>), la manipulació eficient de cadenes, el processament funcional amb <code class="w">Streams</code> i la cerca de patrons amb <code class="w">Expressions Regulars</code> (Regex).</p>
+    </div>
+
+    <h2>1. Utilitats estàtiques amb List&lt;String&gt; (StringListUtils)</h2>
+    <div class="work">
+        <p>Crea una classe d'utilitats anomenada <code class="w">StringListUtils</code> amb els següents mètodes <span class="sc" java>static</span>:</p>
+        <ul>
+            <li><p><code class="w">static int countOccurrences(List&lt;String&gt; llista, String text)</code>: Compta el nombre de vegades que apareix un text determinat a la llista.</p></li>
+            <li><p><code class="w">static String join(List&lt;String&gt; llista, String separador)</code>: Concatena tots els textos d'una llista utilitzant el separador indicat.</p></li>
+            <li><p><code class="w">static List&lt;String&gt; merge(List&lt;String&gt; l1, List&lt;String&gt; l2)</code>: Retorna una nova llista que conté tots els elements de la primera seguits dels de la segona, sense modificar les originals.</p></li>
+            <li><p><code class="w">static List&lt;String&gt; removeMatches(List&lt;String&gt; llista, String text)</code>: Retorna una nova llista sense els elements que coincideixin amb el text.</p></li>
+            <li><p><code class="w">static List&lt;String&gt; repeat(String text, int cops)</code>: Retorna una llista amb el text repetit el nombre de vegades indicat.</p></li>
+        </ul>
+    </div>
+
+    <h2>2. Gestió de Dates i Horaris: Calendari d'Exàmens</h2>
+    <div class="work">
+        <p>Desenvolupa una aplicació per a gestionar el calendari d'exàmens d'un centre educatiu basada en composició d'objectes i llistes:</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
+            classDiagram
+            Calendario o-- Examen
+            Examen o-- FechaHora
+            FechaHora o-- Fecha
+            FechaHora o-- Hora
+            class Calendario{
+                +List~Examen~ examenes
+                +afegirExamen(Examen e): void
+                +mostrarCalendari(): void
+            }
+            class Examen{
+                +String asignatura
+                +String aula
+                +FechaHora fechaHora
+            }
+            class FechaHora {
+                +Fecha fecha
+                +Hora hora
+            }
+            class Fecha {
+                +int ano
+                +int mes
+                +int dia
+            }
+            class Hora {
+                +int hora
+                +int minuto
+            }
+        </div>
+
+        <p>Escriu un programa principal que creï un objecte <code class="w">Calendario</code>, hi afegeixi almenys 3 exàmens amb diferents assignatures i mostri la planificació per consola de forma ben formatada.</p>
+    </div>
+
+    <h2>3. Exercicis de Conjunts (Set) i Diccionaris (Map)</h2>
+    <div class="work">
+        <ul>
+            <li><p><strong>Eliminació de duplicats:</strong> Donada una llista amb noms repetits, utilitza un <code class="w">HashSet&lt;String&gt;</code> per obtenir una col·lecció sense cap duplicat.</p></li>
+            <li><p><strong>Comptador de freqüències:</strong> Donat un paràgraf de text, compta quantes vegades apareix cada paraula utilitzant un <code class="w">HashMap&lt;String, Integer&gt;</code>.</p></li>
+            <li><p><strong>Directori de contactes:</strong> Implementa una agenda telefònica senzilla amb <code class="w">Map&lt;String, String&gt;</code> on la clau sigui el nom de la persona i el valor el seu número de telèfon, permetent cercar, afegir i esborrar contactes.</p></li>
+        </ul>
+    </div>
+
+    <h2>4. Processament Funcional amb Streams</h2>
+    <div class="work">
+        <ul>
+            <li><p><strong>Filtrat i transformació numèrica:</strong> Donada una llista de nombres enters, utilitza la canalització (<code class="w">stream()</code>) per filtrar només els nombres parells, elevar-los al quadrat i calcular-ne la suma o mitjana aritmètica.</p></li>
+            <li><p><strong>Llistat de noms en majúscules:</strong> Donada una llista de noms d'alumnes, filtra els que comencen per una lletra determinada, converteix-los a majúscules i ordena'ls alfabèticament.</p></li>
+        </ul>
+    </div>
+
+    <h2>5. Expressions Regulars (Regex)</h2>
+    <div class="work">
+        <ul>
+            <li><p><strong>Validador de Codi Postal:</strong> Escriu una expressió regular per validar que un codi postal estigui format per exactament 5 dígits numèrics (<code class="w">^\d{5}$</code>).</p></li>
+            <li><p><strong>Validador d'Email:</strong> Valida si una adreça de correu compleix l'estructura habitual (usuari, símbol arroba i domini amb extensió de 2 o més lletres).</p></li>
+            <li><p><strong>Extracció de dades:</strong> Donat un text amb diversos números de telèfon de 9 dígits barrejats, extreu tots els números trobats utilitzant <code class="w">Pattern</code> i <code class="w">Matcher</code>.</p></li>
+        </ul>
+    </div>
+
+</section>
+</body>
+</html>
+

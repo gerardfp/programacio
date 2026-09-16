@@ -1324,6 +1324,93 @@ quizz, .quizz {
     box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
 }
 
+/* Order / Parsons Questions */
+.order-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    margin: 1.25em 0;
+    padding: 0.85em;
+    background: #0b1120;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+}
+
+:is(question, .question) .order-container :is(o, .o) {
+    margin: 0;
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-sm);
+    padding: 0.7em 1em;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    cursor: grab;
+    user-select: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+:is(question, .question) .order-container :is(o, .o):hover {
+    border-color: var(--accent-blue);
+    background: #273549;
+}
+
+:is(question, .question) .order-container :is(o, .o):active {
+    cursor: grabbing;
+}
+
+:is(question, .question) .order-container :is(o, .o).dragging {
+    opacity: 0.35;
+    border: 1px dashed var(--accent-blue);
+    background: rgba(56, 189, 248, 0.1);
+}
+
+:is(question, .question) .order-container :is(o, .o).drag-over-top {
+    border-top: 3px solid #38bdf8 !important;
+    transform: translateY(2px);
+}
+
+:is(question, .question) .order-container :is(o, .o).drag-over-bottom {
+    border-bottom: 3px solid #38bdf8 !important;
+    transform: translateY(-2px);
+}
+
+:is(question, .question) .order-container :is(o, .o).selected-swap {
+    background: rgba(245, 158, 11, 0.25) !important;
+    border-color: var(--accent-yellow) !important;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+}
+
+:is(question, .question) .order-handle {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: grab;
+    flex-shrink: 0;
+    opacity: 0.5;
+    transition: opacity 0.2s, color 0.2s;
+    user-select: none;
+}
+
+:is(question, .question) .order-container :is(o, .o):hover .order-handle {
+    opacity: 1;
+    color: var(--accent-blue);
+}
+
+:is(question, .question) .order-content {
+    flex-grow: 1;
+    font-family: inherit;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+:is(question, .question) .order-hint {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+    font-style: italic;
+}
+
 /* Text Input Questions */
 .quiz-text-input {
     background: #030712;

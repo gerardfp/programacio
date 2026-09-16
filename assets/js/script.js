@@ -86,6 +86,51 @@ function autoAttributes() {
   });
 }
 
+function normalizeCodeWhitespace(html, options = {}) {
+  if (!html) return '';
+  const lines = html.split(/\r?\n/);
+
+  // Remove leading blank lines
+  while (lines.length > 0 && lines[0].trim() === '') {
+    lines.shift();
+  }
+  // Remove trailing blank lines
+  while (lines.length > 0 && lines[lines.length - 1].trim() === '') {
+    lines.pop();
+  }
+  if (lines.length === 0) return '';
+
+  if (options.trimLines) {
+    return lines.map(line => line.trim()).join('\n');
+  }
+
+  // Find common indentation prefix across non-empty lines
+  let commonIndent = null;
+  for (const line of lines) {
+    if (line.trim() === '') continue;
+    const match = line.match(/^[ \t]*/);
+    const indent = match ? match[0] : '';
+    if (commonIndent === null) {
+      commonIndent = indent;
+    } else {
+      let i = 0;
+      while (i < commonIndent.length && i < indent.length && commonIndent[i] === indent[i]) {
+        i++;
+      }
+      commonIndent = commonIndent.slice(0, i);
+    }
+  }
+
+  if (!commonIndent) {
+    return lines.join('\n');
+  }
+
+  return lines.map(line => {
+    if (line.trim() === '') return '';
+    return line.startsWith(commonIndent) ? line.slice(commonIndent.length) : line;
+  }).join('\n');
+}
+
 function syntaxHighlight() {
   if (typeof Prism === 'undefined') return;
 
@@ -113,7 +158,7 @@ function syntaxHighlight() {
     const preWrap = isPre ? b : document.createElement('pre');
     const codeWrap = document.createElement('code');
 
-    codeWrap.innerHTML = b.innerHTML;
+    codeWrap.innerHTML = normalizeCodeWhitespace(b.innerHTML);
 
     if (!isPre) {
       b.innerHTML = '';
@@ -189,16 +234,20 @@ function syntaxHighlight() {
 
   // Highlight shell output and memory inspection blocks
   document.querySelectorAll('shell, mem, .shell, .mem').forEach(b => {
-    if (b.closest('stepper, .stepper')) return;
-    if (!b.textContent.trim()) return;
+    if (!b.textContent.trim()) {
+      b.innerHTML = '';
+      return;
+    }
     if (b.getAttribute('data-highlighted') === 'true') return;
     b.setAttribute('data-highlighted', 'true');
+
+    const normalized = normalizeCodeWhitespace(b.innerHTML, { trimLines: true });
 
     const isPre = b.tagName === 'PRE';
     const preWrap = isPre ? b : document.createElement('pre');
     const codeWrap = document.createElement('code');
 
-    codeWrap.innerHTML = b.innerHTML;
+    codeWrap.innerHTML = normalized;
     if (!isPre) {
       b.innerHTML = '';
       b.appendChild(preWrap);
@@ -208,9 +257,6 @@ function syntaxHighlight() {
     preWrap.appendChild(codeWrap);
 
     preWrap.classList.add('language-none');
-    try {
-      Prism.highlightElement(codeWrap);
-    } catch (e) {}
   });
 }
 
@@ -221,9 +267,9 @@ function syntaxHighlight() {
 function initCopyCodeButtons() {
   document.querySelectorAll('sc, .sc, pre, shell, .shell').forEach(block => {
     if (block.tagName === 'SPAN' || block.closest('p') || block.tagName === 'CODE') return;
-    if (block.closest('stepper, .stepper, question, .question')) return;
-    // Do not add a button to pre if it is already nested inside an sc or shell container
-    if (block.tagName === 'PRE' && block.closest('sc, .sc, shell, .shell') && block.closest('sc, .sc, shell, .shell') !== block) return;
+    if (block.closest('stepper, .stepper, question, .question, mem, .mem')) return;
+    // Do not add a button to pre if it is already nested inside an sc, shell, or mem container
+    if (block.tagName === 'PRE' && block.closest('sc, .sc, shell, .shell, mem, .mem') && block.closest('sc, .sc, shell, .shell, mem, .mem') !== block) return;
     if (block.querySelector(':scope > .copy-code-btn') || block.querySelector('.copy-code-btn')) return;
 
     const copyBtn = document.createElement('button');
@@ -517,6 +563,8 @@ function doQuizz() {
       initMultiQuestion(q, checkBtn, retryBtn, feedback);
     } else if (q.hasAttribute('match') || q.classList.contains('match')) {
       initMatchQuestion(q, checkBtn, retryBtn, feedback);
+    } else if (q.hasAttribute('order') || q.classList.contains('order') || q.hasAttribute('parsons') || q.classList.contains('parsons')) {
+      initOrderQuestion(q, checkBtn, retryBtn, feedback);
     } else if (q.hasAttribute('text') || q.classList.contains('text')) {
       initTextQuestion(q, checkBtn, retryBtn, feedback);
     } else {
@@ -829,6 +877,236 @@ function shuffleNodes(parent) {
   }
 }
 
+function initOrderQuestion(q, checkBtn, retryBtn, feedback) {
+  const orderContainer = document.createElement('div');
+  orderContainer.className = 'order-container order-list';
+
+  const actionsWrap = q.querySelector('.quiz-actions');
+  q.insertBefore(orderContainer, actionsWrap);
+
+  let initialOptions = Array.from(q.querySelectorAll(':scope > o, :scope > .o'));
+  if (initialOptions.length === 0) {
+    initialOptions = Array.from(q.querySelectorAll('o, .o'));
+  }
+
+  initialOptions.forEach((o, i) => {
+    if (!o.hasAttribute('data-order')) {
+      o.setAttribute('data-order', String(i));
+    }
+    o.id = o.id || ('order_' + Math.random().toString(36).substring(2, 9));
+    o.classList.add('order-item');
+
+    const handle = document.createElement('span');
+    handle.className = 'order-handle';
+    handle.setAttribute('aria-hidden', 'true');
+    handle.textContent = '⠿';
+
+    const content = document.createElement('span');
+    content.className = 'order-content';
+
+    if (o.children.length === 0) {
+      let text = o.textContent;
+      text = text.replace(/^[\r\n]+/, '');
+      text = text.replace(/[\r\n\s]+$/, '');
+      content.textContent = text;
+      o.textContent = '';
+    } else {
+      while (o.firstChild) {
+        content.appendChild(o.firstChild);
+      }
+    }
+
+    o.appendChild(handle);
+    o.appendChild(content);
+    orderContainer.appendChild(o);
+  });
+
+  shuffleOrderNodes(orderContainer);
+  enableOrderDragAndDrop(orderContainer);
+
+  checkBtn.addEventListener('click', () => {
+    let score = 0;
+    const currentItems = orderContainer.querySelectorAll('o, .o');
+    const total = currentItems.length;
+
+    currentItems.forEach((o, i) => {
+      o.classList.remove('right', 'wrong');
+      const orderAttr = o.getAttribute('data-order');
+      const validOrders = orderAttr ? orderAttr.split(',').map(s => parseInt(s.trim(), 10)) : [];
+
+      if (validOrders.includes(i)) {
+        o.classList.add('right');
+        score++;
+      } else {
+        o.classList.add('wrong');
+      }
+    });
+
+    feedback.style.display = 'block';
+    if (score === total) {
+      orderContainer.setAttribute('data-completed', 'true');
+      feedback.className = 'quiz-feedback success';
+      feedback.textContent = `🎉 Excel·lent! Has ordenat el codi correctament (${score}/${total}).`;
+    } else {
+      orderContainer.removeAttribute('data-completed');
+      feedback.className = 'quiz-feedback error';
+      feedback.textContent = `Has encertat la posició de ${score} de ${total} línies. Reordena les línies assenyalades i torna-ho a provar.`;
+    }
+
+    retryBtn.style.display = 'inline-flex';
+  });
+
+  retryBtn.addEventListener('click', () => {
+    const items = orderContainer.querySelectorAll('o, .o');
+    items.forEach(o => o.classList.remove('right', 'wrong', 'selected-swap', 'drag-over-top', 'drag-over-bottom'));
+    feedback.style.display = 'none';
+    retryBtn.style.display = 'none';
+
+    if (orderContainer.getAttribute('data-completed') === 'true') {
+      shuffleOrderNodes(orderContainer);
+      orderContainer.removeAttribute('data-completed');
+    }
+  });
+}
+
+function shuffleOrderNodes(container) {
+  const children = Array.from(container.children);
+  if (children.length <= 1) return;
+
+  let isSorted = true;
+  let attempts = 0;
+
+  while (isSorted && attempts < 20) {
+    attempts++;
+    for (let i = children.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = children[i];
+      children[i] = children[j];
+      children[j] = temp;
+    }
+
+    isSorted = children.every((child, idx) => {
+      const orderAttr = child.getAttribute('data-order');
+      if (!orderAttr) return false;
+      const validOrders = orderAttr.split(',').map(s => parseInt(s.trim(), 10));
+      return validOrders.includes(idx);
+    });
+  }
+
+  children.forEach(child => container.appendChild(child));
+}
+
+function enableOrderDragAndDrop(container) {
+  let draggedEl = null;
+  let selectedClickEl = null;
+
+  const clearDropIndicators = () => {
+    container.querySelectorAll('.drag-over-top, .drag-over-bottom').forEach(el => {
+      el.classList.remove('drag-over-top', 'drag-over-bottom');
+    });
+  };
+
+  const clearEvaluation = () => {
+    container.querySelectorAll('o, .o').forEach(o => o.classList.remove('right', 'wrong'));
+    const q = container.closest('question, .question');
+    if (q) {
+      const fb = q.querySelector('.quiz-feedback');
+      const rb = q.querySelector('.retry');
+      if (fb) fb.style.display = 'none';
+      if (rb) rb.style.display = 'none';
+    }
+  };
+
+  container.querySelectorAll('o, .o').forEach(item => {
+    item.setAttribute('draggable', 'true');
+
+    item.addEventListener('dragstart', (e) => {
+      draggedEl = item;
+      item.classList.add('dragging');
+      if (e.dataTransfer) {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', item.id || 'order-item');
+      }
+    });
+
+    item.addEventListener('dragend', () => {
+      if (draggedEl) draggedEl.classList.remove('dragging');
+      clearDropIndicators();
+      draggedEl = null;
+    });
+
+    item.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+      if (!draggedEl || draggedEl === item) return;
+
+      const rect = item.getBoundingClientRect();
+      const midY = rect.top + rect.height / 2;
+
+      if (e.clientY < midY) {
+        item.classList.add('drag-over-top');
+        item.classList.remove('drag-over-bottom');
+      } else {
+        item.classList.add('drag-over-bottom');
+        item.classList.remove('drag-over-top');
+      }
+    });
+
+    item.addEventListener('dragleave', (e) => {
+      if (!item.contains(e.relatedTarget)) {
+        item.classList.remove('drag-over-top', 'drag-over-bottom');
+      }
+    });
+
+    item.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (!draggedEl || draggedEl === item) {
+        clearDropIndicators();
+        return;
+      }
+
+      const isTop = item.classList.contains('drag-over-top');
+      clearDropIndicators();
+
+      if (isTop) {
+        container.insertBefore(draggedEl, item);
+      } else {
+        container.insertBefore(draggedEl, item.nextSibling);
+      }
+
+      clearEvaluation();
+    });
+
+    item.addEventListener('click', () => {
+      if (!selectedClickEl) {
+        selectedClickEl = item;
+        item.classList.add('selected-swap');
+      } else if (selectedClickEl === item) {
+        selectedClickEl.classList.remove('selected-swap');
+        selectedClickEl = null;
+      } else {
+        selectedClickEl.classList.remove('selected-swap');
+        swapElements(selectedClickEl, item);
+        selectedClickEl = null;
+        clearEvaluation();
+      }
+    });
+  });
+
+  container.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+  });
+
+  container.addEventListener('drop', (e) => {
+    if ((e.target === container || e.target.classList.contains('order-container')) && draggedEl) {
+      clearDropIndicators();
+      container.appendChild(draggedEl);
+      clearEvaluation();
+    }
+  });
+}
+
 function initTextQuestion(q, checkBtn, retryBtn, feedback) {
   const options = q.querySelectorAll('o, .o');
   const textInputs = [];
@@ -905,9 +1183,11 @@ async function initMermaid() {
 
   try {
     if (typeof window.mermaid === 'undefined') {
-      const isExercicis = window.location.pathname.includes('/exercicis/') || window.location.pathname.includes('\\exercicis\\');
-      const isRa = /\/ra\d\//.test(window.location.pathname) || /\\ra\d\\/.test(window.location.pathname);
-      const prefix = (isExercicis || isRa) ? '../assets/mermaid/mermaid.js' : 'assets/mermaid/mermaid.js';
+      let prefix = 'assets/mermaid/mermaid.js';
+      const scriptTag = document.querySelector('script[src*="script.js"]');
+      if (scriptTag) {
+        prefix = scriptTag.getAttribute('src').replace(/js\/script\.js$/, 'mermaid/mermaid.js');
+      }
       await loadScript(prefix);
     }
 
