@@ -170,7 +170,7 @@ void main() {
                 <td><code>JOptionPane</code></td>
                 <td>💬 Mostrar un mensaje</td>
                 <td>
-                    <pre><code>JOptionPane.showMessageDialog(null, "¡Hola!");</code></pre>
+                    <div class="sc" java>JOptionPane.showMessageDialog(null, "¡Hola!");</div>
                 </td>
                 <td>Muestra <code>¡Hola!</code> en una ventana.</td>
             </tr>
@@ -179,7 +179,7 @@ void main() {
                 <td><code>JOptionPane</code></td>
                 <td>❓ Preguntar algo</td>
                 <td>
-                    <pre><code>JOptionPane.showInputDialog("¿Cómo te llamas?");</code></pre>
+                    <div class="sc" java>JOptionPane.showInputDialog("¿Cómo te llamas?");</div>
                 </td>
                 <td>Muestra una ventana donde el usuario puede escribir una respuesta.</td>
             </tr>
@@ -188,7 +188,7 @@ void main() {
                 <td><code>JOptionPane</code></td>
                 <td>⚠️ Mostrar una advertencia</td>
                 <td>
-                    <pre><code>JOptionPane.showMessageDialog(null, "¡Cuidado!");</code></pre>
+                    <div class="sc" java>JOptionPane.showMessageDialog(null, "¡Cuidado!");</div>
                 </td>
                 <td>Muestra un mensaje emergente.</td>
             </tr>
@@ -214,7 +214,7 @@ void main() {
                 <td><code>Robot</code></td>
                 <td>🖱️ Mover el ratón</td>
                 <td>
-                    <pre><code>new Robot().mouseMove(500, 300);</code></pre>
+                    <div class="sc" java>new Robot().mouseMove(500, 300);</div>
                 </td>
                 <td>Mueve el ratón a la posición <code>(500, 300)</code>.</td>
             </tr>
@@ -223,7 +223,7 @@ void main() {
                 <td><code>Robot</code></td>
                 <td>🖱️ Hacer clic</td>
                 <td>
-                    <pre><code>new Robot().click();</code></pre>
+                    <div class="sc" java>new Robot().click();</div>
                 </td>
                 <td>Hace clic con el botón izquierdo del ratón.</td>
             </tr>
@@ -232,7 +232,7 @@ void main() {
                 <td><code>Robot</code></td>
                 <td>⌨️ Escribir</td>
                 <td>
-                    <pre><code>new Robot().type("¡Hola!");</code></pre>
+                    <div class="sc" java>new Robot().type("¡Hola!");</div>
                 </td>
                 <td>Escribe <code>¡Hola!</code> utilizando el teclado.</td>
             </tr>
@@ -241,7 +241,7 @@ void main() {
                 <td><code>Robot</code></td>
                 <td>⌨️ Pulsar una tecla</td>
                 <td>
-                    <pre><code>new Robot().type(KeyEvent.VK_ENTER);</code></pre>
+                    <div class="sc" java>new Robot().type(KeyEvent.VK_ENTER);</div>
                 </td>
                 <td>Pulsa la tecla Enter.</td>
             </tr>
@@ -250,7 +250,7 @@ void main() {
                 <td><code>Robot</code></td>
                 <td>🎨 Averiguar el color de la pantalla</td>
                 <td>
-                    <pre><code>IO.println(new Robot().getPixelColor(500, 300));</code></pre>
+                    <div class="sc" java>IO.println(new Robot().getPixelColor(500, 300));</div>
                 </td>
                 <td>Indica el color del píxel situado en <code>(500, 300)</code>.</td>
             </tr>
@@ -259,7 +259,7 @@ void main() {
                 <td><code>Robot</code></td>
                 <td>⏱️ Mover el ratón lentamente</td>
                 <td>
-                    <pre><code>new Robot().mouseMove(500, 300);</code></pre>
+                    <div class="sc" java>new Robot().mouseMove(500, 300);</div>
                 </td>
                 <td>Mueve el ratón a una posición determinada. Cambia las coordenadas y experimenta.</td>
             </tr>
@@ -285,7 +285,7 @@ void main() {
                 <td><code>ProcessBuilder</code></td>
                 <td>🚀 Abrir un programa</td>
                 <td>
-                    <pre><code>new ProcessBuilder("calc").start();</code></pre>
+                    <div class="sc" java>new ProcessBuilder("calc").start();</div>
                 </td>
                 <td>Abre la calculadora de Windows.</td>
             </tr>
@@ -294,7 +294,7 @@ void main() {
                 <td><code>ProcessBuilder</code></td>
                 <td>💻 Ejecutar un comando</td>
                 <td>
-                    <pre><code>new ProcessBuilder("cmd", "/c", "echo Hola").start();</code></pre>
+                    <div class="sc" java>new ProcessBuilder("cmd", "/c", "echo Hola").start();</div>
                 </td>
                 <td>Ejecuta un comando del sistema.</td>
             </tr>
@@ -303,7 +303,7 @@ void main() {
                 <td><code>ProcessBuilder</code></td>
                 <td>🛑 Cerrar un programa</td>
                 <td>
-                    <pre><code>new ProcessBuilder("taskkill", "/IM", "notepad.exe", "/F").start();</code></pre>
+                    <div class="sc" java>new ProcessBuilder("taskkill", "/IM", "notepad.exe", "/F").start();</div>
                 </td>
                 <td>Cierra el Bloc de notas en Windows.</td>
             </tr>
@@ -312,7 +312,7 @@ void main() {
                 <td><code>Thread</code></td>
                 <td>⏱️ Hacer una pausa</td>
                 <td>
-                    <pre><code>Thread.sleep(1000);</code></pre>
+                    <div class="sc" java>Thread.sleep(1000);</div>
                 </td>
                 <td>Hace que el programa espere un segundo antes de continuar.</td>
             </tr>
@@ -338,7 +338,7 @@ void main() {
                 <td><code>Desktop</code></td>
                 <td>🌐 Abrir una página web</td>
                 <td>
-                    <pre><code>Desktop.getDesktop().browse(URI.create("https://google.com"));</code></pre>
+                    <div class="sc" java>Desktop.getDesktop().browse(URI.create("https://google.com"));</div>
                 </td>
                 <td>Abre Google en el navegador predeterminado.</td>
             </tr>
@@ -347,7 +347,7 @@ void main() {
                 <td><code>Desktop</code></td>
                 <td>📄 Abrir un archivo</td>
                 <td>
-                    <pre><code>Desktop.getDesktop().open(new File("foto.jpg"));</code></pre>
+                    <div class="sc" java>Desktop.getDesktop().open(new File("foto.jpg"));</div>
                 </td>
                 <td>Abre el archivo con la aplicación predeterminada.</td>
             </tr>
@@ -356,7 +356,7 @@ void main() {
                 <td><code>Desktop</code></td>
                 <td>🖨️ Imprimir un documento</td>
                 <td>
-                    <pre><code>Desktop.getDesktop().print(new File("documento.pdf"));</code></pre>
+                    <div class="sc" java>Desktop.getDesktop().print(new File("documento.pdf"));</div>
                 </td>
                 <td>Envía el documento a la aplicación de impresión predeterminada.</td>
             </tr>
@@ -365,7 +365,7 @@ void main() {
                 <td><code>Toolkit</code></td>
                 <td>📋 Copiar texto</td>
                 <td>
-                    <pre><code>Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection("Hola desde Java"), null);</code></pre>
+                    <div class="sc" java>Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection("Hola desde Java"), null);</div>
                 </td>
                 <td>Copia <code>Hola desde Java</code> en el portapapeles.</td>
             </tr>
@@ -391,7 +391,7 @@ void main() {
                 <td><code>Files</code></td>
                 <td>📝 Crear un archivo</td>
                 <td>
-                    <pre><code>Files.writeString(Path.of("hola.txt"), "¡Hola!");</code></pre>
+                    <div class="sc" java>Files.writeString(Path.of("hola.txt"), "¡Hola!");</div>
                 </td>
                 <td>Crea <code>hola.txt</code> y escribe <code>¡Hola!</code>.</td>
             </tr>
@@ -400,7 +400,7 @@ void main() {
                 <td><code>Files</code></td>
                 <td>📖 Leer un archivo</td>
                 <td>
-                    <pre><code>IO.println(Files.readString(Path.of("hola.txt")));</code></pre>
+                    <div class="sc" java>IO.println(Files.readString(Path.of("hola.txt")));</div>
                 </td>
                 <td>Lee y muestra el contenido completo de <code>hola.txt</code>.</td>
             </tr>
@@ -409,7 +409,7 @@ void main() {
                 <td><code>Files</code></td>
                 <td>📋 Copiar un archivo</td>
                 <td>
-                    <pre><code>Files.copy(Path.of("foto.jpg"), Path.of("copia.jpg"));</code></pre>
+                    <div class="sc" java>Files.copy(Path.of("foto.jpg"), Path.of("copia.jpg"));</div>
                 </td>
                 <td>Hace una copia de <code>foto.jpg</code>.</td>
             </tr>
@@ -418,7 +418,7 @@ void main() {
                 <td><code>Files</code></td>
                 <td>✏️ Cambiar el nombre de un archivo</td>
                 <td>
-                    <pre><code>Files.move(Path.of("viejo.txt"), Path.of("nuevo.txt"));</code></pre>
+                    <div class="sc" java>Files.move(Path.of("viejo.txt"), Path.of("nuevo.txt"));</div>
                 </td>
                 <td>Cambia el nombre de <code>viejo.txt</code> a <code>nuevo.txt</code>.</td>
             </tr>
@@ -427,7 +427,7 @@ void main() {
                 <td><code>Files</code></td>
                 <td>🗑️ Borrar un archivo</td>
                 <td>
-                    <pre><code>Files.delete(Path.of("basura.txt"));</code></pre>
+                    <div class="sc" java>Files.delete(Path.of("basura.txt"));</div>
                 </td>
                 <td>Borra <code>basura.txt</code>.</td>
             </tr>
@@ -458,7 +458,7 @@ void main() {
                 <td><code>javax.sound.midi</code></td>
                 <td>🎵 Tocar una nota</td>
                 <td>
-                    <pre><code>canal.noteOn(60, 100);</code></pre>
+                    <div class="sc" java>canal.noteOn(60, 100);</div>
                 </td>
                 <td>Hace sonar la nota MIDI número <code>60</code>.</td>
             </tr>
@@ -467,7 +467,7 @@ void main() {
                 <td><code>javax.sound.midi</code></td>
                 <td>🔇 Dejar de tocar una nota</td>
                 <td>
-                    <pre><code>canal.noteOff(60);</code></pre>
+                    <div class="sc" java>canal.noteOff(60);</div>
                 </td>
                 <td>Deja de sonar la nota MIDI número <code>60</code>.</td>
             </tr>
@@ -476,7 +476,7 @@ void main() {
                 <td><code>javax.sound.midi</code></td>
                 <td>🎹 Cambiar de instrumento</td>
                 <td>
-                    <pre><code>canal.programChange(80);</code></pre>
+                    <div class="sc" java>canal.programChange(80);</div>
                 </td>
                 <td>Cambia el instrumento utilizado por el sintetizador.</td>
             </tr>
@@ -485,11 +485,11 @@ void main() {
                 <td><code>javax.sound.midi</code></td>
                 <td>🎵 Tocar una melodía</td>
                 <td>
-                    <pre><code>for (int n : new int[]{60, 62, 64, 65, 67, 69, 71, 72}) {
+                    <div class="sc" java>for (int n : new int[]{60, 62, 64, 65, 67, 69, 71, 72}) {
     canal.noteOn(n, 100);
     Thread.sleep(300);
     canal.noteOff(n);
-}</code></pre>
+}</div>
                 </td>
                 <td>Toca una escala musical. Cambia las notas o la duración y crea tu propia melodía.</td>
             </tr>
@@ -521,7 +521,7 @@ void main() {
                 <td><code>Graphics2D</code></td>
                 <td>📏 Dibujar una línea</td>
                 <td>
-                    <pre><code>g.drawLine(10, 10, 200, 100);</code></pre>
+                    <div class="sc" java>g.drawLine(10, 10, 200, 100);</div>
                 </td>
                 <td>Dibuja una línea entre dos puntos.</td>
             </tr>
@@ -530,7 +530,7 @@ void main() {
                 <td><code>Graphics2D</code></td>
                 <td>⭕ Dibujar un círculo</td>
                 <td>
-                    <pre><code>g.drawOval(50, 50, 100, 100);</code></pre>
+                    <div class="sc" java>g.drawOval(50, 50, 100, 100);</div>
                 </td>
                 <td>Dibuja una circunferencia o una elipse.</td>
             </tr>
@@ -539,7 +539,7 @@ void main() {
                 <td><code>Graphics2D</code></td>
                 <td>🟥 Dibujar un rectángulo</td>
                 <td>
-                    <pre><code>g.fillRect(50, 50, 100, 100);</code></pre>
+                    <div class="sc" java>g.fillRect(50, 50, 100, 100);</div>
                 </td>
                 <td>Dibuja un rectángulo relleno.</td>
             </tr>
@@ -548,7 +548,7 @@ void main() {
                 <td><code>Graphics2D</code></td>
                 <td>🔤 Dibujar texto</td>
                 <td>
-                    <pre><code>g.drawString("¡Hola!", 50, 50);</code></pre>
+                    <div class="sc" java>g.drawString("¡Hola!", 50, 50);</div>
                 </td>
                 <td>Dibuja un texto en la superficie gráfica.</td>
             </tr>
@@ -574,9 +574,9 @@ void main() {
                 <td><code>Robot</code></td>
                 <td>📸 Hacer una captura</td>
                 <td>
-                    <pre><code>Robot r = new Robot();
+                    <div class="sc" java>Robot r = new Robot();
 Rectangle pantalla = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-BufferedImage imagen = r.createScreenCapture(pantalla);</code></pre>
+BufferedImage imagen = r.createScreenCapture(pantalla);</div>
                 </td>
                 <td>Captura la pantalla y guarda la imagen en memoria.</td>
             </tr>
@@ -585,7 +585,7 @@ BufferedImage imagen = r.createScreenCapture(pantalla);</code></pre>
                 <td><code>Robot</code></td>
                 <td>🎨 Leer el color de un punto</td>
                 <td>
-                    <pre><code>IO.println(new Robot().getPixelColor(100, 100));</code></pre>
+                    <div class="sc" java>IO.println(new Robot().getPixelColor(100, 100));</div>
                 </td>
                 <td>Permite saber qué color hay en una posición concreta de la pantalla.</td>
             </tr>
@@ -616,7 +616,7 @@ BufferedImage imagen = r.createScreenCapture(pantalla);</code></pre>
                 <td><code>Socket</code></td>
                 <td>🌐 Conectarme a otro ordenador</td>
                 <td>
-                    <pre><code>new Socket("192.168.1.50", 5000);</code></pre>
+                    <div class="sc" java>new Socket("192.168.1.50", 5000);</div>
                 </td>
                 <td>Intenta conectar con un programa que está esperando en ese ordenador y puerto.</td>
             </tr>
@@ -625,7 +625,7 @@ BufferedImage imagen = r.createScreenCapture(pantalla);</code></pre>
                 <td><code>Socket</code></td>
                 <td>📤 Enviar un mensaje</td>
                 <td>
-                    <pre><code>socket.getOutputStream().write("¡Hola!".getBytes());</code></pre>
+                    <div class="sc" java>socket.getOutputStream().write("¡Hola!".getBytes());</div>
                 </td>
                 <td>Envía un mensaje al otro programa.</td>
             </tr>
@@ -634,7 +634,7 @@ BufferedImage imagen = r.createScreenCapture(pantalla);</code></pre>
                 <td><code>ServerSocket</code></td>
                 <td>📡 Esperar a otro ordenador</td>
                 <td>
-                    <pre><code>new ServerSocket(5000).accept();</code></pre>
+                    <div class="sc" java>new ServerSocket(5000).accept();</div>
                 </td>
                 <td>Espera hasta que otro programa se conecte al puerto 5000.</td>
             </tr>
@@ -652,9 +652,9 @@ BufferedImage imagen = r.createScreenCapture(pantalla);</code></pre>
 
     <h4>🤖 Abrir un programa y escribir dentro</h4>
 
-    <pre><code>new ProcessBuilder("notepad").start();
+    <div class="sc" java>new ProcessBuilder("notepad").start();
 Thread.sleep(2000);
-new Robot().type("¡Esto lo ha escrito Java!");</code></pre>
+new Robot().type("¡Esto lo ha escrito Java!");</div>
 
     <p>
         Java abre el Bloc de notas, espera dos segundos y escribe en él.
@@ -664,13 +664,13 @@ new Robot().type("¡Esto lo ha escrito Java!");</code></pre>
 
     <h4>🎵 Componer una canción</h4>
 
-    <pre><code>int[] notas = {60, 62, 64, 65, 67, 69, 71, 72};
+    <div class="sc" java>int[] notas = {60, 62, 64, 65, 67, 69, 71, 72};
 
 for (int nota : notas) {
     canal.noteOn(nota, 100);
     Thread.sleep(300);
     canal.noteOff(nota);
-}</code></pre>
+}</div>
 
     <p>
         Cambia las notas. Cambia la duración. Repite algunas.
@@ -681,13 +681,13 @@ for (int nota : notas) {
 
     <h4>🖱️ Crear una automatización</h4>
 
-    <pre><code>Robot r = new Robot();
+    <div class="sc" java>Robot r = new Robot();
 
 r.mouseMove(500, 300);
 Thread.sleep(500);
 r.click();
 Thread.sleep(500);
-r.type("Hola");</code></pre>
+r.type("Hola");</div>
 
     <p>
         Has construido una pequeña macro. Ahora puedes cambiar las coordenadas,
