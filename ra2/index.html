@@ -131,6 +131,580 @@ void main() {
         </tbody>
     </table>
 
+    <section class="extra-api">
+
+    <h2>🚀 Modo extra: Hay una API para (casi) todo</h2>
+
+    <p>
+        Hasta ahora has aprendido a programar. Pero Java tiene una biblioteca enorme
+        que permite hacer muchísimas cosas sin tener que programarlas desde cero.
+    </p>
+
+    <p>
+        Aquí tienes pequeñas <strong>piezas de Lego</strong>: cada una hace una cosa
+        sencilla. Prueba a cambiar sus parámetros, repetirlas, combinarlas con
+        <code>if</code>, <code>for</code>, <code>while</code> o <code>Random</code>...
+        ¿Qué serías capaz de construir?
+    </p>
+
+    <blockquote>
+        <strong>💡 La idea:</strong> no necesitas aprenderte estas API.
+        Descubre que existen y experimenta con ellas.
+    </blockquote>
+
+
+    <h3>🪟 Ventanas</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><code>JOptionPane</code></td>
+                <td>💬 Mostrar un mensaje</td>
+                <td>
+                    <pre><code>JOptionPane.showMessageDialog(null, "¡Hola!");</code></pre>
+                </td>
+                <td>Muestra <code>¡Hola!</code> en una ventana.</td>
+            </tr>
+
+            <tr>
+                <td><code>JOptionPane</code></td>
+                <td>❓ Preguntar algo</td>
+                <td>
+                    <pre><code>JOptionPane.showInputDialog("¿Cómo te llamas?");</code></pre>
+                </td>
+                <td>Muestra una ventana donde el usuario puede escribir una respuesta.</td>
+            </tr>
+
+            <tr>
+                <td><code>JOptionPane</code></td>
+                <td>⚠️ Mostrar una advertencia</td>
+                <td>
+                    <pre><code>JOptionPane.showMessageDialog(null, "¡Cuidado!");</code></pre>
+                </td>
+                <td>Muestra un mensaje emergente.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🖱️ Controlar el ordenador</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><code>Robot</code></td>
+                <td>🖱️ Mover el ratón</td>
+                <td>
+                    <pre><code>new Robot().mouseMove(500, 300);</code></pre>
+                </td>
+                <td>Mueve el ratón a la posición <code>(500, 300)</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>Robot</code></td>
+                <td>🖱️ Hacer clic</td>
+                <td>
+                    <pre><code>new Robot().click();</code></pre>
+                </td>
+                <td>Hace clic con el botón izquierdo del ratón.</td>
+            </tr>
+
+            <tr>
+                <td><code>Robot</code></td>
+                <td>⌨️ Escribir</td>
+                <td>
+                    <pre><code>new Robot().type("¡Hola!");</code></pre>
+                </td>
+                <td>Escribe <code>¡Hola!</code> utilizando el teclado.</td>
+            </tr>
+
+            <tr>
+                <td><code>Robot</code></td>
+                <td>⌨️ Pulsar una tecla</td>
+                <td>
+                    <pre><code>new Robot().type(KeyEvent.VK_ENTER);</code></pre>
+                </td>
+                <td>Pulsa la tecla Enter.</td>
+            </tr>
+
+            <tr>
+                <td><code>Robot</code></td>
+                <td>🎨 Averiguar el color de la pantalla</td>
+                <td>
+                    <pre><code>IO.println(new Robot().getPixelColor(500, 300));</code></pre>
+                </td>
+                <td>Indica el color del píxel situado en <code>(500, 300)</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>Robot</code></td>
+                <td>⏱️ Mover el ratón lentamente</td>
+                <td>
+                    <pre><code>new Robot().mouseMove(500, 300);</code></pre>
+                </td>
+                <td>Mueve el ratón a una posición determinada. Cambia las coordenadas y experimenta.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🚀 Lanzar programas</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><code>ProcessBuilder</code></td>
+                <td>🚀 Abrir un programa</td>
+                <td>
+                    <pre><code>new ProcessBuilder("calc").start();</code></pre>
+                </td>
+                <td>Abre la calculadora de Windows.</td>
+            </tr>
+
+            <tr>
+                <td><code>ProcessBuilder</code></td>
+                <td>💻 Ejecutar un comando</td>
+                <td>
+                    <pre><code>new ProcessBuilder("cmd", "/c", "echo Hola").start();</code></pre>
+                </td>
+                <td>Ejecuta un comando del sistema.</td>
+            </tr>
+
+            <tr>
+                <td><code>ProcessBuilder</code></td>
+                <td>🛑 Cerrar un programa</td>
+                <td>
+                    <pre><code>new ProcessBuilder("taskkill", "/IM", "notepad.exe", "/F").start();</code></pre>
+                </td>
+                <td>Cierra el Bloc de notas en Windows.</td>
+            </tr>
+
+            <tr>
+                <td><code>Thread</code></td>
+                <td>⏱️ Hacer una pausa</td>
+                <td>
+                    <pre><code>Thread.sleep(1000);</code></pre>
+                </td>
+                <td>Hace que el programa espere un segundo antes de continuar.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🌐 Interactuar con el ordenador</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><code>Desktop</code></td>
+                <td>🌐 Abrir una página web</td>
+                <td>
+                    <pre><code>Desktop.getDesktop().browse(URI.create("https://google.com"));</code></pre>
+                </td>
+                <td>Abre Google en el navegador predeterminado.</td>
+            </tr>
+
+            <tr>
+                <td><code>Desktop</code></td>
+                <td>📄 Abrir un archivo</td>
+                <td>
+                    <pre><code>Desktop.getDesktop().open(new File("foto.jpg"));</code></pre>
+                </td>
+                <td>Abre el archivo con la aplicación predeterminada.</td>
+            </tr>
+
+            <tr>
+                <td><code>Desktop</code></td>
+                <td>🖨️ Imprimir un documento</td>
+                <td>
+                    <pre><code>Desktop.getDesktop().print(new File("documento.pdf"));</code></pre>
+                </td>
+                <td>Envía el documento a la aplicación de impresión predeterminada.</td>
+            </tr>
+
+            <tr>
+                <td><code>Toolkit</code></td>
+                <td>📋 Copiar texto</td>
+                <td>
+                    <pre><code>Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection("Hola desde Java"), null);</code></pre>
+                </td>
+                <td>Copia <code>Hola desde Java</code> en el portapapeles.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>📁 Trabajar con archivos</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><code>Files</code></td>
+                <td>📝 Crear un archivo</td>
+                <td>
+                    <pre><code>Files.writeString(Path.of("hola.txt"), "¡Hola!");</code></pre>
+                </td>
+                <td>Crea <code>hola.txt</code> y escribe <code>¡Hola!</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>Files</code></td>
+                <td>📖 Leer un archivo</td>
+                <td>
+                    <pre><code>IO.println(Files.readString(Path.of("hola.txt")));</code></pre>
+                </td>
+                <td>Lee y muestra el contenido completo de <code>hola.txt</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>Files</code></td>
+                <td>📋 Copiar un archivo</td>
+                <td>
+                    <pre><code>Files.copy(Path.of("foto.jpg"), Path.of("copia.jpg"));</code></pre>
+                </td>
+                <td>Hace una copia de <code>foto.jpg</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>Files</code></td>
+                <td>✏️ Cambiar el nombre de un archivo</td>
+                <td>
+                    <pre><code>Files.move(Path.of("viejo.txt"), Path.of("nuevo.txt"));</code></pre>
+                </td>
+                <td>Cambia el nombre de <code>viejo.txt</code> a <code>nuevo.txt</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>Files</code></td>
+                <td>🗑️ Borrar un archivo</td>
+                <td>
+                    <pre><code>Files.delete(Path.of("basura.txt"));</code></pre>
+                </td>
+                <td>Borra <code>basura.txt</code>.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🎵 Hacer música</h3>
+
+    <p>
+        Java puede controlar un sintetizador MIDI. No necesitas ningún archivo de
+        sonido: puedes generar las notas directamente desde el programa.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><code>javax.sound.midi</code></td>
+                <td>🎵 Tocar una nota</td>
+                <td>
+                    <pre><code>canal.noteOn(60, 100);</code></pre>
+                </td>
+                <td>Hace sonar la nota MIDI número <code>60</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>javax.sound.midi</code></td>
+                <td>🔇 Dejar de tocar una nota</td>
+                <td>
+                    <pre><code>canal.noteOff(60);</code></pre>
+                </td>
+                <td>Deja de sonar la nota MIDI número <code>60</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>javax.sound.midi</code></td>
+                <td>🎹 Cambiar de instrumento</td>
+                <td>
+                    <pre><code>canal.programChange(80);</code></pre>
+                </td>
+                <td>Cambia el instrumento utilizado por el sintetizador.</td>
+            </tr>
+
+            <tr>
+                <td><code>javax.sound.midi</code></td>
+                <td>🎵 Tocar una melodía</td>
+                <td>
+                    <pre><code>for (int n : new int[]{60, 62, 64, 65, 67, 69, 71, 72}) {
+    canal.noteOn(n, 100);
+    Thread.sleep(300);
+    canal.noteOff(n);
+}</code></pre>
+                </td>
+                <td>Toca una escala musical. Cambia las notas o la duración y crea tu propia melodía.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🎨 Dibujar</h3>
+
+    <p>
+        Con <code>Graphics2D</code> puedes construir dibujos a partir de piezas
+        muy sencillas. Cambia las coordenadas, repite las instrucciones o combina
+        los dibujos con bucles y números aleatorios.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><code>Graphics2D</code></td>
+                <td>📏 Dibujar una línea</td>
+                <td>
+                    <pre><code>g.drawLine(10, 10, 200, 100);</code></pre>
+                </td>
+                <td>Dibuja una línea entre dos puntos.</td>
+            </tr>
+
+            <tr>
+                <td><code>Graphics2D</code></td>
+                <td>⭕ Dibujar un círculo</td>
+                <td>
+                    <pre><code>g.drawOval(50, 50, 100, 100);</code></pre>
+                </td>
+                <td>Dibuja una circunferencia o una elipse.</td>
+            </tr>
+
+            <tr>
+                <td><code>Graphics2D</code></td>
+                <td>🟥 Dibujar un rectángulo</td>
+                <td>
+                    <pre><code>g.fillRect(50, 50, 100, 100);</code></pre>
+                </td>
+                <td>Dibuja un rectángulo relleno.</td>
+            </tr>
+
+            <tr>
+                <td><code>Graphics2D</code></td>
+                <td>🔤 Dibujar texto</td>
+                <td>
+                    <pre><code>g.drawString("¡Hola!", 50, 50);</code></pre>
+                </td>
+                <td>Dibuja un texto en la superficie gráfica.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>📸 Jugar con la pantalla</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><code>Robot</code></td>
+                <td>📸 Hacer una captura</td>
+                <td>
+                    <pre><code>Robot r = new Robot();
+Rectangle pantalla = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+BufferedImage imagen = r.createScreenCapture(pantalla);</code></pre>
+                </td>
+                <td>Captura la pantalla y guarda la imagen en memoria.</td>
+            </tr>
+
+            <tr>
+                <td><code>Robot</code></td>
+                <td>🎨 Leer el color de un punto</td>
+                <td>
+                    <pre><code>IO.println(new Robot().getPixelColor(100, 100));</code></pre>
+                </td>
+                <td>Permite saber qué color hay en una posición concreta de la pantalla.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🌐 Hacer que dos ordenadores hablen</h3>
+
+    <p>
+        Estas API permiten que dos programas que están en distintos ordenadores
+        intercambien datos a través de una red.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+                <th>Explicación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><code>Socket</code></td>
+                <td>🌐 Conectarme a otro ordenador</td>
+                <td>
+                    <pre><code>new Socket("192.168.1.50", 5000);</code></pre>
+                </td>
+                <td>Intenta conectar con un programa que está esperando en ese ordenador y puerto.</td>
+            </tr>
+
+            <tr>
+                <td><code>Socket</code></td>
+                <td>📤 Enviar un mensaje</td>
+                <td>
+                    <pre><code>socket.getOutputStream().write("¡Hola!".getBytes());</code></pre>
+                </td>
+                <td>Envía un mensaje al otro programa.</td>
+            </tr>
+
+            <tr>
+                <td><code>ServerSocket</code></td>
+                <td>📡 Esperar a otro ordenador</td>
+                <td>
+                    <pre><code>new ServerSocket(5000).accept();</code></pre>
+                </td>
+                <td>Espera hasta que otro programa se conecte al puerto 5000.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🤯 Y ahora... combina las piezas</h3>
+
+    <p>
+        Lo interesante no es aprender estas instrucciones de memoria. Lo interesante
+        empieza cuando las combinas con lo que ya sabes.
+    </p>
+
+    <h4>🤖 Abrir un programa y escribir dentro</h4>
+
+    <pre><code>new ProcessBuilder("notepad").start();
+Thread.sleep(2000);
+new Robot().type("¡Esto lo ha escrito Java!");</code></pre>
+
+    <p>
+        Java abre el Bloc de notas, espera dos segundos y escribe en él.
+        ¿Qué podrías hacer si cambias el texto, el tiempo y las acciones del robot?
+    </p>
+
+
+    <h4>🎵 Componer una canción</h4>
+
+    <pre><code>int[] notas = {60, 62, 64, 65, 67, 69, 71, 72};
+
+for (int nota : notas) {
+    canal.noteOn(nota, 100);
+    Thread.sleep(300);
+    canal.noteOff(nota);
+}</code></pre>
+
+    <p>
+        Cambia las notas. Cambia la duración. Repite algunas.
+        Cambia el instrumento. Añade silencios.
+        <strong>¿Puedes hacer que Java toque una canción?</strong>
+    </p>
+
+
+    <h4>🖱️ Crear una automatización</h4>
+
+    <pre><code>Robot r = new Robot();
+
+r.mouseMove(500, 300);
+Thread.sleep(500);
+r.click();
+Thread.sleep(500);
+r.type("Hola");</code></pre>
+
+    <p>
+        Has construido una pequeña macro. Ahora puedes cambiar las coordenadas,
+        las esperas y las acciones. ¿Puedes automatizar una tarea que haces
+        habitualmente?
+    </p>
+
+
+    <blockquote>
+        <strong>🧱 Piensa en piezas de Lego:</strong>
+        una instrucción puede parecer poca cosa.
+        Pero puedes repetirla, cambiar sus parámetros y combinarla con otras.
+        Muchas cosas grandes empiezan con una pieza muy pequeña.
+    </blockquote>
+
+</section>
+
     <h3>Exercicis Pràctics i Reptes</h3>
         <p>Aplica els conceptes apresos en aquesta unitat resolent la col·lecció d'exercicis dedicats:</p>
         <a href="../exercicis/ra2-objectes.html" class="exercise-btn">Anar als exercicis de RA2 (Classes estàndard i mètodes)</a>
