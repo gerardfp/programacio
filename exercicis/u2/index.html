@@ -379,6 +379,22 @@
     IO.println("Débil ante: " + debilidad);
                     </div>
                 </li>
+                <li>
+                    <p><strong>expressió / sentencia switch</strong></p>
+                    <p>Fes un programa <i>equivalent</i>, transformant la següent expressió switch a una sentència switch:</p>
+                    <div class="sc">
+                        String hand1 = IO.readln("Elige tu mano (piedra, papel, tijera): ");
+                        String hand2 = IO.readln("Elige la mano de tu oponente (piedra, papel, tijera): ");
+
+                        String result = switch (hand1+hand2) {
+                            case "piedrapiedra", "papelpapel", "tijeratijera" -> "Empate";
+                            case "piedratijera", "papelpiedra", "tijerapapel" -> "Ganaste";
+                            case "piedrapapel", "papeltijera", "tijerapiedra" -> "Perdiste";
+                            default -> "Mano desconocida: ¡elige piedra, papel o tijera!";
+                        };
+                        IO.println("Resultado: " + result);
+                    </div>
+                </li>
                 <li><p><strong>Taula de multiplicar:</strong> Demana un enter N i mostra la seva taula de multiplicar de l'1 al 10 utilitzant un bucle <code class="w">for</code>.</p></li>
                 <li><p><strong>Suma acumulada fins a zero:</strong> Demana nombres contínuament fins que l'usuari introdueixi el número <code class="w">0</code> utilitzant un bucle <code class="w">while</code>, i mostra la suma total i la mitjana.</p></li>
                 <li><p><strong>Cerca amb break:</strong> Troba el primer múltiple de 7 i 11 més gran que 100 i atura la cerca immediatament amb <code class="w">break</code>.</p></li>

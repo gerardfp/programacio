@@ -33,20 +33,24 @@
     <p>Per defecte, un programa s'executa <em>seqüencialment</em>: instrucció rere instrucció, de dalt a baix. Les estructures de control ens permeten trencar aquest flux lineal.</p>
 
     <h2>1. Sentències Condicionals: if-else i switch</h2>
+    <h3><code class="w">if-else</code></h3>
     <p>La sentència bàsica per a prendre decisions és <code class="w">if</code>. Si la condició booleana és certa (<code class="w">true</code>), s'executa el bloc de codi associat; en cas contrari, es pot saltar o executar una branca alternativa amb <code class="w">else</code>:</p>
-
-    <div class="sc" java>
-int edat = 18;
-if (edat &gt;= 18) {
-    println("Ets major d'edat.");
-} else {
-    println("Ets menor d'edat.");
-}
+    <div class="stepper-v2" java auto title="Sentència Switch Bàsica">
+        <code class="source">
+        int edat = 18;
+        if (edat &gt;= 18) {
+            println("Ets major d'edat.");
+        } else {
+            println("Ets menor d'edat.");
+        }
+        </code>
     </div>
+    
 
     <p>Quan tenim múltiples camins possibles, podem encadenar sentències amb <code class="w">else if</code>:</p>
 
-    <div class="sc" java>
+    <div class="stepper-v2" java auto title="Sentència Switch Bàsica">
+        <code class="source">
 int nota = 85;
 if (nota &gt;= 90) {
     println("Excel·lent");
@@ -57,20 +61,15 @@ if (nota &gt;= 90) {
 } else {
     println("Suspès");
 }
+        </code>
     </div>
 
-    <h3>La sentència switch millorada (Enhanced Switch)</h3>
-    <p>Quan volem ramificar el flux d'execució d'un programa comparant el valor d'una variable o expressió amb múltiples valors possibles, la <strong>sentència <code>switch</code></strong> ofereix una sintaxi molt més clara i neta que encadenar múltiples <code>if-else if</code>.</p>
+    <h3><code class="w">switch</code></h3>
+    <p>Quan volem ramificar el flux d'execució d'un programa comparant el valor d'una variable o expressió amb múltiples 
+        valors possibles, la <strong>sentència <code class="w">switch</code></strong> ofereix una sintaxi molt més clara i neta que encadenar múltiples <code>if-else if</code>.</p>
 
-    <p>A partir de les versions modernes de Java, disposem del <strong>switch millorat (<em>enhanced switch</em>)</strong> mitjançant la sintaxi de fletxa (<code>-&gt;</code>). Aquesta sintaxi aporta grans avantatges:</p>
-    <ul>
-        <li><strong>Sintaxi clara amb fletxa:</strong> s'indica el cas amb <code>case VALOR -&gt; instrucció;</code> o <code>case VALOR -&gt; { bloc... }</code> si necessitem múltiples instruccions.</li>
-        <li><strong>Sense caiguda involuntària (<em>no fall-through</em>):</strong> només s'executa la branca que coincideix exactament amb el valor. No cal fer servir la sentència <code>break;</code> per aturar l'execució!</li>
-        <li><strong>Múltiples etiquetes per cas:</strong> podem agrupar diversos valors separant-los per comes (ex: <code>case 1, 2, 3 -&gt; ...</code>) si han d'executar la mateixa acció.</li>
-        <li><strong>Branca <code>default -&gt;</code>:</strong> s'executa opcionalment quan cap dels casos anteriors coincideix amb el valor avaluat.</li>
-    </ul>
-
-    <p>Observa en el següent <em>stepper</em> interactiu com el programa avalua la variable <code>opcio</code>, salta directament al cas coincident (<code>case 2</code>), executa la seva acció i immediatament continua després del switch sense necessitat de cap <code>break</code>:</p>
+    <p>La diferència principal entre l'expressió switch i la sentència switch és que l'expressió switch retorna un valor, mentre que la sentència switch no retorna cap valor.</p>
+    <p>Observa en el següent <em>stepper</em> interactiu com el programa avalua la variable <code>opcio</code>, salta directament al cas coincident (<code>case 2</code>), executa la seva acció i immediatament continua després del switch</p>
 
     <div class="stepper-v2" java auto title="Sentència Switch Bàsica">
 <code class="source">
