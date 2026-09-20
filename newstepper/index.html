@@ -52,16 +52,6 @@
             color: #030712;
             font-weight: 600;
         }
-        .code-preview {
-            background: #030712;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px;
-            padding: 1em;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            overflow-x: auto;
-            color: #cbd5e1;
-        }
         .feature-box {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -138,23 +128,6 @@ println("Fact: " + fact);
         </code>
     </div>
 
-    <details>
-        <summary>Veure el codi font HTML d'aquest Stepper (només el codi font Java!)</summary>
-        <pre class="code-preview">&lt;div class="stepper-v2" java auto title="Execució Bucle While"&gt;
-  &lt;code class="source"&gt;
-int n = 3;
-int fact = 1;
-
-while (n &gt; 0) {
-    fact *= n;
-    n--;
-}
-
-println("Fact: " + fact);
-  &lt;/code&gt;
-&lt;/div&gt;</pre>
-    </details>
-
     <hr>
 
     <h2>Demostració 2: Bucle <code>for</code> amb Indicació Explícita de les 4 Fases</h2>
@@ -169,18 +142,6 @@ for (int i = 0; i < n; i++) {
 }
         </code>
     </div>
-
-    <details>
-        <summary>Veure el codi font d'aquest Stepper 2</summary>
-        <pre class="code-preview">&lt;div class="stepper-v2" java auto title="Execució Bucle For pas a pas"&gt;
-  &lt;code class="source"&gt;
-int n = 3;
-for (int i = 0; i &lt; n; i++) {
-    print(i + " ");
-}
-  &lt;/code&gt;
-&lt;/div&gt;</pre>
-    </details>
 
     <hr>
 
@@ -211,8 +172,12 @@ println(sum);
         <span style="color: var(--text-muted); font-size: 0.85rem; align-self: center;">Carregar plantilla:</span>
         <button type="button" class="preset-btn" onclick="loadPreset('for')">Bucle For</button>
         <button type="button" class="preset-btn" onclick="loadPreset('while')">Bucle While</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('scanner')">Scanner i Bucle</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('switch')">Sentència Switch</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('ifelse')">If-Else If</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('switch')">Switch Enhanced</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('switchexpr')">Switch Expression</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('breaklabel')">Break amb Etiqueta</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('arrays')">Arrays / Vectors</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('scanner')">Scanner</button>
     </div>
 
     <div class="playground-container">
@@ -268,6 +233,73 @@ while (compta > 0) {
 println("Llançament!");
   </code>
 </div>`,
+        ifelse: `<div class="stepper-v2" java auto title="Estructura If - Else If - Else">
+  <code class="source">
+int nota = 7;
+
+if (nota >= 9) {
+    println("Excel·lent");
+} else if (nota >= 5) {
+    println("Aprovat");
+} else {
+    println("Suspès");
+}
+  </code>
+</div>`,
+        switch: `<div class="stepper-v2" java auto title="Switch Modern amb Fletxes (->)">
+  <code class="source">
+int dia = 6;
+
+switch (dia) {
+    case 1, 2, 3, 4, 5 -> println("Dia laborable");
+    case 6, 7 -> println("Cap de setmana!");
+    default -> println("Dia invàlid");
+}
+  </code>
+</div>`,
+        switchexpr: `<div class="stepper-v2" java auto title="Switch Expression amb Retorn i Yield">
+  <code class="source">
+int dia = 2;
+int punts = switch (dia) {
+    case 1, 2 -> 100;
+    case 3 -> 50;
+    default -> {
+        int bonus = 10;
+        yield bonus * 2;
+    }
+};
+
+println("Punts obtinguts: " + punts);
+  </code>
+</div>`,
+        breaklabel: `<div class="stepper-v2" java auto title="Salt amb Etiqueta (Labeled Break)">
+  <code class="source">
+extern:
+for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 3; j++) {
+        if (i == 2 && j == 2) {
+            break extern;
+        }
+        println(i + "-" + j);
+    }
+}
+
+println("Fi dels bucles!");
+  </code>
+</div>`,
+        arrays: `<div class="stepper-v2" java auto title="Ús d'Arrays i .length">
+  <code class="source">
+int[] valors = {2, 4, 6};
+int[] quadrats = new int[3];
+
+for (int i = 0; i < valors.length; i++) {
+    quadrats[i] = valors[i] * valors[i];
+}
+
+println("Primer quadrat: " + quadrats[0]);
+println("Segon quadrat: " + quadrats[1]);
+  </code>
+</div>`,
         scanner: `<div class="stepper-v2" java auto in="3, 7" title="Bucle amb Scanner">
   <code class="source">
 int ini = scanner.nextInt();
@@ -279,25 +311,6 @@ for (int i = ini; i <= fin; i++) {
 }
 
 println(sum);
-  </code>
-</div>`,
-        switch: `<div class="stepper-v2" java auto title="Sentència Switch">
-  <code class="source">
-int opcio = 2;
-
-switch (opcio) {
-    case 1:
-        println("Nou joc");
-        break;
-    case 2:
-        println("Carregar partida");
-        break;
-    default:
-        println("Opció no vàlida");
-        break;
-}
-
-println("Fi del menú");
   </code>
 </div>`
     };

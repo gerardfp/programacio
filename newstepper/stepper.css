@@ -263,8 +263,9 @@
   transition: background-color 0.15s ease;
 }
 
-.stepper-v2 .code-line-row.active {
-  background: var(--step-hl-line);
+.stepper-v2 .code-line-row.active,
+.stepper-v2 .code-line-row.active-sub {
+  background: transparent;
 }
 
 .stepper-v2 .code-line-num {
@@ -280,10 +281,10 @@
   transition: color 0.15s ease;
 }
 
-.stepper-v2 .code-line-row.active .code-line-num {
-  color: var(--step-accent-blue);
-  font-weight: 700;
-  border-right-color: var(--step-hl-line-border);
+.stepper-v2 .code-line-row.active .code-line-num,
+.stepper-v2 .code-line-row.active-sub .code-line-num {
+  color: #94a3b8;
+  border-right-color: rgba(56, 189, 248, 0.3);
 }
 
 .stepper-v2 .code-line-content {
@@ -294,24 +295,50 @@
   vertical-align: top;
 }
 
-.stepper-v2 .code-line-row.active .code-line-content::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--step-hl-line-border);
+.stepper-v2 .code-line-row.active .code-line-content::before,
+.stepper-v2 .code-line-row.active-sub .code-line-content::before {
+  display: none;
 }
 
-/* Inline highlighted token */
+/* Inline highlighted token / subexpression */
 .stepper-v2 .hl-token {
-  background: var(--step-hl-token-bg);
-  border: 1px solid var(--step-hl-token-border);
-  border-radius: 3px;
-  padding: 1px 4px;
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
-  font-weight: 600;
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.22);
+  border: 1.5px solid var(--step-accent-blue);
+  border-radius: 4px;
+  padding: 1px 5px;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+  font-weight: 700;
+  color: #ffffff;
+  transition: all 0.15s ease;
+}
+
+.stepper-v2 .hl-token.part-init {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: #38bdf8;
+  color: #e0f2fe;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.stepper-v2 .hl-token.part-cond {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: #f59e0b;
+  color: #fef3c7;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+.stepper-v2 .hl-token.part-update {
+  background: rgba(168, 85, 247, 0.25);
+  border-color: #a855f7;
+  color: #f3e8ff;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.stepper-v2 .hl-token.part-body {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: #10b981;
+  color: #d1fae5;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
 }
 
 /* Right Side: Info Panel (Explanation, Mem, Shell) */
