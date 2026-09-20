@@ -8,6 +8,14 @@
 (function(global) {
   'use strict';
 
+  function parseInputAttribute(rawIn) {
+    if (!rawIn) return [];
+    if (rawIn.includes('\n')) {
+      return rawIn.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+    }
+    return rawIn.split(/[,;]+/).map(s => s.trim()).filter(Boolean);
+  }
+
   function initNewSteppers(container = document) {
     const stepperElements = container.querySelectorAll('.stepper-v2, stepper-v2');
     stepperElements.forEach(el => {
@@ -19,9 +27,9 @@
 
   function setupStepper(root) {
     // 1. Extract source code
-    const sourceEl = root.querySelector('code.source, .source, pre.source');
+    const sourceEl = root.querySelector('code.source, .source, pre.source') || root.querySelector(':scope > pre > code, :scope > pre, :scope > code');
     if (!sourceEl) {
-      console.warn('Stepper 2.0: No <code class="source"> element found inside', root);
+      console.warn('Stepper 2.0: No source code element found inside', root);
       return;
     }
 
@@ -33,11 +41,12 @@
     // 2. Extract step definitions or Auto-Simulate Java code
     let stepsData = parseSteps(root, normalizedLines);
     const forceAuto = root.hasAttribute('auto') || root.getAttribute('mode') === 'auto';
+    const rawIn = root.getAttribute('in') || '';
+    const initialInputs = parseInputAttribute(rawIn);
     
     if (stepsData.length === 0 || forceAuto) {
       // Auto-simulate Java execution!
-      const inputs = (root.getAttribute('in') || '').split(/[,;]+/).map(s => s.trim()).filter(Boolean);
-      stepsData = simulateJava(cleanCode, inputs);
+      stepsData = simulateJava(cleanCode, initialInputs);
     }
 
     if (stepsData.length === 0) {
@@ -46,45 +55,13 @@
     }
 
     // 3. Precompute timeline state (cumulative memory and console)
-    const timeline = buildTimeline(stepsData);
+    const timeline = buildTimeline(stepsData, initialInputs);
 
     // 4. Build UI Structure
     root.innerHTML = '';
     root.tabIndex = 0; // Focusable for keyboard navigation
 
-    // Header bar
-    const headerBar = document.createElement('div');
-    headerBar.className = 'stepper-header';
-
-    const titleDiv = document.createElement('div');
-    titleDiv.className = 'stepper-title';
-
-    const badge = document.createElement('span');
-    badge.className = 'stepper-badge';
-    badge.textContent = 'Stepper';
-
-    const titleText = document.createElement('span');
-    titleText.textContent = root.getAttribute('title') || 'Traça d\'Execució';
-
-    titleDiv.appendChild(badge);
-    titleDiv.appendChild(titleText);
-
-    const counter = document.createElement('span');
-    counter.className = 'stepper-counter';
-    counter.textContent = `Pas 1 de ${timeline.length}`;
-
-    headerBar.appendChild(titleDiv);
-    headerBar.appendChild(counter);
-
-    // Progress bar
-    const progressTrack = document.createElement('div');
-    progressTrack.className = 'stepper-progress-track';
-    const progressFill = document.createElement('div');
-    progressFill.className = 'stepper-progress-fill';
-    progressFill.style.width = `${(1 / timeline.length) * 100}%`;
-    progressTrack.appendChild(progressFill);
-
-    // Controls
+    // Controls: paso atras, paso adelante, volver al inicio, slider (només icones)
     const controls = document.createElement('div');
     controls.className = 'stepper-controls';
 
@@ -94,29 +71,29 @@
     const prevBtn = document.createElement('button');
     prevBtn.className = 'btn-prev';
     prevBtn.type = 'button';
-    prevBtn.innerHTML = '◀ Anterior';
+    prevBtn.innerHTML = '◀';
+    prevBtn.title = 'Pas enrere';
+    prevBtn.setAttribute('aria-label', 'Pas enrere');
     prevBtn.disabled = true;
 
     const nextBtn = document.createElement('button');
     nextBtn.className = 'btn-next';
     nextBtn.type = 'button';
-    nextBtn.innerHTML = 'Següent ▶';
+    nextBtn.innerHTML = '▶';
+    nextBtn.title = 'Pas endavant';
+    nextBtn.setAttribute('aria-label', 'Pas endavant');
     nextBtn.disabled = timeline.length <= 1;
 
     const resetBtn = document.createElement('button');
     resetBtn.className = 'btn-reset';
     resetBtn.type = 'button';
-    resetBtn.innerHTML = '↺ Reiniciar';
-
-    const autoplayBtn = document.createElement('button');
-    autoplayBtn.className = 'btn-autoplay';
-    autoplayBtn.type = 'button';
-    autoplayBtn.innerHTML = '▶ Reprodueix';
+    resetBtn.innerHTML = '↺';
+    resetBtn.title = 'Tornar a l\'inici';
+    resetBtn.setAttribute('aria-label', 'Tornar a l\'inici');
 
     btnGroup.appendChild(prevBtn);
     btnGroup.appendChild(nextBtn);
     btnGroup.appendChild(resetBtn);
-    btnGroup.appendChild(autoplayBtn);
 
     const slider = document.createElement('input');
     slider.type = 'range';
@@ -137,45 +114,46 @@
     const codePanel = document.createElement('div');
     codePanel.className = 'stepper-code-panel';
 
-    const codeTable = document.createElement('table');
-    codeTable.className = 'code-lines-table';
-    const tbody = document.createElement('tbody');
+    const pre = document.createElement('pre');
+    pre.className = 'code-pre';
+    const codeBlock = document.createElement('code');
+    codeBlock.className = `language-${lang}`;
 
     normalizedLines.forEach((lineText, idx) => {
       const lineNum = idx + 1;
-      const tr = document.createElement('tr');
-      tr.className = 'code-line-row';
-      tr.dataset.line = String(lineNum);
+      const lineRow = document.createElement('div');
+      lineRow.className = 'code-line-row';
+      lineRow.dataset.line = String(lineNum);
 
-      const tdNum = document.createElement('td');
-      tdNum.className = 'code-line-num';
-      tdNum.textContent = String(lineNum);
+      const spanNum = document.createElement('span');
+      spanNum.className = 'code-line-num';
+      spanNum.textContent = String(lineNum);
 
-      const tdCode = document.createElement('td');
-      tdCode.className = 'code-line-content';
+      const spanCode = document.createElement('span');
+      spanCode.className = 'code-line-content';
       
       // Render line with syntax highlight if Prism available
       if (global.Prism && global.Prism.languages[lang]) {
         try {
-          tdCode.innerHTML = global.Prism.highlight(lineText, global.Prism.languages[lang], lang);
+          spanCode.innerHTML = global.Prism.highlight(lineText, global.Prism.languages[lang], lang);
         } catch (e) {
-          tdCode.textContent = lineText;
+          spanCode.textContent = lineText;
         }
       } else {
-        tdCode.textContent = lineText;
+        spanCode.textContent = lineText;
       }
 
       // Store original HTML for resetting highlights
-      tdCode.dataset.originalHtml = tdCode.innerHTML;
-      tdCode.dataset.rawText = lineText;
+      spanCode.dataset.originalHtml = spanCode.innerHTML;
+      spanCode.dataset.rawText = lineText;
 
-      tr.appendChild(tdNum);
-      tr.appendChild(tdCode);
-      tbody.appendChild(tr);
+      lineRow.appendChild(spanNum);
+      lineRow.appendChild(spanCode);
+      codeBlock.appendChild(lineRow);
     });
 
-    codeTable.appendChild(tbody);
-    codePanel.appendChild(codeTable);
+    pre.appendChild(codeBlock);
+    codePanel.appendChild(pre);
 
     // Right Info Panel
     const infoPanel = document.createElement('div');
@@ -188,47 +166,48 @@
     memBox.className = 'stepper-mem';
     const memHeader = document.createElement('div');
     memHeader.className = 'stepper-mem-header';
-    memHeader.textContent = 'Estat de la Memòria';
+    memHeader.textContent = 'Variables';
     const memList = document.createElement('div');
     memList.className = 'stepper-mem-list';
     memBox.appendChild(memHeader);
     memBox.appendChild(memList);
 
-    const shellBox = document.createElement('div');
-    shellBox.className = 'stepper-shell';
-    const shellHeader = document.createElement('div');
-    shellHeader.className = 'stepper-shell-header';
-    shellHeader.textContent = 'Terminal / Consola';
-    const shellContent = document.createElement('div');
-    shellContent.className = 'stepper-shell-content';
-    shellBox.appendChild(shellHeader);
-    shellBox.appendChild(shellContent);
+    // Consola: Entrada (In)
+    const consoleInBox = document.createElement('div');
+    consoleInBox.className = 'stepper-console stepper-console-in';
+    const consoleInHeader = document.createElement('div');
+    consoleInHeader.className = 'stepper-console-header';
+    consoleInHeader.textContent = 'Consola (Entrada)';
+    const consoleInContent = document.createElement('div');
+    consoleInContent.className = 'stepper-console-content stepper-console-in-content';
+    consoleInBox.appendChild(consoleInHeader);
+    consoleInBox.appendChild(consoleInContent);
 
-    infoPanel.appendChild(explanationBox);
+    // Consola: Sortida (Out)
+    const consoleOutBox = document.createElement('div');
+    consoleOutBox.className = 'stepper-console stepper-console-out stepper-shell';
+    const consoleOutHeader = document.createElement('div');
+    consoleOutHeader.className = 'stepper-console-header stepper-shell-header';
+    consoleOutHeader.textContent = 'Consola (Sortida)';
+    const consoleOutContent = document.createElement('div');
+    consoleOutContent.className = 'stepper-console-content stepper-console-out-content stepper-shell-content';
+    consoleOutBox.appendChild(consoleOutHeader);
+    consoleOutBox.appendChild(consoleOutContent);
+
     infoPanel.appendChild(memBox);
-    infoPanel.appendChild(shellBox);
+    infoPanel.appendChild(consoleInBox);
+    infoPanel.appendChild(consoleOutBox);
 
     body.appendChild(codePanel);
     body.appendChild(infoPanel);
 
     // Assemble components into root
-    root.appendChild(headerBar);
-    root.appendChild(progressTrack);
     root.appendChild(controls);
     root.appendChild(body);
+    root.appendChild(explanationBox);
 
     // 5. Execution State Controller
     let currentStep = 0;
-    let autoplayTimer = null;
-
-    function stopAutoplay() {
-      if (autoplayTimer) {
-        clearInterval(autoplayTimer);
-        autoplayTimer = null;
-        autoplayBtn.innerHTML = '▶ Reprodueix';
-        autoplayBtn.classList.remove('playing');
-      }
-    }
 
     function renderStep(stepIdx) {
       if (stepIdx < 0) stepIdx = 0;
@@ -239,13 +218,11 @@
 
       // Update controls
       slider.value = String(currentStep);
-      counter.textContent = `Pas ${currentStep + 1} de ${timeline.length}`;
-      progressFill.style.width = `${((currentStep + 1) / timeline.length) * 100}%`;
       prevBtn.disabled = currentStep === 0;
       nextBtn.disabled = currentStep === timeline.length - 1;
 
       // 1. Update Code Highlight
-      const allRows = tbody.querySelectorAll('.code-line-row');
+      const allRows = codeBlock.querySelectorAll('.code-line-row');
       allRows.forEach(row => {
         row.classList.remove('active');
         row.classList.remove('active-sub');
@@ -257,7 +234,7 @@
 
       if (state.lines && state.lines.length > 0) {
         state.lines.forEach(lineNum => {
-          const targetRow = tbody.querySelector(`.code-line-row[data-line="${lineNum}"]`);
+          const targetRow = codeBlock.querySelector(`.code-line-row[data-line="${lineNum}"]`);
           if (targetRow) {
             if (state.hl) {
               const codeCell = targetRow.querySelector('.code-line-content');
@@ -311,78 +288,43 @@
         });
       }
 
-      // 4. Update Shell
-      shellContent.innerHTML = '';
-      if (state.shellHtml) {
-        shellContent.innerHTML = state.shellHtml;
-      }
+      // 4. Update Consoles (In & Out)
+      consoleInContent.innerHTML = state.inHtml || '';
+      consoleOutContent.innerHTML = state.outHtml || '';
 
-      if (currentStep === timeline.length - 1 && autoplayTimer) {
-        stopAutoplay();
-      }
     }
 
     // Event Listeners
     nextBtn.addEventListener('click', () => {
-      stopAutoplay();
       renderStep(currentStep + 1);
     });
 
     prevBtn.addEventListener('click', () => {
-      stopAutoplay();
       renderStep(currentStep - 1);
     });
 
     resetBtn.addEventListener('click', () => {
-      stopAutoplay();
       renderStep(0);
     });
 
     slider.addEventListener('input', () => {
-      stopAutoplay();
       renderStep(parseInt(slider.value, 10));
-    });
-
-    autoplayBtn.addEventListener('click', () => {
-      if (autoplayTimer) {
-        stopAutoplay();
-      } else {
-        if (currentStep >= timeline.length - 1) {
-          renderStep(0);
-        }
-        autoplayBtn.innerHTML = '⏸ Pausa';
-        autoplayBtn.classList.add('playing');
-        autoplayTimer = setInterval(() => {
-          if (currentStep < timeline.length - 1) {
-            renderStep(currentStep + 1);
-          } else {
-            stopAutoplay();
-          }
-        }, 1800);
-      }
     });
 
     // Keyboard navigation when stepper has focus
     root.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
-        stopAutoplay();
         renderStep(currentStep + 1);
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
-        stopAutoplay();
         renderStep(currentStep - 1);
       } else if (e.key === 'Home') {
         e.preventDefault();
-        stopAutoplay();
         renderStep(0);
       } else if (e.key === 'End') {
         e.preventDefault();
-        stopAutoplay();
         renderStep(timeline.length - 1);
-      } else if (e.key === ' ') {
-        e.preventDefault();
-        autoplayBtn.click();
       }
     });
 
@@ -397,9 +339,29 @@
 
   function simulateJava(rawCode, inputs = []) {
     const inputQueue = [...inputs];
+    const initialInputs = [...inputs];
     const steps = [];
     const scope = {};
+    const varTypes = {};
     const MAX_STEPS = 200;
+
+    let readInputsThisStep = [];
+    let readPromptsThisStep = [];
+    let consumedInputsCount = 0;
+
+    function pushStep(stepObj) {
+      if (readInputsThisStep.length > 0 && !stepObj.in) {
+        stepObj.in = readInputsThisStep.join('\n');
+      }
+      if (readPromptsThisStep.length > 0 && !stepObj.out) {
+        stepObj.out = readPromptsThisStep.join('');
+      }
+      stepObj.consumedCount = consumedInputsCount;
+      stepObj.initialInputs = initialInputs;
+      readInputsThisStep = [];
+      readPromptsThisStep = [];
+      steps.push(stepObj);
+    }
 
     // --- 1. Tokenizer ---
     function tokenize(code) {
@@ -409,7 +371,7 @@
       let col = 1;
 
       const KEYWORDS = new Set([
-        'int', 'double', 'float', 'long', 'boolean', 'String', 'char', 'void',
+        'byte', 'short', 'int', 'double', 'float', 'long', 'boolean', 'String', 'char', 'void',
         'if', 'else', 'switch', 'case', 'default', 'break', 'continue', 'yield',
         'for', 'while', 'do', 'new', 'return', 'true', 'false', 'null'
       ]);
@@ -459,9 +421,15 @@
             i++;
             col++;
           }
+          if (i < code.length && /[fFdDlL]/.test(code[i])) {
+            numStr += code[i];
+            i++;
+            col++;
+          }
+          const cleanNum = numStr.replace(/[fFdDlL]$/, '');
           tokens.push({
             type: 'NUMBER',
-            value: numStr.includes('.') ? parseFloat(numStr) : parseInt(numStr, 10),
+            value: cleanNum.includes('.') ? parseFloat(cleanNum) : parseInt(cleanNum, 10),
             raw: numStr,
             line: startLine,
             col: startCol,
@@ -584,38 +552,295 @@
       return rawCode.substring(startTok.start, endTok.end).trim();
     }
 
-    function formatValue(v) {
-      if (Array.isArray(v)) {
-        return `[${v.map(formatValue).join(', ')}]`;
+    const scanner = {
+      nextLine: () => {
+        const val = inputQueue.shift() ?? '';
+        readInputsThisStep.push(String(val));
+        consumedInputsCount++;
+        return String(val);
+      },
+      next: () => {
+        const val = inputQueue.shift() ?? '';
+        readInputsThisStep.push(String(val));
+        consumedInputsCount++;
+        return String(val);
+      },
+      nextInt: () => {
+        const val = inputQueue.shift() ?? 0;
+        readInputsThisStep.push(String(val));
+        consumedInputsCount++;
+        return parseInt(val, 10) || 0;
+      },
+      nextLong: () => {
+        const val = inputQueue.shift() ?? 0;
+        readInputsThisStep.push(String(val));
+        consumedInputsCount++;
+        return parseInt(val, 10) || 0;
+      },
+      nextByte: () => {
+        const val = inputQueue.shift() ?? 0;
+        readInputsThisStep.push(String(val));
+        consumedInputsCount++;
+        return parseInt(val, 10) || 0;
+      },
+      nextShort: () => {
+        const val = inputQueue.shift() ?? 0;
+        readInputsThisStep.push(String(val));
+        consumedInputsCount++;
+        return parseInt(val, 10) || 0;
+      },
+      nextDouble: () => {
+        const val = inputQueue.shift() ?? 0;
+        readInputsThisStep.push(String(val));
+        consumedInputsCount++;
+        return parseFloat(val) || 0;
+      },
+      nextFloat: () => {
+        const val = inputQueue.shift() ?? 0;
+        readInputsThisStep.push(String(val));
+        consumedInputsCount++;
+        return parseFloat(val) || 0;
+      },
+      nextBoolean: () => {
+        const val = inputQueue.shift() ?? false;
+        readInputsThisStep.push(String(val));
+        consumedInputsCount++;
+        return String(val).trim().toLowerCase() === 'true';
+      },
+      hasNext: () => inputQueue.length > 0,
+      hasNextInt: () => inputQueue.length > 0 && !isNaN(parseInt(inputQueue[0], 10)),
+      hasNextDouble: () => inputQueue.length > 0 && !isNaN(parseFloat(inputQueue[0]))
+    };
+
+    const IO = {
+      readln: (prompt) => {
+        if (prompt !== undefined && prompt !== null && prompt !== '') {
+          readPromptsThisStep.push(String(prompt));
+        }
+        return scanner.nextLine();
+      },
+      println: (msg) => msg,
+      print: (msg) => msg
+    };
+
+    function toChar(val) {
+      if (typeof val === 'number') return String.fromCharCode(val);
+      if (typeof val === 'string') {
+        const m1 = val.match(/^([a-zA-Z])(\d+)$/);
+        if (m1) return String.fromCharCode(m1[1].charCodeAt(0) + Number(m1[2]));
+        const m2 = val.match(/^(\d+)([a-zA-Z])$/);
+        if (m2) return String.fromCharCode(m2[2].charCodeAt(0) + Number(m2[1]));
+        return val.length > 0 ? val[0] : '\0';
       }
-      if (typeof v === 'string') return `"${v}"`;
+      return '\0';
+    }
+
+    function toInt(val) {
+      if (typeof val === 'string' && val.length === 1 && !/^[0-9]$/.test(val)) {
+        return val.charCodeAt(0);
+      }
+      return Math.trunc(Number(val)) || 0;
+    }
+
+    function getDefaultValue(type) {
+      switch (type) {
+        case 'byte':
+        case 'short':
+        case 'int':
+        case 'long': return 0;
+        case 'float':
+        case 'double': return 0.0;
+        case 'boolean': return false;
+        case 'char': return '\0';
+        case 'String': return null;
+        default: return null;
+      }
+    }
+
+    function coerceType(val, type) {
+      if (val === null || val === undefined) {
+        if (type === 'String' || (type && type.endsWith('[]'))) return null;
+        return getDefaultValue(type);
+      }
+      switch (type) {
+        case 'byte':
+        case 'short':
+        case 'int':
+        case 'long':
+          if (typeof val === 'string' && val.length === 1 && !/^[0-9]/.test(val)) {
+            return val.charCodeAt(0);
+          }
+          return Math.trunc(Number(val)) || 0;
+        case 'float':
+        case 'double':
+          return Number(val) || 0.0;
+        case 'boolean':
+          return Boolean(val);
+        case 'char':
+          return toChar(val);
+        case 'String':
+          return String(val);
+        default:
+          return val;
+      }
+    }
+
+    function formatValue(v, type) {
+      if (Array.isArray(v)) {
+        const subType = type ? type.replace(/\[\]$/, '') : undefined;
+        return `[${v.map(item => formatValue(item, subType)).join(', ')}]`;
+      }
       if (v === null || v === undefined) return 'null';
+      if (type === 'char') {
+        return `'${v}'`;
+      }
+      if (type === 'String' || (typeof v === 'string' && type !== 'char')) {
+        return `"${v}"`;
+      }
+      if (typeof v === 'number') {
+        if ((type === 'double' || type === 'float') && Number.isInteger(v)) {
+          return `${v}.0`;
+        }
+        return String(v);
+      }
+      if (typeof v === 'boolean') {
+        return String(v);
+      }
       return String(v);
     }
 
     function getMemSnapshot() {
       const parts = [];
       for (const [k, v] of Object.entries(scope)) {
-        parts.push(`${k}: ${formatValue(v)}`);
+        if (k === 'scanner' || k === 'sc' || varTypes[k] === 'Scanner') continue;
+        const type = varTypes[k];
+        parts.push(`${k}: ${formatValue(v, type)}`);
       }
       return parts.join(', ');
+    }
+
+    function parseArrayLiteral(rhs, elemType, dims) {
+      const str = rhs.trim();
+      if (dims === 2) {
+        if (str.startsWith('{') && str.endsWith('}')) {
+          const inner = str.slice(1, -1).trim();
+          if (!inner) return [];
+          const rows = [];
+          let depth = 0;
+          let cur = '';
+          for (let i = 0; i < inner.length; i++) {
+            const ch = inner[i];
+            if (ch === '{') depth++;
+            else if (ch === '}') depth--;
+            else if (ch === ',' && depth === 0) {
+              rows.push(cur.trim());
+              cur = '';
+              continue;
+            }
+            cur += ch;
+          }
+          if (cur.trim()) rows.push(cur.trim());
+          return rows.map(r => parseArrayLiteral(r, elemType, 1));
+        }
+      } else {
+        if (str.startsWith('{') && str.endsWith('}')) {
+          const inner = str.slice(1, -1).trim();
+          if (!inner) return [];
+          const items = [];
+          let depth = 0;
+          let cur = '';
+          for (let i = 0; i < inner.length; i++) {
+            const ch = inner[i];
+            if (ch === '{') depth++;
+            else if (ch === '}') depth--;
+            else if (ch === ',' && depth === 0) {
+              items.push(cur.trim());
+              cur = '';
+              continue;
+            }
+            cur += ch;
+          }
+          if (cur.trim()) items.push(cur.trim());
+          return items.map(item => {
+            const val = evaluateExprString(item.trim());
+            return coerceType(val, elemType);
+          });
+        }
+      }
+      return [];
     }
 
     // --- 2. Expression Evaluator ---
     function evaluateExprString(jsExpr) {
       if (!jsExpr) return true;
-      if (jsExpr.includes('scanner.nextInt()') || jsExpr.includes('scanner.next()') ||
-          jsExpr.includes('scanner.nextDouble()') || jsExpr.includes('scanner.nextLine()')) {
-        const val = inputQueue.shift() ?? 0;
-        const num = Number(val);
-        return isNaN(num) ? val : num;
-      }
 
-      let expr = jsExpr.replace(/\.equals\(([^)]+)\)/g, ' === ($1)');
+      let expr = jsExpr.trim();
+
+      // Char subtraction: 'c' - 'a' or c - 'a'
+      expr = expr.replace(/'([^'\\])'\s*-\s*'([^'\\])'/g, (m, c1, c2) => `(${c1.charCodeAt(0)} - ${c2.charCodeAt(0)})`);
+      expr = expr.replace(/([a-zA-Z0-9_]+)\s*-\s*'([^'\\])'/g, (m, v, c) => `((typeof ${v} === 'string' ? ${v}.charCodeAt(0) : ${v}) - ${c.charCodeAt(0)})`);
+
+      // Equals
+      expr = expr.replace(/\.equals\(([^)]+)\)/g, ' === ($1)');
+      expr = expr.replace(/\.equalsIgnoreCase\(([^)]+)\)/g, '.toLowerCase() === ($1).toLowerCase()');
+
+      // Casts
+      expr = expr.replace(/\((?:int|long|short|byte)\)\s*([a-zA-Z0-9_.]+|\([^)]+\))/g, 'toInt($1)');
+      expr = expr.replace(/\((?:double|float)\)\s*([a-zA-Z0-9_.]+|\([^)]+\))/g, 'Number($1)');
+      expr = expr.replace(/\(char\)\s*([a-zA-Z0-9_.]+|\([^)]+\))/g, 'toChar($1)');
+      expr = expr.replace(/\(String\)\s*([a-zA-Z0-9_.]+|\([^)]+\))/g, 'String($1)');
+      expr = expr.replace(/\(boolean\)\s*([a-zA-Z0-9_.]+|\([^)]+\))/g, 'Boolean($1)');
+
+      // .length()
+      expr = expr.replace(/\.length\(\)/g, '.length');
+
+      // Strip trailing semicolon
+      expr = expr.replace(/;+$/, '').trim();
+
+      // Number suffixes
+      expr = expr.replace(/\b(\d+(?:\.\d+)?)[fFdDlL]\b/g, '$1');
+
+      const evalScope = {
+        scanner,
+        sc: scanner,
+        IO,
+        toChar,
+        toInt,
+        Integer: {
+          parseInt: (s) => parseInt(s, 10),
+          valueOf: (s) => parseInt(s, 10),
+          max: Math.max,
+          min: Math.min
+        },
+        Double: {
+          parseDouble: (s) => parseFloat(s),
+          valueOf: (s) => parseFloat(s)
+        },
+        Float: {
+          parseFloat: (s) => parseFloat(s),
+          valueOf: (s) => parseFloat(s)
+        },
+        Long: {
+          parseLong: (s) => parseInt(s, 10),
+          valueOf: (s) => parseInt(s, 10)
+        },
+        Boolean: {
+          parseBoolean: (s) => String(s).toLowerCase() === 'true',
+          valueOf: (s) => String(s).toLowerCase() === 'true'
+        },
+        Character: {
+          isDigit: (c) => /^[0-9]$/.test(c),
+          isLetter: (c) => /^[a-zA-Z]$/.test(c),
+          isWhitespace: (c) => /^\s$/.test(c),
+          toUpperCase: (c) => String(c).toUpperCase(),
+          toLowerCase: (c) => String(c).toLowerCase()
+        },
+        ...scope
+      };
 
       try {
-        const keys = Object.keys(scope);
-        const vals = Object.values(scope);
+        const keys = Object.keys(evalScope);
+        const vals = Object.values(evalScope);
         const fn = new Function(...keys, `return (${expr});`);
         return fn(...vals);
       } catch (e) {
@@ -803,10 +1028,10 @@
       }
 
       // Switch expression assignment: [type] varName = switch (...)
-      if (tok.type === 'IDENT' || (tok.type === 'KEYWORD' && ['int', 'double', 'float', 'long', 'boolean', 'String', 'char'].includes(tok.value))) {
+      if (tok.type === 'IDENT' || (tok.type === 'KEYWORD' && ['byte', 'short', 'int', 'double', 'float', 'long', 'boolean', 'String', 'char'].includes(tok.value))) {
         let lookahead = 1;
         let varTok = tok;
-        if (['int', 'double', 'float', 'long', 'boolean', 'String', 'char'].includes(tok.value)) {
+        if (['byte', 'short', 'int', 'double', 'float', 'long', 'boolean', 'String', 'char'].includes(tok.value)) {
           varTok = peek(1);
           lookahead = 2;
         }
@@ -966,6 +1191,14 @@
         };
       }
 
+      // Method declaration: void main(...) { ... } or public static void main(...) { ... }
+      if (tok.value === 'void' || (tok.value === 'public' && peek(1) && peek(1).value === 'static')) {
+        while (peek() && peek().value !== '{') consume();
+        if (peek() && peek().value === '{') {
+          return parseStatement();
+        }
+      }
+
       // Variable declaration / assignment / expression statement
       const stmtTokens = [];
       const startTok = peek();
@@ -1053,7 +1286,7 @@
         const sig = executeNode(node.switchNode);
         const val = sig instanceof YieldSignal ? sig.value : undefined;
         scope[node.varName] = val;
-        steps.push({
+        pushStep({
           lineRaw: String(node.line),
           part: 'body',
           partName: 'Assignació Switch',
@@ -1068,7 +1301,7 @@
       // 2. IfStatement
       if (node.type === 'IfStatement') {
         const condVal = Boolean(evaluateExprString(node.condRaw));
-        steps.push({
+        pushStep({
           lineRaw: String(node.line),
           part: 'cond',
           partName: 'Condició (if)',
@@ -1093,7 +1326,7 @@
         // Phase 1: Init
         if (node.initRaw) {
           executeExpressionStatement(node.initRaw, forLine, true);
-          steps.push({
+          pushStep({
             lineRaw: String(forLine),
             part: 'init',
             partName: 'Inicialització',
@@ -1111,7 +1344,7 @@
           // Phase 2: Condition
           const condVal = node.condRaw ? Boolean(evaluateExprString(node.condRaw)) : true;
           if (condVal) {
-            steps.push({
+            pushStep({
               lineRaw: String(forLine),
               part: 'cond',
               partName: 'Condició',
@@ -1140,7 +1373,7 @@
             // Phase 4: Update
             if (node.updateRaw) {
               executeExpressionStatement(node.updateRaw, forLine, true);
-              steps.push({
+              pushStep({
                 lineRaw: String(forLine),
                 part: 'update',
                 partName: 'Modificació',
@@ -1152,7 +1385,7 @@
             }
           } else {
             // Condition False -> exit
-            steps.push({
+            pushStep({
               lineRaw: String(forLine),
               part: 'cond',
               partName: 'Condició',
@@ -1175,7 +1408,7 @@
           iteration++;
           const condVal = Boolean(evaluateExprString(node.condRaw));
           if (condVal) {
-            steps.push({
+            pushStep({
               lineRaw: String(whileLine),
               part: 'cond',
               partName: 'Condició',
@@ -1197,7 +1430,7 @@
               continue;
             }
           } else {
-            steps.push({
+            pushStep({
               lineRaw: String(whileLine),
               part: 'cond',
               partName: 'Condició',
@@ -1228,7 +1461,7 @@
           }
 
           const condVal = Boolean(evaluateExprString(node.condRaw));
-          steps.push({
+          pushStep({
             lineRaw: String(doLine),
             part: 'cond',
             partName: 'Condició (while)',
@@ -1245,7 +1478,7 @@
       // 6. SwitchStatement
       if (node.type === 'SwitchStatement') {
         const switchVal = evaluateExprString(node.exprRaw);
-        steps.push({
+        pushStep({
           lineRaw: String(node.line),
           part: 'cond',
           partName: 'Switch',
@@ -1279,7 +1512,7 @@
           if (c.isArrow) {
             if (isMatch) {
               matched = true;
-              steps.push({
+              pushStep({
                 lineRaw: String(c.line),
                 part: 'cond',
                 partName: 'Coincidència',
@@ -1312,7 +1545,7 @@
             if (!executing && isMatch) {
               matched = true;
               executing = true;
-              steps.push({
+              pushStep({
                 lineRaw: String(c.line),
                 part: 'cond',
                 partName: 'Coincidència',
@@ -1342,7 +1575,7 @@
 
       // 7. BreakStatement
       if (node.type === 'BreakStatement') {
-        steps.push({
+        pushStep({
           lineRaw: String(node.line),
           part: 'body',
           partName: 'Salt (break)',
@@ -1358,7 +1591,7 @@
 
       // 8. ContinueStatement
       if (node.type === 'ContinueStatement') {
-        steps.push({
+        pushStep({
           lineRaw: String(node.line),
           part: 'body',
           partName: 'Salt (continue)',
@@ -1375,7 +1608,7 @@
       // 9. YieldStatement
       if (node.type === 'YieldStatement') {
         const yVal = evaluateExprString(node.exprRaw);
-        steps.push({
+        pushStep({
           lineRaw: String(node.line),
           part: 'body',
           partName: 'Retorn (yield)',
@@ -1400,65 +1633,132 @@
       let s = stmt.replace(/;$/, '').trim();
       if (!s) return;
 
-      // A. Output: print / println / System.out.println
-      const printMatch = s.match(/^(?:System\.out\.)?(println|print)\s*\((.*)\)$/);
+      // A. Output: print / println / System.out.println / IO.println
+      const printMatch = s.match(/^(?:(?:System\.out|IO)\.)?(println|print)\s*\((.*)\)$/);
       if (printMatch) {
+        const isLn = printMatch[1] === 'println';
         const arg = printMatch[2].trim();
         const val = arg ? evaluateExprString(arg) : '';
+        const outStr = String(val) + (isLn ? '\n' : '');
         if (!silent) {
-          steps.push({
+          pushStep({
             lineRaw: String(lineNum),
             part: 'body',
             partName: 'Sortida',
             hl: s,
             onlyHl: true,
-            out: String(val),
+            out: outStr,
             memRaw: getMemSnapshot(),
-            explanation: `S'executa <code class="w">${s}</code>, mostrant <code class="w">${formatValue(val)}</code> per consola.`
+            explanation: `S'executa <code class="w">${s}</code>, mostrant <code class="w">${val}</code> per consola.`
           });
         }
         return;
       }
 
-      // B. Array initialization: int[] a = {1, 2, 3}; OR int[] a = new int[3];
-      const arrayDeclMatch = s.match(/^(?:int|double|String|boolean|char)\[\]\s*([a-zA-Z0-9_]+)\s*=\s*(.+)$/);
-      if (arrayDeclMatch) {
-        const varName = arrayDeclMatch[1];
-        const rhs = arrayDeclMatch[2].trim();
-
-        let arrVal = [];
-        if (rhs.startsWith('{') && rhs.endsWith('}')) {
-          const inner = rhs.slice(1, -1).trim();
-          if (inner) {
-            arrVal = inner.split(',').map(item => evaluateExprString(item.trim()));
-          }
-        } else {
-          const newMatch = rhs.match(/^new\s+(?:int|double|String|boolean|char)\[(.*)\]$/);
-          if (newMatch) {
-            const size = Number(evaluateExprString(newMatch[1]));
-            const defaultVal = s.startsWith('boolean') ? false : (s.startsWith('String') ? null : 0);
-            arrVal = new Array(size).fill(defaultVal);
-          } else {
-            arrVal = evaluateExprString(rhs);
-          }
-        }
-
-        scope[varName] = arrVal;
+      // B. Scanner declaration: Scanner sc = new Scanner(System.in);
+      const scannerDeclMatch = s.match(/^(?:Scanner)\s+([a-zA-Z0-9_]+)\s*=\s*new\s+Scanner\(.*\)$/);
+      if (scannerDeclMatch) {
+        const varName = scannerDeclMatch[1];
+        scope[varName] = scanner;
+        varTypes[varName] = 'Scanner';
         if (!silent) {
-          steps.push({
+          pushStep({
             lineRaw: String(lineNum),
             part: 'body',
-            partName: 'Array',
+            partName: 'Instrucció',
             hl: s,
             onlyHl: true,
             memRaw: getMemSnapshot(),
-            explanation: `Es crea l'array <code class="w">${varName}</code> amb valor <strong>${formatValue(arrVal)}</strong>.`
+            explanation: `S'inicialitza l'objecte Scanner (<code class="w">${varName}</code>) per llegir de l'entrada.`
           });
         }
         return;
       }
 
-      // C. Array element assignment: a[i] = val; or a[i] += val; etc.
+      // C. 2D Array element assignment: m[i][j] = val; m[i][j] += val; etc.
+      const array2dElemMatch = s.match(/^([a-zA-Z0-9_]+)\[([^\]]+)\]\[([^\]]+)\]\s*(=|\+=|-=|\*=|\/=)\s*(.+)$/);
+      if (array2dElemMatch) {
+        const arrName = array2dElemMatch[1];
+        const rExpr = array2dElemMatch[2];
+        const cExpr = array2dElemMatch[3];
+        const op = array2dElemMatch[4];
+        const rhsExpr = array2dElemMatch[5];
+
+        const r = Number(evaluateExprString(rExpr));
+        const c = Number(evaluateExprString(cExpr));
+        const val = evaluateExprString(rhsExpr);
+
+        if (scope[arrName] && Array.isArray(scope[arrName]) && Array.isArray(scope[arrName][r])) {
+          const row = [...scope[arrName][r]];
+          const elemType = varTypes[arrName] ? varTypes[arrName].replace(/\[\]\[\]$/, '') : undefined;
+          const coercedVal = elemType ? coerceType(val, elemType) : val;
+
+          if (op === '=') row[c] = coercedVal;
+          else if (op === '+=') row[c] += coercedVal;
+          else if (op === '-=') row[c] -= coercedVal;
+          else if (op === '*=') row[c] *= coercedVal;
+          else if (op === '/=') row[c] /= coercedVal;
+
+          const newMat = [...scope[arrName]];
+          newMat[r] = row;
+          scope[arrName] = newMat;
+
+          if (!silent) {
+            pushStep({
+              lineRaw: String(lineNum),
+              part: 'body',
+              partName: 'Modificació Array',
+              hl: s,
+              onlyHl: true,
+              memRaw: getMemSnapshot(),
+              explanation: `S'assigna <code class="w">${formatValue(row[c], elemType)}</code> a la posició <code>[${r}][${c}]</code> de <code class="w">${arrName}</code>.`
+            });
+          }
+        }
+        return;
+      }
+
+      // D. 2D Array element increment/decrement: m[i][j]++; ++m[i][j]; etc.
+      const array2dIncMatch = s.match(/^([a-zA-Z0-9_]+)\[([^\]]+)\]\[([^\]]+)\](\+\+|--)$/) ||
+                              s.match(/^(\+\+|--)([a-zA-Z0-9_]+)\[([^\]]+)\]\[([^\]]+)\]$/);
+      if (array2dIncMatch) {
+        const isPrefix = s.startsWith('++') || s.startsWith('--');
+        const arrName = isPrefix ? array2dIncMatch[2] : array2dIncMatch[1];
+        const rExpr = isPrefix ? array2dIncMatch[3] : array2dIncMatch[2];
+        const cExpr = isPrefix ? array2dIncMatch[4] : array2dIncMatch[3];
+        const op = s.includes('++') ? 1 : -1;
+
+        const r = Number(evaluateExprString(rExpr));
+        const c = Number(evaluateExprString(cExpr));
+
+        if (scope[arrName] && Array.isArray(scope[arrName]) && Array.isArray(scope[arrName][r])) {
+          const row = [...scope[arrName][r]];
+          const elemType = varTypes[arrName] ? varTypes[arrName].replace(/\[\]\[\]$/, '') : undefined;
+          if (elemType === 'char') {
+            row[c] = String.fromCharCode(row[c].charCodeAt(0) + op);
+          } else {
+            row[c] = (row[c] || 0) + op;
+          }
+          const newMat = [...scope[arrName]];
+          newMat[r] = row;
+          scope[arrName] = newMat;
+
+          if (!silent) {
+            pushStep({
+              lineRaw: String(lineNum),
+              part: 'body',
+              partName: 'Modificació Array',
+              hl: s,
+              onlyHl: true,
+              memRaw: getMemSnapshot(),
+              explanation: `Es modifica l'element <code class="w">${arrName}[${r}][${c}]</code>: ara val <strong>${formatValue(row[c], elemType)}</strong>.`
+            });
+          }
+        }
+        return;
+      }
+
+      // E. 1D Array element assignment: a[i] = val; a[i] += val; etc.
       const arrayElemMatch = s.match(/^([a-zA-Z0-9_]+)\[([^\]]+)\]\s*(=|\+=|-=|\*=|\/=)\s*(.+)$/);
       if (arrayElemMatch) {
         const arrName = arrayElemMatch[1];
@@ -1471,100 +1771,247 @@
 
         if (scope[arrName] && Array.isArray(scope[arrName])) {
           const newArr = [...scope[arrName]];
-          if (op === '=') newArr[idx] = val;
-          else if (op === '+=') newArr[idx] += val;
-          else if (op === '-=') newArr[idx] -= val;
-          else if (op === '*=') newArr[idx] *= val;
-          else if (op === '/=') newArr[idx] /= val;
+          const elemType = varTypes[arrName] ? varTypes[arrName].replace(/\[\]$/, '') : undefined;
+          const coercedVal = elemType ? coerceType(val, elemType) : val;
+
+          if (op === '=') newArr[idx] = coercedVal;
+          else if (op === '+=') newArr[idx] += coercedVal;
+          else if (op === '-=') newArr[idx] -= coercedVal;
+          else if (op === '*=') newArr[idx] *= coercedVal;
+          else if (op === '/=') newArr[idx] /= coercedVal;
           scope[arrName] = newArr;
 
           if (!silent) {
-            steps.push({
+            pushStep({
               lineRaw: String(lineNum),
               part: 'body',
               partName: 'Modificació Array',
               hl: s,
               onlyHl: true,
               memRaw: getMemSnapshot(),
-              explanation: `S'assigna <code class="w">${formatValue(val)}</code> a la posició <code>[${idx}]</code> de <code class="w">${arrName}</code>.`
+              explanation: `S'assigna <code class="w">${formatValue(newArr[idx], elemType)}</code> a la posició <code>[${idx}]</code> de <code class="w">${arrName}</code>.`
             });
           }
         }
         return;
       }
 
-      // D. Array element increment/decrement: a[i]++; ++a[i];
-      const arrayIncMatch = s.match(/^([a-zA-Z0-9_]+)\[([^\]]+)\](\+\+|--)$/) || s.match(/^(\+\+|--)\[([a-zA-Z0-9_]+)\[([^\]]+)\]$/);
+      // F. 1D Array element increment/decrement: a[i]++; ++a[i]; etc.
+      const arrayIncMatch = s.match(/^([a-zA-Z0-9_]+)\[([^\]]+)\](\+\+|--)$/) ||
+                            s.match(/^(\+\+|--)\[([a-zA-Z0-9_]+)\[([^\]]+)\]$/) ||
+                            s.match(/^(\+\+|--)([a-zA-Z0-9_]+)\[([^\]]+)\]$/);
       if (arrayIncMatch) {
-        const arrName = arrayIncMatch[1] || arrayIncMatch[2];
-        const idxExpr = arrayIncMatch[2] || arrayIncMatch[3];
+        const isPrefix = s.startsWith('++') || s.startsWith('--');
+        const arrName = isPrefix ? (arrayIncMatch[2] || arrayIncMatch[1]) : arrayIncMatch[1];
+        const idxExpr = isPrefix ? (arrayIncMatch[3] || arrayIncMatch[2]) : arrayIncMatch[2];
         const op = s.includes('++') ? 1 : -1;
         const idx = Number(evaluateExprString(idxExpr));
 
         if (scope[arrName] && Array.isArray(scope[arrName])) {
           const newArr = [...scope[arrName]];
-          newArr[idx] = (newArr[idx] || 0) + op;
+          const elemType = varTypes[arrName] ? varTypes[arrName].replace(/\[\]$/, '') : undefined;
+          if (elemType === 'char') {
+            newArr[idx] = String.fromCharCode(newArr[idx].charCodeAt(0) + op);
+          } else {
+            newArr[idx] = (newArr[idx] || 0) + op;
+          }
           scope[arrName] = newArr;
 
           if (!silent) {
-            steps.push({
+            pushStep({
               lineRaw: String(lineNum),
               part: 'body',
               partName: 'Modificació Array',
               hl: s,
               onlyHl: true,
               memRaw: getMemSnapshot(),
-              explanation: `Es modifica l'element <code class="w">${arrName}[${idx}]</code>: ara val <strong>${newArr[idx]}</strong>.`
+              explanation: `Es modifica l'element <code class="w">${arrName}[${idx}]</code>: ara val <strong>${formatValue(newArr[idx], elemType)}</strong>.`
             });
           }
         }
         return;
       }
 
-      // E. Regular variable declaration / assignment
-      const assignMatch = s.match(/^(?:int|double|String|boolean|float|long|char)?\s*([a-zA-Z0-9_]+)\s*(=|\+=|-=|\*=|\/=)\s*(.+)$/);
-      if (assignMatch) {
-        const varName = assignMatch[1];
-        const op = assignMatch[2];
-        const rhsExpr = assignMatch[3];
-        const val = evaluateExprString(rhsExpr);
+      // G. Array declaration (1D and 2D): Type[]... a = ...; or Type[]... a;
+      const arrayDeclMatch = s.match(/^(byte|short|int|long|float|double|boolean|char|String)((?:\[\])+)\s*([a-zA-Z0-9_]+)(?:\s*=\s*(.+))?$/);
+      if (arrayDeclMatch) {
+        const elemType = arrayDeclMatch[1];
+        const dims = arrayDeclMatch[2];
+        const varName = arrayDeclMatch[3];
+        const rhs = arrayDeclMatch[4] ? arrayDeclMatch[4].trim() : null;
+        const fullType = elemType + dims;
+        varTypes[varName] = fullType;
 
-        if (op === '=') scope[varName] = val;
-        else if (op === '+=') scope[varName] += val;
-        else if (op === '-=') scope[varName] -= val;
-        else if (op === '*=') scope[varName] *= val;
-        else if (op === '/=') scope[varName] /= val;
+        let arrVal = null;
+        if (rhs) {
+          const is2D = dims === '[][]';
+          if (rhs.startsWith('{') || /^new\s+[a-zA-Z0-9_]+(?:\[\s*\])+\s*\{/.test(rhs)) {
+            const literal = rhs.replace(/^new\s+[a-zA-Z0-9_]+(?:\[\s*\])+\s*/, '');
+            arrVal = parseArrayLiteral(literal, elemType, is2D ? 2 : 1);
+          } else if (is2D) {
+            const new2dMatch = rhs.match(/^new\s+[a-zA-Z0-9_]+\[([^\]]+)\]\[([^\]]*)\]$/);
+            if (new2dMatch) {
+              const rows = Number(evaluateExprString(new2dMatch[1]));
+              const colsExpr = new2dMatch[2].trim();
+              if (colsExpr) {
+                const cols = Number(evaluateExprString(colsExpr));
+                const defaultVal = getDefaultValue(elemType);
+                arrVal = Array.from({ length: rows }, () => Array.from({ length: cols }, () => (typeof defaultVal === 'object' ? null : defaultVal)));
+              } else {
+                arrVal = Array.from({ length: rows }, () => null);
+              }
+            } else {
+              arrVal = evaluateExprString(rhs);
+            }
+          } else {
+            // 1D
+            const new1dMatch = rhs.match(/^new\s+[a-zA-Z0-9_]+\[([^\]]+)\]$/);
+            if (new1dMatch) {
+              const size = Number(evaluateExprString(new1dMatch[1]));
+              const defaultVal = getDefaultValue(elemType);
+              arrVal = Array.from({ length: size }, () => (typeof defaultVal === 'object' ? null : defaultVal));
+            } else {
+              arrVal = evaluateExprString(rhs);
+            }
+          }
+        }
 
+        scope[varName] = arrVal;
         if (!silent) {
-          steps.push({
+          const is2D = dims === '[][]';
+          pushStep({
             lineRaw: String(lineNum),
             part: 'body',
-            partName: 'Instrucció',
+            partName: 'Array',
             hl: s,
             onlyHl: true,
             memRaw: getMemSnapshot(),
-            explanation: `S'assigna el valor <strong>${formatValue(val)}</strong> a <code class="w">${varName}</code>.`
+            explanation: rhs
+              ? `Es crea l'array ${is2D ? 'bidimensional ' : ''}<code class="w">${varName}</code> amb valor <strong>${formatValue(arrVal, fullType)}</strong>.`
+              : `Es declara l'array <code class="w">${varName}</code> de tipus <code>${fullType}</code> (inicialitzat a <strong>null</strong>).`
           });
         }
         return;
       }
 
-      // F. Regular increment / decrement
+      // H. Regular variable declaration / assignment
+      const assignMatch = s.match(/^(?:(byte|short|int|long|float|double|boolean|char|String)\s+)?([a-zA-Z0-9_]+)(?:\s*(=|\+=|-=|\*=|\/=)\s*(.+))?$/);
+      if (assignMatch && (assignMatch[1] || assignMatch[3])) {
+        const declaredType = assignMatch[1];
+        const varName = assignMatch[2];
+        const op = assignMatch[3];
+        const rhsExpr = assignMatch[4];
+
+        if (['return', 'break', 'continue', 'yield', 'case', 'default'].includes(varName)) return;
+
+        if (declaredType) {
+          varTypes[varName] = declaredType;
+        }
+        const currentType = varTypes[varName] || declaredType;
+
+        if (!op) {
+          // Declaration without initializer: e.g. int a;
+          const defVal = getDefaultValue(declaredType);
+          scope[varName] = defVal;
+          if (!silent) {
+            pushStep({
+              lineRaw: String(lineNum),
+              part: 'body',
+              partName: 'Instrucció',
+              hl: s,
+              onlyHl: true,
+              memRaw: getMemSnapshot(),
+              explanation: `Es declara la variable <code class="w">${varName}</code> de tipus <code>${declaredType}</code> (valor per defecte: <strong>${formatValue(defVal, declaredType)}</strong>).`
+            });
+          }
+          return;
+        }
+
+        // Has assignment operator (=, +=, -=, *=, /=)
+        readInputsThisStep = [];
+        const rawVal = evaluateExprString(rhsExpr);
+        const val = currentType ? coerceType(rawVal, currentType) : rawVal;
+
+        if (op === '=') scope[varName] = val;
+        else if (op === '+=') {
+          if (currentType === 'String' || typeof scope[varName] === 'string') {
+            scope[varName] = String(scope[varName]) + String(val);
+          } else {
+            scope[varName] = (scope[varName] || 0) + val;
+          }
+        }
+        else if (op === '-=') scope[varName] = (scope[varName] || 0) - val;
+        else if (op === '*=') scope[varName] = (scope[varName] || 0) * val;
+        else if (op === '/=') scope[varName] = (scope[varName] || 0) / val;
+
+        if (!silent) {
+          const inVal = readInputsThisStep.length > 0 ? readInputsThisStep.join('\n') : undefined;
+          pushStep({
+            lineRaw: String(lineNum),
+            part: 'body',
+            partName: inVal !== undefined ? 'Entrada' : 'Instrucció',
+            hl: s,
+            onlyHl: true,
+            in: inVal,
+            memRaw: getMemSnapshot(),
+            explanation: inVal !== undefined
+            ? (rhsExpr.includes('IO.readln')
+                ? `Es llegeix <code class="w">${formatValue(val, currentType)}</code> de l'entrada (IO.readln) i s'assigna a <code class="w">${varName}</code>.`
+                : `Es llegeix <code class="w">${formatValue(val, currentType)}</code> de l'entrada (Scanner) i s'assigna a <code class="w">${varName}</code>.`)
+            : `S'assigna el valor <strong>${formatValue(val, currentType)}</strong> a <code class="w">${varName}</code>.`
+          });
+        }
+        return;
+      }
+
+      // I. Regular increment / decrement
       const incMatch = s.match(/^([a-zA-Z0-9_]+)(\+\+|--)$/) || s.match(/^(\+\+|--)([a-zA-Z0-9_]+)$/);
       if (incMatch) {
         const varName = incMatch[1] || incMatch[2];
         const op = s.includes('++') ? 1 : -1;
-        scope[varName] = (scope[varName] || 0) + op;
+        const currentType = varTypes[varName];
+        if (currentType === 'char' && typeof scope[varName] === 'string') {
+          scope[varName] = String.fromCharCode(scope[varName].charCodeAt(0) + op);
+        } else {
+          scope[varName] = (scope[varName] || 0) + op;
+        }
 
         if (!silent) {
-          steps.push({
+          pushStep({
             lineRaw: String(lineNum),
             part: 'body',
             partName: 'Modificació',
             hl: s,
             onlyHl: true,
             memRaw: getMemSnapshot(),
-            explanation: `Es modifica la variable <code class="w">${varName}</code> (${s}). Ara val <strong>${scope[varName]}</strong>.`
+            explanation: `Es modifica la variable <code class="w">${varName}</code> (${s}). Ara val <strong>${formatValue(scope[varName], currentType)}</strong>.`
+          });
+        }
+        return;
+      }
+
+      // J. Standalone IO.readln or scanner call
+      if (s.includes('IO.readln') || s.includes('scanner.') || s.includes('sc.')) {
+        readInputsThisStep = [];
+        readPromptsThisStep = [];
+        evaluateExprString(s);
+        if (!silent) {
+          const inVal = readInputsThisStep.length > 0 ? readInputsThisStep.join('\n') : undefined;
+          const outVal = readPromptsThisStep.length > 0 ? readPromptsThisStep.join('') : undefined;
+          pushStep({
+            lineRaw: String(lineNum),
+            part: 'body',
+            partName: inVal !== undefined ? 'Entrada' : 'Instrucció',
+            hl: s,
+            onlyHl: true,
+            in: inVal,
+            out: outVal,
+            memRaw: getMemSnapshot(),
+            explanation: inVal !== undefined
+              ? (s.includes('IO.readln')
+                  ? `Es llegeix <code class="w">${formatValue(inVal, 'String')}</code> de l'entrada (IO.readln).`
+                  : `Es llegeix <code class="w">${formatValue(inVal)}</code> de l'entrada (Scanner).`)
+              : `S'executa <code class="w">${s}</code>.`
           });
         }
         return;
@@ -1572,7 +2019,7 @@
 
       // Fallback
       if (!silent) {
-        steps.push({
+        pushStep({
           lineRaw: String(lineNum),
           part: 'body',
           partName: 'Instrucció',
@@ -1644,7 +2091,8 @@
           shellRaw: shellAttr,
           customMemHtml: customMemEl ? customMemEl.innerHTML.trim() : null,
           customShellHtml: customShellEl ? customShellEl.innerHTML.trim() : null,
-          explanation: explanationHtml
+          explanation: explanationHtml,
+          isManual: true
         });
       });
       return steps;
@@ -1706,7 +2154,8 @@
           shellRaw: '',
           customMemHtml: null,
           customShellHtml: null,
-          explanation
+          explanation,
+          isManual: true
         });
       });
       return steps;
@@ -1786,14 +2235,35 @@
     return map;
   }
 
-  function buildTimeline(stepsData) {
+  function buildTimeline(stepsData, initialInputs = []) {
     const timeline = [];
     let currentMemMap = new Map();
-    let currentShellHtml = '';
+    let currentOutHtml = '';
+    let cumulativeConsumedCount = 0;
+    const extraConsumedInputs = [];
 
-    stepsData.forEach((rawStep, index) => {
-      const lines = parseLineNumbers(rawStep.lineRaw);
-      
+    // Precompute state snapshots at each boundary:
+    // stateSnapshots[0] = initial state before any statement has executed
+    // stateSnapshots[k+1] = state after statement k has executed
+    const stateSnapshots = [];
+
+    let initialInHtml = '';
+    if (initialInputs.length > 0) {
+      initialInHtml = initialInputs.map(lineText => {
+        return `<div class="in-line">${escapeHtml(lineText) || '&nbsp;'}</div>`;
+      }).join('');
+    }
+
+    stateSnapshots.push({
+      memEntries: [],
+      customMemHtml: null,
+      customShellHtml: null,
+      inHtml: initialInHtml.trimEnd(),
+      outHtml: '',
+      shellHtml: ''
+    });
+
+    stepsData.forEach((rawStep) => {
       // 1. Compute Memory Updates
       const stepMemDiff = parseMemString(rawStep.memRaw);
       const nextMemMap = new Map(currentMemMap);
@@ -1823,21 +2293,75 @@
 
       currentMemMap = nextMemMap;
 
-      // 2. Compute Console Updates
-      let nextShellHtml = currentShellHtml;
-      if (rawStep.shellRaw) {
-        nextShellHtml = escapeHtml(rawStep.shellRaw);
+      // 2. Compute Console Updates (Out)
+      let nextOutHtml = currentOutHtml;
+
+      if (rawStep.customOutHtml) {
+        nextOutHtml = rawStep.customOutHtml;
       } else if (rawStep.customShellHtml) {
-        nextShellHtml = rawStep.customShellHtml;
-      } else {
-        if (rawStep.in) {
-          nextShellHtml += `<span class="in">${escapeHtml(rawStep.in)}</span>\n`;
+        nextOutHtml = rawStep.customShellHtml;
+      } else if (rawStep.shellRaw) {
+        nextOutHtml = escapeHtml(rawStep.shellRaw);
+      } else if (rawStep.out !== undefined && rawStep.out !== null && rawStep.out !== '') {
+        let outStr = String(rawStep.out);
+        if (rawStep.isManual && !outStr.endsWith('\n')) {
+          outStr += '\n';
         }
-        if (rawStep.out) {
-          nextShellHtml += `<span class="out">${escapeHtml(rawStep.out)}</span>\n`;
+        nextOutHtml += `<span class="out">${escapeHtml(outStr)}</span>`;
+      }
+      currentOutHtml = nextOutHtml;
+
+      // 3. Compute Consola (Entrada) Updates
+      let stepConsumed = rawStep.consumedCount;
+      if (stepConsumed === undefined) {
+        if (rawStep.in !== undefined && rawStep.in !== null && rawStep.in !== '') {
+          cumulativeConsumedCount++;
+        }
+        stepConsumed = cumulativeConsumedCount;
+      }
+
+      if (rawStep.in !== undefined && rawStep.in !== null && rawStep.in !== '') {
+        const inLines = String(rawStep.in).split('\n');
+        inLines.forEach(inLine => {
+          if (stepConsumed > initialInputs.length + extraConsumedInputs.length) {
+            extraConsumedInputs.push(inLine);
+          }
+        });
+      }
+
+      let inHtml = '';
+      if (rawStep.customInHtml) {
+        inHtml = rawStep.customInHtml;
+      } else {
+        const allInLines = [...initialInputs, ...extraConsumedInputs];
+        if (allInLines.length > 0) {
+          inHtml = allInLines.map((lineText, idx) => {
+            const isConsumed = idx < stepConsumed;
+            if (isConsumed) {
+              return `<div class="in-line consumed" style="text-decoration: line-through red 0.2rem;">${escapeHtml(lineText) || '&nbsp;'}</div>`;
+            } else {
+              return `<div class="in-line">${escapeHtml(lineText) || '&nbsp;'}</div>`;
+            }
+          }).join('');
         }
       }
-      currentShellHtml = nextShellHtml;
+
+      stateSnapshots.push({
+        memEntries,
+        customMemHtml: rawStep.customMemHtml,
+        customShellHtml: rawStep.customShellHtml,
+        inHtml: inHtml.trimEnd(),
+        outHtml: currentOutHtml.trimEnd(),
+        shellHtml: currentOutHtml.trimEnd()
+      });
+    });
+
+    // Build timeline items:
+    // Each step i shows the code/explanation of stepsData[i] (about to execute)
+    // with the machine state BEFORE it executes (stateSnapshots[i]).
+    stepsData.forEach((rawStep, index) => {
+      const lines = parseLineNumbers(rawStep.lineRaw);
+      const snapshot = stateSnapshots[index];
 
       timeline.push({
         index,
@@ -1846,11 +2370,32 @@
         part: rawStep.part,
         partName: rawStep.partName,
         explanation: rawStep.explanation,
-        memEntries,
-        customMemHtml: rawStep.customMemHtml,
-        shellHtml: currentShellHtml.trimEnd()
+        memEntries: snapshot.memEntries,
+        customMemHtml: snapshot.customMemHtml,
+        inHtml: snapshot.inHtml,
+        outHtml: snapshot.outHtml,
+        shellHtml: snapshot.shellHtml
       });
     });
+
+    // Final state (after the last statement has executed)
+    const lastStep = stepsData[stepsData.length - 1];
+    if (lastStep && (lastStep.lineRaw || lastStep.hl)) {
+      const finalSnapshot = stateSnapshots[stateSnapshots.length - 1];
+      timeline.push({
+        index: timeline.length,
+        lines: [],
+        hl: null,
+        part: 'end',
+        partName: 'Fi',
+        explanation: 'El programa ha finalitzat la seva execució.',
+        memEntries: finalSnapshot.memEntries,
+        customMemHtml: finalSnapshot.customMemHtml,
+        inHtml: finalSnapshot.inHtml,
+        outHtml: finalSnapshot.outHtml,
+        shellHtml: finalSnapshot.shellHtml
+      });
+    }
 
     return timeline;
   }
@@ -1953,6 +2498,8 @@
   global.initNewSteppers = initNewSteppers;
   global.setupStepper = setupStepper;
   global.simulateJava = simulateJava;
+  global.buildTimeline = buildTimeline;
+  global.parseInputAttribute = parseInputAttribute;
 
 })(typeof window !== 'undefined' ? window : global);
 

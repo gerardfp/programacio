@@ -267,7 +267,7 @@ function syntaxHighlight() {
 function initCopyCodeButtons() {
   document.querySelectorAll('sc, .sc, pre, shell, .shell').forEach(block => {
     if (block.tagName === 'SPAN' || block.closest('p') || block.tagName === 'CODE') return;
-    if (block.closest('stepper, .stepper, question, .question, mem, .mem')) return;
+    if (block.closest('stepper-v2, .stepper-v2, question, .question, mem, .mem')) return;
     // Do not add a button to pre if it is already nested inside an sc, shell, or mem container
     if (block.tagName === 'PRE' && block.closest('sc, .sc, shell, .shell, mem, .mem') && block.closest('sc, .sc, shell, .shell, mem, .mem') !== block) return;
     if (block.querySelector(':scope > .copy-code-btn') || block.querySelector('.copy-code-btn')) return;
@@ -323,208 +323,7 @@ function initCopyCodeButtons() {
 }
 
 // ==========================================================================
-// 3. Interactive Stepper
-// ==========================================================================
-
-function doStepper() {
-  document.querySelectorAll('stepper, .stepper').forEach(s => {
-    if (s.querySelector('.controls')) return;
-
-    const steps = s.querySelectorAll('step, .step');
-    if (steps.length === 0) return;
-
-    const totalSteps = steps.length;
-    s.setAttribute('data-total-steps', totalSteps);
-
-    const headerBar = document.createElement('div');
-    headerBar.className = 'stepper-header-bar';
-
-    const badge = document.createElement('span');
-    badge.className = 'stepper-badge';
-    badge.textContent = '⚡ Execució pas a pas';
-
-    const counter = document.createElement('span');
-    counter.className = 'stepper-counter';
-    counter.textContent = `Pas 1 de ${totalSteps}`;
-
-    headerBar.appendChild(badge);
-    headerBar.appendChild(counter);
-
-    const progressBar = document.createElement('div');
-    progressBar.className = 'stepper-progress-bar';
-    const progressFill = document.createElement('div');
-    progressFill.className = 'stepper-progress-fill';
-    progressFill.style.width = `${(1 / totalSteps) * 100}%`;
-    progressBar.appendChild(progressFill);
-
-    s.insertBefore(progressBar, s.firstChild);
-    s.insertBefore(headerBar, progressBar);
-
-    const controlsWrap = document.createElement('div');
-    controlsWrap.className = 'controls';
-
-    const prevnext = document.createElement('div');
-    prevnext.className = 'prevnext';
-
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'prev';
-    prevBtn.type = 'button';
-    prevBtn.innerHTML = '⏮ Anterior';
-    prevBtn.setAttribute('aria-label', 'Pas anterior');
-    prevBtn.disabled = true;
-
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'next';
-    nextBtn.type = 'button';
-    nextBtn.innerHTML = 'Següent ⏭';
-    nextBtn.setAttribute('aria-label', 'Pas següent');
-    nextBtn.disabled = totalSteps <= 1;
-
-    prevnext.appendChild(prevBtn);
-    prevnext.appendChild(nextBtn);
-
-    const resetBtn = document.createElement('button');
-    resetBtn.className = 'reset';
-    resetBtn.type = 'button';
-    resetBtn.innerHTML = '↺ Reiniciar';
-    resetBtn.setAttribute('aria-label', 'Reiniciar execució');
-    resetBtn.disabled = totalSteps <= 1;
-
-    const autoplayBtn = document.createElement('button');
-    autoplayBtn.className = 'autoplay-toggle';
-    autoplayBtn.type = 'button';
-    autoplayBtn.innerHTML = '▶ Reprodueix';
-    autoplayBtn.setAttribute('aria-label', 'Reproducció automàtica');
-    autoplayBtn.disabled = totalSteps <= 1;
-
-    const slider = document.createElement('input');
-    slider.type = 'range';
-    slider.min = '0';
-    slider.max = String(totalSteps - 1);
-    slider.value = '0';
-    slider.setAttribute('aria-label', 'Pas d\'execució');
-    slider.disabled = totalSteps <= 1;
-
-    controlsWrap.appendChild(prevnext);
-    controlsWrap.appendChild(resetBtn);
-    controlsWrap.appendChild(autoplayBtn);
-    controlsWrap.appendChild(slider);
-    s.appendChild(controlsWrap);
-
-    // Insert controls and header at the top before steps
-    s.insertBefore(controlsWrap, s.firstChild);
-    s.insertBefore(headerBar, controlsWrap);
-
-    steps.forEach((st, idx) => {
-      st.setAttribute('data-index', idx);
-      if (idx === 0) {
-        st.classList.add('current');
-      } else {
-        st.classList.remove('current');
-      }
-    });
-
-    let autoplayTimer = null;
-
-    function stopAutoplay() {
-      if (autoplayTimer) {
-        clearInterval(autoplayTimer);
-        autoplayTimer = null;
-        autoplayBtn.innerHTML = '▶ Reprodueix';
-        autoplayBtn.classList.remove('playing');
-      }
-    }
-
-    function goToStep(targetIdx) {
-      if (targetIdx < 0) targetIdx = 0;
-      if (targetIdx >= totalSteps) targetIdx = totalSteps - 1;
-
-      steps.forEach((st, i) => {
-        if (i === targetIdx) {
-          st.classList.add('current');
-        } else {
-          st.classList.remove('current');
-        }
-      });
-
-      slider.value = String(targetIdx);
-      counter.textContent = `Pas ${targetIdx + 1} de ${totalSteps}`;
-      progressFill.style.width = `${((targetIdx + 1) / totalSteps) * 100}%`;
-
-      prevBtn.disabled = targetIdx === 0;
-      nextBtn.disabled = targetIdx === totalSteps - 1;
-
-      if (targetIdx === totalSteps - 1 && autoplayTimer) {
-        stopAutoplay();
-      }
-    }
-
-    nextBtn.addEventListener('click', () => {
-      stopAutoplay();
-      goToStep(parseInt(slider.value, 10) + 1);
-    });
-
-    prevBtn.addEventListener('click', () => {
-      stopAutoplay();
-      goToStep(parseInt(slider.value, 10) - 1);
-    });
-
-    resetBtn.addEventListener('click', () => {
-      stopAutoplay();
-      goToStep(0);
-    });
-
-    slider.addEventListener('input', () => {
-      stopAutoplay();
-      goToStep(parseInt(slider.value, 10));
-    });
-
-    autoplayBtn.addEventListener('click', () => {
-      if (autoplayTimer) {
-        stopAutoplay();
-      } else {
-        let current = parseInt(slider.value, 10);
-        if (current >= totalSteps - 1) {
-          goToStep(0);
-        }
-        autoplayBtn.innerHTML = '⏸ Pausa';
-        autoplayBtn.classList.add('playing');
-        autoplayTimer = setInterval(() => {
-          let curr = parseInt(slider.value, 10);
-          if (curr < totalSteps - 1) {
-            goToStep(curr + 1);
-          } else {
-            stopAutoplay();
-          }
-        }, 1300);
-      }
-    });
-
-    s.tabIndex = 0;
-    s.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        stopAutoplay();
-        goToStep(parseInt(slider.value, 10) + 1);
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        stopAutoplay();
-        goToStep(parseInt(slider.value, 10) - 1);
-      } else if (e.key === 'Home') {
-        e.preventDefault();
-        stopAutoplay();
-        goToStep(0);
-      } else if (e.key === 'End') {
-        e.preventDefault();
-        stopAutoplay();
-        goToStep(totalSteps - 1);
-      }
-    });
-  });
-}
-
-// ==========================================================================
-// 4. Interactive Quizzes
+// 3. Interactive Quizzes
 // ==========================================================================
 
 function doQuizz() {
@@ -1223,17 +1022,72 @@ function loadScript(src) {
   return new Promise((resolve, reject) => {
     const existing = document.querySelector(`script[src="${src}"]`);
     if (existing) {
-      if (typeof window.mermaid !== 'undefined') return resolve(window.mermaid);
-      existing.addEventListener('load', () => resolve(window.mermaid));
+      if (existing.dataset.loaded === 'true' || existing.readyState === 'loaded' || existing.readyState === 'complete') {
+        return resolve();
+      }
+      existing.addEventListener('load', () => resolve());
       existing.addEventListener('error', reject);
       return;
     }
     const script = document.createElement('script');
     script.src = src;
-    script.onload = () => resolve(window.mermaid);
+    script.onload = () => {
+      script.dataset.loaded = 'true';
+      resolve();
+    };
     script.onerror = (e) => reject(new Error('Failed to load script ' + src));
     document.head.appendChild(script);
   });
+}
+
+function loadStylesheet(href) {
+  if (document.querySelector(`link[href="${href}"]`)) {
+    return Promise.resolve();
+  }
+  return new Promise((resolve, reject) => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.onload = () => resolve();
+    link.onerror = () => reject(new Error('Failed to load stylesheet ' + href));
+    document.head.appendChild(link);
+  });
+}
+
+async function initStepperV2() {
+  const steppers = document.querySelectorAll('.stepper-v2, stepper-v2');
+  if (steppers.length === 0) return;
+
+  try {
+    let base = 'assets/';
+    const scriptTag = document.querySelector('script[src*="script.js"]');
+    if (scriptTag) {
+      const src = scriptTag.getAttribute('src');
+      const match = src.match(/^(.*?)js\/script\.js(?:\?.*)?$/);
+      if (match) {
+        base = match[1];
+      }
+    }
+    const jsPath = base + 'stepper/stepper.js';
+    const cssPath = base + 'stepper/stepper.css';
+
+    // 1. Inject CSS if not already present
+    if (!document.querySelector('link[href*="stepper/stepper.css"], link[href*="stepper.css"]')) {
+      loadStylesheet(cssPath).catch(err => console.warn('Could not load stepper.css:', err));
+    }
+
+    // 2. Load JS if not already loaded
+    if (typeof window.initNewSteppers === 'undefined') {
+      await loadScript(jsPath);
+    }
+
+    // 3. Initialize any stepper elements
+    if (typeof window.initNewSteppers === 'function') {
+      window.initNewSteppers();
+    }
+  } catch (err) {
+    console.warn('Could not load or initialize Stepper 2.0:', err);
+  }
 }
 
 // ==========================================================================
@@ -1405,7 +1259,7 @@ function initApp() {
     { name: 'autoAttributes', fn: autoAttributes },
     { name: 'syntaxHighlight', fn: syntaxHighlight },
     { name: 'initCopyCodeButtons', fn: initCopyCodeButtons },
-    { name: 'doStepper', fn: doStepper },
+    { name: 'initStepperV2', fn: initStepperV2 },
     { name: 'doQuizz', fn: doQuizz },
     { name: 'initMermaid', fn: initMermaid },
     { name: 'navigation', fn: navigation },
@@ -1436,7 +1290,7 @@ if (typeof document !== 'undefined') {
 if (typeof window !== 'undefined') {
   window.Prism = Prism;
   window.syntaxHighlight = syntaxHighlight;
-  window.doStepper = doStepper;
+  window.initStepperV2 = initStepperV2;
   window.doQuizz = doQuizz;
   window.initMermaid = initMermaid;
 }

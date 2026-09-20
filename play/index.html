@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Stepper 2.0 — Laboratori i Proves de Concepte</title>
+    <title>Stepper 2.0 — Playground</title>
     <link rel="stylesheet" href="../assets/css/estil.css">
-    <link rel="stylesheet" href="stepper.css">
+    <link rel="stylesheet" href="../assets/stepper/stepper.css">
     <script src="../assets/js/script.js"></script>
-    <script src="stepper.js"></script>
+    <script src="../assets/stepper/stepper.js"></script>
     <style>
         .playground-container {
             display: grid;
@@ -19,11 +19,8 @@
             border-radius: var(--radius-md);
             padding: 1.5em;
         }
-        @media(min-width: 900px) {
-            .playground-container {
-                grid-template-columns: 1fr 1.15fr;
-            }
-        }
+
+    
         .playground-editor textarea {
             width: 100%;
             height: 380px;
@@ -76,108 +73,18 @@
     </style>
 </head>
 <body>
-<nav></nav>
-<header>
-    <p><a href="../u2/index.html">← Tornar a la Unitat 2</a></p>
-    <h1>Laboratori de Proves: Stepper 2.0</h1>
-    <p>Simulador automàtic d'execució Java, suport complet de bucles (<code>while</code>, <code>for</code>) i desglossament explícit de les fases del <code>for</code>.</p>
-</header>
 <section>
 
-    <div class="info">
-        <h3>Com hem resolt els bucles i les parts del <code>for</code>?</h3>
-        <p>Ara l'Stepper disposa de <strong>dos modes</strong> que treballen conjuntament:</p>
-        <ol>
-            <li><strong>Mode Auto-Simulació (Zero esforç):</strong> Només escrius el codi Java. El motor <strong>executa el bucle</strong> de veritat, repeteix les iteracions, actualitza la memòria, i per a cada <code>for</code> anuncia explícitament la fase: <strong>Inicialització</strong>, <strong>Condició</strong>, <strong>Cos</strong> i <strong>Modificació</strong>.</li>
-            <li><strong>Mode Declaratiu Personalitzat:</strong> Si vols escriure explicacions pròpies, pots afegir l'atribut <code>part="init"</code>, <code>part="cond"</code>, <code>part="body"</code> o <code>part="update"</code> per ressaltar automàticament la subexpressió corresponent i mostrar la xapa identificativa.</li>
-        </ol>
-    </div>
-
-    <div class="feature-box">
-        <div class="feature-card">
-            <h4>🔄 Repetició Real de Bucles</h4>
-            <p>El bucle no va només de dalt a baix: en cada iteració la traça torna a pujar a avaluar la condició fins que esdevé falsa.</p>
-        </div>
-        <div class="feature-card">
-            <h4>🏷️ Fases del <code>for</code> Explicades</h4>
-            <p>Distingeix clarament les 4 fases amb xapes visuals: <span class="stepper-phase-badge part-init">Inicialització</span> <span class="stepper-phase-badge part-cond">Condició</span> <span class="stepper-phase-badge part-body">Cos</span> <span class="stepper-phase-badge part-update">Modificació</span></p>
-        </div>
-        <div class="feature-card">
-            <h4>🎯 Ressaltat Sub-expressió</h4>
-            <p>Dins la capçalera <code>for (init; cond; update)</code>, només es ressalta el fragment actiu en cada pas.</p>
-        </div>
-    </div>
-
-    <hr>
-
-    <h2>Demostració 1: Bucle <code>while</code> amb Repetició Real</h2>
-    <p>Aquest stepper <strong>s'ha generat automàticament</strong> a partir del codi font. Observa com a cada iteració torna a pujar a la línia 3 per avaluar la condició, actualitza la memòria i finalitza quan <code>n &gt; 0</code> és fals:</p>
-
-    <!-- STEPPER 1: WHILE LOOP -->
-    <div class="stepper-v2" java auto title="Execució Bucle While">
-        <code class="source">
-int n = 3;
-int fact = 1;
-
-while (n > 0) {
-    fact *= n;
-    n--;
-}
-
-println("Fact: " + fact);
-        </code>
-    </div>
-
-    <hr>
-
-    <h2>Demostració 2: Bucle <code>for</code> amb Indicació Explícita de les 4 Fases</h2>
-    <p>Aquest és l'exemple clàssic de la Unitat 2 (<code>int n = 3; for (int i = 0; i &lt; n; i++) print(i + " ");</code>). Fixa't en les xapes superiors que indiquen <strong>exactament quina part del for s'executa</strong>:</p>
-
-    <!-- STEPPER 2: FOR LOOP -->
-    <div class="stepper-v2" java auto title="Execució Bucle For pas a pas">
-        <code class="source">
-int n = 3;
-for (int i = 0; i < n; i++) {
-    print(i + " ");
-}
-        </code>
-    </div>
-
-    <hr>
-
-    <h2>Demostració 3: Bucle amb Entrada de Teclat (Scanner)</h2>
-    <p>El simulador també llegeix de la cua d'entrades de teclat (amb l'atribut <code>in="2, 5"</code>) i executa el bucle complet sumant els valors:</p>
-
-    <!-- STEPPER 3: SCANNER & FOR -->
-    <div class="stepper-v2" java auto in="2, 5" title="Bucle amb Scanner (in='2, 5')">
-        <code class="source">
-int ini = scanner.nextInt();
-int fin = scanner.nextInt();
-
-int sum = 0;
-for (int i = ini; i <= fin; i++) {
-    sum += i;
-}
-
-println(sum);
-        </code>
-    </div>
-
-    <hr>
-
-    <h2>Playground Interactiu / Editor en Viu</h2>
-    <p>Escriu qualsevol codi Java a l'editor (amb <code>while</code>, <code>for</code>, <code>if/else</code>...) i fes clic a <strong>"Renderitzar Stepper"</strong>:</p>
-
     <div style="display: flex; gap: 0.5em; margin-bottom: 0.75em; flex-wrap: wrap;">
-        <span style="color: var(--text-muted); font-size: 0.85rem; align-self: center;">Carregar plantilla:</span>
         <button type="button" class="preset-btn" onclick="loadPreset('for')">Bucle For</button>
         <button type="button" class="preset-btn" onclick="loadPreset('while')">Bucle While</button>
         <button type="button" class="preset-btn" onclick="loadPreset('ifelse')">If-Else If</button>
         <button type="button" class="preset-btn" onclick="loadPreset('switch')">Switch Enhanced</button>
         <button type="button" class="preset-btn" onclick="loadPreset('switchexpr')">Switch Expression</button>
         <button type="button" class="preset-btn" onclick="loadPreset('breaklabel')">Break amb Etiqueta</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('arrays')">Arrays / Vectors</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('arrays')">Arrays</button>
         <button type="button" class="preset-btn" onclick="loadPreset('scanner')">Scanner</button>
+        <button type="button" class="preset-btn" onclick="loadPreset('ioreadln')">IO.readln</button>
     </div>
 
     <div class="playground-container">
@@ -312,6 +219,15 @@ for (int i = ini; i <= fin; i++) {
 
 println(sum);
   </code>
+</div>`,
+        ioreadln: `<div class="stepper-v2" java auto in="Maria\n25" title="Entrada amb IO.readln()">
+  <code class="source">
+void main() {
+    String nom = IO.readln("Com et dius? ");
+    int edat = Integer.parseInt(IO.readln("Quina edat tens? "));
+    println("Hola, " + nom + "! L'any que ve tindràs " + (edat + 1) + " anys.");
+}
+  </code>
 </div>`
     };
 
@@ -331,7 +247,10 @@ println(sum);
             mount.innerHTML = txt.value;
             const created = mount.querySelector('.stepper-v2, stepper-v2');
             if (created) {
-                setupStepper(created);
+                const initFn = window.setupStepper || (typeof setupStepper !== 'undefined' ? setupStepper : null);
+                if (initFn) {
+                    initFn(created);
+                }
             }
         }
 
