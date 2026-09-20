@@ -138,8 +138,8 @@ println("Llançament!");
 
     <div class="stepper-v2" java auto in="2&#10;5" title="Bucle For: Sumatori amb Entrada">
 <code class="source">
-int ini = scanner.nextInt();
-int fin = scanner.nextInt();
+int ini = Integer.parseInt(IO.readln());
+int fin = Integer.parseInt(IO.readln());
 
 int sum = 0;
 for (int i = ini; i <= fin; i++) {
@@ -156,7 +156,7 @@ println(sum);
     <div class="stepper-v2" java auto in="3&#10;4&#10;6" title="Bucle For Ometent Parts">
 <code class="source">
 println("Endevina el número secret:");
-for (; scanner.nextInt() != 6; ) {
+for (; Integer.parseInt(IO.readln()) != 6; ) {
     println("Segueix intentant-ho");
 }
 println("L'has endevinat!");

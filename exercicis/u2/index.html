@@ -14,261 +14,380 @@
     </script>
 </head>
 <body>
-<nav></nav>
-<header>
-    <p><a href="../index.html">← Tornar a l'índex d'exercicis</a></p>
-    <h1>Exercicis i Qüestionaris U2: Control de Flux</h1>
-</header>
-<section>
-
-    <div class="info">
-        <h3>Autoavaluació interactiva d'U2</h3>
-        <p>Aquests qüestionaris avaluen el control del flux d'un programa: decisions amb <code class="w">if-else</code> i <code class="w">switch</code>, repeticions amb <code class="w">for</code>, <code class="w">while</code> i <code class="w">do-while</code>, i interrupcions amb <code class="w">break</code> i <code class="w">continue</code>.</p>
-    </div>
-
-    <h2>1. Sentències Condicionals (if-else i switch)</h2>
-    <p>Determina la sortida del programa segons els camins d'execució presos.</p>
-    <div class="quizz">
-        <div class="question" order="">
-            <div class="statement">
-                <p>Construeix el codi que determina si <code class="w">num</code> és parell o senar:</p>
-                <p class="order-hint">Arrossega des d'ací (o clica dues línies per intercanviar-les):</p>
-            </div>
-            <div class="o" data-order="4">}</div>
-            <div class="o" data-order="0">if ( num % 2 == 0 ) {</div>
-            <div class="o" data-order="2">} else {</div>
-            <div class="o" data-order="3">    System.out.println("Senar");</div>
-            <div class="o" data-order="1">    System.out.println("Parell");</div>
+    <nav></nav>
+    <header>
+        <p><a href="../index.html">← Tornar a l'índex d'exercicis</a></p>
+        <h1>Exercicis i Qüestionaris U2: Control de Flux</h1>
+    </header>
+    <section>
+        
+        <div class="info">
+            <h3>Autoavaluació interactiva d'U2</h3>
+            <p>Aquests qüestionaris avaluen el control del flux d'un programa: decisions amb <code class="w">if-else</code> i <code class="w">switch</code>, repeticions amb <code class="w">for</code>, <code class="w">while</code> i <code class="w">do-while</code>, i interrupcions amb <code class="w">break</code> i <code class="w">continue</code>.</p>
         </div>
-        <div class="question" single="">
-<div class="statement">
-<p>Si <code class="w">val</code> és 50, quina és la sortida d'aquest codi?</p>
-<div class="sc" java="">
-                    if (val == 10) {
-                        System.out.println("val == 10");
-                    } else if (val &gt;= 20 &amp;&amp; val &lt; 50) {
-                        System.out.println("20 &lt;= val &lt; 50");
-                    } else {
-                        if (val &lt; 20) {
-                            System.out.println("val &lt; 20");
-                        } else {
-                            System.out.println("val &gt;= 50");
+        
+        <h2>1. Sentències Condicionals (if-else i switch)</h2>
+        <p>Determina la sortida del programa segons els camins d'execució presos.</p>
+        <div class="quizz">
+            <div class="question" order="">
+                <div class="statement">
+                    <p>Construeix el codi que determina si <code class="w">num</code> és parell o senar:</p>
+                    <p class="order-hint">Arrossega des d'ací (o clica dues línies per intercanviar-les):</p>
+                </div>
+                <div class="o">if ( num % 2 == 0 ) {</div>
+                <div class="o">    println("Parell");</div>
+                <div class="o">} else {</div>
+                <div class="o">    println("Senar");</div>
+                <div class="o">}</div>
+            </div>
+            <div class="question" single="">
+                <div class="statement">
+                    <p>Si <code class="w">val</code> és 50, quina és la sortida d'aquest codi?</p>
+                    <div class="sc" java="">
+                                if (val == 10) {
+                                    println("val == 10");
+                                } else if (val &gt;= 20 &amp;&amp; val &lt; 50) {
+                                    println("20 &lt;= val &lt; 50");
+                                } else {
+                                    if (val &lt; 20) {
+                                        println("val &lt; 20");
+                                    } else {
+                                        println("val &gt;= 50");
+                                    }
+                                }
+                    </div>
+                </div>
+                <div class="o">val &lt; 20</div>
+                <div class="o" correct="">val &gt;= 50</div>
+                <div class="o">val == 10</div>
+                <div class="o">20 &lt;= val &lt; 50</div>
+                <div class="o">Cap d'aquestes</div>
+            </div>
+            <div class="question" single="">
+                <div class="statement">
+                    <p>Selecciona l'exemple correcte de la sentència condicional</p>
+                </div>
+                <div class="o">
+                    <div class="sc" java="">
+                        if i &lt; j { 
+                            String a = "Hello";
                         }
-                    }
+                    </div>
                 </div>
-</div>
-<div class="o">val &lt; 20</div>
-<div class="o" correct="">val &gt;= 50</div>
-<div class="o">val == 10</div>
-<div class="o">20 &lt;= val &lt; 50</div>
-<div class="o">Cap d'aquestes</div>
-</div>
-<div class="question" single="">
-<div class="statement">
-<p>Selecciona l'exemple correcte de la sentència condicional</p>
-</div>
-<div class="o"><div class="sc" java="">
-                if i &lt; j { 
-                    String a = "Hello";
-                 }</div></div>
-<div class="o"><div class="sc" java="">
-                if (i &lt; j): 
-                String a = "Hello";
-                </div></div>
-<div class="o" correct=""><div class="sc" java="">
-                if (i &lt; j) { 
-                    String a = "Hello";
-                }</div></div>
-<div class="o"><div class="sc" java="">
-                if {i &lt; j} ( 
-                    String a = "Hello";
-                )</div></div>
-<div class="o"><div class="sc" java="">
-                if [i &lt; j] 
-                    String a = "Hello";
-                </div></div>
-</div>
-<div class="question" multi="">
-<div class="statement">
-<p>Selecciona la sortida del programa segons el valor de la variable <code class="w">a</code>.</p>
-<div class="sc" java="">
-                    if (a &lt;= 0) {
-                        if(a == 0) {
-                            System.out.println("a");
-                        } else { 
-                            System.out.println("b");
+                <div class="o">
+                    <div class="sc" java="">
+                        if (i &lt; j): 
+                            String a = "Hello";
+                    </div>
+                </div>
+                <div class="o" correct="">
+                    <div class="sc" java="">
+                        if (i &lt; j) { 
+                            String a = "Hello";
                         }
-                    }
-                    System.out.print("c");
+                    </div>
                 </div>
-</div>
-<p><code class="w">a = 0</code></p>
-<div class="o">a</div>
-<div class="o">ab</div>
-<div class="o" correct="">ac</div>
-<div class="o">c</div>
-<p><code class="w">a = -1</code></p>
-<div class="o">ab</div>
-<div class="o" correct="">bc</div>
-<div class="o">ac</div>
-<div class="o">c</div>
-<p><code class="w">a = 1</code></p>
-<div class="o">ab</div>
-<div class="o">bc</div>
-<div class="o">ac</div>
-<div class="o" correct="">c</div>
-</div>
-</div>
-    <div class="quizz">
-<div class="question" text="">
-<div class="statement">
-<p>Què imprimeix el següent programa?</p>
-<div class="sc" java="">
-                    String foo = "B";
-                    int bar = 0;
-            
-                    switch (foo){
-                        case "A":
-                            bar += 10;
-                        case "B":
-                            bar += 20;
-                        case "C":
-                            bar += 30;
-                        default:
-                            bar += 40;
-                    }
-            
-                    System.out.println(bar);
+                <div class="o">
+                    <div class="sc" java="">
+                        if {i &lt; j} ( 
+                            String a = "Hello";
+                        )
+                    </div>
                 </div>
-</div>
-<div class="o">90</div>
-</div>
-</div>
-
-    <h2>2. Estructures Repetitives (Bucles for, while, do-while)</h2>
-    <p>Calcula el nombre d'iteracions i el resultat del programa en executar bucles.</p>
-    <div class="quizz">
-<div class="question" single="">
-<div class="statement">
-<p>El següent codi calcula la suma dels números en el rang <code class="w">ini</code> a <code class="w">fin</code> (inclusiu). El resultat
-                es va emmagatzemant en la variable <code class="w">acumulador</code>.</p>
-<div class="sc" java="">
-                    int accumulator = 0;                  
-                    for (int i = start; i &lt;= end; i++) { 
-                        accumulator += i;                 
-                    }
+                <div class="o">
+                    <div class="sc" java="">
+                        if [i &lt; j] 
+                            String a = "Hello";
+                    </div>
                 </div>
-<p>Quin dels següents codis calcula la multiplicació dels números en el rang?</p>
-</div>
-<div class="o" correct="">
-<div class="sc" java="">
-                    int accumulator = 1;                  
-                    for (int i = start; i &lt;= end; i++) { 
-                        accumulator *= i;                 
-                    }
-                </div>
-</div>
-<div class="o">
-<div class="sc" java="">
-                    int accumulator = 0;                  
-                    for (int i = 1; i &lt;= end; i++) { 
-                        accumulator *= i;                 
-                    }
-                </div>
-</div>
-<div class="o">
-<div class="sc" java="">
-                    int accumulator = 1;                  
-                    for (int i = start; i &lt;= end; i *= 1) { 
-                        accumulator += i;                 
-                    }
-                </div>
-</div>
-<div class="o">
-<div class="sc" java="">
-                    int accumulator = 1;                  
-                    for (int i = 1; i &lt;= end; i++) { 
-                        accumulator += i;                 
-                    }
-                </div>
-</div>
-</div>
-<div class="question" single="">
-<div class="statement">
-<p>Què imprimeix el següent codi?</p>
-<div class="sc" java="">
-                    int i = 0; 
-                    for (int k = 0; k &lt; 100; k++) { 
-                        i++; 
-                    } 
-                    System.out.println(i);
-                </div>
-</div>
-<div class="o">101</div>
-<div class="o" correct="">100</div>
-<div class="o">0</div>
-<div class="o">99</div>
-</div>
-</div>
-
-    <h2>3. Salts de Control (break i continue)</h2>
-    <p>Comprova com s'interrompen o es continuen els bucles en trobar aquestes sentències.</p>
-    <div class="quizz">
-<div class="question" single="">
-<div class="statement">
-<p>Què imprimeix el següent codi?</p>
-<div class="sc" java="">
-                    for (int i = 0; i &lt; 11; i++) {
-                        if (i % 2 != 0) {
-                            continue;
-                        } 
-                        System.out.print(i + " ");
-                    }
-                </div>
-</div>
-<div class="o" correct="">0 2 4 6 8 10</div>
-<div class="o">1 3 5 7 9</div>
-<div class="o">0 2 4 6 8 10 11</div>
-<div class="o">0</div>
-</div>
-<div class="question" text="">
-<div class="statement">
-<p>Quants números imprimex el següent programa?</p>
-<div class="sc" java=""> 
-                    for (int i = 0; i &lt; 5; i++) {
-                        System.out.println(i);
-                        if (i &lt; 3) {
-                            continue;
-                        } else {
-                            for (int j = 0; j &lt; 5; j++) {
-                                System.out.println(j);
+            </div>
+            <div class="question" multi="">
+                <div class="statement">
+                    <p>Selecciona la sortida del programa segons el valor de la variable <code class="w">a</code>.</p>
+                    <div class="sc" java="">
+                        if (a &lt;= 0) {
+                            if(a == 0) {
+                                println("a");
+                            } else { 
+                                println("b");
                             }
-                        }        
-                    }
+                        }
+                        print("c");
+                    </div>
                 </div>
-</div>
-<div class="o">15</div>
-</div>
-</div>
+                <p><code class="w">a = 0</code></p>
+                <div class="o">a</div>
+                <div class="o">ab</div>
+                <div class="o" correct="">ac</div>
+                <div class="o">c</div>
+                <p><code class="w">a = -1</code></p>
+                <div class="o">ab</div>
+                <div class="o" correct="">bc</div>
+                <div class="o">ac</div>
+                <div class="o">c</div>
+                <p><code class="w">a = 1</code></p>
+                <div class="o">ab</div>
+                <div class="o">bc</div>
+                <div class="o">ac</div>
+                <div class="o" correct="">c</div>
+            </div>
+            <div class="question" order="">
+                <div class="statement">
+                    <p>Construeix el codi que recomana què has d'agafar per ixir de casa segons el temps que fa:</p>
+                    <p class="order-hint">Arrossega des d'ací (o clica dues línies per intercanviar-les):</p>
+                </div>
+                <div class="o">if (plou) {</div>
+                <div class="o">    if (vent) {</div>
+                <div class="o">        print("Posa't l'impermeable! 🧥");</div>
+                <div class="o">    } else {</div>
+                <div class="o">        print("Bring an umbrella! ☔️");</div>
+                <div class="o">    }</div>
+                <div class="o">} else {</div>
+                <div class="o">    if (fred) {</div>
+                <div class="o">        print("Agafa l'abric 🥶");</div>
+                <div class="o">    } else {</div>
+                <div class="o">        print("Disfruta el dia! 🌈☀️");</div>
+                <div class="o">    }</div>
+                <div class="o">}</div>
 
-    <h2>4. Exercicis Pràctics de Control de Flux</h2>
-    <div class="work">
-        <h3>Exercicis proposats</h3>
-        <ul>
-            <li><p><strong>Classificador de nombres:</strong> Llegeix un número enter i indica si és positiu, negatiu o zero, i si és parell o senar.</p></li>
-            <li><p><strong>Taula de multiplicar:</strong> Demana un enter N i mostra la seva taula de multiplicar de l'1 al 10 utilitzant un bucle <code class="w">for</code>.</p></li>
-            <li><p><strong>Suma acumulada fins a zero:</strong> Demana nombres contínuament fins que l'usuari introdueixi el número <code class="w">0</code> utilitzant un bucle <code class="w">while</code>, i mostra la suma total i la mitjana.</p></li>
-            <li><p><strong>Cerca amb break:</strong> Troba el primer múltiple de 7 i 11 més gran que 100 i atura la cerca immediatament amb <code class="w">break</code>.</p></li>
-        </ul>
+            </div>
+        </div>
+        <div class="quizz">
+            <div class="question" text="">
+                <div class="statement">
+                    <p>Què imprimeix el següent programa?</p>
+                    <div class="sc" java="">
+                        String foo = "B";
+                        int bar = 0;
+                        
+                        switch (foo){
+                            case "A" -> bar += 10;
+                            case "B" -> bar += 20;
+                            case "C" -> bar += 30;
+                            default -> bar += 40;
+                        }
+                        
+                        println(bar);
+                    </div>
+                </div>
+                <div class="o">90</div>
+            </div>
+        </div>
+                            
+        <h2>2. Estructures Repetitives (Bucles for, while, do-while)</h2>
+        <p>Calcula el nombre d'iteracions i el resultat del programa en executar bucles.</p>
+        <div class="quizz">
+            <div class="question" single="">
+                <div class="statement">
+                    <p>El següent codi calcula la suma dels números en el rang <code class="w">ini</code> a <code class="w">fin</code> (inclusiu). El resultat
+                        es va emmagatzemant en la variable <code class="w">acumulador</code>.</p>
+                    <div class="sc" java="">
+                        int accumulator = 0;                  
+                        for (int i = start; i &lt;= end; i++) { 
+                            accumulator += i;                 
+                        }
+                    </div>
+                    <p>Quin dels següents codis calcula la multiplicació dels números en el rang?</p>
+                </div>
+                <div class="o" correct="">
+                    <div class="sc" java="">
+                        int accumulator = 1;                  
+                        for (int i = start; i &lt;= end; i++) { 
+                            accumulator *= i;                 
+                        }
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="">
+                        int accumulator = 0;                  
+                        for (int i = 1; i &lt;= end; i++) { 
+                            accumulator *= i;                 
+                        }
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="">
+                        int accumulator = 1;                  
+                        for (int i = start; i &lt;= end; i *= 1) { 
+                            accumulator += i;                 
+                        }
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="">
+                        int accumulator = 1;                  
+                        for (int i = 1; i &lt;= end; i++) { 
+                            accumulator += i;                 
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="question" single="">
+                <div class="statement">
+                    <p>Què imprimeix el següent codi?</p>
+                    <div class="sc" java="">
+                        int i = 0; 
+                        for (int k = 0; k &lt; 100; k++) { 
+                            i++; 
+                        } 
+                        println(i);
+                    </div>
+                </div>
+                <div class="o">101</div>
+                <div class="o" correct="">100</div>
+                <div class="o">0</div>
+                <div class="o">99</div>
+            </div>
+        </div>
+            
+        <h2>3. Salts de Control (break i continue)</h2>
+        <p>Comprova com s'interrompen o es continuen els bucles en trobar aquestes sentències.</p>
+        <div class="quizz">
+            <div class="question" single="">
+                <div class="statement">
+                    <p>Què imprimeix el següent codi?</p>
+                    <div class="sc" java="">
+                        for (int i = 0; i &lt; 11; i++) {
+                            if (i % 2 != 0) {
+                                continue;
+                            } 
+                            print(i + " ");
+                        }
+                    </div>
+                </div>
+                <div class="o" correct="">0 2 4 6 8 10</div>
+                <div class="o">1 3 5 7 9</div>
+                <div class="o">0 2 4 6 8 10 11</div>
+                <div class="o">0</div>
+            </div>
+            <div class="question" text="">
+                <div class="statement">
+                    <p>Quants números imprimex el següent programa?</p>
+                    <div class="sc" java=""> 
+                        for (int i = 0; i &lt; 5; i++) {
+                            println(i);
+                            if (i &lt; 3) {
+                                continue;
+                            } else {
+                                for (int j = 0; j &lt; 5; j++) {
+                                    println(j);
+                                }
+                            }        
+                        }
+                    </div>
+                </div>
+                <div class="o">15</div>
+            </div>
+        </div>
+            
+        <h2>4. Exercicis Pràctics de Control de Flux</h2>
+        <div class="work">
+            <h3>Exercicis proposats</h3>
+            <ol>
+                <li>
+                    <p><strong>Classificador de nombres:</strong></p>
+                    <p>Llegeix un número enter i indica si és positiu, negatiu o zero, i si és parell o senar.</p>
+                    <div class="shell">Introdueix un número: <span class="in">7</span> 
+                        El número 7 es positiu i senar.
+                    </div>
+                </li>
+                <li>
+                    <p><strong>Major de tres números:</strong></p>
+                    <p>Llegeix tres números enters i mostra quin es el major. Si hi ha empat, indica-ho amb un missatge.</p>
+                    <div class="shell">Introdueix el primer número: <span class="in">7</span>
+                        Introdueix el segon número: <span class="in">12</span>
+                        Introdueix el tercer número: <span class="in">5</span>
+                        El número 12 es el major.
+                    </div>
+                </li>
+                <li>
+                    <p><strong>Precio de la entrada:</strong></p>
+                    <p>Un parc d'atracciones cobra segons l'edat:</p>
+                    <ul>
+                        <li>menors de 3 anys: gratis</li>
+                        <li>de 3 a 12 anys: 5 €</li>
+                        <li>de 13 a 17 anys: 10 €</li>
+                        <li>de 18 a 64 anys: 15 €</li>
+                        <li>65 anys o més: 7 €</li>
+                    </ul>
+                    <div class="shell">Introdueix l'edat: <span class="in">25</span>
+                        El preu de l'entrada és de 15 €.
+                    </div>
+                </li>
+                <li>
+                    <p><strong>Temps de pantalla:</strong></p>
+                    <p>La teua aplicació de benestar digital advertix a l'usuari segons les hores d'ús de pantalla diàries.</p>
+                    <ul>
+                        <li>Ús saludable</li>
+                        <li>Ús moderat</li>
+                        <li>Ús elevat</li>
+                        <li>Possible addicció</li>
+                    </ul>
+                    <div class="shell">Hores de pantalla diàries: <span class="in">25</span>
+                        Possible addicció.
+                    </div>
+                </li>
+                <li>
+                    <p><strong>Variants</strong></p>
+                    <p>Crea una variant dels dos exercicis anteriors amb la temàtica que t'agrade. Exemples:</p>
+                    <ul>
+                        <li>rang en un videojoc segons els punts: (bronce, plata, oro, diamante)</li>
+                        <li>nivell de risc d'un pacient segons els signes vitals (baix, moderat, alt, crític)</li>
+                        <li>nivel de influencer segons el nombre de seguidors: cuenta en creimiento, nano-influencer, micro-influencer, macro-influencer, mega-influencer</li>
+                        <li>bateria en el mòbil: crítica, baixa, mitjana, completa</li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>switch2if</strong></p>
+                    <p>Transforma el següent codi amb <code class="w">switch</code> a un codi amb <code class="w">if-else</code>:</p>
+                    <div class="sc">
+    String clase = IO.readln("Elige tu clase (guerrero, mago, arquero, cazador, ladrón): ");
 
-        <h3>Reptes addicionals</h3>
-        <ul>
-            <li><p><strong>Anys de traspàs:</strong> Determina si un any és de traspàs (múltiple de 4, excepte els múltiples de 100 que no siguin de 400).</p></li>
-            <li><p><strong>Calcular Factorial:</strong> Demana un enter positiu N i calcula el seu factorial (N!) mitjançant un bucle for.</p></li>
-            <li><p><strong>Endevina el número secret:</strong> Demana intents successius a l'usuari per encertar un nombre secret, indicant "Més gran" o "Més petit" en cada intent.</p></li>
-        </ul>
-    </div>
+    String habilidad = switch (clase) {
+        case "guerrero" -> "Golpe sísmico: daño masivo en área";
+        case "mago" -> "Tormenta arcana: lluvia de meteoritos";
+        case "arquero", "cazador" -> "Disparo certero: crítico garantizado a distancia";
+        case "ladrón" -> "Sombra veloz: invisibilidad durante 5 segundos";
+        default -> "Clase desconocida: ¡crea un personaje nuevo!";
+    };
 
-</section>
+    IO.println("Habilidad especial: " + habilidad);
+                    </div>
+                </li>
+                <li>
+                    <p><strong>if2switch</strong></p>
+                    <p>Transforma el següent codi amb <code class="w">if-else</code> a un codi amb <code class="w">switch</code>:</p>
+
+                    <div class="sc">
+    String tipo = IO.readln("Tipo de tu Pokémon (fuego, agua, planta, eléctrico, tierra, roca): ");
+
+    String debilidad;
+    if (tipo.equals("fuego")) {
+        debilidad = "Agua, Tierra y Roca";
+    } else if (tipo.equals("agua")) {
+        debilidad = "Planta y Eléctrico";
+    } else if (tipo.equals("planta")) {
+        debilidad = "Fuego";
+    } else if (tipo.equals("eléctrico")) {
+        debilidad = "Tierra";
+    } else if (tipo.equals("tierra") || tipo.equals("roca")) {
+        debilidad = "Agua y Planta";
+    } else {
+        debilidad = "Tipo desconocido: ¡consulta la Pokédex!";
+    }
+
+    IO.println("Débil ante: " + debilidad);
+                    </div>
+                </li>
+                <li><p><strong>Taula de multiplicar:</strong> Demana un enter N i mostra la seva taula de multiplicar de l'1 al 10 utilitzant un bucle <code class="w">for</code>.</p></li>
+                <li><p><strong>Suma acumulada fins a zero:</strong> Demana nombres contínuament fins que l'usuari introdueixi el número <code class="w">0</code> utilitzant un bucle <code class="w">while</code>, i mostra la suma total i la mitjana.</p></li>
+                <li><p><strong>Cerca amb break:</strong> Troba el primer múltiple de 7 i 11 més gran que 100 i atura la cerca immediatament amb <code class="w">break</code>.</p></li>
+                <li><p><strong>Anys de traspàs:</strong> Determina si un any és de traspàs (múltiple de 4, excepte els múltiples de 100 que no siguin de 400).</p></li>
+                <li><p><strong>Calcular Factorial:</strong> Demana un enter positiu N i calcula el seu factorial (N!) mitjançant un bucle for.</p></li>
+                <li><p><strong>Endevina el número secret:</strong> Demana intents successius a l'usuari per encertar un nombre secret, indicant "Més gran" o "Més petit" en cada intent.</p></li>
+            </ol>
+        </div>
+    </section>
 </body>
 </html>
+                        

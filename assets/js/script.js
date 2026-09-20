@@ -676,6 +676,16 @@ function shuffleNodes(parent) {
   }
 }
 
+function getOptionContentKey(o) {
+  if (o.children.length === 0) {
+    let text = o.textContent;
+    text = text.replace(/^[\r\n]+/, '');
+    text = text.replace(/[\r\n\s]+$/, '');
+    return text;
+  }
+  return o.innerHTML.replace(/^[\r\n]+/, '').replace(/[\r\n\s]+$/, '');
+}
+
 function initOrderQuestion(q, checkBtn, retryBtn, feedback) {
   const orderContainer = document.createElement('div');
   orderContainer.className = 'order-container order-list';
@@ -688,9 +698,20 @@ function initOrderQuestion(q, checkBtn, retryBtn, feedback) {
     initialOptions = Array.from(q.querySelectorAll('o, .o'));
   }
 
+  // Group options with identical content so they are interchangeable (share valid target positions)
+  const contentKeys = initialOptions.map(o => getOptionContentKey(o));
+  const keyToIndices = new Map();
+  contentKeys.forEach((key, index) => {
+    if (!keyToIndices.has(key)) {
+      keyToIndices.set(key, []);
+    }
+    keyToIndices.get(key).push(index);
+  });
+
   initialOptions.forEach((o, i) => {
     if (!o.hasAttribute('data-order')) {
-      o.setAttribute('data-order', String(i));
+      const validIndices = keyToIndices.get(contentKeys[i]) || [i];
+      o.setAttribute('data-order', validIndices.join(','));
     }
     o.id = o.id || ('order_' + Math.random().toString(36).substring(2, 9));
     o.classList.add('order-item');
@@ -798,6 +819,7 @@ function shuffleOrderNodes(container) {
 function enableOrderDragAndDrop(container) {
   let draggedEl = null;
   let selectedClickEl = null;
+  let isDragging = false;
 
   const clearDropIndicators = () => {
     container.querySelectorAll('.drag-over-top, .drag-over-bottom').forEach(el => {
@@ -821,6 +843,7 @@ function enableOrderDragAndDrop(container) {
 
     item.addEventListener('dragstart', (e) => {
       draggedEl = item;
+      isDragging = true;
       item.classList.add('dragging');
       if (e.dataTransfer) {
         e.dataTransfer.effectAllowed = 'move';
@@ -832,6 +855,7 @@ function enableOrderDragAndDrop(container) {
       if (draggedEl) draggedEl.classList.remove('dragging');
       clearDropIndicators();
       draggedEl = null;
+      setTimeout(() => { isDragging = false; }, 50);
     });
 
     item.addEventListener('dragover', (e) => {
@@ -877,6 +901,7 @@ function enableOrderDragAndDrop(container) {
     });
 
     item.addEventListener('click', () => {
+      if (isDragging) return;
       if (!selectedClickEl) {
         selectedClickEl = item;
         item.classList.add('selected-swap');

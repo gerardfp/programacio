@@ -1118,6 +1118,9 @@ quizz, .quizz {
 }
 
 :is(question, .question) .order-container :is(o, .o) {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
     margin: 0;
     background: #1e293b;
     border: 1px solid rgba(255, 255, 255, 0.12);
