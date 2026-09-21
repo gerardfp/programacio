@@ -148,6 +148,20 @@
   color: #38bdf8;
 }
 
+.stepper-v2 button.btn-reset.needs-reset {
+  background: rgba(56, 189, 248, 0.25) !important;
+  border-color: var(--step-accent-blue) !important;
+  color: #38bdf8 !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+  animation: pulse-reset 1.8s infinite;
+}
+
+@keyframes pulse-reset {
+  0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6); }
+  70% { box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+}
+
 .stepper-v2 .stepper-slider {
   flex: 1;
   min-width: 120px;
@@ -201,76 +215,101 @@
 /* Code Panel (Left) */
 .stepper-v2 .stepper-code-panel {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: stretch;
   background: var(--step-bg-code);
   border-right: 1px solid var(--step-border);
   overflow-x: auto;
+  position: relative;
+  transition: box-shadow 0.2s ease;
+}
+
+.stepper-v2 .stepper-code-panel:focus-within {
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.4);
+}
+
+.stepper-v2 .code-gutter {
+  width: 44px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em 0;
+  background: rgba(0, 0, 0, 0.22);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  user-select: none;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.stepper-v2 .code-line-num {
+  height: 1.55em;
+  line-height: 1.55;
+  text-align: right;
+  padding: 0 10px 0 6px;
+  color: #4b5563;
+  font-family: var(--step-font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-sizing: border-box;
+  transition: color 0.15s ease;
+}
+
+.stepper-v2 .code-line-num.active,
+.stepper-v2 .code-line-num.active-sub {
+  color: #38bdf8;
+  font-weight: 700;
 }
 
 .stepper-v2 .code-pre {
+  flex: 1;
   margin: 0 !important;
-  padding: 0.5em 0 !important;
+  padding: 0.5em 0 0.5em 14px !important;
   background: transparent !important;
   font-family: var(--step-font-mono);
   font-size: 0.9rem;
   line-height: 1.55;
   border: none !important;
-  overflow: visible;
+  overflow-x: auto;
 }
 
 .stepper-v2 .code-pre code {
   display: block;
   font-family: inherit;
   font-size: inherit;
+  line-height: inherit;
   background: transparent !important;
   padding: 0 !important;
   border: none !important;
+  outline: none;
+  min-width: 100%;
+  white-space: pre;
+  tab-size: 4;
+  caret-color: var(--step-accent-blue);
 }
 
 .stepper-v2 .code-line-row {
-  display: flex;
-  align-items: baseline;
+  display: block;
   min-height: 1.55em;
+  line-height: 1.55;
   transition: background-color 0.15s ease;
 }
 
 .stepper-v2 .code-line-row.active,
 .stepper-v2 .code-line-row.active-sub {
-  background: transparent;
-}
-
-.stepper-v2 .code-line-num {
-  width: 44px;
-  padding: 0 10px 0 14px;
-  text-align: right;
-  color: #4b5563;
-  user-select: none;
-  flex-shrink: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 0.8rem;
-  font-weight: 500;
-  transition: color 0.15s ease;
-}
-
-.stepper-v2 .code-line-row.active .code-line-num,
-.stepper-v2 .code-line-row.active-sub .code-line-num {
-  color: #94a3b8;
-  border-right-color: rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.07);
+  border-radius: 3px;
 }
 
 .stepper-v2 .code-line-content {
-  padding: 0 16px;
+  display: inline;
   white-space: pre;
   color: #e2e8f0;
-  position: relative;
-  flex: 1;
 }
 
-.stepper-v2 .code-line-row.active .code-line-content::before,
-.stepper-v2 .code-line-row.active-sub .code-line-content::before {
-  display: none;
+.stepper-v2 .stepper-edit-hint {
+  color: #7dd3fc;
+  font-size: 0.9rem;
 }
 
 /* Inline highlighted token / subexpression */
@@ -483,7 +522,22 @@
   line-height: 1.45;
 }
 
-.stepper-v2 .stepper-console-in .stepper-console-content:empty::after {
+.stepper-v2 .stepper-console-in {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stepper-v2 .stepper-console-in:focus-within {
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), inset 0 0 6px rgba(56, 189, 248, 0.1);
+}
+
+.stepper-v2 .stepper-console-in-content {
+  outline: none;
+  caret-color: var(--step-accent-blue);
+  cursor: text;
+}
+
+.stepper-v2 .stepper-console-in .stepper-console-content:empty:not(:focus)::after {
   content: '(sense entrades)';
   color: #475569;
   font-style: italic;

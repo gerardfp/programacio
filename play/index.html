@@ -73,8 +73,8 @@
     </style>
 </head>
 <body>
-<section>
-    <h2>Stepper 2.0 Playground</h2>
+<section style="max-width: 100%;">
+    <h2>Step by Step ☕️ Java</h2>
     <div style="display: flex; gap: 0.5em; margin-bottom: 0.75em; flex-wrap: wrap;">
         <button type="button" class="preset-btn" onclick="loadPreset('for')">Bucle For</button>
         <button type="button" class="preset-btn" onclick="loadPreset('while')">Bucle While</button>
@@ -87,30 +87,8 @@
         <button type="button" class="preset-btn" onclick="loadPreset('ioreadln')">IO.readln</button>
     </div>
 
-    <div class="playground-container">
-        <div class="playground-editor">
-            <h3 style="margin-top:0;">Codi Font HTML del Stepper</h3>
-            <textarea id="playgroundCode">&lt;div class="stepper-v2" java auto title="Bucle For Interactiu"&gt;
-  &lt;code class="source"&gt;
-int n = 4;
-int suma = 0;
 
-for (int i = 1; i &lt;= n; i++) {
-    suma += i;
-}
-
-println("Suma total: " + suma);
-  &lt;/code&gt;
-&lt;/div&gt;</textarea>
-            <button type="button" id="btnRenderPlayground" class="btn-next" style="margin-top: 10px; font-size: 1rem; padding: 0.6em 1.2em; background: var(--accent-blue); color: #000; font-weight: bold;">
-                ⚡ Renderitzar Stepper
-            </button>
-        </div>
-        <div class="playground-preview">
-            <h3 style="margin-top:0;">Resultat Renderitzat</h3>
-            <div id="playgroundMount"></div>
-        </div>
-    </div>
+    <div id="stepperMount"></div>
 
 </section>
 
@@ -207,7 +185,7 @@ println("Primer quadrat: " + quadrats[0]);
 println("Segon quadrat: " + quadrats[1]);
   </code>
 </div>`,
-        scanner: `<div class="stepper-v2" java auto in="3, 7" title="Bucle amb Scanner">
+        scanner: `<div class="stepper-v2" java auto in="3\n7" title="Bucle amb Scanner">
   <code class="source">
 int ini = scanner.nextInt();
 int fin = scanner.nextInt();
@@ -228,34 +206,28 @@ void main() {
     println("Hola, " + nom + "! L'any que ve tindràs " + (edat + 1) + " anys.");
 }
   </code>
-</div>`
+</div>`,
+        helloWorld: `<div class="stepper-v2" java auto title="Hola Món Interactiu">
+  <code class="source">
+    println("Hola, món!");
+  </code>
+</div>`,
     };
 
     function loadPreset(key) {
         if (presets[key]) {
-            document.getElementById('playgroundCode').value = presets[key];
-            document.getElementById('btnRenderPlayground').click();
+            renderPlayground(presets[key]);
         }
     }
 
+    function renderPlayground(txt) {
+        const stepper = document.getElementById('stepperMount');
+        stepper.innerHTML = txt;
+        setupStepper(stepper.querySelector('.stepper-v2'));
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-        const txt = document.getElementById('playgroundCode');
-        const mount = document.getElementById('playgroundMount');
-        const btn = document.getElementById('btnRenderPlayground');
-
-        function renderPlayground() {
-            mount.innerHTML = txt.value;
-            const created = mount.querySelector('.stepper-v2, stepper-v2');
-            if (created) {
-                const initFn = window.setupStepper || (typeof setupStepper !== 'undefined' ? setupStepper : null);
-                if (initFn) {
-                    initFn(created);
-                }
-            }
-        }
-
-        btn.addEventListener('click', renderPlayground);
-        renderPlayground();
+        renderPlayground(presets.helloWorld);
     });
 </script>
 </body>

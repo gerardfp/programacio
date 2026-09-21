@@ -10,10 +10,11 @@
 
   function parseInputAttribute(rawIn) {
     if (!rawIn) return [];
-    if (rawIn.includes('\n')) {
-      return rawIn.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
-    }
-    return rawIn.split(/[,;]+/).map(s => s.trim()).filter(Boolean);
+    return rawIn
+      .replace(/\\n/g, '\n')
+      .split(/\r?\n/)
+      .map(s => s.trim())
+      .filter(Boolean);
   }
 
   function initNewSteppers(container = document) {
@@ -42,7 +43,7 @@
     let stepsData = parseSteps(root, normalizedLines);
     const forceAuto = root.hasAttribute('auto') || root.getAttribute('mode') === 'auto';
     const rawIn = root.getAttribute('in') || '';
-    const initialInputs = parseInputAttribute(rawIn);
+    let initialInputs = parseInputAttribute(rawIn);
     
     if (stepsData.length === 0 || forceAuto) {
       // Auto-simulate Java execution!
@@ -55,7 +56,7 @@
     }
 
     // 3. Precompute timeline state (cumulative memory and console)
-    const timeline = buildTimeline(stepsData, initialInputs);
+    let timeline = buildTimeline(stepsData, initialInputs);
 
     // 4. Build UI Structure
     root.innerHTML = '';
@@ -114,45 +115,130 @@
     const codePanel = document.createElement('div');
     codePanel.className = 'stepper-code-panel';
 
+    const gutter = document.createElement('div');
+    gutter.className = 'code-gutter';
+    gutter.setAttribute('aria-hidden', 'true');
+
     const pre = document.createElement('pre');
     pre.className = 'code-pre';
     const codeBlock = document.createElement('code');
     codeBlock.className = `language-${lang}`;
+    codeBlock.setAttribute('contenteditable', 'true');
+    codeBlock.setAttribute('spellcheck', 'false');
 
-    normalizedLines.forEach((lineText, idx) => {
-      const lineNum = idx + 1;
-      const lineRow = document.createElement('div');
-      lineRow.className = 'code-line-row';
-      lineRow.dataset.line = String(lineNum);
+    function buildCodeView(codeStr) {
+      const lines = normalizeCodeLines(codeStr);
+      gutter.innerHTML = '';
+      codeBlock.innerHTML = '';
 
-      const spanNum = document.createElement('span');
-      spanNum.className = 'code-line-num';
-      spanNum.textContent = String(lineNum);
+      lines.forEach((lineText, idx) => {
+        const lineNum = idx + 1;
 
-      const spanCode = document.createElement('span');
-      spanCode.className = 'code-line-content';
-      
-      // Render line with syntax highlight if Prism available
-      if (global.Prism && global.Prism.languages[lang]) {
-        try {
-          spanCode.innerHTML = global.Prism.highlight(lineText, global.Prism.languages[lang], lang);
-        } catch (e) {
+        // Line number in gutter
+        const spanNum = document.createElement('div');
+        spanNum.className = 'code-line-num';
+        spanNum.dataset.line = String(lineNum);
+        spanNum.textContent = String(lineNum);
+        gutter.appendChild(spanNum);
+
+        // Line row in code block
+        const lineRow = document.createElement('div');
+        lineRow.className = 'code-line-row';
+        lineRow.dataset.line = String(lineNum);
+
+        const spanCode = document.createElement('span');
+        spanCode.className = 'code-line-content';
+        
+        // Render line with syntax highlight if Prism available
+        if (global.Prism && global.Prism.languages[lang]) {
+          try {
+            spanCode.innerHTML = global.Prism.highlight(lineText, global.Prism.languages[lang], lang);
+          } catch (e) {
+            spanCode.textContent = lineText;
+          }
+        } else {
           spanCode.textContent = lineText;
         }
-      } else {
-        spanCode.textContent = lineText;
+
+        if (!lineText) {
+          spanCode.innerHTML = '&nbsp;';
+        }
+
+        // Store original HTML for resetting highlights
+        spanCode.dataset.originalHtml = spanCode.innerHTML;
+        spanCode.dataset.rawText = lineText;
+
+        lineRow.appendChild(spanCode);
+        codeBlock.appendChild(lineRow);
+      });
+    }
+
+    buildCodeView(cleanCode);
+
+    let isCodeEdited = false;
+    let isInputEdited = false;
+
+    function getRawCodeFromEditor() {
+      return codeBlock.innerText || codeBlock.textContent || '';
+    }
+
+    function updateGutterLineCount(totalLines) {
+      gutter.innerHTML = '';
+      for (let i = 1; i <= totalLines; i++) {
+        const spanNum = document.createElement('div');
+        spanNum.className = 'code-line-num';
+        spanNum.dataset.line = String(i);
+        spanNum.textContent = String(i);
+        gutter.appendChild(spanNum);
       }
+    }
 
-      // Store original HTML for resetting highlights
-      spanCode.dataset.originalHtml = spanCode.innerHTML;
-      spanCode.dataset.rawText = lineText;
+    // Editable code listeners: no real-time syntax highlight while typing (only plain text)
+    codeBlock.addEventListener('input', () => {
+      isCodeEdited = true;
+      resetBtn.classList.add('needs-reset');
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      slider.disabled = true;
 
-      lineRow.appendChild(spanNum);
-      lineRow.appendChild(spanCode);
-      codeBlock.appendChild(lineRow);
+      // Update gutter lines count dynamically
+      const raw = getRawCodeFromEditor();
+      const lineCount = Math.max(1, raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').length);
+      updateGutterLineCount(lineCount);
+
+      // Clear highlights from gutter & lines
+      gutter.querySelectorAll('.active, .active-sub').forEach(el => el.classList.remove('active', 'active-sub'));
+      codeBlock.querySelectorAll('.active, .active-sub').forEach(el => el.classList.remove('active', 'active-sub'));
+
+      // Show editing hint
+      const msg = isInputEdited
+        ? '✏️ Codi i entrada modificats. Prem <strong>↺</strong> (o Ctrl+Enter) per recarregar i executar.'
+        : '✏️ Codi modificat. Prem <strong>↺</strong> (o Ctrl+Enter) per recarregar i executar.';
+      explanationBox.innerHTML = `<span class="stepper-edit-hint">${msg}</span>`;
+    });
+
+    codeBlock.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        document.execCommand('insertText', false, '    ');
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        resetBtn.click();
+      }
+    });
+
+    codeBlock.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+      document.execCommand('insertText', false, text);
+    });
+
+    pre.addEventListener('scroll', () => {
+      gutter.scrollTop = pre.scrollTop;
     });
 
     pre.appendChild(codeBlock);
+    codePanel.appendChild(gutter);
     codePanel.appendChild(pre);
 
     // Right Info Panel
@@ -180,6 +266,46 @@
     consoleInHeader.textContent = 'Consola (Entrada)';
     const consoleInContent = document.createElement('div');
     consoleInContent.className = 'stepper-console-content stepper-console-in-content';
+    consoleInContent.setAttribute('contenteditable', 'true');
+    consoleInContent.setAttribute('spellcheck', 'false');
+
+    function getRawInputFromConsole() {
+      const raw = consoleInContent.innerText || consoleInContent.textContent || '';
+      return raw.replace(/\u00a0/g, ' ');
+    }
+
+    consoleInContent.addEventListener('input', () => {
+      isInputEdited = true;
+      resetBtn.classList.add('needs-reset');
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      slider.disabled = true;
+
+      // Clear consumed strikethrough styling while editing
+      consoleInContent.querySelectorAll('.consumed').forEach(el => {
+        el.classList.remove('consumed');
+        el.style.textDecoration = '';
+      });
+
+      const msg = isCodeEdited
+        ? '✏️ Codi i entrada modificats. Prem <strong>↺</strong> (o Ctrl+Enter) per recarregar i executar.'
+        : '✏️ Entrada modificada. Prem <strong>↺</strong> (o Ctrl+Enter) per recarregar i executar.';
+      explanationBox.innerHTML = `<span class="stepper-edit-hint">${msg}</span>`;
+    });
+
+    consoleInContent.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        resetBtn.click();
+      }
+    });
+
+    consoleInContent.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+      document.execCommand('insertText', false, text);
+    });
+
     consoleInBox.appendChild(consoleInHeader);
     consoleInBox.appendChild(consoleInContent);
 
@@ -232,20 +358,30 @@
         }
       });
 
+      const allGutterNums = gutter.querySelectorAll('.code-line-num');
+      allGutterNums.forEach(num => {
+        num.classList.remove('active');
+        num.classList.remove('active-sub');
+      });
+
       if (state.lines && state.lines.length > 0) {
         state.lines.forEach(lineNum => {
           const targetRow = codeBlock.querySelector(`.code-line-row[data-line="${lineNum}"]`);
+          const targetNum = gutter.querySelector(`.code-line-num[data-line="${lineNum}"]`);
           if (targetRow) {
             if (state.hl) {
               const codeCell = targetRow.querySelector('.code-line-content');
               const highlighted = highlightTokenInCell(codeCell, state.hl, state.part, lang);
               if (highlighted) {
                 targetRow.classList.add('active-sub');
+                if (targetNum) targetNum.classList.add('active-sub');
               } else {
                 targetRow.classList.add('active');
+                if (targetNum) targetNum.classList.add('active');
               }
             } else {
               targetRow.classList.add('active');
+              if (targetNum) targetNum.classList.add('active');
             }
           }
         });
@@ -304,7 +440,50 @@
     });
 
     resetBtn.addEventListener('click', () => {
-      renderStep(0);
+      if (!isCodeEdited && !isInputEdited) {
+        renderStep(0);
+        return;
+      }
+
+      // Re-load / re-simulate new code and/or new inputs!
+      const raw = getRawCodeFromEditor();
+      const normLines = normalizeCodeLines(raw);
+      const newCleanCode = normLines.join('\n');
+
+      if (isInputEdited) {
+        const rawInput = getRawInputFromConsole();
+        initialInputs = parseInputAttribute(rawInput);
+      }
+
+      try {
+        const newSteps = simulateJava(newCleanCode, initialInputs);
+        if (!newSteps || newSteps.length === 0) {
+          throw new Error('No s\'ha pogut simular cap pas amb el codi o les entrades introduïdes.');
+        }
+
+        // Successfully simulated!
+        stepsData = newSteps;
+        timeline = buildTimeline(stepsData, initialInputs);
+        isCodeEdited = false;
+        isInputEdited = false;
+        resetBtn.classList.remove('needs-reset');
+
+        // Rebuild code view with Prism syntax highlighting & gutter numbers
+        buildCodeView(newCleanCode);
+
+        // Update slider range & controls
+        slider.max = String(timeline.length - 1);
+        slider.disabled = false;
+        prevBtn.disabled = true;
+        nextBtn.disabled = timeline.length <= 1;
+
+        // Render step 0 of new timeline!
+        renderStep(0);
+      } catch (err) {
+        console.warn('Stepper 2.0: Error simulating edited code or inputs:', err);
+        explanationBox.innerHTML = `<span class="stepper-phase-badge part-end">Error</span> <span style="color:#f87171; margin-left: 0.5em;">${escapeHtml(err.message || String(err))}</span>`;
+        resetBtn.classList.add('needs-reset');
+      }
     });
 
     slider.addEventListener('input', () => {
@@ -313,6 +492,9 @@
 
     // Keyboard navigation when stepper has focus
     root.addEventListener('keydown', (e) => {
+      // Do not intercept navigation keys while typing inside an editable element
+      if (e.target && (e.target.isContentEditable || (e.target.closest && e.target.closest('code, pre, input, textarea, [contenteditable="true"]')))) return;
+
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
         renderStep(currentStep + 1);

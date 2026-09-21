@@ -135,7 +135,7 @@ println("Llançament!");
     <h3>Bucle for amb lectura d'entrada</h3>
     <p>Podem combinar bucles amb l'objecte <code class="w">scanner</code> per processar seqüències de dades introduïdes per l'usuari:</p>
 
-    <div class="stepper-v2" java auto in="2&#10;5" title="Bucle For: Sumatori amb Entrada">
+    <div class="stepper-v2" java auto in="2\n5" title="Bucle For: Sumatori amb Entrada">
 <code class="source">
 int ini = Integer.parseInt(IO.readln());
 int fin = Integer.parseInt(IO.readln());
@@ -152,7 +152,7 @@ println(sum);
     <h3>Ometre parts en un bucle for</h3>
     <p>Totes les parts d'un <code class="w">for</code> són opcionals. Podem ometre la inicialització o la modificació si la lògica del bucle depèn d'altres operacions o d'una lectura d'entrada:</p>
 
-    <div class="stepper-v2" java auto in="3&#10;4&#10;6" title="Bucle For Ometent Parts">
+    <div class="stepper-v2" java auto in="3\n4\n6" title="Bucle For Ometent Parts">
 <code class="source">
 println("Endevina el número secret:");
 for (; Integer.parseInt(IO.readln()) != 6; ) {
@@ -178,7 +178,7 @@ while (i < 5) {
     <h3>El bucle do-while</h3>
     <p>El bucle <code class="w">do-while</code> avalua la condició <em>després</em> d'executar el cos (post-condició). Això garanteix que el bloc s'executarà <strong>com a mínim una vegada</strong>, fins i tot si la condició és falsa des del principi:</p>
 
-    <div class="stepper-v2" java auto in="3&#10;5&#10;7&#10;0" title="Bucle Do-While">
+    <div class="stepper-v2" java auto in="3\n5\n7\n0" title="Bucle Do-While">
 <code class="source">
 int valor;
 do {
