@@ -172,51 +172,136 @@
         <h2>2. Estructures Repetitives (Bucles for, while, do-while)</h2>
         <p>Calcula el nombre d'iteracions i el resultat del programa en executar bucles.</p>
         <div class="quizz">
-            <div class="question" single="">
+            <div class="question" multi="">
                 <div class="statement">
-                    <p>El següent codi calcula la suma dels números en el rang <code class="w">ini</code> a <code class="w">fin</code> (inclusiu). El resultat
-                        es va emmagatzemant en la variable <code class="w">acumulador</code>.</p>
+                    <p>Selecciona <b>tots</b> els bucles que imprimeixen <code class="w">"LoOOops"</code> exactament 10 vegades.</p>
+                </div>
+                <div class="o">
                     <div class="sc" java="">
-                        int accumulator = 0;                  
-                        for (int i = start; i &lt;= end; i++) { 
-                            accumulator += i;                 
+                        for (int i = 0; i < 9; i++) {
+                            println("LoOOops");
                         }
                     </div>
-                    <p>Quin dels següents codis calcula la multiplicació dels números en el rang?</p>
                 </div>
                 <div class="o" correct="">
                     <div class="sc" java="">
-                        int accumulator = 1;                  
-                        for (int i = start; i &lt;= end; i++) { 
-                            accumulator *= i;                 
+                        for (int i = 0; i <= 9; i++) {
+                            println("LoOOops");
+                        }
+                    </div>
+                </div>
+                <div class="o" correct="">
+                    <div class="sc" java="">
+                        for (int i = 0; i < 10; i++) {
+                            println("LoOOops");
                         }
                     </div>
                 </div>
                 <div class="o">
                     <div class="sc" java="">
-                        int accumulator = 0;                  
-                        for (int i = 1; i &lt;= end; i++) { 
-                            accumulator *= i;                 
+                        for (int i = 0; i <= 10; i++) {
+                            println("LoOOops");
                         }
                     </div>
                 </div>
-                <div class="o">
+                <div class="o" correct="">
                     <div class="sc" java="">
-                        int accumulator = 1;                  
-                        for (int i = start; i &lt;= end; i *= 1) { 
-                            accumulator += i;                 
-                        }
-                    </div>
-                </div>
-                <div class="o">
-                    <div class="sc" java="">
-                        int accumulator = 1;                  
-                        for (int i = 1; i &lt;= end; i++) { 
-                            accumulator += i;                 
+                        for (int i = 13; i < 23; i++) {
+                            println("LoOOops");
                         }
                     </div>
                 </div>
             </div>
+            <div class="question" match="">
+                <div class="statement">
+                    Emparella el nom de cada bloc d'aquest bulce for:
+                    <div class="sc" java="">
+                        for (int i = 0; i &lt; 10; i++) {
+                            println("Hola");
+                        }
+                    </div>
+                </div>
+                <div class="o">Inicialització</div> <div class="o"><code class="w">int i = 0</code></div>
+                <div class="o">Condició</div> <div class="o"><code class="w">i < 10</code></div>
+                <div class="o">Actualització</div> <div class="o"><code class="w">i++</code></div>
+                <div class="o">Cos del bucle</div> <div class="o"><code class="w">{  println("Hola"); }</code></div>
+            </div>
+
+            <div class="question" multi="">
+                <div class="statement">
+                    <p>Quins dels següents <code class="w">for</code> fan exactament 100 iteracions?</p>
+                </div>
+                <div class="o">
+                    <div class="sc" java="" correct="">
+                        for (int i = 0; i < 100; i++)
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="">
+                        for (int i = 0; i <= 100; i++) 
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="">
+                        for (int i = 1; i < 100; i++) 
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="" correct="">
+                        for (int i = 1; i <= 100; i++) 
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="question" multi="">
+                <div class="statement">
+                    <p>Quins dels següents <code class="w">for</code> imprimiran el número <code>100</code>?</p>
+                </div>
+                <div class="o">
+                    <div class="sc" java="">
+                        for (int i = 0; i < 100; i++) {
+                            println(i);
+                        }
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="" correct="">
+                        for (int i = 0; i <= 100; i++) {
+                            println(i);
+                        } 
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="" correct="">
+                        for (int i = 99; i < 101; i++) {
+                            println(i);
+                        }
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="" correct="">
+                        for (int i = 100; i <= 101; i++) {
+                            println(i);
+                        }
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="">
+                        for (int i = 100; i < 100; i++) {
+                            println(i);
+                        }
+                    </div>
+                </div>
+                <div class="o">
+                    <div class="sc" java="" correct="">
+                        for (int i = 100; i <= 100; i++) {
+                            println(i);
+                        }
+                    </div>
+                </div>
+            </div>
+            
             <div class="question" single="">
                 <div class="statement">
                     <p>Què imprimeix el següent codi?</p>
@@ -487,6 +572,25 @@ flowchart TD
                 <li><p><strong>Calcular Factorial:</strong> Demana un enter positiu N i calcula el seu factorial (N!) mitjançant un bucle for.</p></li>
                 <li><p><strong>Endevina el número secret:</strong> Demana intents successius a l'usuari per encertar un nombre secret, indicant "Més gran" o "Més petit" en cada intent.</p></li>
                 -->
+                <li>
+                    <p><strong>Reptes <code class="w">for</code></strong></p>
+                    <img src="bart.png" style="width: 360px; height: auto; margin: auto" />
+                    
+                    <ol>
+                        <li>Imprimix <code>1_000_000</code> de vegades <code class="w">"Hola, món!"</code></li>
+                        <li>Imprimix els números del <code>25</code> al <code>250_000</code></li>
+                        <li>Imprimix una línia de 24 caracters <code class="w">"------------------------"</code></li>
+                        <li>Imprimix els números del <code>25</code> al <code>-25</code></li>
+                        <li>Imprimix <code class="w">"Hola!"</code> <code>10</code> vegades, numerant cada línia: <code>1. Hola!</code>, <code>2. Hola!</code>, ...</li>
+                        <li>Imprimix els números del <code>0</code> al <code>100</code> de 10 en 10</li>
+                        <li>Imprimix els números del <code>100</code> al <code>0</code> de 5 en 5</li>
+                        <li>Imprimix els quadrats dels números del <code>1</code> al <code>10</code>, indicant el número: <code>El quadrat de 1 es 1</code>, <code>El quadrat de 2 es 4</code>, ...</li>
+                        <li>Imprimix els números del <code>2</code> al <code>50</code>, comptant de 2 en 2</li>
+                        <li>Imprimix els números imparells de l'<code>1</code> al <code>51</code></li>
+                        <lI>Imprimix els múltiples de <code>7</code> des del <code>7</code> al <code>100</code></lI>
+                        <li>Imprimix la taula de multiplicar del 6: <code>6 x 1 = 6</code>, <code>6 x 2 = 12</code>, ..., <code>6 x 10 = 60</code></li>
+                    </ol>
+                </li>
             </ol>
         </div>
     </section>

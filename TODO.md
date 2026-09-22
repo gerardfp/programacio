@@ -1,3 +1,2 @@
-- en la u2, utilitza IO.readln()...
 - en la u2 escriure bucles niats i fer el dibuixet
 - en la u2, fer diagrames de flux de cada estructura
