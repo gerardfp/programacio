@@ -564,33 +564,158 @@ flowchart TD
                         int velocitat = ...
                     </div>
                 </li>
-                <!--
-                <li><p><strong>Taula de multiplicar:</strong> Demana un enter N i mostra la seva taula de multiplicar de l'1 al 10 utilitzant un bucle <code class="w">for</code>.</p></li>
+                <li>
+                    <p><strong>Reptes <code class="w">for</code></strong></p>
+                    <img src="bart.png" style="width: 360px; height: auto; margin: auto" />
+                    <p>Imprimix:</p>
+                    <ol>
+                        <li><code>1_000_000</code> de vegades <code class="w">"Hola, món!"</code></li>
+                        <li>els números del <code>25</code> al <code>250_000</code></li>
+                        <li>una línia de 24 caracters <code class="w">"------------------------"</code></li>
+                        <li>els números del <code>25</code> al <code>-25</code></li>
+                        <li><code class="w">"Hola!"</code> <code>10</code> vegades, numerant cada línia: <code>1. Hola!</code>, <code>2. Hola!</code>, ...</li>
+                        <li>els números del <code>0</code> al <code>100</code> de 10 en 10</li>
+                        <li>els números del <code>100</code> al <code>0</code> de 5 en 5</li>
+                        <li>els quadrats dels números del <code>1</code> al <code>10</code>, indicant el número: <code>El quadrat de 1 es 1</code>, <code>El quadrat de 2 es 4</code>, ...</li>
+                        <li>els números del <code>2</code> al <code>50</code>, comptant de 2 en 2</li>
+                        <li>els números imparells de l'<code>1</code> al <code>51</code></li>
+                        <lI>els múltiples de <code>7</code> des del <code>7</code> al <code>100</code></lI>
+                        <li>la taula de multiplicar del 6: <code>6 x 1 = 6</code>, <code>6 x 2 = 12</code>, ..., <code>6 x 10 = 60</code></li>
+                    </ol>
+                </li>
+                <li><p><strong>Taula de multiplicar</strong></p>
+                    <p>Demana un enter <code>N</code> i mostra la seva taula de multiplicar de l'1 al 10 utilitzant un bucle <code class="w">for</code>.</p>
+                    <div class="shell">Introduix un número: <span class="in">7</span>
+                        7 x 1 = 7
+                        7 x 2 = 14
+                        7 x 3 = 21
+                        7 x 4 = 28
+                        7 x 5 = 35
+                        7 x 6 = 42
+                        7 x 7 = 49
+                        7 x 8 = 56
+                        7 x 9 = 63
+                        7 x 10 = 70
+                    </div>
+                </li>
+                <li><p><strong>Saltant d'un numero a un altre</strong></p>
+                    <p>Demana un enter <code>INI</code>, un enter <code>FIN</code> i un enter <code>PAS</code>, 
+                        i mostra els números des de <code>INI</code> a <code>FIN</code> comptant de <code>PAS</code> en <code>PAS</code>.</p>
+                    <div class="shell">Introduix INI: <span class="in">13</span>
+                        Introduix FIN: <span class="in">20</span>
+                        Introduix PAS: <span class="in">2</span>
+                        13
+                        15
+                        17
+                        19
+                    </div>
+                </li>
+                <li><p><strong>Múltiples</strong></p>
+                    <p>Demana un enter <code>INI</code>, un enter <code>FIN</code> i un enter <code>M</code>, 
+                        i mostra només els números des de <code>INI</code> a <code>FIN</code> que siguen múltiples de <code>M</code>.</p>
+                    <div class="shell">Introduix INI: <span class="in">13</span>
+                        Introduix FIN: <span class="in">20</span>
+                        Introduix M: <span class="in">5</span>
+                        15
+                        20
+                    </div>
+
+                    <p>En este exercici <i>necessitaràs</i> utilitzar un bucle <code class="w">for</code> amb una condició <code class="w">if</code> a l'interior.</p>
+                    <div class="sc">
+                        for (   ) {
+                            if (   ) {
+                                
+                            }
+                        }
+                    </div>
+                </li>
+                <li><p><strong>Parell/imparell</strong></p>
+                <p>Imprimix els números de l'<code>1</code> al <code>50</code>, escrivint "parell" o "senar" al costat de cada un.</p>
+                <div class="shell">
+                    1 senar
+                    2 parell
+                    3 senar
+                    4 parell
+                    5 senar
+                    6 parell
+                    7 senar
+                    8 parell
+                    9 senar
+                    10 parell
+                    ...
+                </div>
+                </li>
+                <li>
+                    <p><strong>Me quiere, no me quiere</strong></p>
+                    <img src="marga.jpg" style="width: 360px; height: auto; margin: auto" />
+                    <p>Demana un enter <code>N</code> i imprimix la frase "Me quiere", alternant amb "No me quiere", <code>N</code> vegades.</p>
+                    <div class="shell">Introduix un número: <span class="in">3</span>
+                        Me quiere
+                        No me quiere
+                        Me quiere
+                    </div>
+                </li>
+                <li>
+                    <p><strong>FizzBuzz</strong></p>
+                    <p>Imprimix els números de l'<code>A</code> al <code>B</code>, substituint els múltiples de <code>3</code> per <code>"Fizz"</code>, els múltiplos de <code>5</code> per <code>"Buzz"</code>, i els múltiplos de <code>15</code> per <code>"FizzBuzz"</code>.</p>
+                    <div class="shell">
+                        Introdueix A: <span class="in">1</span>
+                        Introdueix B: <span class="in">100</span>
+                        1
+                        2
+                        Fizz
+                        4
+                        Buzz
+                        Fizz
+                        7
+                        8
+                        Fizz
+                        Buzz
+                        11
+                        Fizz
+                        13
+                        14
+                        FizzBuzz
+                        16
+                        17
+                        Fizz
+                        19
+                        Buzz
+                        Fizz
+                        22
+                        23
+                        Fizz
+                        Buzz
+                        26
+                        Fizz
+                        28
+                        29
+                        FizzBuzz
+                        ...
+                </li>
+
+                
                 <li><p><strong>Suma acumulada fins a zero:</strong> Demana nombres contínuament fins que l'usuari introdueixi el número <code class="w">0</code> utilitzant un bucle <code class="w">while</code>, i mostra la suma total i la mitjana.</p></li>
                 <li><p><strong>Cerca amb break:</strong> Troba el primer múltiple de 7 i 11 més gran que 100 i atura la cerca immediatament amb <code class="w">break</code>.</p></li>
                 <li><p><strong>Anys de traspàs:</strong> Determina si un any és de traspàs (múltiple de 4, excepte els múltiples de 100 que no siguin de 400).</p></li>
                 <li><p><strong>Calcular Factorial:</strong> Demana un enter positiu N i calcula el seu factorial (N!) mitjançant un bucle for.</p></li>
                 <li><p><strong>Endevina el número secret:</strong> Demana intents successius a l'usuari per encertar un nombre secret, indicant "Més gran" o "Més petit" en cada intent.</p></li>
-                -->
                 <li>
-                    <p><strong>Reptes <code class="w">for</code></strong></p>
-                    <img src="bart.png" style="width: 360px; height: auto; margin: auto" />
-                    
-                    <ol>
-                        <li>Imprimix <code>1_000_000</code> de vegades <code class="w">"Hola, món!"</code></li>
-                        <li>Imprimix els números del <code>25</code> al <code>250_000</code></li>
-                        <li>Imprimix una línia de 24 caracters <code class="w">"------------------------"</code></li>
-                        <li>Imprimix els números del <code>25</code> al <code>-25</code></li>
-                        <li>Imprimix <code class="w">"Hola!"</code> <code>10</code> vegades, numerant cada línia: <code>1. Hola!</code>, <code>2. Hola!</code>, ...</li>
-                        <li>Imprimix els números del <code>0</code> al <code>100</code> de 10 en 10</li>
-                        <li>Imprimix els números del <code>100</code> al <code>0</code> de 5 en 5</li>
-                        <li>Imprimix els quadrats dels números del <code>1</code> al <code>10</code>, indicant el número: <code>El quadrat de 1 es 1</code>, <code>El quadrat de 2 es 4</code>, ...</li>
-                        <li>Imprimix els números del <code>2</code> al <code>50</code>, comptant de 2 en 2</li>
-                        <li>Imprimix els números imparells de l'<code>1</code> al <code>51</code></li>
-                        <lI>Imprimix els múltiples de <code>7</code> des del <code>7</code> al <code>100</code></lI>
-                        <li>Imprimix la taula de multiplicar del 6: <code>6 x 1 = 6</code>, <code>6 x 2 = 12</code>, ..., <code>6 x 10 = 60</code></li>
-                    </ol>
+                    <p><strong>Barra de vida</strong></p><img src="vida.png" style="width: 360px; height: auto; margin: auto" />
+                    <p>Un personaje tiene <code>M</code> de vida y la regenera <code>Y</code> puntos por turno;</p>
+                    <p>el enemigo tiene <code>N</code> de vida y la pierde <code>X</code> puntos por turno. </p>
+                    <p>¿En qué turno el personaje tiene igual o más vida que el enemigo?</p>
+                    <div class="shell">
+                        Introduix la vida del jugador: <span class="in">100</span>
+                        Introduix la regeneració del jugador: <span class="in">5</span>
+                        Introduix la vida del enemic: <span class="in">150</span>
+                        Introduix la pèrdua del enemic: <span class="in">10</span>
+                        En el torn 4, el jugador té 120 de vida i l'enemic té 110 de vida. 
+                    </div>
                 </li>
+
+                
+
             </ol>
         </div>
     </section>
