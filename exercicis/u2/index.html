@@ -398,13 +398,13 @@ i <b>imprimix</b> el missatge corresponent.
                     </p>
                     <pre class="mermaid">
 flowchart TD
-    A([INICIO]) --> B{"¿Edat >= 18?"}
+    A([INICI]) --> B{"¿Edat >= 18?"}
     B -- Sí --> C{"¿Compte verificat?"}
     C -- Sí --> D["Acces concedit"]
     C -- No --> E["Verifica el compte abans de continuar"]
     B -- No --> F["Acces denegat: edat minima 18 anys"]
                     </pre>
-                    <p>L'estructura del codi pot ser:</p>
+                    <p>L'estructura del codi <i>pot</i> ser:</p>
                     <div class="sc">
                         int edat = IO.readln("Introdueix la teva edat: ");
                         boolean compteVerificat = IO.readln("¿Compte verificat? (true/false): ").equalsIgnoreCase("true");
@@ -492,7 +492,14 @@ flowchart TD
     </section>
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true, theme: 'redux-dark' });
+      mermaid.initialize({ startOnLoad: true, theme: 'redux-dark', flowchart: {
+    useMaxWidth: true,   // escala el SVG al ancho del contenedor
+    htmlLabels: true,
+    curve: 'basis',
+    rankSpacing: 5,     // espacio vertical entre niveles (por defecto ~50)
+    nodeSpacing: 20,      // espacio horizontal entre nodos (por defecto ~50)
+padding: 0
+  } });
     </script>
 </body>
 </html>
