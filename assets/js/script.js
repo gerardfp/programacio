@@ -267,7 +267,7 @@ function syntaxHighlight() {
 function initCopyCodeButtons() {
   document.querySelectorAll('sc, .sc, pre, shell, .shell').forEach(block => {
     if (block.tagName === 'SPAN' || block.closest('p') || block.tagName === 'CODE') return;
-    if (block.closest('stepper-v2, .stepper-v2, question, .question, mem, .mem')) return;
+    if (block.closest('stepper-v2, .stepper-v2, question, .question, mem, .mem, .mermaid')) return;
     // Do not add a button to pre if it is already nested inside an sc, shell, or mem container
     if (block.tagName === 'PRE' && block.closest('sc, .sc, shell, .shell, mem, .mem') && block.closest('sc, .sc, shell, .shell, mem, .mem') !== block) return;
     if (block.querySelector(':scope > .copy-code-btn') || block.querySelector('.copy-code-btn')) return;
@@ -1002,6 +1002,7 @@ function initTextQuestion(q, checkBtn, retryBtn, feedback) {
 // ==========================================================================
 
 async function initMermaid() {
+  return;
   const diagrams = document.querySelectorAll('.mermaid, pre.mermaid, div.mermaid, mermaid');
   if (diagrams.length === 0) return;
 
