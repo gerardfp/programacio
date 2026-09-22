@@ -391,6 +391,41 @@
                     </div>
                 </li>
                 <li>
+                    <p><strong>Accés a l'aplicació</strong></p>
+                    <p>Implementa en Java el següent diagrama, que decideix si un usuari pot accedir a una app.</p>
+                    <p>Llegeix per teclat l'edat del jugador (<code>int</code>) i si el seu compte està verificat (<code>boolean</code>), 
+i <b>imprimix</b> el missatge corresponent.
+                    </p>
+                    <pre class="mermaid">
+flowchart TD
+    A([INICIO]) --> B{"¿Edat >= 18?"}
+    B -- Sí --> C{"¿Compte verificat?"}
+    C -- Sí --> D["Acces concedit"]
+    C -- No --> E["Verifica el compte abans de continuar"]
+    B -- No --> F["Acceso denegat: edat minima 18 anys"]
+                    </pre>
+                    <p>L'estructura del codi pot ser:</p>
+                    <div class="sc">
+                        int edat = IO.readln("Introdueix la teva edat: ");
+                        boolean compteVerificat = IO.readln("¿Compte verificat? (true/false): ").equalsIgnoreCase("true");
+
+
+                        if (  ) {
+                            if (  ) {
+
+                            } else {
+
+                            }
+                        } else {
+
+                        }
+                
+                        /* Pista: el `if-else` exterior correspon al primer rombe del diagrama (edat). 
+                        El `if-else` interior nomes s'executa quan la condicio exterior es certa, 
+                        per tant nomes es mira si el compte esta verificat quan l'edat es suficient.*/
+                    </div>
+                </li>
+                <li>
                     <p><strong>Accés al mode Clasificatoria</strong></p>
                     <p>
                         El següent diagrama mostra les condicions que ha de complir un jugador per accedir al mode Clasificatoria d'un videojoc. 
@@ -461,3 +496,9 @@ flowchart TD
     </script>
 </body>
 </html>
+
+
+
+
+
+
