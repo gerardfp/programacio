@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Exercicis U6: Col·leccions Avançades | Exercicis Java 26</title>
+    <title>Exercicis i Qüestionaris U5: Classes, Herència i Excepcions | Exercicis Java 26</title>
     <script src="../../assets/js/script.js"></script>
     <script src='../../assets/mermaid/mermaid.js'></script>
     <link rel="stylesheet" href="../../assets/css/estil.css">
@@ -17,88 +17,263 @@
 <nav></nav>
 <header>
     <p><a href="../index.html">← Tornar a l'índex d'exercicis</a></p>
-    <h1>Exercicis U6: Col·leccions Avançades</h1>
+    <h1>Exercicis i Qüestionaris U5: Classes, Herència i Excepcions</h1>
 </header>
 <section>
 
     <div class="info">
-        <h3>Estructures de Dades Dinàmiques i Processament de Text</h3>
-        <p>Aquesta unitat aprofundeix en les col·leccions dinàmiques del Marc de Java (<code class="w">List</code>, <code class="w">Set</code>, <code class="w">Map</code>), la manipulació eficient de cadenes, el processament funcional amb <code class="w">Streams</code> i la cerca de patrons amb <code class="w">Expressions Regulars</code> (Regex).</p>
+        <h3>Autoavaluació i Projectes de la Unitat 5</h3>
+        <p>Aquesta unitat reuneix tots els fonaments del paradigma orientat a objectes: definició de classes pròpies, atributs, constructors, mètodes, encapsulació, herència amb <code class="w">extends</code> i <code class="w">super</code>, classes abstractes, interfícies i gestió robusta d'excepcions amb <code class="w">try-catch</code>.</p>
     </div>
 
-    <h2>1. Utilitats estàtiques amb List&lt;String&gt; (StringListUtils)</h2>
+    <h2>1. Qüestionari sobre Classes i Objectes</h2>
+    <div class="quizz">
+<div class="question" single="">
+<div class="statement">
+<p>Per a definir una classe amb un camp enter, quina és la forma correcta de fer-ho?</p>
+</div>
+<div class="o">
+<div class="sc" java="">
+                    new LaMevaClasse() { }
+                </div>
+</div>
+<div class="o">
+<div class="sc" java="">
+                    class LaMevaClasse(){
+                        int elMeuCamp;
+                    }
+                </div>
+</div>
+<div class="o">
+<div class="sc" java="">
+                    LaMevaClasse {
+                        int elMeuCamp;
+                    }
+                </div>
+</div>
+<div class="o" correct="">
+<div class="sc" java="">
+                    class LaMevaClasse {
+                        int elMeuCamp;
+                    }
+                </div>
+</div>
+<div class="o">
+<div class="sc" java="">
+                    LaMevaClasse() {
+                        int elMeuCamp;
+                    }
+                </div>
+</div>
+</div>
+<div class="question" multi="">
+<div class="statement">
+<p>Donada la següent classe:</p>
+<div class="sc" java="">
+                    class Point3D {
+                        double x, y, z;
+                    }
+                </div>
+<p>Diges les afirmacions correctes sobre ella:</p>
+</div>
+<div class="o" correct="">La classe té tres camps del mateix tipus</div>
+<div class="o" correct="">La sentència <code class="w">Point3D p = new Point3D();</code> crea un objecte d'aquesta classe</div>
+<div class="o">La declaració de la classe és incorrecta</div>
+<div class="o">Els valors dels camps són sempre els mateixos per a tots els objectes de la classe.</div>
+</div>
+<div class="question" single="">
+<div class="statement">
+<p>Quina és la paraula-clau per a crear objectes d'una classe?</p>
+</div>
+<div class="o">throw</div>
+<div class="o">type</div>
+<div class="o" correct="">new</div>
+<div class="o">create</div>
+</div>
+<div class="question" single="">
+<div class="statement">
+<p>Suposa que tens aquesta classe al teu programa:</p>
+<div class="sc" java="">
+                    class Hotel {
+                        String name;
+                        String address;
+                        int rating;
+                    }
+                </div>
+<p>Hi han diversos objectes d'aquesta classe:</p>
+<div class="sc" java="">
+                    Hotel h1 = new Hotel();
+                    Hotel h2 = new Hotel();
+                    Hotel h3 = h2;
+
+                    h2.rating = 9;
+                    h3.rating = 8;
+                    h1.rating = 7;
+                </div>
+<p>Quin és el valor de <code class="w">h2.rating</code> després d'executar el codi anterior?</p>
+</div>
+<div class="o">0</div>
+<div class="o">9</div>
+<div class="o">7</div>
+<div class="o" correct="">8</div>
+</div>
+</div>
+
+    <h2>2. Exercici Pràctic: Classe Persona</h2>
     <div class="work">
-        <p>Crea una classe d'utilitats anomenada <code class="w">StringListUtils</code> amb els següents mètodes <span class="sc" java>static</span>:</p>
+        <p>Crea una classe anomenada <code class="w">Persona</code> per a representar persones en un sistema informàtic:</p>
         <ul>
-            <li><p><code class="w">static int countOccurrences(List&lt;String&gt; llista, String text)</code>: Compta el nombre de vegades que apareix un text determinat a la llista.</p></li>
-            <li><p><code class="w">static String join(List&lt;String&gt; llista, String separador)</code>: Concatena tots els textos d'una llista utilitzant el separador indicat.</p></li>
-            <li><p><code class="w">static List&lt;String&gt; merge(List&lt;String&gt; l1, List&lt;String&gt; l2)</code>: Retorna una nova llista que conté tots els elements de la primera seguits dels de la segona, sense modificar les originals.</p></li>
-            <li><p><code class="w">static List&lt;String&gt; removeMatches(List&lt;String&gt; llista, String text)</code>: Retorna una nova llista sense els elements que coincideixin amb el text.</p></li>
-            <li><p><code class="w">static List&lt;String&gt; repeat(String text, int cops)</code>: Retorna una llista amb el text repetit el nombre de vegades indicat.</p></li>
+            <li><p>Afegeix a la classe tres camps de tipus <span class="sc" java>String</span>: <code class="w">nombre</code>, <code class="w">apellido1</code> i <code class="w">apellido2</code>.</p></li>
+            <li><p>Afegeix un constructor per inicialitzar els tres camps a partir de paràmetres.</p></li>
+            <li><p>Afegeix mètodes <em>getter</em> i <em>setter</em> per a cadascun dels camps per complir el principi d'encapsulació.</p></li>
+            <li><p>Afegeix un mètode que retorni un <span class="sc" java>String</span> amb el nom complet amb el format: <code class="w">apellido1 apellido2, nombre</code>.</p></li>
+            <li><p>En el programa principal, crea diverses instàncies de <code class="w">Persona</code>, modifica els seus valors i mostra el seu nom complet per consola.</p></li>
         </ul>
     </div>
 
-    <h2>2. Gestió de Dates i Horaris: Calendari d'Exàmens</h2>
+    <h2>3. Exercici Pràctic: Format Visual TextBox</h2>
     <div class="work">
-        <p>Desenvolupa una aplicació per a gestionar el calendari d'exàmens d'un centre educatiu basada en composició d'objectes i llistes:</p>
+        <p>Crea una classe anomenada <code class="w">TextBox</code> que permeti dibuixar capses de text estilitzades en mode caràcter:</p>
+        <ul>
+            <li><p>Afegeix dos camps de tipus <span class="sc" java>int</span>: <code class="w">ancho</code> i <code class="w">alto</code>, i un camp de tipus <span class="sc" java>String</span>: <code class="w">texto</code>.</p></li>
+            <li><p>Afegeix un constructor que rebi només <code class="w">texto</code> i calculi automàticament dimensions adequades.</p></li>
+            <li><p>Afegeix constructors addicionals per establir el text, l'amplada i l'alçada.</p></li>
+            <li><p>Afegeix mètodes de validació per assegurar que l'amplada i l'alçada siguin majors que 0, l'amplada sigui com a mínim igual a la longitud del text i el text mai no sigui <span class="sc" java>null</span>.</p></li>
+            <li><p>Implementa el mètode <code class="w">toString()</code>:</p>
+                <div class="sc" java>
+@Override
+public String toString() {
+    return ancho + "x" + alto + "\n" +
+            "┏" + "━".repeat(ancho) + "┓\n" +
+            ("┃" + " ".repeat(ancho) + "┃\n").repeat((alto - 1) / 2) +
+            (alto > 0 ? "┃" + " ".repeat((ancho - texto.length() + 1) / 2) + texto + " ".repeat((ancho - texto.length()) / 2) + "┃\n" : "") +
+            ("┃" + " ".repeat(ancho) + "┃\n").repeat(alto / 2) +
+            "┗" + "━".repeat(ancho) + "┛\n";
+}
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <h2>4. Exercici Pràctic: Simulador Object Racing</h2>
+    <div class="work">
+        <p>Simulador interactiu de curses de cotxes utilitzant programació orientada a objectes i interacció entre instàncies:</p>
 
         <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
             classDiagram
-            Calendario o-- Examen
-            Examen o-- FechaHora
-            FechaHora o-- Fecha
-            FechaHora o-- Hora
-            class Calendario{
-                +List~Examen~ examenes
-                +afegirExamen(Examen e): void
-                +mostrarCalendari(): void
+            Carrera o-- Coche
+            class Coche {
+                +String piloto
+                +int distancia
+                +int velocidad
+                +static int maxVelocidad
+                +Coche(String piloto)
+                +acelerar(int velocidad): void
+                +mover(): void
             }
-            class Examen{
-                +String asignatura
-                +String aula
-                +FechaHora fechaHora
-            }
-            class FechaHora {
-                +Fecha fecha
-                +Hora hora
-            }
-            class Fecha {
-                +int ano
-                +int mes
-                +int dia
-            }
-            class Hora {
-                +int hora
-                +int minuto
+            class Carrera {
+                +List~Coche~ coches
+                +int distancia
+                +Carrera(int distancia)
+                +iniciar(): void
+                +inscribir(Coche coche): void
+                +primeraPosicion(): Coche
             }
         </div>
 
-        <p>Escriu un programa principal que creï un objecte <code class="w">Calendario</code>, hi afegeixi almenys 3 exàmens amb diferents assignatures i mostri la planificació per consola de forma ben formatada.</p>
+        <p>Implementa les classes <code class="w">Coche</code> i <code class="w">Carrera</code> segons el diagrama i simula una cursa pas a pas a la consola.</p>
     </div>
 
-    <h2>3. Exercicis de Conjunts (Set) i Diccionaris (Map)</h2>
+    <h2>5. Exercici d'Herència: Jerarquia Animals</h2>
     <div class="work">
-        <ul>
-            <li><p><strong>Eliminació de duplicats:</strong> Donada una llista amb noms repetits, utilitza un <code class="w">HashSet&lt;String&gt;</code> per obtenir una col·lecció sense cap duplicat.</p></li>
-            <li><p><strong>Comptador de freqüències:</strong> Donat un paràgraf de text, compta quantes vegades apareix cada paraula utilitzant un <code class="w">HashMap&lt;String, Integer&gt;</code>.</p></li>
-            <li><p><strong>Directori de contactes:</strong> Implementa una agenda telefònica senzilla amb <code class="w">Map&lt;String, String&gt;</code> on la clau sigui el nom de la persona i el valor el seu número de telèfon, permetent cercar, afegir i esborrar contactes.</p></li>
-        </ul>
+        <p>Implementa la jerarquia de classes d'animals següent demostrant l'ús d'herència multinivell i crides al constructor de la superclasse:</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
+            classDiagram
+            Animal <|-- Mamifero
+            Mamifero <|-- Perro
+            Mamifero <|-- Gato
+            Mamifero <|-- Caballo
+            class Animal {
+                +String nombre
+                +String tipoAlimentacion
+                +int edad
+            }
+            class Mamifero {
+                +int gestacion
+            }
+            class Perro {
+                +String raza
+            }
+            class Gato {
+                +String pedigri
+            }
+            class Caballo {
+                +String comida
+                +int ejercicio
+            }
+        </div>
+
+        <p>Crea els constructors amb crida a <code class="w">super()</code> i sobreescriu <code class="w">toString()</code> a cada subclasse per reflectir la informació completa de cada animal.</p>
     </div>
 
-    <h2>4. Processament Funcional amb Streams</h2>
+    <h2>6. Exercici de Polimorfisme: Jerarquia Workers</h2>
     <div class="work">
-        <ul>
-            <li><p><strong>Filtrat i transformació numèrica:</strong> Donada una llista de nombres enters, utilitza la canalització (<code class="w">stream()</code>) per filtrar només els nombres parells, elevar-los al quadrat i calcular-ne la suma o mitjana aritmètica.</p></li>
-            <li><p><strong>Llistat de noms en majúscules:</strong> Donada una llista de noms d'alumnes, filtra els que comencen per una lletra determinada, converteix-los a majúscules i ordena'ls alfabèticament.</p></li>
-        </ul>
+        <p>Implementa l'estructura jeràrquica d'empleats d'una organització:</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
+            classDiagram
+            Empleado <|-- Directivo
+            Empleado <|-- Operario
+            Operario <|-- Oficial
+            Operario <|-- Tecnico
+            class Empleado {
+                +String nombre
+                +Empleado(String nombre)
+                +getNombre(): String
+                +toString(): String
+            }
+            class Directivo {
+                +toString(): String
+            }
+            class Operario {
+                +toString(): String
+            }
+            class Oficial {
+                +toString(): String
+            }
+            class Tecnico {
+                +toString(): String
+            }
+        </div>
+
+        <p>La sortida per consola en recórrer una llista d'empleats ha de reflectir la seva cadena jeràrquica mitjançant el polimorfisme de <code class="w">toString()</code>.</p>
     </div>
 
-    <h2>5. Expressions Regulars (Regex)</h2>
+    <h2>7. Classes Abstractes i Interfícies: Shape2D</h2>
+    <div class="work">
+        <p>Implementa un sistema per a dibuixar figures geomètriques de colors mitjançant polimorfisme i mètodes abstractes:</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
+            classDiagram
+            class Figure {
+                +int x
+                +int y 
+                +Color color
+                +Figure(int x, int y, Color color)
+                +abstract getShape(): Shape
+            }
+        </div>
+
+        <p>Fes subclasses per a rectangles, cercles i triangles que retornin la seva instància de <code class="w">java.awt.Shape</code>.</p>
+    </div>
+
+    <h2>8. Exercicis de Gestió d'Excepcions (try-catch)</h2>
     <div class="work">
         <ul>
-            <li><p><strong>Validador de Codi Postal:</strong> Escriu una expressió regular per validar que un codi postal estigui format per exactament 5 dígits numèrics (<code class="w">^\d{5}$</code>).</p></li>
-            <li><p><strong>Validador d'Email:</strong> Valida si una adreça de correu compleix l'estructura habitual (usuari, símbol arroba i domini amb extensió de 2 o més lletres).</p></li>
-            <li><p><strong>Extracció de dades:</strong> Donat un text amb diversos números de telèfon de 9 dígits barrejats, extreu tots els números trobats utilitzant <code class="w">Pattern</code> i <code class="w">Matcher</code>.</p></li>
+            <li><p><strong>Calculadora Robusta:</strong> Demana dos enters a l'usuari i divideix-los. Captura <code class="w">ArithmeticException</code> (divisió per zero) i <code class="w">NumberFormatException</code> (entrada no numèrica) mostrant missatges amigables d'error sense interrompre l'execució del programa.</p></li>
+            <li><p><strong>Excepció Personalitzada d'Edat:</strong> Crea una classe d'excepció <code class="w">EdatInvalidaException</code> (que hereti d'<code class="w">Exception</code>) i fes que es llanci (<code class="w">throw</code>) si l'usuari intenta registrar una persona amb una edat menor a 0 o major a 120 anys.</p></li>
+            <li><p><strong>Banc amb SaldoInsuficientException:</strong> Modela un compte bancari amb un mètode <code class="w">reintegrar(double quantitat) throws SaldoInsuficientException</code> que impedeixi retirar més diners del saldo disponible.</p></li>
         </ul>
     </div>
 

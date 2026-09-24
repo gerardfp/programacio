@@ -3,9 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Unitat 6: Col·leccions Avançades | Tutorial Java 26</title>
+    <title>Unitat 5: Classes, Herència i Excepcions | Tutorial Java 26</title>
     <script src="../assets/js/script.js"></script>
+    <script src='../assets/mermaid/mermaid.js'></script>
     <link rel="stylesheet" href="../assets/css/estil.css">
+    <script>
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({ securityLevel: 'loose', theme: 'dark' });
+        }
+    </script>
 </head>
 <body>
 <nav></nav>
@@ -13,130 +19,903 @@
 <header>
     <div class="header-nav">
         <a href="../index.html">← Índex del curs</a>
-        <a href="../exercicis/u6/index.html" class="ex-link-pill">Exercicis</a>
+        <a href="../exercicis/u5/index.html" class="ex-link-pill">Exercicis</a>
     </div>
-    <h1>Unitat 6. Col·leccions Avançades</h1>
+    <h1>Unitat 5. Classes, Herència i Excepcions</h1>
 
     <div class="abstract">
-        <p><strong>Unitat Didàctica 6:</strong></p>
+        <p><strong>Unitat Didàctica 5:</strong></p>
         <p>En aquesta unitat aprendràs:</p>
-        <div class="check">Col·leccions dinàmiques: <code>List</code> (ArrayList), <code>Set</code> (HashSet) i <code>Map</code> (HashMap)</div>
-        <div class="check">Classes i mètodes genèrics per a tipificació segura</div>
-        <div class="check">Processament funcional i operacions agregades amb Streams i lambdas</div>
-        <div class="check">Cerca de patrons i validació de cadenes amb Expressions Regulars (Regex)</div>
+        <div class="check">Disseny de classes: atributs, mètodes, constructors i <code>this</code></div>
+        <div class="check">Model de memòria de la JVM: Pila (Stack) vs Munt (Heap) i pas de paràmetres</div>
+        <div class="check">Encapsulació (private/public), mètodes estàtics i Records</div>
+        <div class="check">Herència amb <code>extends</code>, constructors amb <code>super()</code> i sobreescriptura <code>@Override</code></div>
+        <div class="check">Polimorfisme dinàmic, classes abstractes, interfícies i classes segellades</div>
+        <div class="check">Gestió d'errors i excepcions amb <code>try-catch-finally</code>, creació d'excepcions i asercions</div>
     </div>
 </header>
 
 <section>
 
-    <h2>Estructures de Dades Dinàmiques: Col·leccions i Fluxos</h2>
-    <p>Quan el volum de dades varia en temps d'execució, els arrays es queden curts. Java ofereix un conjunt extens de col·leccions dinàmiques a <code>java.util</code> optimitzades per a diferents escenaris d'accés, cerca i transformació.</p>
+    <h2>Programació Orientada a Objectes: Disseny, Jerarquies i Robustesa</h2>
+    <p>Fins ara hem treballat amb dades soltes i funcions bàsiques. La <strong>Programació Orientada a Objectes (POO)</strong> és una manera d'estructurar els programes organitzant el codi en <em>classes</em> que combinen tant les <strong>dades (atributs)</strong> com les <strong>operacions (mètodes)</strong> que les manipulen.</p>
 
-<h2>3. El Marc de Col·leccions de Java (Collections Framework)</h2>
-    <p>Els arrays tenen un desavantatge fonamental: la seva mida és fixa un cop creats. Per a col·leccions dinàmiques que creixen o es redueixen segons les necessitats, utilitzem el Marc de Col·leccions:</p>
+<h2>1. Conceptes Fonamentals: Classes i Instàncies</h2>
+    <p>Una <strong>classe</strong> és el plànol o plantilla de disseny. Un <strong>objecte</strong> (o instància) és la realització concreta d'aquest plànol a la memòria del computador:</p>
 
-    <h3>List i ArrayList</h3>
-    <p>Llista ordenada que permet duplicats i redimensionament automàtic:</p>
     <div class="sc" java>
-import java.util.ArrayList;
-import java.util.List;
+class Cotxe {
+    // Camps o atributs (estat de l'objecte)
+    String model;
+    int velocitat;
 
-List&lt;String&gt; llista = new ArrayList&lt;&gt;();
-llista.add("Poma");
-llista.add("Plàtan");
-llista.add("Taronja");
+    // Constructor per inicialitzar l'objecte
+    public Cotxe(String model) {
+        this.model = model;
+        this.velocitat = 0;
+    }
 
-println("Nombre d'elements: " + llista.size());
-println("Primer element: " + llista.get(0));
+    // Mètode (comportament)
+    public void accelerar(int increment) {
+        this.velocitat += increment;
+    }
+}
     </div>
 
-    <h3>Set i HashSet</h3>
-    <p>Col·lecció d'elements únics (sense duplicats) ideal per comprovar pertinència:</p>
-    <div class="sc" java>
-import java.util.HashSet;
-import java.util.Set;
+    <h2>2. Com Funciona la Memòria: Pila (Stack) vs Heap</h2>
+    <p>Per entendre realment com programa un ordinador, és fonamental conèixer els dos espais de memòria principals:</p>
+    <ul>
+        <li><strong>La Pila (Stack):</strong> Emmagatzema les crides a mètodes i les variables locals. Les variables de tipus primitiu (<code class="w">int</code>, <code class="w">double</code>, <code class="w">boolean</code>) guarden el seu valor directament a la pila.</li>
+        <li><strong>El Munt (Heap):</strong> És l'espai de memòria dinàmica on viuen els <strong>objectes</strong> creats amb la paraula clau <code class="w">new</code>. Les variables de la pila no contenen l'objecte sencer, sinó només una <strong>referència</strong> (la seva adreça de memòria).</li>
+    </ul>
 
-Set&lt;Integer&gt; codis = new HashSet&lt;&gt;();
-codis.add(101);
-codis.add(102);
-codis.add(101); // No s'afegirà duplicat
-println("Total codis únics: " + codis.size()); // 2
+    <h3>Variables primitives i pas per valor</h3>
+    <p>Quan passem una variable primitiva a un mètode, Java en fa una <strong>còpia exacta del valor</strong>. Qualsevol modificació dins del mètode no afecta la variable original de qui l'ha cridat:</p>
+
+    <div class="stepper stepper2">
+<div class="step">
+<div class="explanation">
+<img src="img/refb0.png"/>
+</div>
+<div class="sc" java="">
+                int numA = 98 + 1;
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refb0.png"/>
+</div>
+<div class="sc" java="">
+                int numA = <span class="h">98 + 1</span>;
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refb1.png"/>
+</div>
+<div class="sc" java="">
+<span class="h">int numA = 98 + 1;</span>
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refb2.png"/>
+</div>
+<div class="sc" java="">
+                int numA = 98 + 1;
+        
+                <span class="h">int numB = numA;</span>
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refb3.png"/>
+</div>
+<div class="sc" java="">
+                int numA = 98 + 1;
+        
+                int numB = numA;
+        
+                <span class="h">numB = 55;</span>
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refb4.png"/>
+</div>
+<div class="sc" java="">
+                int numA = 98 + 1;
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                <span class="h">System.out.println(numA);</span>       // 99
+                System.out.println(numB);       // 55
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refb4.png"/>
+</div>
+<div class="sc" java="">
+                int numA = 98 + 1;
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                <span class="h">System.out.println(numB);</span>       // 55
+            </div>
+</div>
+</div>
+
+    <h3>Variables de referència a la memòria</h3>
+    <p>Quan declarem una variable d'un tipus d'objecte, aquesta variable guarda un apuntador (referència) a la zona del Heap on resideix l'objecte:</p>
+
+    <div class="stepper stepper2">
+<div class="step">
+<div class="explanation">
+<img src="img/refc0.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refc0.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = <span class="h">new Alumne()</span>;
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refc1.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                <span class="h">Alumne aluA = new Alumne();</span>
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refc2.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                <span class="h">aluA.nota = 10;</span>
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refc3.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                <span class="h">Alumne aluB = aluA;</span>
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refc4.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                <span class="h">aluB.nota = 5;</span>
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refc5.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                <span class="h">System.out.println(aluA.nota);</span>
+                System.out.println(aluB.nota);
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refc5.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                <span class="h">System.out.println(aluB.nota);</span>
+</div>
+</div>
+</div>
+
+    <h3>Pas de referències a mètodes</h3>
+    <p>Quan passem un objecte com a paràmetre, el mètode rep una còpia de la referència, la qual apunta exactament al <strong>mateix objecte a la memòria Heap</strong>:</p>
+
+    <div class="stepper stepper2">
+<div class="step">
+<div class="explanation">
+<img src="img/refd0.png"/>
+</div>
+<div class="sc" java="">
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refd0.png"/>
+</div>
+<div class="sc" java="">
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                <span class="h">float nota = 0;</span>
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refd1.png"/>
+</div>
+<div class="sc" java="">
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = <span class="h">new Professor()</span>;
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refd2.png"/>
+</div>
+<div class="sc" java="">
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                <span class="h">Professor unProfessor = new Professor();</span>
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refd3.png"/>
+</div>
+<div class="sc" java="">
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                <span class="h">unProfessor.aprovar(nota);</span>
+
+                System.out.println(nota);  // 0
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refd3.png"/>
+</div>
+<div class="sc" java="">
+                class Professor {
+                    void aprovar(<span class="h">float parametreNota</span>) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refd4.png"/>
+</div>
+<div class="sc" java="">
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        <span class="h">parametreNota = 5;</span>
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refd5.png"/>
+</div>
+<div class="sc" java="">
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                <span class="h">System.out.println(nota);</span>  // 0
+            </div>
+</div>
+</div>
+
+    <h3>Modificació d'objectes referenciats</h3>
+    <p>Atès que ambdues referències apunten al mateix objecte, si el mètode modifica les propietats internes de l'objecte, aquests canvis es mantenen quan el mètode finalitza:</p>
+
+    <div class="stepper stepper2" style="--sc-h:5; --mm-h:0; --sh-h:0; --ex-h:17; --sc-w:20;    --sc-mh:5; --mm-mh:1; --sh-mh:7; --ex-mh:1;">
+<div class="step">
+<div class="explanation">
+<img src="img/refa2.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refa2.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = <span class="h">new Alumne()</span>;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refa3.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                <span class="h">Alumne unAlumne = new Alumne()</span>;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refa4.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = <span class="h">new Professor()</span>;
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refa5.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                <span class="h">Professor unProfessor = new Professor()</span>;
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refa6.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                <span class="h">unProfessor.aprovar(unAlumne);</span>
+
+                System.out.println(unAlumne.nota);  // 5
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refa6.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(<span class="h">Alumne parametreAlumne</span>) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refa7.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        <span class="h">parametreAlumne.nota = 5</span>;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </div>
+</div>
+<div class="step">
+<div class="explanation">
+<img src="img/refa8.png"/>
+</div>
+<div class="sc" java="">
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                <span class="h">System.out.println(unAlumne.nota);</span>  // 5
+            </div>
+</div>
+</div>
+
+    <h2>3. Encapsulació i Modificadors de Visibilitat</h2>
+    <p>El principi d'<strong>encapsulació</strong> estableix que l'estat intern d'un objecte ha d'estar protegit d'alteracions directes i indegudes des de l'exterior. Per això declarem els atributs com a <code class="w">private</code> i proporcionem mètodes públics d'accés (<em>getters</em>) i modificació controlada (<em>setters</em>):</p>
+
+    <div class="sc" java>
+class CompteBancari {
+    private double saldo; // Protegit de modificacions directes
+
+    public double getSaldo() {
+        return this.saldo;
+    }
+
+    public void ingressar(double quantitat) {
+        if (quantitat &gt; 0) {
+            this.saldo += quantitat;
+        }
+    }
+}
     </div>
 
-    <h3>Map i HashMap</h3>
-    <p>Estructura de parells <em>clau-valor</em> que permet buscar dades de forma immediata:</p>
-    <div class="sc" java>
-import java.util.HashMap;
-import java.util.Map;
-
-Map&lt;String, Double&gt; preus = new HashMap&lt;&gt;();
-preus.put("Cafè", 1.50);
-preus.put("Croissant", 1.80);
-
-println("Preu del Cafè: " + preus.get("Cafè") + " €");
-    </div>
-
-    <h2>4. Col·leccions Seqüenciades i Streams</h2>
-    <p>En versions modernes de Java disposem de les interfícies de col·lecció seqüenciada (<code class="w">SequencedCollection</code>) amb mètodes còmodes com <code class="w">getFirst()</code>, <code class="w">getLast()</code> i <code class="w">reversed()</code>.</p>
-    <p>A més, l'API de <strong>Streams</strong> permet processar col·leccions de dades de forma elegant mitjançant operacions de canonada (<code class="w">filter</code>, <code class="w">map</code>, <code class="w">reduce</code>, <code class="w">collect</code>):</p>
+    <h2>4. Membres Estàtics i Records Moderns</h2>
+    <p>La paraula clau <code class="w">static</code> indica que un atribut o mètode pertany a la classe en general i no a una instància particular.</p>
+    <p>A més, per a classes que únicament actuen com a contenidors immutables de dades, Java 26 ofereix els <strong>Records</strong>, que generen automàticament constructor, getters, <code class="w">equals</code>, <code class="w">hashCode</code> i <code class="w">toString</code> en una sola línia:</p>
 
     <div class="sc" java>
-List&lt;Integer&gt; nombres = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-
-List&lt;Integer&gt; quadratsParells = nombres.stream()
-    .filter(n -&gt; n % 2 == 0)      // Filtra només els parells
-    .map(n -&gt; n * n)              // Eleva cada nombre al quadrat
-    .toList();
-
-println(quadratsParells); // [4, 16, 36, 64, 100]
+public record Punt(int x, int y) {}
+// Ús: Punt p = new Punt(10, 20);
+// println(p.x()); // 10
     </div>
 
 
     
-
-    <h2>3. Classes i Mètodes Genèrics (&lt;T&gt;)</h2>
-    <p>La genericitat permet definir classes, interfícies i mètodes amb <strong>paràmetres de tipus</strong>, garantint la comprovació de tipus en temps de compilació i eliminant la necessitat de càstings manuals:</p>
+<h2>El Concepte d'Herència (extends)</h2>
+    <p>L'<strong>herència</strong> permet crear noves classes basades en classes existents, heretant-ne els seus atributs i mètodes per evitar duplicar codi:</p>
 
     <div class="sc" java>
-// Classe genèrica que pot guardar qualsevol tipus de dada:
-public class Caixa&lt;T&gt; {
-    private T contingut;
+// Superclasse base:
+public class Vehicle {
+    protected String marca;
+    protected int velocitatMaxima;
 
-    public void guardar(T element) {
-        this.contingut = element;
+    public Vehicle(String marca, int velocitatMaxima) {
+        this.marca = marca;
+        this.velocitatMaxima = velocitatMaxima;
     }
 
-    public T obtenir() {
-        return this.contingut;
+    public void accelerar() {
+        println(marca + " està accelerant.");
     }
 }
 
-// Ús:
-Caixa&lt;String&gt; caixaText = new Caixa&lt;&gt;();
-caixaText.guardar("Document important");
-String text = caixaText.obtenir(); // Sense necessitat de càsting!
+// Subclasse filla:
+public class Cotxe extends Vehicle {
+    private int nombrePortes;
+
+    public Cotxe(String marca, int velocitatMaxima, int nombrePortes) {
+        super(marca, velocitatMaxima); // Crida al constructor de la superclasse
+        this.nombrePortes = nombrePortes;
+    }
+
+    @Override
+    public void accelerar() {
+        println(marca + " (cotxe de " + nombrePortes + " portes) accelera veloçment.");
+    }
+}
     </div>
 
-    <h2>4. Expressions Regulars en Java (Regex)</h2>
-    <p>Les <strong>expressions regulars</strong> són patrons de caràcters que permeten validar formats (com correus electrònics, DNIs o dates) i cercar o substituir fragments de text de forma altament eficient:</p>
+    <h2>Polimorfisme Dinàmic</h2>
+    <p>El <strong>polimorfisme</strong> és la capacitat de tractar objectes de diferents subclasses com si fossin del tipus de la seva superclasse o interfície comuna, executant en temps d'execució la versió adequada del mètode sobreescrit:</p>
 
     <div class="sc" java>
 void main() {
-    String text = "Pots contactar a info@iesbenigaslo.com o support@oracle.com";
+    List<Vehicle> flota = List.of(
+        new Cotxe("Toyota", 180, 5),
+        new Cotxe("Tesla", 250, 4)
+    );
 
-    // Comprovació ràpida amb matches():
-    String cp = "12530";
-    boolean esCodiPostalValid = cp.matches("\d{5}"); // 5 dígits exactes
-    println("Codi postal vàlid? " + esCodiPostalValid); // true
-
-    // Cerca de patrons amb java.util.regex:
-    var pattern = java.util.regex.Pattern.compile("[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}");
-    var matcher = pattern.matcher(text);
-
-    while (matcher.find()) {
-        println("Correu trobat: " + matcher.group());
+    for (Vehicle v : flota) {
+        v.accelerar(); // S'executa la versió especialitzada de cada vehicle!
     }
 }
+    </div>
+
+    <h2>Classes Abstractes i Interfícies</h2>
+    <p>Una <strong>classe abstracta</strong> és una classe que no es pot instanciar directament amb <code class="w">new</code> i que defineix operacions que les subclasses estan obligades a implementar:</p>
+
+    <div class="sc" java>
+public abstract class Figura {
+    protected String color;
+
+    public Figura(String color) {
+        this.color = color;
+    }
+
+    // Mètode abstracte (sense cos):
+    public abstract double calcularArea();
+}
+
+public class Cercle extends Figura {
+    private double radi;
+
+    public Cercle(String color, double radi) {
+        super(color);
+        this.radi = radi;
+    }
+
+    @Override
+    public double calcularArea() {
+        return Math.PI * radi * radi;
+    }
+}
+    </div>
+
+    <h3>Interfícies (interface)</h3>
+    <p>Una interfície defineix un <em>contracte</em> de comportament que qualsevol classe pot implementar amb <code class="w">implements</code>, donant suport a implementació múltiple:</p>
+
+    <div class="sc" java>
+public interface Dibuixable {
+    void dibuixar();
+
+    // Mètode default modern amb implementació per defecte:
+    default void mostrarDescripcio() {
+        println("Element gràfic dibuixable.");
+    }
+}
+    </div>
+
+    <h2>Classes Segellades en Java Modern (sealed)</h2>
+    <p>Les classes segellades permeten a una superclasse controlar i restringir de forma explícita quines altres classes poden heretar d'ella mitjançant la clàusula <code class="w">permits</code>:</p>
+
+    <div class="sc" java>
+public abstract sealed class Forma permits Cercle, Rectangle, Triangle {
+    // Només aquestes tres classes tenen autorització per heretar de Forma!
+}
+    </div>
+
+    <div class="exercise-card">
+        
+    <p>Observa el diagrama de classes següent que representa una jerarquia de figures geomètriques amb una classe segellada (<code class="w">sealed</code>):</p>
+    <div class="mermaid">
+    classDiagram
+        class Figura {
+            &lt;&lt;sealed abstract&gt;&gt;
+            +String color
+            +calcularArea()* double
+        }
+        class Cercle {
+            &lt;&lt;final&gt;&gt;
+            +double radi
+            +calcularArea() double
+        }
+        class Rectangle {
+            &lt;&lt;final&gt;&gt;
+            +double base
+            +double alcada
+            +calcularArea() double
+        }
+        Figura &lt;|-- Cercle : permits
+        Figura &lt;|-- Rectangle : permits
+        
+        style Figura fill:#1e3a8a,stroke:#38bdf8,stroke-width:2px,color:#fff
+        style Cercle fill:#0f172a,stroke:#34d399,stroke-width:1px,color:#fff
+        style Rectangle fill:#0f172a,stroke:#34d399,stroke-width:1px,color:#fff
+    </div>
+
+    
+
+    <h2>7. Gestió d'Errors i Excepcions</h2>
+    <p>Quan programem, els errors inesperats (com intentar dividir per zero, llegir un fitxer que no existeix o rebre un text quan esperàvem un número) no haurien de fer caure sobtadament la nostra aplicació.</p>
+    
+    <h3>Captura d'excepcions amb try-catch-finally</h3>
+    <p>Per gestionar aquests casos disposem del bloc <code class="w">try-catch-finally</code>:</p>
+
+    <div class="sc" java>
+try {
+    int resultat = 10 / 0; // Provocarà una ArithmeticException
+    println("Resultat: " + resultat);
+} catch (ArithmeticException e) {
+    println("Error matemàtic detectat: " + e.getMessage());
+} finally {
+    println("Aquest bloc s'executa sempre, hi hagi o no error.");
+}
+    </div>
+
+    <h3>Creació i llançament d'excepcions pròpies</h3>
+    <p>Podem definir les nostres pròpies excepcions creant una classe que hereti de <code class="w">Exception</code> o <code class="w">RuntimeException</code>, i llançar-les amb la instrucció <code class="w">throw</code>:</p>
+
+    <div class="sc" java>
+public class EdatInvalidaException extends Exception {
+    public EdatInvalidaException(String missatge) {
+        super(missatge);
+    }
+}
+
+void registrarUsuari(int edat) throws EdatInvalidaException {
+    if (edat < 0 || edat > 120) {
+        throw new EdatInvalidaException("L'edat ha d'estar entre 0 i 120 anys: " + edat);
+    }
+    println("Usuari registrat amb èxit!");
+}
+    </div>
+
+    <h3>Asercions per a depuració (assert)</h3>
+    <p>Durant el desenvolupament podem utilitzar la sentència <code class="w">assert</code> per comprovar condicions que mai haurien de ser falses si el codi funciona correctament:</p>
+
+    <div class="sc" java>
+int saldo = 100;
+assert saldo >= 0 : "El saldo mai pot ser negatiu";
     </div>
 
 
@@ -144,9 +923,9 @@ void main() {
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div>
                 <h3 style="margin: 0 0 0.3rem 0; color: #f1f5f9;">Exercicis Pràctics i Qüestionaris</h3>
-                <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Posa a prova el que has après completant els exercicis de List, Set, Map, StringListUtils, Calendari d'Exàmens i reptes de Streams.</p>
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Posa a prova el que has après amb els projectes de la classe Persona, TextBox, jerarquia Animals, Workers, Shape2D i exercicis de gestió d'excepcions.</p>
             </div>
-            <a href="../exercicis/u6/index.html" class="ex-link-pill">Exercicis</a>
+            <a href="../exercicis/u5/index.html" class="ex-link-pill">Exercicis</a>
         </div>
     </div>
 </section>

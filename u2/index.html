@@ -6,6 +6,8 @@
     <title>Unitat 2: Control de Flux | Tutorial Java 26</title>
     <script src="../assets/js/script.js"></script>
     <link rel="stylesheet" href="../assets/css/estil.css">
+    <link rel="stylesheet" href="../assets/stepper/stepper.css">
+    <script src="../assets/stepper/stepper.js"></script>
 </head>
 <body>
 <nav></nav>
@@ -21,8 +23,8 @@
         <p><strong>Unitat Didàctica 2:</strong></p>
         <p>En aquesta unitat aprendràs:</p>
         <div class="check">Estructures de selecció: <code>if-else</code>, <code>if-else-if</code> i la sentència <code>switch</code></div>
-        <div class="check">Bucles: <code>for</code>, <code>while</code> i <code>do-while</code></div>
-        <div class="check">Salts de control: <code>break</code>, <code>continue</code></div>
+        <div class="check">Bucles: <code>for</code> (decrementant, ometent parts, anidats) i <code>while</code></div>
+        <div class="check">Salts de control: <code>break</code>, <code>continue</code> i etiquetes</div>
     </div>
 </header>
 
@@ -98,10 +100,10 @@ switch (dia) {
 </code>
     </div>
 
-    <h2>2. Estructures Repetitives: Els Bucles</h2>
+    <h2>2. Estructures Repetitives: Els bucles for i while</h2>
     <p>Un bucle és una estructura que repeteix un conjunt d'instruccions mentre es compleixi una condició determinada. Cada repetició s'anomena <strong>iteració</strong>.</p>
 
-    <h3>El bucle for</h3>
+    <h3><code class="w">for</code></h3>
     <p>El bucle <code class="w">for</code> s'utilitza habitualment quan sabem per endavant quantes vegades volem repetir un bloc de codi. Consta de tres parts separades per punt i coma:</p>
     <ul>
         <li><strong>Inicialització:</strong> s'executa una sola vegada a l'inici (habitualment declara un comptador com <code class="w">int i = 0</code>).</li>
@@ -120,7 +122,7 @@ for (int i = 0; i < n; i++) {
 </code>
     </div>
 
-    <h3>Bucle for decrementant</h3>
+    <h4>Bucle for decrementant</h4>
     <p>També podem comptar cap enrere començant des d'un valor superior i utilitzant l'operador de decrement <code class="w">i--</code>:</p>
 
     <div class="stepper-v2" java auto title="Bucle For Decrementant">
@@ -132,27 +134,12 @@ println("Llançament!");
 </code>
     </div>
 
-    <h3>Bucle for amb lectura d'entrada</h3>
-    <p>Podem combinar bucles amb l'objecte <code class="w">scanner</code> per processar seqüències de dades introduïdes per l'usuari:</p>
-
-    <div class="stepper-v2" java auto in="2\n5" title="Bucle For: Sumatori amb Entrada">
-<code class="source">
-int ini = Integer.parseInt(IO.readln());
-int fin = Integer.parseInt(IO.readln());
-
-int sum = 0;
-for (int i = ini; i <= fin; i++) {
-    sum += i;
-}
-
-println(sum);
-</code>
-    </div>
-
-    <h3>Ometre parts en un bucle for</h3>
+    <h4>Ometre parts en un bucle for</h4>
     <p>Totes les parts d'un <code class="w">for</code> són opcionals. Podem ometre la inicialització o la modificació si la lògica del bucle depèn d'altres operacions o d'una lectura d'entrada:</p>
 
-    <div class="stepper-v2" java auto in="3\n4\n6" title="Bucle For Ometent Parts">
+    <div class="stepper-v2" java auto in="3
+4
+6" title="Bucle For Ometent Parts">
 <code class="source">
 println("Endevina el número secret:");
 for (; Integer.parseInt(IO.readln()) != 6; ) {
@@ -162,7 +149,21 @@ println("L'has endevinat!");
 </code>
     </div>
 
-    <h3>El bucle while</h3>
+    <h4>Bucles for anidats</h4>
+    <p>Podem posar un bucle dins d'un altre bucle (bucles niats o anidats). Per cada iteració del bucle exterior, el bucle interior s'executa completament des de l'inici fins al final:</p>
+
+    <div class="stepper-v2" java auto title="Bucles For Anidats">
+<code class="source">
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+        print(i + "," + j + " ");
+    }
+    println();
+}
+</code>
+    </div>
+
+    <h3><code class="w">while</code></h3>
     <p>El bucle <code class="w">while</code> comprova una condició <em>abans</em> d'executar el cos (pre-condició). S'utilitza quan no sabem exactament quantes iteracions caldrà fer, sinó que depenem d'un estat que canvia:</p>
 
     <div class="stepper-v2" java auto title="Bucle While">
@@ -175,23 +176,10 @@ while (i < 5) {
 </code>
     </div>
 
-    <h3>El bucle do-while</h3>
-    <p>El bucle <code class="w">do-while</code> avalua la condició <em>després</em> d'executar el cos (post-condició). Això garanteix que el bloc s'executarà <strong>com a mínim una vegada</strong>, fins i tot si la condició és falsa des del principi:</p>
-
-    <div class="stepper-v2" java auto in="3\n5\n7\n0" title="Bucle Do-While">
-<code class="source">
-int valor;
-do {
-    valor = scanner.nextInt();
-    println(valor);
-} while (valor != 0);
-</code>
-    </div>
-
     <h2>3. Salts de Control: break i continue</h2>
     <p>De vegades necessitem interrompre un bucle abans d'hora o saltar-nos una iteració concreta sense aturar tot el procés.</p>
 
-    <h3>La sentència break</h3>
+    <h3><code class="w">break</code></h3>
     <p>La sentència <code class="w">break</code> finalitza immediatament el bucle més proper que l'envolta, transferint el control a la següent instrucció fora del bucle:</p>
 
     <div class="stepper-v2" java auto title="Sentència Break">
@@ -207,7 +195,7 @@ while (true) {
 </code>
     </div>
 
-    <h3>break en bucles niats</h3>
+    <h4>break en bucles niats</h4>
     <p>Quan tenim un bucle dins d'un altre (bucles niats), un <code class="w">break</code> només atura el bucle intern on es troba, deixant que el bucle extern continuï la seva execució normal:</p>
 
     <div class="stepper-v2" java auto title="Break en Bucles Niats">
@@ -224,26 +212,7 @@ for (int i = 0; i < 3; i++) {
 </code>
     </div>
 
-    <h3>Etiquetar loops (Labeled break)</h3>
-    <p>Si volem trencar un bucle exterior des d'un bucle interior, podem assignar-li una etiqueta (<code class="w">etiqueta: for (...)</code>) i fer <code class="w">break etiqueta;</code>:</p>
-
-    <div class="stepper-v2" java auto title="Labeled Break">
-<code class="source">
-bucle_de_la_i:
-for (int i = 0; i < 4; i++) {
-    bucle_de_la_j:
-    for (int j = 0; j < 4; j++) {
-        print(j + " ");
-        if (i == j) {
-            break bucle_de_la_i;
-        }
-    }
-    println();
-}
-</code>
-    </div>
-
-    <h3>La sentència continue</h3>
+    <h3><code class="w">continue</code></h3>
     <p>A diferència de <code class="w">break</code>, la sentència <code class="w">continue</code> <strong>no atura el bucle</strong>, sinó que salta immediatament a la següent iteració (executant la part de modificació en un <code>for</code>):</p>
 
     <div class="stepper-v2" java auto title="Sentència Continue">
@@ -254,6 +223,25 @@ for (int i = 0; i < n; i++) {
         continue;
     }
     print(i + " ");
+}
+</code>
+    </div>
+
+    <h3>break i continue etiquetats</h3>
+    <p>Per defecte, tant <code class="w">break</code> com <code class="w">continue</code> només afecten el bucle més immediat que els conté. Quan treballem amb bucles niats i volem aturar o continuar un bucle superior, podem associar-li una <strong>etiqueta</strong> (<em>label</em>) amb el format <code>nom_etiqueta: for (...)</code>:</p>
+
+    <div class="stepper-v2" java auto title="Break i Continue Etiquetats">
+<code class="source">
+bucle_i:
+for (int i = 0; i < 3; i++) {
+    bucle_j:
+    for (int j = 0; j < 3; j++) {
+        if (i == 1 && j == 1) {
+            break bucle_i;
+        }
+        print(i + "," + j + " ");
+    }
+    println();
 }
 </code>
     </div>

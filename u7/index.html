@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Unitat 7: Persistència | Tutorial Java 26</title>
+    <title>Unitat 6: Col·leccions Avançades | Tutorial Java 26</title>
     <script src="../assets/js/script.js"></script>
     <link rel="stylesheet" href="../assets/css/estil.css">
 </head>
@@ -13,172 +13,142 @@
 <header>
     <div class="header-nav">
         <a href="../index.html">← Índex del curs</a>
-        <a href="../exercicis/u7/index.html" class="ex-link-pill">Exercicis</a>
+        <a href="../exercicis/u6/index.html" class="ex-link-pill">Exercicis</a>
     </div>
-    <h1>Unitat 7. Persistència</h1>
+    <h1>Unitat 6. Col·leccions Avançades</h1>
 
     <div class="abstract">
-        <p><strong>Unitat Didàctica 7:</strong></p>
+        <p><strong>Unitat Didàctica 6:</strong></p>
         <p>En aquesta unitat aprendràs:</p>
-        <div class="check">Treball amb el sistema de fitxers modern de Java amb <code>java.nio.file</code> (<code>Path</code>, <code>Files</code>)</div>
-        <div class="check">Lectura i escriptura de fitxers de text (<code>Files.writeString</code>, <code>Files.readString</code>, <code>Files.readAllLines</code>)</div>
-        <div class="check">Gestió robusta d'excepcions d'entrada i sortida (<code>IOException</code>)</div>
-        <div class="check">Formats d'intercanvi de dades: estructuració i serialització en JSON i XML</div>
-        <div class="check">Persistència en bases de dades relacionals amb JDBC (connexió, consultes SQL i transaccions bàsiques)</div>
+        <div class="check">Col·leccions dinàmiques: <code>List</code> (ArrayList), <code>Set</code> (HashSet) i <code>Map</code> (HashMap)</div>
+        <div class="check">Classes i mètodes genèrics per a tipificació segura</div>
+        <div class="check">Processament funcional i operacions agregades amb Streams i lambdas</div>
+        <div class="check">Cerca de patrons i validació de cadenes amb Expressions Regulars (Regex)</div>
     </div>
 </header>
 
 <section>
-    <h2>1. Fitxers de text amb java.nio.file</h2>
-    <p>El paquet <code>java.nio.file</code> és l'estàndard modern de Java per interactuar amb el sistema d'arxius d'una forma concisa, segura i d'alt rendiment. Les dues classes principals són:</p>
-    <ul>
-        <li><code>Path</code>: Representa la ruta d'un fitxer o directori (relativa o absoluta). Es crea habitualment amb <code>Path.of("nom_fitxer.txt")</code>.</li>
-        <li><code>Files</code>: Conté mètodes estàtics per operar sobre fitxers (crear, llegir, escriure, copiar, eliminar).</li>
-    </ul>
 
-    <h3>Escriure a un fitxer de text</h3>
-    <p>Podem escriure una cadena sencera a un fitxer amb <code>Files.writeString()</code>:</p>
+    <h2>Estructures de Dades Dinàmiques: Col·leccions i Fluxos</h2>
+    <p>Quan el volum de dades varia en temps d'execució, els arrays es queden curts. Java ofereix un conjunt extens de col·leccions dinàmiques a <code>java.util</code> optimitzades per a diferents escenaris d'accés, cerca i transformació.</p>
+
+<h2>3. El Marc de Col·leccions de Java (Collections Framework)</h2>
+    <p>Els arrays tenen un desavantatge fonamental: la seva mida és fixa un cop creats. Per a col·leccions dinàmiques que creixen o es redueixen segons les necessitats, utilitzem el Marc de Col·leccions:</p>
+
+    <h3>List i ArrayList</h3>
+    <p>Llista ordenada que permet duplicats i redimensionament automàtic:</p>
     <div class="sc" java>
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.io.IOException;
-
-void main() {
-    Path cami = Path.of("notes.txt");
-    String dades = "Anna: 9.5\nJoan: 7.0\nMarc: 8.25\n";
-
-    try {
-        Files.writeString(cami, dades);
-        println("Fitxer desat correctament a: " + cami.toAbsolutePath());
-    } catch (IOException e) {
-        println("Error en escriure el fitxer: " + e.getMessage());
-    }
-}
-    </div>
-
-    <h3>Llegir d'un fitxer de text</h3>
-    <p>Tenim dues maneres principals de llegir el contingut segons la comoditat de processament:</p>
-    <div class="sc" java>
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+List&lt;String&gt; llista = new ArrayList&lt;&gt;();
+llista.add("Poma");
+llista.add("Plàtan");
+llista.add("Taronja");
+
+println("Nombre d'elements: " + llista.size());
+println("Primer element: " + llista.get(0));
+    </div>
+
+    <h3>Set i HashSet</h3>
+    <p>Col·lecció d'elements únics (sense duplicats) ideal per comprovar pertinència:</p>
+    <div class="sc" java>
+import java.util.HashSet;
+import java.util.Set;
+
+Set&lt;Integer&gt; codis = new HashSet&lt;&gt;();
+codis.add(101);
+codis.add(102);
+codis.add(101); // No s'afegirà duplicat
+println("Total codis únics: " + codis.size()); // 2
+    </div>
+
+    <h3>Map i HashMap</h3>
+    <p>Estructura de parells <em>clau-valor</em> que permet buscar dades de forma immediata:</p>
+    <div class="sc" java>
+import java.util.HashMap;
+import java.util.Map;
+
+Map&lt;String, Double&gt; preus = new HashMap&lt;&gt;();
+preus.put("Cafè", 1.50);
+preus.put("Croissant", 1.80);
+
+println("Preu del Cafè: " + preus.get("Cafè") + " €");
+    </div>
+
+    <h2>4. Col·leccions Seqüenciades i Streams</h2>
+    <p>En versions modernes de Java disposem de les interfícies de col·lecció seqüenciada (<code class="w">SequencedCollection</code>) amb mètodes còmodes com <code class="w">getFirst()</code>, <code class="w">getLast()</code> i <code class="w">reversed()</code>.</p>
+    <p>A més, l'API de <strong>Streams</strong> permet processar col·leccions de dades de forma elegant mitjançant operacions de canonada (<code class="w">filter</code>, <code class="w">map</code>, <code class="w">reduce</code>, <code class="w">collect</code>):</p>
+
+    <div class="sc" java>
+List&lt;Integer&gt; nombres = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+List&lt;Integer&gt; quadratsParells = nombres.stream()
+    .filter(n -&gt; n % 2 == 0)      // Filtra només els parells
+    .map(n -&gt; n * n)              // Eleva cada nombre al quadrat
+    .toList();
+
+println(quadratsParells); // [4, 16, 36, 64, 100]
+    </div>
+
+
+    
+
+    <h2>3. Classes i Mètodes Genèrics (&lt;T&gt;)</h2>
+    <p>La genericitat permet definir classes, interfícies i mètodes amb <strong>paràmetres de tipus</strong>, garantint la comprovació de tipus en temps de compilació i eliminant la necessitat de càstings manuals:</p>
+
+    <div class="sc" java>
+// Classe genèrica que pot guardar qualsevol tipus de dada:
+public class Caixa&lt;T&gt; {
+    private T contingut;
+
+    public void guardar(T element) {
+        this.contingut = element;
+    }
+
+    public T obtenir() {
+        return this.contingut;
+    }
+}
+
+// Ús:
+Caixa&lt;String&gt; caixaText = new Caixa&lt;&gt;();
+caixaText.guardar("Document important");
+String text = caixaText.obtenir(); // Sense necessitat de càsting!
+    </div>
+
+    <h2>4. Expressions Regulars en Java (Regex)</h2>
+    <p>Les <strong>expressions regulars</strong> són patrons de caràcters que permeten validar formats (com correus electrònics, DNIs o dates) i cercar o substituir fragments de text de forma altament eficient:</p>
+
+    <div class="sc" java>
 void main() {
-    Path cami = Path.of("notes.txt");
+    String text = "Pots contactar a info@iesbenigaslo.com o support@oracle.com";
 
-    try {
-        // Opció 1: Llegir tot el fitxer en una sola cadena (String)
-        String contingut = Files.readString(cami);
-        println("Contingut complet:\n" + contingut);
+    // Comprovació ràpida amb matches():
+    String cp = "12530";
+    boolean esCodiPostalValid = cp.matches("\d{5}"); // 5 dígits exactes
+    println("Codi postal vàlid? " + esCodiPostalValid); // true
 
-        // Opció 2: Obtenir una llista amb cada línia independent
-        List<String> linies = Files.readAllLines(cami);
-        for (String linia : linies) {
-            println("Línia: " + linia);
-        }
-    } catch (IOException e) {
-        println("Error en llegir el fitxer: " + e.getMessage());
+    // Cerca de patrons amb java.util.regex:
+    var pattern = java.util.regex.Pattern.compile("[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}");
+    var matcher = pattern.matcher(text);
+
+    while (matcher.find()) {
+        println("Correu trobat: " + matcher.group());
     }
 }
     </div>
 
-    <h2>2. Formats d'Intercanvi de Dades: JSON i XML</h2>
-    <p>Quan cal intercanviar dades estructurades entre aplicacions o persistir objectes en disc, els formats estàndard basats en text com <strong>JSON</strong> (JavaScript Object Notation) i <strong>XML</strong> (Extensible Markup Language) són els més utilitzats.</p>
-
-    <h3>JSON (JavaScript Object Notation)</h3>
-    <p>JSON s'ha convertit en l'estàndard de facto gràcies a la seva lleugeresa i claredat per a humans i màquines:</p>
-    <div class="sc" java>
-// Exemple de cadena JSON amb dades d'alumnes
-String jsonAlumne = """
-    {
-        "id": 101,
-        "nom": "Ariadna Soler",
-        "actiu": true,
-        "assignatures": ["Programació", "Bases de Dades"]
-    }
-    """;
-    </div>
-    <p>En Java, biblioteques com <strong>Jackson</strong> (<code>ObjectMapper</code>) o <strong>Gson</strong> permeten serialitzar (convertir objectes Java a JSON) i deserialitzar (convertir JSON a instàncies d'objectes) amb una sola línia de codi.</p>
-
-    <h3>XML (Extensible Markup Language)</h3>
-    <p>XML utilitza una estructura jeràrquica basada en etiquetes niades (tags) i atributs, molt habitual en configuracions i serveis empresarials:</p>
-    <div class="sc" java>
-String xmlAlumne = """
-    <alumne id="101">
-        <nom>Ariadna Soler</nom>
-        <actiu>true</actiu>
-        <assignatures>
-            <assignatura>Programació</assignatura>
-            <assignatura>Bases de Dades</assignatura>
-        </assignatures>
-    </alumne>
-    """;
-    </div>
-
-    <h2>3. Bases de Dades Relacionals amb JDBC</h2>
-    <p>Per a aplicacions que gestionen volums elevats de dades amb consultes complexes, utilitzem un Sistema Gestor de Bases de Dades (SGBD) com SQLite, PostgreSQL o MariaDB. Java s'hi connecta a través de l'especificació <strong>JDBC</strong> (<em>Java Database Connectivity</em>) del paquet <code>java.sql</code>.</p>
-
-    <h3>Connexió i Consulta SQL (SELECT)</h3>
-    <div class="sc" java>
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-void main() {
-    String url = "jdbc:sqlite:curs.db";
-    String sql = "SELECT id, nom, nota FROM alumnes WHERE nota >= ?";
-
-    // Ús de try-with-resources per tancar automàticament connexions i consultes
-    try (Connection conn = DriverManager.getConnection(url);
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-        stmt.setDouble(1, 5.0); // Paràmetre segur per evitar injecció SQL
-
-        try (ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nom = rs.getString("nom");
-                double nota = rs.getDouble("nota");
-                println(id + " - " + nom + " (" + nota + ")");
-            }
-        }
-    } catch (SQLException e) {
-        println("Error de base de dades: " + e.getMessage());
-    }
-}
-    </div>
-
-    <h3>Modificació de dades (INSERT, UPDATE, DELETE)</h3>
-    <p>Per a operacions de modificació, utilitzem el mètode <code>executeUpdate()</code>, que retorna el nombre de files afectades:</p>
-    <div class="sc" java>
-String sqlInsert = "INSERT INTO alumnes (nom, nota) VALUES (?, ?)";
-
-try (Connection conn = DriverManager.getConnection(url);
-     PreparedStatement stmt = conn.prepareStatement(sqlInsert)) {
-
-    stmt.setString(1, "Clara Pons");
-    stmt.setDouble(2, 9.1);
-
-    int filesAfectades = stmt.executeUpdate();
-    println("Alumne inserit correctament! Files modificades: " + filesAfectades);
-} catch (SQLException e) {
-    println("Error en inserir l'alumne: " + e.getMessage());
-}
-    </div>
 
     <div class="exercise-card">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div>
-                <h3 style="margin: 0 0 0.3rem 0; color: #f1f5f9;">Exercicis Pràctics i Reptes</h3>
-                <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Posa en pràctica la persistència creant lectors de fitxers, utilitats CSV/JSON i consultes JDBC.</p>
+                <h3 style="margin: 0 0 0.3rem 0; color: #f1f5f9;">Exercicis Pràctics i Qüestionaris</h3>
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Posa a prova el que has après completant els exercicis de List, Set, Map, StringListUtils, Calendari d'Exàmens i reptes de Streams.</p>
             </div>
-            <a href="../exercicis/u7/index.html" class="ex-link-pill">Exercicis</a>
+            <a href="../exercicis/u6/index.html" class="ex-link-pill">Exercicis</a>
         </div>
     </div>
 </section>
 </body>
 </html>
-

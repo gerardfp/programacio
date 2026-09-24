@@ -694,6 +694,177 @@ flowchart TD
                         ...
                 </li>
 
+                <li>
+                    <p><strong>El robot aspirador</strong></p>
+                    <p>Un robot aspirador recorre una habitación siguiendo una línea recta. 
+                        Sabemos desde qué posición comienza, a qué distancia queremos que llegue 
+                        y cuántos centímetros avanza en cada movimiento.</p>
+
+                    <p>Escribe un programa que pida:</p>
+
+                    <ul>
+                    <li>La posición inicial.</li>
+                    <li>La posición del objetivo.</li>
+                    <li>La distancia que avanza el robot en cada movimiento.</li>
+                    </ul>
+
+                    <p>El programa debe mostrar la posición del robot después de cada movimiento, empezando por la posición inicial.</p>
+
+                    <p>El robot debe seguir avanzando hasta que <strong>supere</strong> el objetivo, <u>y se debe mostrar su posición final</u>.</p>
+
+                    <p>Por ejemplo, si comienza en la posición 0, el objetivo está en 100 cm y avanza 30 cm cada vez:</p>
+
+                    <code class="shell">
+                        Posición inicial: 0
+                        Posición objetivo: 100
+                        Distancia por movimiento: 30
+                        0
+                        30
+                        60
+                        90
+                        120
+                    </code>
+
+                    <p><i>El 120 se muestra aunque el objetivo sea 100, porque es la primera posición que supera el objetivo. Después de mostrar 120, el programa debe terminar</i>.</p>
+
+                    <p><strong>Requisitos:</strong></p>
+
+                    <ul>
+                    <li>Utiliza un bucle for.</li>
+                    <li>Utiliza <code>break</code> para terminar el bucle.</li>
+                    <li>No utilices variables auxiliares para controlar el bucle.</li>
+                    </ul>
+                    
+                </li>
+
+                <li><p><strong>Desea continuar (s/n)</strong></p>
+
+                </li>
+
+                <li>
+                    <p><strong>Coordenades</strong></p>
+
+                    <code class="shell">
+                        Introduix el número de files: <span class="in">3</span>
+                        Introduix el número de columnes: <span class="in">4</span>
+                        (0,0) (0,1) (0,2) (0,3)
+                        (1,0) (1,1) (1,2) (1,3)
+                        (2,0) (2,1) (2,2) (2,3)
+                    </code>
+                </li>
+
+                <li>
+                    <p><strong>Rectangle</strong></p>
+
+                    <code class="shell">
+                        Introduix alçada: <span class="in">7</span>
+                        Introduix ample: <span class="in">5</span>
+                        #####
+                        #####
+                        #####
+                        #####
+                        #####
+                        #####
+                        #####
+                    </code>
+                </li>
+                <li>
+                    <p><strong>Tauler d'escacs (<i>de tamany m x n</i>)</strong></p>
+                    <code class="shell">
+                        Introduix el número de files: <span class="in">4</span>
+                        Introduix el número de columnes: <span class="in">10</span>
+                        # # # # #
+                         # # # # #
+                        # # # # #
+                         # # # # #
+                    </code>
+                </li>
+                <li>
+                    <p><strong>Marc</strong></p>
+
+                    <code class="shell">
+                        Introduix alçada: <span class="in">7</span>
+                        Introduix ample: <span class="in">5</span>
+                        #####
+                        #   #
+                        #   #
+                        #   #
+                        #   #
+                        #   #
+                        #####
+                    </code>
+                </li>
+                <li>
+                    <p><strong>Triangle</strong></p>
+
+                    <code class="shell">
+                        Introduix alçada: <span class="in">5</span>
+                        *
+                        **
+                        ***
+                        ****
+                        *****
+                    </code>
+                </li>
+                <li>
+                    <p><strong>Triangle invers</strong></p>
+
+                    <code class="shell">
+                        Introduix alçada: <span class="in">5</span>
+                        *****
+                        ****
+                        ***
+                        **
+                        *
+                    </code>
+                </li>
+<!--
+                <new>
+                    1. Contar bajo condición
+
+Lee N números enteros, uno a uno por teclado, y al finalizar indica cuántos son positivos, cuántos negativos y cuántos son cero.
+Introduce: un if / else if / else dentro de un for, actualizando contadores independientes.
+
+2. Suma y media condicionales
+
+Lee N números enteros y calcula la suma de los que son pares y la suma de los que son impares, mostrando ambas al final.
+Introduce: acumuladores (no solo contadores) que se actualizan condicionalmente.
+
+3. Máximo y mínimo sin arrays
+
+Lee N números enteros y determina cuál es el mayor y cuál el menor, sin usar arrays ni ordenar nada, comparando cada nuevo valor con el mejor encontrado hasta el momento.
+Introduce: variables que guardan "el mejor hasta ahora" y se actualizan con un if en cada vuelta — la base de todo algoritmo de búsqueda de extremos.
+
+4. Tabla de multiplicar filtrada
+
+Imprime la tabla de multiplicar de un número N (del 1 al 10), pero omite las líneas donde el resultado sea múltiplo de 3.
+Introduce: el if decide si algo se imprime o no, no solo qué se imprime — la diferencia entre "todas las vueltas hacen algo" y "algunas vueltas no hacen nada".
+
+6. Búsqueda con parada anticipada
+
+Lee números enteros, uno a uno, hasta un máximo de N intentos, deteniéndote (con break) en cuanto aparezca el primer número mayor que 100. Indica en qué posición apareció, o si no apareció ninguno tras los N intentos.
+Introduce: break gobernado por un if — el bucle ya no depende solo del contador, sino también de lo que va ocurriendo dentro.
+
+7. Validación con recuento de errores
+
+Lee N notas (se esperan valores entre 0 y 10) y, al finalizar, indica cuántas notas eran válidas, cuántas estaban fuera de rango, y la media de únicamente las válidas.
+Introduce: separar "procesar el dato" de "validar el dato" dentro del mismo cuerpo del bucle — una distinción que en programas reales evita resultados corruptos por datos mal introducidos.
+
+8. Patrón visual condicional
+
+Imprime un triángulo de 10 filas donde cada fila contiene tantos asteriscos como su número de fila, pero solo se imprimen las filas de número par (las impares se omiten por completo).
+Introduce: dos niveles de decisión combinados — cuántos símbolos imprimir (determinado por el índice) y si imprimir la fila entera (determinado por el if).
+
+9. Comprobación de número primo
+
+Lee un número entero N y determina si es primo, recorriendo con un for los posibles divisores entre 2 y N-1, y usando un if para descartar N en cuanto encuentres un divisor exacto.
+Introduce: el for como herramienta de verificación exhaustiva, y el if como criterio de descarte — el primer paso hacia algoritmos de fuerza bruta.
+
+10. Simulación con acumulación y límite
+
+Simula los ingresos diarios de una hucha: lee cantidades una a una (máximo N días) y ve sumándolas a un saldo acumulado. En cuanto el saldo supere 100, detén el bucle (break) e indica en qué día se alcanzó el objetivo y cuántos días hicieron falta. Si tras los N días no se alcanza, indícalo también.
+Introduce: la síntesis de todo lo anterior — acumulación, condición de parada dinámica y gestión del caso en que la condición nunca se cumple.
+                </new>
                 
                 <li><p><strong>Suma acumulada fins a zero:</strong> Demana nombres contínuament fins que l'usuari introdueixi el número <code class="w">0</code> utilitzant un bucle <code class="w">while</code>, i mostra la suma total i la mitjana.</p></li>
                 <li><p><strong>Cerca amb break:</strong> Troba el primer múltiple de 7 i 11 més gran que 100 i atura la cerca immediatament amb <code class="w">break</code>.</p></li>
@@ -714,7 +885,7 @@ flowchart TD
                     </div>
                 </li>
 
-                
+                -->
 
             </ol>
         </div>

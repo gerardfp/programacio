@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Exercicis i Qüestionaris U5: Classes, Herència i Excepcions | Exercicis Java 26</title>
+    <title>Exercicis i Qüestionaris U5: Esquemes Algorítmics | Exercicis Java 26</title>
     <script src="../../assets/js/script.js"></script>
     <script src='../../assets/mermaid/mermaid.js'></script>
     <link rel="stylesheet" href="../../assets/css/estil.css">
@@ -17,267 +17,117 @@
 <nav></nav>
 <header>
     <p><a href="../index.html">← Tornar a l'índex d'exercicis</a></p>
-    <h1>Exercicis i Qüestionaris U5: Classes, Herència i Excepcions</h1>
+    <h1>Exercicis i Qüestionaris U5: Esquemes Algorítmics</h1>
 </header>
 <section>
 
     <div class="info">
-        <h3>Autoavaluació i Projectes de la Unitat 5</h3>
-        <p>Aquesta unitat reuneix tots els fonaments del paradigma orientat a objectes: definició de classes pròpies, atributs, constructors, mètodes, encapsulació, herència amb <code class="w">extends</code> i <code class="w">super</code>, classes abstractes, interfícies i gestió robusta d'excepcions amb <code class="w">try-catch</code>.</p>
+        <h3>Autoavaluació interactiva d'U5: Esquemes Algorítmics</h3>
+        <p>Els esquemes algorítmics són els blocs de construcció essencials de qualsevol programa. Practica amb aquests qüestionaris i reptes de programació per dominar els patrons de recorregut, cerca (lineal i binària), extrems i ordenació.</p>
     </div>
 
-    <h2>1. Qüestionari sobre Classes i Objectes</h2>
+    <h2>1. Qüestionari d'Esquemes de Recorregut i Cerca</h2>
     <div class="quizz">
-<div class="question" single="">
-<div class="statement">
-<p>Per a definir una classe amb un camp enter, quina és la forma correcta de fer-ho?</p>
-</div>
-<div class="o">
-<div class="sc" java="">
-                    new LaMevaClasse() { }
-                </div>
-</div>
-<div class="o">
-<div class="sc" java="">
-                    class LaMevaClasse(){
-                        int elMeuCamp;
-                    }
-                </div>
-</div>
-<div class="o">
-<div class="sc" java="">
-                    LaMevaClasse {
-                        int elMeuCamp;
-                    }
-                </div>
-</div>
-<div class="o" correct="">
-<div class="sc" java="">
-                    class LaMevaClasse {
-                        int elMeuCamp;
-                    }
-                </div>
-</div>
-<div class="o">
-<div class="sc" java="">
-                    LaMevaClasse() {
-                        int elMeuCamp;
-                    }
-                </div>
-</div>
-</div>
-<div class="question" multi="">
-<div class="statement">
-<p>Donada la següent classe:</p>
-<div class="sc" java="">
-                    class Point3D {
-                        double x, y, z;
-                    }
-                </div>
-<p>Diges les afirmacions correctes sobre ella:</p>
-</div>
-<div class="o" correct="">La classe té tres camps del mateix tipus</div>
-<div class="o" correct="">La sentència <code class="w">Point3D p = new Point3D();</code> crea un objecte d'aquesta classe</div>
-<div class="o">La declaració de la classe és incorrecta</div>
-<div class="o">Els valors dels camps són sempre els mateixos per a tots els objectes de la classe.</div>
-</div>
-<div class="question" single="">
-<div class="statement">
-<p>Quina és la paraula-clau per a crear objectes d'una classe?</p>
-</div>
-<div class="o">throw</div>
-<div class="o">type</div>
-<div class="o" correct="">new</div>
-<div class="o">create</div>
-</div>
-<div class="question" single="">
-<div class="statement">
-<p>Suposa que tens aquesta classe al teu programa:</p>
-<div class="sc" java="">
-                    class Hotel {
-                        String name;
-                        String address;
-                        int rating;
-                    }
-                </div>
-<p>Hi han diversos objectes d'aquesta classe:</p>
-<div class="sc" java="">
-                    Hotel h1 = new Hotel();
-                    Hotel h2 = new Hotel();
-                    Hotel h3 = h2;
+        <div class="question" single="">
+            <div class="statement">
+                <p>Quina és la diferència conceptual clau entre un <strong>esquema de recorregut</strong> i un <strong>esquema de cerca</strong>?</p>
+            </div>
+            <div class="o" correct="">El recorregut processa obligatòriament tota la col·lecció fins al final, mentre que la cerca s'ha d'aturar tan bon punt troba l'element objectiu.</div>
+            <div class="o">El recorregut només funciona amb bucles for i la cerca només amb while.</div>
+            <div class="o">El recorregut requereix que l'array estigui ordenat i la cerca no.</div>
+            <div class="o">No hi ha cap diferència, són dos noms per al mateix concepte.</div>
+        </div>
 
-                    h2.rating = 9;
-                    h3.rating = 8;
-                    h1.rating = 7;
-                </div>
-<p>Quin és el valor de <code class="w">h2.rating</code> després d'executar el codi anterior?</p>
-</div>
-<div class="o">0</div>
-<div class="o">9</div>
-<div class="o">7</div>
-<div class="o" correct="">8</div>
-</div>
-</div>
+        <div class="question" single="">
+            <div class="statement">
+                <p>Quin és el valor inicial correcte per buscar el <strong>valor màxim</strong> d'un array d'enters no buit?</p>
+            </div>
+            <div class="o"><code class="w">int max = 0;</code></div>
+            <div class="o" correct=""><code class="w">int max = array[0];</code></div>
+            <div class="o"><code class="w">int max = Integer.MAX_VALUE;</code></div>
+            <div class="o"><code class="w">int max = -1;</code></div>
+        </div>
 
-    <h2>2. Exercici Pràctic: Classe Persona</h2>
+        <div class="question" single="">
+            <div class="statement">
+                <p>Per implementar la comprovació <em>"Tots els elements de l'array són parells?"</em> (predicat universal amb bandera), com hem d'inicialitzar la variable <code class="w">boolean totsParells</code>?</p>
+            </div>
+            <div class="o" correct=""><code class="w">boolean totsParells = true;</code> (i canviar a false en trobar el primer imparell)</div>
+            <div class="o"><code class="w">boolean totsParells = false;</code> (i canviar a true en trobar el primer parell)</div>
+            <div class="o"><code class="w">boolean totsParells = null;</code></div>
+            <div class="o">No es pot fer amb un booleà, cal utilitzar un comptador.</div>
+        </div>
+
+        <div class="question" single="">
+            <div class="statement">
+                <p>Quina és la <strong>precondició indispensable</strong> perquè la cerca dicotòmica (binària) funcioni correctament?</p>
+            </div>
+            <div class="o" correct="">L'array ha d'estar prèviament ordenat.</div>
+            <div class="o">L'array no pot contenir números negatius.</div>
+            <div class="o">La mida de l'array ha de ser una potència de 2.</div>
+            <div class="o">Tots els elements han de ser diferents entre si.</div>
+        </div>
+
+        <div class="question" single="">
+            <div class="statement">
+                <p>Si un array conté <strong>1.000.000 d'elements ordenats</strong>, quantes comparacions fa com a màxim la cerca binària en el pitjor dels casos?</p>
+            </div>
+            <div class="o">1.000.000 comparacions</div>
+            <div class="o">500.000 comparacions</div>
+            <div class="o" correct="">Aproximadament 20 comparacions ($O(\log_2 10^6)$)</div>
+            <div class="o">Exactament 1 comparació</div>
+        </div>
+    </div>
+
+    <h2>2. Qüestionari d'Algorismes d'Ordenació</h2>
+    <div class="quizz">
+        <div class="question" single="">
+            <div class="statement">
+                <p>A l'algorisme de la <strong>Bombolla (Bubble Sort)</strong>, què succeeix en completar la primera passada del bucle exterior?</p>
+            </div>
+            <div class="o" correct="">L'element més gran ha pujat fins a la darrera posició de l'array.</div>
+            <div class="o">L'element més petit se situa a la primera posició.</div>
+            <div class="o">Tot l'array queda completament ordenat.</div>
+            <div class="o">S'intercanvia el primer element amb el del mig.</div>
+        </div>
+
+        <div class="question" single="">
+            <div class="statement">
+                <p>Quin algorisme d'ordenació funciona cercant reiteradament el valor mínim de la part no ordenada i intercanviant-lo amb la primera posició lliure?</p>
+            </div>
+            <div class="o">Mètode de la Bombolla (Bubble Sort)</div>
+            <div class="o" correct="">Selecció Directa (Selection Sort)</div>
+            <div class="o">Inserció Directa (Insertion Sort)</div>
+            <div class="o">Cerca Dicotòmica</div>
+        </div>
+    </div>
+
+    <h2>3. Exercicis Pràctics de Codi</h2>
     <div class="work">
-        <p>Crea una classe anomenada <code class="w">Persona</code> per a representar persones en un sistema informàtic:</p>
+        <h3>Bloc A: Esquemes de Recorregut (Comptadors i Acumuladors)</h3>
         <ul>
-            <li><p>Afegeix a la classe tres camps de tipus <span class="sc" java>String</span>: <code class="w">nombre</code>, <code class="w">apellido1</code> i <code class="w">apellido2</code>.</p></li>
-            <li><p>Afegeix un constructor per inicialitzar els tres camps a partir de paràmetres.</p></li>
-            <li><p>Afegeix mètodes <em>getter</em> i <em>setter</em> per a cadascun dels camps per complir el principi d'encapsulació.</p></li>
-            <li><p>Afegeix un mètode que retorni un <span class="sc" java>String</span> amb el nom complet amb el format: <code class="w">apellido1 apellido2, nombre</code>.</p></li>
-            <li><p>En el programa principal, crea diverses instàncies de <code class="w">Persona</code>, modifica els seus valors i mostra el seu nom complet per consola.</p></li>
+            <li><p><strong>1. Recompte i classificació de notes:</strong> Donat un array de notes entre 0 i 10, calcula quants excel·lents (>= 9), notables (>= 7 i &lt; 9), aprovats (>= 5 i &lt; 7) i suspesos (&lt; 5) hi ha.</p></li>
+            <li><p><strong>2. Suma i mitjana dels parells:</strong> Donat un array de números enters, calcula la suma i la mitjana aritmètica exclusivament dels números que siguin positius i parells.</p></li>
+            <li><p><strong>3. Verificació de signes (Flags):</strong> Determina si en un array de temperatures <em>"hi ha hagut alguna glaçada"</em> (almenys una temperatura &lt;= 0) i si <em>"totes les temperatures han estat positives"</em>.</p></li>
+            <li><p><strong>4. Filtre de positius:</strong> Donat un array amb valors positius i negatius, crea un segon array que contingui únicament els valors estrictament positius.</p></li>
+        </ul>
+
+        <h3>Bloc B: Esquemes de Cerca i Extrems</h3>
+        <ul>
+            <li><p><strong>5. Cerca lineal amb posició:</strong> Donat un array d'identificadors d'empleats i un ID introduït per teclat, indica en quina posició (índex) es troba o mostra un missatge indicant que no existeix.</p></li>
+            <li><p><strong>6. Cerca del millor venedor:</strong> Donats dos arrays paral·lels (<code class="w">String[] noms</code> i <code class="w">double[] vendes</code>), troba el nom del comercial que ha aconseguit el volum màxim de vendes.</p></li>
+            <li><p><strong>7. Cerca de l'aprovat més just:</strong> Troba la nota aprovada més baixa (el mínim de les notes que siguin &gt;= 5.0) d'un grup d'estudiants.</p></li>
+            <li><p><strong>8. Cerca binària pas a pas:</strong> Implementa la cerca dicotòmica sobre un array ordenat imprimint a cada pas els valors dels índexs <code class="w">esquerra</code>, <code class="w">dreta</code> i <code class="w">mig</code> per veure com es redueix l'interval de cerca.</p></li>
+        </ul>
+
+        <h3>Bloc C: Ordenació i Mescla</h3>
+        <ul>
+            <li><p><strong>9. Bombolla optimitzada:</strong> Implementa el mètode de la bombolla amb una variable booleana <code class="w">intercanvi</code> que aturi l'algorisme si en una passada no s'ha produït cap moviment (l'array ja està ordenat).</p></li>
+            <li><p><strong>10. Selecció de menor a major:</strong> Implementa l'algorisme de selecció directa per ordenar les alçades d'un equip esportiu en ordre creixent.</p></li>
+            <li><p><strong>11. Fusió de dues llistes ordenades (Merge):</strong> Donats dos arrays d'enters ja ordenats $A$ de mida $N$ i $B$ de mida $M$, construeix un tercer array $C$ de mida $N+M$ amb tots els elements perfectament ordenats en temps $O(N+M)$.</p></li>
+            <li><p><strong>12. Comprovació d'array ordenat:</strong> Escriu un programa que verifiqui en una sola passada lineal $O(N)$ si un array està o no ordenat en ordre creixent.</p></li>
         </ul>
     </div>
-
-    <h2>3. Exercici Pràctic: Format Visual TextBox</h2>
-    <div class="work">
-        <p>Crea una classe anomenada <code class="w">TextBox</code> que permeti dibuixar capses de text estilitzades en mode caràcter:</p>
-        <ul>
-            <li><p>Afegeix dos camps de tipus <span class="sc" java>int</span>: <code class="w">ancho</code> i <code class="w">alto</code>, i un camp de tipus <span class="sc" java>String</span>: <code class="w">texto</code>.</p></li>
-            <li><p>Afegeix un constructor que rebi només <code class="w">texto</code> i calculi automàticament dimensions adequades.</p></li>
-            <li><p>Afegeix constructors addicionals per establir el text, l'amplada i l'alçada.</p></li>
-            <li><p>Afegeix mètodes de validació per assegurar que l'amplada i l'alçada siguin majors que 0, l'amplada sigui com a mínim igual a la longitud del text i el text mai no sigui <span class="sc" java>null</span>.</p></li>
-            <li><p>Implementa el mètode <code class="w">toString()</code>:</p>
-                <div class="sc" java>
-@Override
-public String toString() {
-    return ancho + "x" + alto + "\n" +
-            "┏" + "━".repeat(ancho) + "┓\n" +
-            ("┃" + " ".repeat(ancho) + "┃\n").repeat((alto - 1) / 2) +
-            (alto > 0 ? "┃" + " ".repeat((ancho - texto.length() + 1) / 2) + texto + " ".repeat((ancho - texto.length()) / 2) + "┃\n" : "") +
-            ("┃" + " ".repeat(ancho) + "┃\n").repeat(alto / 2) +
-            "┗" + "━".repeat(ancho) + "┛\n";
-}
-                </div>
-            </li>
-        </ul>
-    </div>
-
-    <h2>4. Exercici Pràctic: Simulador Object Racing</h2>
-    <div class="work">
-        <p>Simulador interactiu de curses de cotxes utilitzant programació orientada a objectes i interacció entre instàncies:</p>
-
-        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
-            classDiagram
-            Carrera o-- Coche
-            class Coche {
-                +String piloto
-                +int distancia
-                +int velocidad
-                +static int maxVelocidad
-                +Coche(String piloto)
-                +acelerar(int velocidad): void
-                +mover(): void
-            }
-            class Carrera {
-                +List~Coche~ coches
-                +int distancia
-                +Carrera(int distancia)
-                +iniciar(): void
-                +inscribir(Coche coche): void
-                +primeraPosicion(): Coche
-            }
-        </div>
-
-        <p>Implementa les classes <code class="w">Coche</code> i <code class="w">Carrera</code> segons el diagrama i simula una cursa pas a pas a la consola.</p>
-    </div>
-
-    <h2>5. Exercici d'Herència: Jerarquia Animals</h2>
-    <div class="work">
-        <p>Implementa la jerarquia de classes d'animals següent demostrant l'ús d'herència multinivell i crides al constructor de la superclasse:</p>
-
-        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
-            classDiagram
-            Animal <|-- Mamifero
-            Mamifero <|-- Perro
-            Mamifero <|-- Gato
-            Mamifero <|-- Caballo
-            class Animal {
-                +String nombre
-                +String tipoAlimentacion
-                +int edad
-            }
-            class Mamifero {
-                +int gestacion
-            }
-            class Perro {
-                +String raza
-            }
-            class Gato {
-                +String pedigri
-            }
-            class Caballo {
-                +String comida
-                +int ejercicio
-            }
-        </div>
-
-        <p>Crea els constructors amb crida a <code class="w">super()</code> i sobreescriu <code class="w">toString()</code> a cada subclasse per reflectir la informació completa de cada animal.</p>
-    </div>
-
-    <h2>6. Exercici de Polimorfisme: Jerarquia Workers</h2>
-    <div class="work">
-        <p>Implementa l'estructura jeràrquica d'empleats d'una organització:</p>
-
-        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
-            classDiagram
-            Empleado <|-- Directivo
-            Empleado <|-- Operario
-            Operario <|-- Oficial
-            Operario <|-- Tecnico
-            class Empleado {
-                +String nombre
-                +Empleado(String nombre)
-                +getNombre(): String
-                +toString(): String
-            }
-            class Directivo {
-                +toString(): String
-            }
-            class Operario {
-                +toString(): String
-            }
-            class Oficial {
-                +toString(): String
-            }
-            class Tecnico {
-                +toString(): String
-            }
-        </div>
-
-        <p>La sortida per consola en recórrer una llista d'empleats ha de reflectir la seva cadena jeràrquica mitjançant el polimorfisme de <code class="w">toString()</code>.</p>
-    </div>
-
-    <h2>7. Classes Abstractes i Interfícies: Shape2D</h2>
-    <div class="work">
-        <p>Implementa un sistema per a dibuixar figures geomètriques de colors mitjançant polimorfisme i mètodes abstractes:</p>
-
-        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #334155; border-radius: 8px; margin: 1.5em 0; padding: 1em;">
-            classDiagram
-            class Figure {
-                +int x
-                +int y 
-                +Color color
-                +Figure(int x, int y, Color color)
-                +abstract getShape(): Shape
-            }
-        </div>
-
-        <p>Fes subclasses per a rectangles, cercles i triangles que retornin la seva instància de <code class="w">java.awt.Shape</code>.</p>
-    </div>
-
-    <h2>8. Exercicis de Gestió d'Excepcions (try-catch)</h2>
-    <div class="work">
-        <ul>
-            <li><p><strong>Calculadora Robusta:</strong> Demana dos enters a l'usuari i divideix-los. Captura <code class="w">ArithmeticException</code> (divisió per zero) i <code class="w">NumberFormatException</code> (entrada no numèrica) mostrant missatges amigables d'error sense interrompre l'execució del programa.</p></li>
-            <li><p><strong>Excepció Personalitzada d'Edat:</strong> Crea una classe d'excepció <code class="w">EdatInvalidaException</code> (que hereti d'<code class="w">Exception</code>) i fes que es llanci (<code class="w">throw</code>) si l'usuari intenta registrar una persona amb una edat menor a 0 o major a 120 anys.</p></li>
-            <li><p><strong>Banc amb SaldoInsuficientException:</strong> Modela un compte bancari amb un mètode <code class="w">reintegrar(double quantitat) throws SaldoInsuficientException</code> que impedeixi retirar més diners del saldo disponible.</p></li>
-        </ul>
-    </div>
-
 </section>
 </body>
 </html>
-

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Unitat 8: Interfícies Gràfiques | Tutorial Java 26</title>
+    <title>Unitat 7: Persistència | Tutorial Java 26</title>
     <script src="../assets/js/script.js"></script>
     <link rel="stylesheet" href="../assets/css/estil.css">
 </head>
@@ -13,120 +13,159 @@
 <header>
     <div class="header-nav">
         <a href="../index.html">← Índex del curs</a>
-        <a href="../exercicis/u8/index.html" class="ex-link-pill">Exercicis</a>
+        <a href="../exercicis/u7/index.html" class="ex-link-pill">Exercicis</a>
     </div>
-    <h1>Unitat 8. Interfícies Gràfiques</h1>
+    <h1>Unitat 7. Persistència</h1>
 
     <div class="abstract">
-        <p><strong>Unitat Didàctica 8:</strong></p>
+        <p><strong>Unitat Didàctica 7:</strong></p>
         <p>En aquesta unitat aprendràs:</p>
-        <div class="check">Fonaments de les aplicacions d'escriptori amb interfície gràfica d'usuari (GUI)</div>
-        <div class="check">Finestres i components essencials: <code>JFrame</code>, <code>JButton</code>, <code>JLabel</code> i <code>JTextField</code></div>
-        <div class="check">Model de programació orientat a esdeveniments (<em>Event-Driven Programming</em>)</div>
-        <div class="check">Controladors d'esdeveniments amb <code>ActionListener</code> i expressions lambda</div>
-        <div class="check">Creació de formularis interactius per a l'entrada, validació i visualització de dades</div>
+        <div class="check">Treball amb el sistema de fitxers modern de Java amb <code>java.nio.file</code> (<code>Path</code>, <code>Files</code>)</div>
+        <div class="check">Lectura i escriptura de fitxers de text (<code>Files.writeString</code>, <code>Files.readString</code>, <code>Files.readAllLines</code>)</div>
+        <div class="check">Gestió robusta d'excepcions d'entrada i sortida (<code>IOException</code>)</div>
+        <div class="check">Formats d'intercanvi de dades: estructuració i serialització en JSON i XML</div>
+        <div class="check">Persistència en bases de dades relacionals amb JDBC (connexió, consultes SQL i transaccions bàsiques)</div>
     </div>
 </header>
 
 <section>
-    <h2>1. Introducció a les Interfícies Gràfiques (GUI)</h2>
-    <p>Fins ara hem interactuat amb els programes a través de la consola i fitxers de text. En el desenvolupament d'aplicacions per a usuaris finals, les <strong>Interfícies Gràfiques d'Usuari</strong> (GUI) permeten una interacció visual intuïtiva mitjançant finestres, botons, formularis i menús.</p>
-    <p>Java inclou per defecte biblioteques gràfiques com <strong>Swing</strong> (paquet <code>javax.swing</code>) i <strong>AWT</strong> (paquet <code>java.awt</code>), que permeten construir interfícies multiplataforma que s'executen igual a Windows, macOS i Linux.</p>
-
-    <h2>2. Finestres i Components Visuals Bàsics</h2>
-    <p>Els components bàsics més utilitzats són:</p>
+    <h2>1. Fitxers de text amb java.nio.file</h2>
+    <p>El paquet <code>java.nio.file</code> és l'estàndard modern de Java per interactuar amb el sistema d'arxius d'una forma concisa, segura i d'alt rendiment. Les dues classes principals són:</p>
     <ul>
-        <li><code>JFrame</code>: Representa la finestra principal de l'aplicació, amb barra de títol, botons de minimitzar, maximitzar i tancar.</li>
-        <li><code>JLabel</code>: Text o etiqueta no editable utilitzada per mostrar informació a l'usuari.</li>
-        <li><code>JTextField</code>: Camp d'una sola línia que permet a l'usuari escriure text o nombres.</li>
-        <li><code>JButton</code>: Botó interactiu que desencadena una acció en fer-hi clic.</li>
+        <li><code>Path</code>: Representa la ruta d'un fitxer o directori (relativa o absoluta). Es crea habitualment amb <code>Path.of("nom_fitxer.txt")</code>.</li>
+        <li><code>Files</code>: Conté mètodes estàtics per operar sobre fitxers (crear, llegir, escriure, copiar, eliminar).</li>
     </ul>
 
-    <h3>Exemple: Finestra senzilla amb Swing</h3>
+    <h3>Escriure a un fitxer de text</h3>
+    <p>Podem escriure una cadena sencera a un fitxer amb <code>Files.writeString()</code>:</p>
     <div class="sc" java>
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.io.IOException;
 
 void main() {
-    // Creem la finestra principal
-    JFrame finestra = new JFrame("La meva primera finestra");
-    finestra.setSize(350, 150);
-    finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    finestra.setLayout(new FlowLayout()); // Disposició fluida dels components
+    Path cami = Path.of("notes.txt");
+    String dades = "Anna: 9.5\nJoan: 7.0\nMarc: 8.25\n";
 
-    // Creem els components
-    JLabel etiqueta = new JLabel("Hola des d'una interfície gràfica!");
-    JButton boto = new JButton("D'acord");
-
-    // Afegim els components a la finestra
-    finestra.add(etiqueta);
-    finestra.add(boto);
-
-    // Fem visible la finestra
-    finestra.setVisible(true);
+    try {
+        Files.writeString(cami, dades);
+        println("Fitxer desat correctament a: " + cami.toAbsolutePath());
+    } catch (IOException e) {
+        println("Error en escriure el fitxer: " + e.getMessage());
+    }
 }
     </div>
 
-    <h2>3. Programació Orientada a Esdeveniments (Event-Driven)</h2>
-    <p>A diferència dels programes lineals per consola, en una aplicació gràfica l'ordre d'execució el determina l'usuari:</p>
-    <ul>
-        <li>L'usuari realitza una acció (com fer clic sobre un <code>JButton</code> o prémer Enter en un camp de text).</li>
-        <li>El sistema genera un objecte esdeveniment (<code>ActionEvent</code>).</li>
-        <li>S'executa el codi que hem associat a aquest esdeveniment mitjançant un <strong>Listener</strong>.</li>
-    </ul>
-
-    <h3>Associar un ActionListener amb una expressió Lambda</h3>
-    <p>Gràcies a les expressions lambda de Java, podem programar la resposta al clic d'un botó de manera neta i concisa:</p>
+    <h3>Llegir d'un fitxer de text</h3>
+    <p>Tenim dues maneres principals de llegir el contingut segons la comoditat de processament:</p>
     <div class="sc" java>
-int comptador = 0;
-JLabel resultat = new JLabel("Clics: 0");
-JButton boto = new JButton("Fes clic aquí");
-
-// En Java modern, ActionListener és una interfície funcional que podem implementar amb una lambda:
-boto.addActionListener(e -> {
-    comptador++;
-    resultat.setText("Clics: " + comptador);
-});
-    </div>
-
-    <h2>4. Creació de Formularis Interactius</h2>
-    <p>Un formulari típic combina l'entrada d'un <code>JTextField</code>, el clic d'un <code>JButton</code> per processar les dades, i l'actualització d'un <code>JLabel</code> amb la resposta:</p>
-    <div class="sc" java>
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.io.IOException;
+import java.util.List;
 
 void main() {
-    JFrame finestra = new JFrame("Conversor d'Euros a Dòlars");
-    finestra.setSize(380, 160);
-    finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    finestra.setLayout(new FlowLayout());
+    Path cami = Path.of("notes.txt");
 
-    JLabel etiquetaEntrada = new JLabel("Quantitat en €:");
-    JTextField campEuros = new JTextField(8);
-    JButton botoConvertir = new JButton("Convertir a $");
-    JLabel etiquetaResultat = new JLabel("Resultat: 0.00 $");
+    try {
+        // Opció 1: Llegir tot el fitxer en una sola cadena (String)
+        String contingut = Files.readString(cami);
+        println("Contingut complet:\n" + contingut);
 
-    botoConvertir.addActionListener(e -> {
-        try {
-            double euros = Double.parseDouble(campEuros.getText());
-            double dolars = euros * 1.08; // Taxa de canvi d'exemple
-            etiquetaResultat.setText(String.format("Resultat: %.2f $", dolars));
-        } catch (NumberFormatException ex) {
-            etiquetaResultat.setText("Introdueix un nombre vàlid!");
+        // Opció 2: Obtenir una llista amb cada línia independent
+        List<String> linies = Files.readAllLines(cami);
+        for (String linia : linies) {
+            println("Línia: " + linia);
         }
-    });
+    } catch (IOException e) {
+        println("Error en llegir el fitxer: " + e.getMessage());
+    }
+}
+    </div>
 
-    finestra.add(etiquetaEntrada);
-    finestra.add(campEuros);
-    finestra.add(botoConvertir);
-    finestra.add(etiquetaResultat);
+    <h2>2. Formats d'Intercanvi de Dades: JSON i XML</h2>
+    <p>Quan cal intercanviar dades estructurades entre aplicacions o persistir objectes en disc, els formats estàndard basats en text com <strong>JSON</strong> (JavaScript Object Notation) i <strong>XML</strong> (Extensible Markup Language) són els més utilitzats.</p>
 
-    finestra.setVisible(true);
+    <h3>JSON (JavaScript Object Notation)</h3>
+    <p>JSON s'ha convertit en l'estàndard de facto gràcies a la seva lleugeresa i claredat per a humans i màquines:</p>
+    <div class="sc" java>
+// Exemple de cadena JSON amb dades d'alumnes
+String jsonAlumne = """
+    {
+        "id": 101,
+        "nom": "Ariadna Soler",
+        "actiu": true,
+        "assignatures": ["Programació", "Bases de Dades"]
+    }
+    """;
+    </div>
+    <p>En Java, biblioteques com <strong>Jackson</strong> (<code>ObjectMapper</code>) o <strong>Gson</strong> permeten serialitzar (convertir objectes Java a JSON) i deserialitzar (convertir JSON a instàncies d'objectes) amb una sola línia de codi.</p>
+
+    <h3>XML (Extensible Markup Language)</h3>
+    <p>XML utilitza una estructura jeràrquica basada en etiquetes niades (tags) i atributs, molt habitual en configuracions i serveis empresarials:</p>
+    <div class="sc" java>
+String xmlAlumne = """
+    <alumne id="101">
+        <nom>Ariadna Soler</nom>
+        <actiu>true</actiu>
+        <assignatures>
+            <assignatura>Programació</assignatura>
+            <assignatura>Bases de Dades</assignatura>
+        </assignatures>
+    </alumne>
+    """;
+    </div>
+
+    <h2>3. Bases de Dades Relacionals amb JDBC</h2>
+    <p>Per a aplicacions que gestionen volums elevats de dades amb consultes complexes, utilitzem un Sistema Gestor de Bases de Dades (SGBD) com SQLite, PostgreSQL o MariaDB. Java s'hi connecta a través de l'especificació <strong>JDBC</strong> (<em>Java Database Connectivity</em>) del paquet <code>java.sql</code>.</p>
+
+    <h3>Connexió i Consulta SQL (SELECT)</h3>
+    <div class="sc" java>
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+void main() {
+    String url = "jdbc:sqlite:curs.db";
+    String sql = "SELECT id, nom, nota FROM alumnes WHERE nota >= ?";
+
+    // Ús de try-with-resources per tancar automàticament connexions i consultes
+    try (Connection conn = DriverManager.getConnection(url);
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setDouble(1, 5.0); // Paràmetre segur per evitar injecció SQL
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nom = rs.getString("nom");
+                double nota = rs.getDouble("nota");
+                println(id + " - " + nom + " (" + nota + ")");
+            }
+        }
+    } catch (SQLException e) {
+        println("Error de base de dades: " + e.getMessage());
+    }
+}
+    </div>
+
+    <h3>Modificació de dades (INSERT, UPDATE, DELETE)</h3>
+    <p>Per a operacions de modificació, utilitzem el mètode <code>executeUpdate()</code>, que retorna el nombre de files afectades:</p>
+    <div class="sc" java>
+String sqlInsert = "INSERT INTO alumnes (nom, nota) VALUES (?, ?)";
+
+try (Connection conn = DriverManager.getConnection(url);
+     PreparedStatement stmt = conn.prepareStatement(sqlInsert)) {
+
+    stmt.setString(1, "Clara Pons");
+    stmt.setDouble(2, 9.1);
+
+    int filesAfectades = stmt.executeUpdate();
+    println("Alumne inserit correctament! Files modificades: " + filesAfectades);
+} catch (SQLException e) {
+    println("Error en inserir l'alumne: " + e.getMessage());
 }
     </div>
 
@@ -134,9 +173,9 @@ void main() {
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div>
                 <h3 style="margin: 0 0 0.3rem 0; color: #f1f5f9;">Exercicis Pràctics i Reptes</h3>
-                <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Posa a prova els teus coneixements dissenyant finestres, gestors de clics i formularis de càlcul.</p>
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Posa en pràctica la persistència creant lectors de fitxers, utilitats CSV/JSON i consultes JDBC.</p>
             </div>
-            <a href="../exercicis/u8/index.html" class="ex-link-pill">Exercicis</a>
+            <a href="../exercicis/u7/index.html" class="ex-link-pill">Exercicis</a>
         </div>
     </div>
 </section>
