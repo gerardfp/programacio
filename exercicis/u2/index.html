@@ -696,6 +696,9 @@ flowchart TD
 
                 <li>
                     <p><strong>El robot aspirador</strong></p>
+
+                    <img src="aspirador.png" width="580" />
+
                     <p>Un robot aspirador recorre una habitación siguiendo una línea recta. 
                         Sabemos desde qué posición comienza, a qué distancia queremos que llegue 
                         y cuántos centímetros avanza en cada movimiento.</p>
@@ -715,9 +718,9 @@ flowchart TD
                     <p>Por ejemplo, si comienza en la posición 0, el objetivo está en 100 cm y avanza 30 cm cada vez:</p>
 
                     <code class="shell">
-                        Posición inicial: 0
-                        Posición objetivo: 100
-                        Distancia por movimiento: 30
+                        Posición inicial: <span class="in">0</span>
+                        Posición objetivo: <span class="in">100</span>
+                        Distancia por movimiento: <span class="in">30</span>
                         0
                         30
                         60
@@ -738,7 +741,22 @@ flowchart TD
                 </li>
 
                 <li><p><strong>Desea continuar (s/n)</strong></p>
+                    <img src="homer.jpg" width="360" />
+                    <p>Fes un programa que vaja escrivint números per pantalla, però que cada vegada li pregunte
+                        a l'usuari si s'ha de continuar o no.
+                    </p>
 
+                    <code class="shell">
+                        1
+                        Desitja continuar (yes / no)? <span class="in">yes</span>
+                        2
+                        Desitja continuar (yes / no)? <span class="in">yes</span>
+                        3
+                        Desitja continuar (yes / no)? <span class="in">yes</span>
+                        4
+                        Desitja continuar (yes / no)? <span class="in">no</span>
+                        Bye bye
+                    </code>
                 </li>
 
                 <li>
@@ -754,8 +772,10 @@ flowchart TD
                 </li>
 
                 <li>
-                    <p><strong>Rectangle</strong></p>
+                    <p><strong>Figures</strong></p>
+                    <p>Fes diversos programes que dibuixen les següents figures:</p>
 
+                    <p>Rectangle</p>
                     <code class="shell">
                         Introduix alçada: <span class="in">7</span>
                         Introduix ample: <span class="in">5</span>
@@ -767,20 +787,18 @@ flowchart TD
                         #####
                         #####
                     </code>
-                </li>
-                <li>
-                    <p><strong>Tauler d'escacs (<i>de tamany m x n</i>)</strong></p>
+               
+                    <p>Tauler d'escacs (<i>de tamany m x n</i>)</p>
                     <code class="shell">
                         Introduix el número de files: <span class="in">4</span>
                         Introduix el número de columnes: <span class="in">10</span>
-                        # # # # #
-                         # # # # #
-                        # # # # #
-                         # # # # #
+                        #·#·#·#·#·
+                        ·#·#·#·#·#
+                        #·#·#·#·#·
+                        ·#·#·#·#·#
                     </code>
-                </li>
-                <li>
-                    <p><strong>Marc</strong></p>
+
+                    <p>Marc</p>
 
                     <code class="shell">
                         Introduix alçada: <span class="in">7</span>
@@ -793,9 +811,8 @@ flowchart TD
                         #   #
                         #####
                     </code>
-                </li>
-                <li>
-                    <p><strong>Triangle</strong></p>
+               
+                    <p>Triangle</p>
 
                     <code class="shell">
                         Introduix alçada: <span class="in">5</span>
@@ -805,9 +822,8 @@ flowchart TD
                         ****
                         *****
                     </code>
-                </li>
-                <li>
-                    <p><strong>Triangle invers</strong></p>
+               
+                    <p>Triangle invers</p>
 
                     <code class="shell">
                         Introduix alçada: <span class="in">5</span>
