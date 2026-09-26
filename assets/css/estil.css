@@ -614,7 +614,6 @@ code {
     padding: 0.15em 0.45em;
     border-radius: 4px;
     font-family: var(--font-mono);
-    word-break: break-word;
 }
 
 /* Code Blocks Container */
@@ -1371,6 +1370,17 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
     background-color: rgba(56, 189, 248, 0.08);
+}
+
+td :is(sc, .sc) {
+    margin: 0.35em 0 0.25em 0 !important;
+}
+
+.table-expl {
+    margin: 0.35em 0 0 0;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
 }
 
 
