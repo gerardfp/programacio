@@ -43,10 +43,10 @@
         <li><code class="w">text.trim()</code> / <code class="w">text.strip()</code>: elimina els espais en blanc sobrants dels extrems.</li>
         <li><code class="w">text.substring(inici, fi)</code>: extreu un fragment de text des de la posició <code class="w">inici</code> fins a <code class="w">fi - 1</code>.</li>
         <li><code class="w">text.contains("paraula")</code>: retorna <code class="w">true</code> si el text conté la paraula indicada.</li>
-        <li><code class="w">text.startsWith("prefix")</code> / <code class="w">text.endsWith("sufix")</code>: comprova si el text comença o acaba amb un text determinat.</li>
+        <li><code class="w">text.startsWith("prefix")</code> / <code class="w">text.endsWith("sufix")</code>: comprova com comença o acaba un text.</li>
         <li><code class="w">text.replace("vell", "nou")</code>: canvia totes les aparicions d'un text per un altre.</li>
         <li><code class="w">text.equals(altre)</code>: compara si dos textos tenen exactament el mateix contingut (<code class="w">true</code> o <code class="w">false</code>).</li>
-        <li><code class="w">text.equalsIgnoreCase(altre)</code>: compara si dos textos tenen el mateix contingut ignorant majúscules i minúscules.</li>
+        <li><code class="w">text.equalsIgnoreCase(altre)</code>: compara dos textos ignorant majúscules i minúscules.</li>
     </ul>
 
     <div class="sc" java>
@@ -184,10 +184,10 @@ Random random = new Random();
 
     <p>I després podem utilitzar les seves operacions:</p>
     <ul>
-        <li><code class="w">random.nextInt(límit)</code>: genera un enter a l'atzar entre <code class="w">0</code> i <code class="w">límit - 1</code>. Per exemple, <code class="w">random.nextInt(10)</code> genera números del <code class="w">0</code> al <code class="w">9</code>.</li>
-        <li><code class="w">random.nextInt(origen, límit)</code>: genera un enter entre <code class="w">origen</code> i <code class="w">límit - 1</code>. Per exemple, <code class="w">random.nextInt(1, 7)</code> genera valors de l'<code class="w">1</code> al <code class="w">6</code> (ideal per simular un dau).</li>
+        <li><code class="w">random.nextInt(limit)</code>: genera un enter a l'atzar entre <code class="w">0</code> i <code class="w">límit - 1</code>.</li>
+        <li><code class="w">random.nextInt(start, end)</code>: genera un enter entre <code class="w">start</code> i <code class="w">end - 1</code>.</li>
         <li><code class="w">random.nextDouble()</code>: genera un decimal aleatori entre <code class="w">0.0</code> i <code class="w">1.0</code>.</li>
-        <li><code class="w">random.nextBoolean()</code>: genera un valor booleà (<code class="w">true</code> o <code class="w">false</code>) amb un 50% de probabilitat (ideal per simular el llançament d'una moneda).</li>
+        <li><code class="w">random.nextBoolean()</code>: genera un valor booleà (<code class="w">true</code> o <code class="w">false</code>) amb un 50% de probabilitat.</li>
     </ul>
 
     <div class="sc" java>
@@ -201,8 +201,8 @@ void main() {
     println("Ha sortit el dau: " + dau);
 
     // Llançament d'una moneda:
-    boolean cara = random.nextBoolean();
-    println("Ha sortit cara? " + cara);
+    boolean esCara = random.nextBoolean();
+    println("Ha sortit cara? " + esCara);
 
     // Probabilitat decimal:
     double percentatge = random.nextDouble() * 100;
@@ -215,7 +215,7 @@ void main() {
 
 <section class="extra-api">
 
-    <h2>🚀 Modo extra: Hay una API para (casi) todo</h2>
+    <h2>🚀 Hay una API para (casi) todo</h2>
 
     <p>
         Hasta ahora has aprendido a programar. Pero Java tiene una biblioteca enorme
@@ -443,7 +443,9 @@ void main() {
                 <td><code>Toolkit</code></td>
                 <td>📋 Copiar texto</td>
                 <td>
-                    <div class="sc" java>Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection("Hola desde Java"), null);</div>
+                    <div class="sc" java>
+                        Toolkit.getDefaultToolkit().getSystemClipboard()
+                            .setContents(new StringSelection("Hola desde Java"), null);</div>
                     <p class="table-expl">Copia <code>Hola desde Java</code> en el portapapeles.</p>
                 </td>
             </tr>
@@ -648,9 +650,10 @@ void main() {
                 <td><code>Robot</code></td>
                 <td>📸 Hacer una captura</td>
                 <td>
-                    <div class="sc" java>Robot r = new Robot();
-Rectangle pantalla = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-BufferedImage imagen = r.createScreenCapture(pantalla);</div>
+                    <div class="sc" java>
+                        BufferedImage imagen = new Robot().createScreenCapture(
+                            new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+                    </div>
                     <p class="table-expl">Captura la pantalla y guarda la imagen en memoria.</p>
                 </td>
             </tr>
