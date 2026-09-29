@@ -625,6 +625,7 @@ sc, .sc, pre {
     background-color: var(--bg-code) !important;
     border: 1px solid var(--border-default);
     box-shadow: var(--shadow-sm);
+    font-size: 0.9rem;
 }
 
 /* Reset inner pre and code-toolbar inside code containers so there is never a double border or nested margin */

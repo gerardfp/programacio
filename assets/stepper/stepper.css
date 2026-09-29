@@ -367,7 +367,7 @@
   border: 1px solid #1e40af;
   border-top: 1px solid #1e40af;
   border-radius: 0 0 calc(var(--step-radius) - 1px) calc(var(--step-radius) - 1px);
-  padding: 0.85em 1.25em;
+  padding: 0.65em 1em;
   color: #f8fafc;
   font-size: 0.92rem;
   line-height: 1.5;
@@ -375,10 +375,19 @@
   min-height: 48px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.85em;
   width: 100%;
   box-sizing: border-box;
 }
 
+.stepper-v2 .stepper-explanation-content {
+  flex: 1;
+  min-width: 0;
+  display: block;
+}
+
+.stepper-v2 .stepper-explanation-content:empty::before,
 .stepper-v2 .stepper-explanation:empty::before {
   content: 'Execució del pas...';
   color: rgba(248, 250, 252, 0.5);
@@ -394,6 +403,42 @@
   font-family: var(--step-font-mono);
   font-size: 0.88em;
   color: #ffffff;
+}
+
+/* Expand / Fullscreen Toggle Button */
+.stepper-v2 .stepper-expand-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-left: auto;
+}
+
+.stepper-v2 .stepper-expand-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+  transform: scale(1.06);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.stepper-v2 .stepper-expand-btn:active {
+  transform: scale(0.96);
+}
+
+.stepper-v2 .stepper-expand-btn svg {
+  display: block;
+  pointer-events: none;
 }
 
 /* Memory Box */
@@ -576,5 +621,155 @@
 .stepper-v2 .stepper-shell-content .out {
   color: #f8fafc;
 }
+
+/* ==========================================================================
+   Quasi-Fullscreen Modal Dialog
+   ========================================================================== */
+
+body.stepper-modal-open {
+  overflow: hidden !important;
+}
+
+dialog.stepper-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: 94vw;
+  max-width: 1440px;
+  height: 88vh;
+  max-height: 920px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  background: var(--step-bg-container);
+  color: var(--step-text-main);
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  outline: none;
+  z-index: 9999;
+}
+
+dialog.stepper-dialog::backdrop {
+  background: rgba(3, 7, 18, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+dialog.stepper-dialog[open] {
+  animation: stepper-dialog-appear 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes stepper-dialog-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Stepper styles inside expanded dialog */
+.stepper-v2.is-expanded {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: none;
+}
+
+.stepper-v2.is-expanded .stepper-controls {
+  flex-shrink: 0;
+  padding: 0.65em 1.25em;
+  background: #0f172a;
+}
+
+.stepper-v2 .btn-close-dialog {
+  display: none;
+  margin-left: auto;
+  padding: 0.35em 0.65em;
+  min-width: 28px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 5px;
+  color: #fca5a5;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.stepper-v2.is-expanded .btn-close-dialog {
+  display: inline-flex;
+}
+
+.stepper-v2 .btn-close-dialog:hover {
+  background: rgba(239, 68, 68, 0.35);
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+.stepper-v2.is-expanded .stepper-body {
+  flex: 1 1 0%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(420px, 1.35fr) minmax(320px, 1fr);
+  overflow: hidden;
+}
+
+.stepper-v2.is-expanded .stepper-code-panel {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.stepper-v2.is-expanded .code-gutter {
+  height: 100%;
+  overflow: hidden;
+}
+
+.stepper-v2.is-expanded .code-pre {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.stepper-v2.is-expanded .stepper-info-panel {
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0.85em;
+  gap: 0.85em;
+}
+
+.stepper-v2.is-expanded .stepper-explanation {
+  flex-shrink: 0;
+  padding: 0.85em 1.25em;
+  font-size: 0.96rem;
+  border-radius: 0;
+}
+
+@media (max-width: 900px) {
+  dialog.stepper-dialog {
+    width: 98vw;
+    height: 94vh;
+    max-height: none;
+    border-radius: 8px;
+  }
+
+  .stepper-v2.is-expanded .stepper-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.2fr 1fr;
+    overflow-y: auto;
+  }
+}
+
 
 

@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Unitat 4: Arrays i Matrius | Tutorial Java 26</title>
+    <title>Unitat 4: Utils del JDK | Tutorial Java 26</title>
     <script src="../assets/js/script.js"></script>
     <link rel="stylesheet" href="../assets/css/estil.css">
+    <link rel="stylesheet" href="../assets/stepper/stepper.css">
+    <script src="../assets/stepper/stepper.js"></script>
 </head>
 <body>
 <nav></nav>
@@ -15,68 +17,770 @@
         <a href="../index.html">← Índex del curs</a>
         <a href="../exercicis/u4/index.html" class="ex-link-pill">Exercicis</a>
     </div>
-    <h1>Unitat 4. Arrays i Matrius</h1>
+    <h1>Unitat 4. Utils del JDK</h1>
 
     <div class="abstract">
         <p><strong>Unitat Didàctica 4:</strong></p>
         <p>En aquesta unitat aprendràs:</p>
-        <div class="check">Concepte d'array i organització contigua a la memòria amb accés per índex</div>
-        <div class="check">Visualització interactiva de lectura i recorregut d'arrays amb el stepper de memòria</div>
-        <div class="check">Matrius bidimensionals: files, columnes i recorregut amb bucles niats</div>
+        <div class="check">Tractament i manipulació de text amb <code class="w">String</code></div>
+        <div class="check">Lectura de dades per teclat amb <code class="w">Scanner</code></div>
+        <div class="check">Càlculs i constants matemàtiques amb <code class="w">Math</code></div>
+        <div class="check">Generació de valors aleatoris amb <code class="w">Random</code></div>
+        <div class="check">Biblioteques del JDK</div>
     </div>
 </header>
 
 <section>
 
-    <h2>Estructures de Dades Homogènies: Arrays i Matrius</h2>
-    <p>Fins ara hem emmagatzemat cada valor en una variable independent. Però què passa si hem de processar les notes de 500 estudiants o les coordenades de milers de píxels? Necessitem estructures que puguin guardar múltiples valors de forma organitzada.</p>
+<h2>1. Treballant amb <code class="w">String</code></h2>
 
-<h2>1. Arrays: Estructures Homogènies i Contigües</h2>
-    <p>Un <strong>array</strong> és una estructura de dades de mida fixa que conté una col·lecció d'elements del mateix tipus, emmagatzemats de manera contigua a la memòria.</p>
-    <p>Els elements s'identifiquen mitjançant un <strong>índex</strong> que comença sempre des del número <code class="w">0</code>. La propietat <code class="w">length</code> ens indica quants elements pot contenir.</p>
-
-    <div class="sc" java>
-// Declaració i assignació d'un array de 5 enters
-int[] nombres = new int[5];
-nombres[0] = 10;
-nombres[1] = 20;
-
-// Inicialització directa
-String[] dies = {"Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres"};
-println("El primer dia és: " + dies[0]);
-    </div>
-
-    <h3>Llegir un array de l'entrada estàndard i memòria pas a pas</h3>
-    <p>Observa en el següent <em>stepper</em> interactiu com un programa demana la mida d'un array, l'allotja a la memòria <code class="w">mem</code> amb els seus respectius índexs, llegeix els valors un a un des de l'entrada i els mostra per consola:</p>
-
-    <div class="stepper-v2" java auto in="5\n101\n102\n504\n302\n881" title="Lectura i memòria d'Arrays">
-<code class="source">
-int len = scanner.nextInt();
-int[] array = new int[len];
-
-for (int i = 0; i < len; i++) {
-    array[i] = scanner.nextInt();
-}
-</code>
-    </div>
-
-    <h2>2. Matrius Bidimensionals (Arrays 2D)</h2>
-    <p>Una <strong>matriu</strong> és un array d'arrays. Es pot visualitzar com una graella o taula formada per files i columnes, molt útil per representar taulers de joc, imatges o dades tabulades:</p>
+    <h3>Operacions bàsiques amb <code class="w">String</code></h3>
+    <p>Aquestes són les operacions més habituals que utilitzaràs per treballar amb text:</p>
+    <ul>
+        <li><code class="w">text.length()</code>: retorna el nombre total de caràcters de la cadena.</li>
+        <li><code class="w">text.charAt(index)</code>: retorna el caràcter a la posició indicada (el primer caràcter sempre és a la posició <code class="w">0</code>).</li>
+        <li><code class="w">text.toUpperCase()</code> / <code class="w">text.toLowerCase()</code>: retorna el text convertit a majúscules o a minúscules.</li>
+        <li><code class="w">text.trim()</code> / <code class="w">text.strip()</code>: elimina els espais en blanc sobrants dels extrems.</li>
+        <li><code class="w">text.substring(inici, fi)</code>: extreu un fragment de text des de la posició <code class="w">inici</code> fins a <code class="w">fi - 1</code>.</li>
+        <li><code class="w">text.contains("paraula")</code>: retorna <code class="w">true</code> si el text conté la paraula indicada.</li>
+        <li><code class="w">text.startsWith("prefix")</code> / <code class="w">text.endsWith("sufix")</code>: comprova com comença o acaba un text.</li>
+        <li><code class="w">text.replace("vell", "nou")</code>: canvia totes les aparicions d'un text per un altre.</li>
+        <li><code class="w">text.equals(altre)</code>: compara si dos textos tenen exactament el mateix contingut (<code class="w">true</code> o <code class="w">false</code>).</li>
+        <li><code class="w">text.equalsIgnoreCase(altre)</code>: compara dos textos ignorant majúscules i minúscules.</li>
+    </ul>
 
     <div class="sc" java>
-int[][] matriu = new int[3][4]; // 3 files x 4 columnes
-matriu[0][0] = 1; // Fila 0, columna 0
+void main() {
+    String nom = "  Maria Garcia  ";
 
-// Recorregut amb bucles niats:
-for (int i = 0; i &lt; matriu.length; i++) {
-    for (int j = 0; j &lt; matriu[i].length; j++) {
-        System.out.print(matriu[i][j] + " ");
-    }
-    System.out.println();
+    println("Original: '" + nom + "'");
+    println("Longitud: " + nom.length());
+    println("Sense espais: '" + nom.trim() + "'");
+    println("En majúscules: " + nom.toUpperCase());
+    println("Primer caràcter: " + nom.trim().charAt(0));
+    println("Conté 'Garcia'? " + nom.contains("Garcia"));
+    println("Subcadena (0..5): " + nom.trim().substring(0, 5)); // Maria
+    println("Substitució: " + nom.replace("Garcia", "Pérez"));
+    println("És igual a 'Maria Garcia'? " + nom.trim().equals("Maria Garcia"));
 }
     </div>
 
-    
+    <h3>Format de dades amb <code class="w">.formatted()</code></h3>
+    <p>Quan hem de mostrar xifres amb un nombre concret de decimals, alinear columnes o construir missatges amb variables, podem aplicar el mètode <code class="w">.formatted(...)</code> directament sobre qualsevol cadena de text o Text Block:</p>
+
+    <p>Els especificadors de format més comuns són:</p>
+    <ul>
+        <li><code class="w">%s</code>: per incrustar cadenes de text.</li>
+        <li><code class="w">%d</code>: per a nombres enters (<code class="w">int</code>, <code class="w">long</code>).</li>
+        <li><code class="w">%.2f</code>: per a nombres decimals (<code class="w">double</code>) amb exactament 2 xifres decimals.</li>
+        <li><code class="w">%n</code>: per afegir un salt de línia independent del sistema operatiu.</li>
+    </ul>
+
+    <div class="sc" java>
+void main() {
+    String producte = "Portàtil";
+    double preu = 899.95;
+    int quantitat = 2;
+
+    // .formatted() substitueix els especificadors pels valors indicats:
+    String linia = "Producte: %-12s | Unitats: %2d | Preu: %8.2f €".formatted(producte, quantitat, preu);
+    println(linia);
+
+    String total = "Total a pagar: %.2f €".formatted(preu * quantitat);
+    println(total);
+
+    // Funciona de manera idèntica amb Text Blocks per a plantilles multilínia:
+    String factura = """
+        =========== FACTURA SIMPLIFICADA ===========
+        Article: %s
+        Total:   %.2f €
+        ============================================
+        """.formatted(producte, preu * quantitat);
+
+    println(factura);
+}
+    </div>
+
+    <h2>2. Lectura de Dades per Teclat: Scanner</h2>
+    <p>Per demanar dades a l'usuari a través de la consola i llegir la seva resposta utilitzem <code class="w">Scanner</code>. Com que forma part del paquet d'utilitats de Java, cal afegir la sentència <code class="w">import java.util.Scanner;</code> a l'inici del fitxer:</p>
+
+    <p>Per començar a llegir, preparem un lector vinculat a l'entrada estàndard del sistema (<code class="w">System.in</code>):</p>
+    <div class="sc" java>
+Scanner scanner = new Scanner(System.in);
+    </div>
+
+    <p>Segons el tipus de dada que esperem rebre, farem servir el mètode adequat:</p>
+    <ul>
+        <li><code class="w">scanner.nextLine()</code>: llegeix tota la línia de text fins que l'usuari prem la tecla Enter.</li>
+        <li><code class="w">scanner.next()</code>: llegeix només la següent paraula (s'atura en trobar un espai en blanc o salt de línia).</li>
+        <li><code class="w">scanner.nextInt()</code>: llegeix un nombre enter (<code class="w">int</code>).</li>
+        <li><code class="w">scanner.nextDouble()</code>: llegeix un nombre decimal (<code class="w">double</code>).</li>
+        <li><code class="w">scanner.nextBoolean()</code>: llegeix un valor booleà (<code class="w">true</code> o <code class="w">false</code>).</li>
+    </ul>
+
+    <div class="sc" java>
+import java.util.Scanner;
+
+void main() {
+    Scanner scanner = new Scanner(System.in);
+
+    print("Com et dius? ");
+    String nom = scanner.nextLine();
+
+    print("Quants anys tens? ");
+    int edat = scanner.nextInt();
+
+    print("Quina alçada tens en metres (ex: 1,75)? ");
+    double alcada = scanner.nextDouble();
+
+    println("Hola " + nom + ", tens " + edat + " anys i fas " + alcada + "m!");
+}
+    </div>
+
+
+    <h2>3. Operacions Matemàtiques: Math</h2>
+    <p><code class="w">Math</code> proporciona un conjunt complet de funcions matemàtiques i constants. Està disponible directament a qualsevol programa Java sense necessitat d'afegir cap instrucció <code class="w">import</code>.</p>
+
+    <p>S'utilitza escrivint directament <code class="w">Math.</code> seguit del nom de l'operació o constant que necessitem:</p>
+
+    <ul>
+        <li><code class="w">Math.PI</code>: nombre pi (approx).</li>
+        <li><code class="w">Math.sqrt(x)</code>: calcula l'arrel quadrada ($\sqrt{x}$).</li>
+        <li><code class="w">Math.pow(base, exponent)</code>: calcula la potència $\text{base}^{\text{exponent}}$ (retorna sempre un <code class="w">double</code>).</li>
+        <li><code class="w">Math.abs(x)</code>: calcula el valor absolut (elimina el signe negatiu d'un número).</li>
+        <li><code class="w">Math.max(a, b)</code> / <code class="w">Math.min(a, b)</code>: retorna el valor més gran o el més petit entre dos números.</li>
+        <li><code class="w">Math.round(x)</code>: arrodoneix un nombre decimal a l'enter més proper.</li>
+        <li><code class="w">Math.floor(x)</code>: arrodoneix cap avall a l'enter inferior més proper.</li>
+        <li><code class="w">Math.ceil(x)</code>: arrodoneix cap amunt a l'enter superior més proper.</li>
+        <li><code class="w">Math.random()</code>: genera un nombre decimal aleatori entre <code class="w">0.0</code> (inclòs) i <code class="w">1.0</code> (exclòs).</li>
+    </ul>
+
+    <div class="sc" java>
+void main() {
+    double radi = 5.0;
+    double area = Math.PI * Math.pow(radi, 2);
+    println("Àrea del cercle: " + area);
+
+    double arrel = Math.sqrt(144);
+    println("Arrel de 144: " + arrel); // 12.0
+
+    println("Màxim entre 45 i 80: " + Math.max(45, 80)); // 80
+    println("Mínim entre 45 i 80: " + Math.min(45, 80)); // 45
+    println("Valor absolut de -15: " + Math.abs(-15));     // 15
+
+    println("Arrodonir 4.7: " + Math.round(4.7)); // 5
+    println("Sòl (floor) de 4.7: " + Math.floor(4.7)); // 4.0
+    println("Sostre (ceil) de 4.2: " + Math.ceil(4.2)); // 5.0
+}
+    </div>
+
+    <h2>4. Generació de Valors Aleatoris: Random</h2>
+    <p>Quan volem generar valors a l'atzar amb més flexibilitat (nombres enters en intervals concrets, daus, cartes o simulacions), la utilitat <code class="w">Random</code> del paquet <code class="w">java.util</code> (<code class="w">import java.util.Random;</code>) és la més recomanada.</p>
+
+    <p>Primer preparem el generador:</p>
+    <div class="sc" java>
+Random random = new Random();
+    </div>
+
+    <p>I després podem utilitzar les seves operacions:</p>
+    <ul>
+        <li><code class="w">random.nextInt(limit)</code>: genera un enter a l'atzar entre <code class="w">0</code> i <code class="w">límit - 1</code>.</li>
+        <li><code class="w">random.nextInt(start, end)</code>: genera un enter entre <code class="w">start</code> i <code class="w">end - 1</code>.</li>
+        <li><code class="w">random.nextDouble()</code>: genera un decimal aleatori entre <code class="w">0.0</code> i <code class="w">1.0</code>.</li>
+        <li><code class="w">random.nextBoolean()</code>: genera un valor booleà (<code class="w">true</code> o <code class="w">false</code>) amb un 50% de probabilitat.</li>
+    </ul>
+
+    <div class="sc" java>
+import java.util.Random;
+
+void main() {
+    Random random = new Random();
+
+    // Simulació d'un dau de 6 cares:
+    int dau = random.nextInt(1, 7);
+    println("Ha sortit el dau: " + dau);
+
+    // Llançament d'una moneda:
+    boolean esCara = random.nextBoolean();
+    println("Ha sortit cara? " + esCara);
+
+    // Probabilitat decimal:
+    double percentatge = random.nextDouble() * 100;
+    println("Percentatge d'èxit: %.1f%%".formatted(percentatge));
+}
+    </div>
+
+
+</section>
+
+<section class="extra-api">
+
+    <h2>🚀 Hay una API para (casi) todo</h2>
+
+    <p>
+        Hasta ahora has aprendido a programar. Pero Java tiene una biblioteca enorme
+        que permite hacer muchísimas cosas sin tener que programarlas desde cero.
+    </p>
+
+    <p>
+        Aquí tienes pequeñas <strong>piezas de Lego</strong>: cada una hace una cosa
+        sencilla. Prueba a cambiar sus parámetros, repetirlas, combinarlas con
+        <code>if</code>, <code>for</code>, <code>while</code> o <code>Random</code>...
+        ¿Qué serías capaz de construir?
+    </p>
+
+    <blockquote>
+        <strong>💡 La idea:</strong> no necesitas aprenderte estas API.
+        Descubre que existen y experimenta con ellas.
+    </blockquote>
+
+
+    <h3>🪟 Ventanas</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                        <tr>
+                <td><code>JOptionPane</code></td>
+                <td>💬 Mostrar un mensaje</td>
+                <td>
+                    <div class="sc" java>JOptionPane.showMessageDialog(null, "¡Hola!");</div>
+                    <p class="table-expl">Muestra <code>¡Hola!</code> en una ventana.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>JOptionPane</code></td>
+                <td>❓ Preguntar algo</td>
+                <td>
+                    <div class="sc" java>JOptionPane.showInputDialog("¿Cómo te llamas?");</div>
+                    <p class="table-expl">Muestra una ventana donde el usuario puede escribir una respuesta.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>JOptionPane</code></td>
+                <td>⚠️ Mostrar una advertencia</td>
+                <td>
+                    <div class="sc" java>JOptionPane.showMessageDialog(null, "¡Cuidado!");</div>
+                    <p class="table-expl">Muestra un mensaje emergente.</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🖱️ Controlar el ordenador</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                        <tr>
+                <td><code>Robot</code></td>
+                <td>🖱️ Mover el ratón</td>
+                <td>
+                    <div class="sc" java>new Robot().mouseMove(500, 300);</div>
+                    <p class="table-expl">Mueve el ratón a la posición <code>(500, 300)</code>.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Robot</code></td>
+                <td>🖱️ Hacer clic</td>
+                <td>
+                    <div class="sc" java>new Robot().click();</div>
+                    <p class="table-expl">Hace clic con el botón izquierdo del ratón.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Robot</code></td>
+                <td>⌨️ Escribir</td>
+                <td>
+                    <div class="sc" java>new Robot().type("¡Hola!");</div>
+                    <p class="table-expl">Escribe <code>¡Hola!</code> utilizando el teclado.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Robot</code></td>
+                <td>⌨️ Pulsar una tecla</td>
+                <td>
+                    <div class="sc" java>new Robot().type(KeyEvent.VK_ENTER);</div>
+                    <p class="table-expl">Pulsa la tecla Enter.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Robot</code></td>
+                <td>🎨 Averiguar el color de la pantalla</td>
+                <td>
+                    <div class="sc" java>IO.println(new Robot().getPixelColor(500, 300));</div>
+                    <p class="table-expl">Indica el color del píxel situado en <code>(500, 300)</code>.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Robot</code></td>
+                <td>⏱️ Mover el ratón lentamente</td>
+                <td>
+                    <div class="sc" java>new Robot().mouseMove(500, 300);</div>
+                    <p class="table-expl">Mueve el ratón a una posición determinada. Cambia las coordenadas y experimenta.</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🚀 Lanzar programas</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                        <tr>
+                <td><code>ProcessBuilder</code></td>
+                <td>🚀 Abrir un programa</td>
+                <td>
+                    <div class="sc" java>new ProcessBuilder("calc").start();</div>
+                    <p class="table-expl">Abre la calculadora de Windows.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>ProcessBuilder</code></td>
+                <td>💻 Ejecutar un comando</td>
+                <td>
+                    <div class="sc" java>new ProcessBuilder("cmd", "/c", "echo Hola").start();</div>
+                    <p class="table-expl">Ejecuta un comando del sistema.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>ProcessBuilder</code></td>
+                <td>🛑 Cerrar un programa</td>
+                <td>
+                    <div class="sc" java>new ProcessBuilder("taskkill", "/IM", "notepad.exe", "/F").start();</div>
+                    <p class="table-expl">Cierra el Bloc de notas en Windows.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Thread</code></td>
+                <td>⏱️ Hacer una pausa</td>
+                <td>
+                    <div class="sc" java>Thread.sleep(1000);</div>
+                    <p class="table-expl">Hace que el programa espere un segundo antes de continuar.</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🌐 Interactuar con el ordenador</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                        <tr>
+                <td><code>Desktop</code></td>
+                <td>🌐 Abrir una página web</td>
+                <td>
+                    <div class="sc" java>Desktop.getDesktop().browse(URI.create("https://google.com"));</div>
+                    <p class="table-expl">Abre Google en el navegador predeterminado.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Desktop</code></td>
+                <td>📄 Abrir un archivo</td>
+                <td>
+                    <div class="sc" java>Desktop.getDesktop().open(new File("foto.jpg"));</div>
+                    <p class="table-expl">Abre el archivo con la aplicación predeterminada.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Desktop</code></td>
+                <td>🖨️ Imprimir un documento</td>
+                <td>
+                    <div class="sc" java>Desktop.getDesktop().print(new File("documento.pdf"));</div>
+                    <p class="table-expl">Envía el documento a la aplicación de impresión predeterminada.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Toolkit</code></td>
+                <td>📋 Copiar texto</td>
+                <td>
+                    <div class="sc" java>
+                        Toolkit.getDefaultToolkit().getSystemClipboard()
+                            .setContents(new StringSelection("Hola desde Java"), null);</div>
+                    <p class="table-expl">Copia <code>Hola desde Java</code> en el portapapeles.</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>📁 Trabajar con archivos</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                        <tr>
+                <td><code>Files</code></td>
+                <td>📝 Crear un archivo</td>
+                <td>
+                    <div class="sc" java>Files.writeString(Path.of("hola.txt"), "¡Hola!");</div>
+                    <p class="table-expl">Crea <code>hola.txt</code> y escribe <code>¡Hola!</code>.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Files</code></td>
+                <td>📖 Leer un archivo</td>
+                <td>
+                    <div class="sc" java>IO.println(Files.readString(Path.of("hola.txt")));</div>
+                    <p class="table-expl">Lee y muestra el contenido completo de <code>hola.txt</code>.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Files</code></td>
+                <td>📋 Copiar un archivo</td>
+                <td>
+                    <div class="sc" java>Files.copy(Path.of("foto.jpg"), Path.of("copia.jpg"));</div>
+                    <p class="table-expl">Hace una copia de <code>foto.jpg</code>.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Files</code></td>
+                <td>✏️ Cambiar el nombre de un archivo</td>
+                <td>
+                    <div class="sc" java>Files.move(Path.of("viejo.txt"), Path.of("nuevo.txt"));</div>
+                    <p class="table-expl">Cambia el nombre de <code>viejo.txt</code> a <code>nuevo.txt</code>.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Files</code></td>
+                <td>🗑️ Borrar un archivo</td>
+                <td>
+                    <div class="sc" java>Files.delete(Path.of("basura.txt"));</div>
+                    <p class="table-expl">Borra <code>basura.txt</code>.</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🎵 Hacer música</h3>
+
+    <p>
+        Java puede controlar un sintetizador MIDI. No necesitas ningún archivo de
+        sonido: puedes generar las notas directamente desde el programa.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                        <tr>
+                <td><code>javax.sound.midi</code></td>
+                <td>🎵 Tocar una nota</td>
+                <td>
+                    <div class="sc" java>canal.noteOn(60, 100);</div>
+                    <p class="table-expl">Hace sonar la nota MIDI número <code>60</code>.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>javax.sound.midi</code></td>
+                <td>🔇 Dejar de tocar una nota</td>
+                <td>
+                    <div class="sc" java>canal.noteOff(60);</div>
+                    <p class="table-expl">Deja de sonar la nota MIDI número <code>60</code>.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>javax.sound.midi</code></td>
+                <td>🎹 Cambiar de instrumento</td>
+                <td>
+                    <div class="sc" java>canal.programChange(80);</div>
+                    <p class="table-expl">Cambia el instrumento utilizado por el sintetizador.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>javax.sound.midi</code></td>
+                <td>🎵 Tocar una melodía</td>
+                <td>
+                    <div class="sc" java>for (int n : new int[]{60, 62, 64, 65, 67, 69, 71, 72}) {
+    canal.noteOn(n, 100);
+    Thread.sleep(300);
+    canal.noteOff(n);
+}</div>
+                    <p class="table-expl">Toca una escala musical. Cambia las notas o la duración y crea tu propia melodía.</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🎨 Dibujar</h3>
+
+    <p>
+        Con <code>Graphics2D</code> puedes construir dibujos a partir de piezas
+        muy sencillas. Cambia las coordenadas, repite las instrucciones o combina
+        los dibujos con bucles y números aleatorios.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                        <tr>
+                <td><code>Graphics2D</code></td>
+                <td>📏 Dibujar una línea</td>
+                <td>
+                    <div class="sc" java>g.drawLine(10, 10, 200, 100);</div>
+                    <p class="table-expl">Dibuja una línea entre dos puntos.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Graphics2D</code></td>
+                <td>⭕ Dibujar un círculo</td>
+                <td>
+                    <div class="sc" java>g.drawOval(50, 50, 100, 100);</div>
+                    <p class="table-expl">Dibuja una circunferencia o una elipse.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Graphics2D</code></td>
+                <td>🟥 Dibujar un rectángulo</td>
+                <td>
+                    <div class="sc" java>g.fillRect(50, 50, 100, 100);</div>
+                    <p class="table-expl">Dibuja un rectángulo relleno.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Graphics2D</code></td>
+                <td>🔤 Dibujar texto</td>
+                <td>
+                    <div class="sc" java>g.drawString("¡Hola!", 50, 50);</div>
+                    <p class="table-expl">Dibuja un texto en la superficie gráfica.</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>📸 Jugar con la pantalla</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                        <tr>
+                <td><code>Robot</code></td>
+                <td>📸 Hacer una captura</td>
+                <td>
+                    <div class="sc" java>
+                        BufferedImage imagen = new Robot().createScreenCapture(
+                            new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+                    </div>
+                    <p class="table-expl">Captura la pantalla y guarda la imagen en memoria.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Robot</code></td>
+                <td>🎨 Leer el color de un punto</td>
+                <td>
+                    <div class="sc" java>IO.println(new Robot().getPixelColor(100, 100));</div>
+                    <p class="table-expl">Permite saber qué color hay en una posición concreta de la pantalla.</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🌐 Hacer que dos ordenadores hablen</h3>
+
+    <p>
+        Estas API permiten que dos programas que están en distintos ordenadores
+        intercambien datos a través de una red.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Con Java puedo...</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                        <tr>
+                <td><code>Socket</code></td>
+                <td>🌐 Conectarme a otro ordenador</td>
+                <td>
+                    <div class="sc" java>new Socket("192.168.1.50", 5000);</div>
+                    <p class="table-expl">Intenta conectar con un programa que está esperando en ese ordenador y puerto.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>Socket</code></td>
+                <td>📤 Enviar un mensaje</td>
+                <td>
+                    <div class="sc" java>socket.getOutputStream().write("¡Hola!".getBytes());</div>
+                    <p class="table-expl">Envía un mensaje al otro programa.</p>
+                </td>
+            </tr>
+
+                        <tr>
+                <td><code>ServerSocket</code></td>
+                <td>📡 Esperar a otro ordenador</td>
+                <td>
+                    <div class="sc" java>new ServerSocket(5000).accept();</div>
+                    <p class="table-expl">Espera hasta que otro programa se conecte al puerto 5000.</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>🤯 Y ahora... combina las piezas</h3>
+
+    <p>
+        Lo interesante no es aprender estas instrucciones de memoria. Lo interesante
+        empieza cuando las combinas con lo que ya sabes.
+    </p>
+
+    <h4>🤖 Abrir un programa y escribir dentro</h4>
+
+    <div class="sc" java>new ProcessBuilder("notepad").start();
+Thread.sleep(2000);
+new Robot().type("¡Esto lo ha escrito Java!");</div>
+
+    <p>
+        Java abre el Bloc de notas, espera dos segundos y escribe en él.
+        ¿Qué podrías hacer si cambias el texto, el tiempo y las acciones del robot?
+    </p>
+
+
+    <h4>🎵 Componer una canción</h4>
+
+    <div class="sc" java>int[] notas = {60, 62, 64, 65, 67, 69, 71, 72};
+
+for (int nota : notas) {
+    canal.noteOn(nota, 100);
+    Thread.sleep(300);
+    canal.noteOff(nota);
+}</div>
+
+    <p>
+        Cambia las notas. Cambia la duración. Repite algunas.
+        Cambia el instrumento. Añade silencios.
+        <strong>¿Puedes hacer que Java toque una canción?</strong>
+    </p>
+
+
+    <h4>🖱️ Crear una automatización</h4>
+
+    <div class="sc" java>Robot r = new Robot();
+
+r.mouseMove(500, 300);
+Thread.sleep(500);
+r.click();
+Thread.sleep(500);
+r.type("Hola");</div>
+
+    <p>
+        Has construido una pequeña macro. Ahora puedes cambiar las coordenadas,
+        las esperas y las acciones. ¿Puedes automatizar una tarea que haces
+        habitualmente?
+    </p>
+
+
+    <blockquote>
+        <strong>🧱 Piensa en piezas de Lego:</strong>
+        una instrucción puede parecer poca cosa.
+        Pero puedes repetirla, cambiar sus parámetros y combinarla con otras.
+        Muchas cosas grandes empiezan con una pieza muy pequeña.
+    </blockquote>
+</section>
+
+<section>
     <div class="exercise-card">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div>

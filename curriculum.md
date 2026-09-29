@@ -22,16 +22,7 @@
 - Contadores y acumuladores
 - Patrones básicos de algoritmos
 
-## UNIDAD 3 · Utilidades del JDK
-
-- `Scanner`
-- `Math`
-- `Random`
-- `String.format`
-- Text Blocks
-- Uso de métodos de las clases de la biblioteca estándar
-
-## UNIDAD 4 · Arrays
+## UNIDAD 3 · Arrays
 
 - Declaración, creación e inicialización
 - Acceso mediante índices
@@ -40,6 +31,15 @@
 - Búsqueda y conteo de elementos
 - Máximos, mínimos y acumulaciones
 - Arrays multidimensionales
+
+## UNIDAD 4 · Utilidades del JDK
+
+- `Scanner`
+- `Math`
+- `Random`
+- `String.format`
+- Text Blocks
+- Uso de métodos de las clases de la biblioteca estándar
 
 ## UNIDAD 5 · Programación orientada a objetos
 

@@ -22,6 +22,9 @@ RA3.f. Se han probado y depurado los programas.
 RA3.g. Se ha comentado y documentado el código.
 
 UNIDAD 3
+RA6.a. Se han escrito programas que utilicen matrices (arrays).
+
+UNIDAD 4
 RA2.a. Se han identificado los fundamentos de la programación orientada a objetos. (se refiere al uso de Scanner, Math o Random entre otros)
 RA2.c. Se han instanciado objetos a partir de clases predefinidas. (se refiere al uso de Scanner, Math o Random entre otros)
 RA2.d. Se han utilizado métodos y propiedades de los objetos. (se refiere al uso de Scanner, Math o Random entre otros)
@@ -30,9 +33,6 @@ RA2.h. Se han utilizado constructores. (se refiere al uso de Scanner, Math o Ran
 RA5.a. Se ha utilizado la consola para realizar operaciones de entrada y salida de información.
 RA5.c. Se han reconocido las posibilidades de entrada / salida del lenguaje y las librerías asociadas.
 RA5.b. Se han aplicado formatos en la visualización de la información.
-
-UNIDAD 4
-RA6.a. Se han escrito programas que utilicen matrices (arrays).
 
 UNIDAD 5
 RA4.a. Se ha reconocido la sintaxis, estructura y componentes típicos de una clase.

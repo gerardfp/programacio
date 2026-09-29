@@ -104,8 +104,16 @@
     slider.value = '0';
     slider.setAttribute('aria-label', 'Pas d\'execució');
 
+    const closeDialogBtn = document.createElement('button');
+    closeDialogBtn.className = 'btn-close-dialog';
+    closeDialogBtn.type = 'button';
+    closeDialogBtn.innerHTML = '✕';
+    closeDialogBtn.title = 'Tancar pantalla quasi-completa (Esc)';
+    closeDialogBtn.setAttribute('aria-label', 'Tancar diàleg');
+
     controls.appendChild(btnGroup);
     controls.appendChild(slider);
+    controls.appendChild(closeDialogBtn);
 
     // Main Body
     const body = document.createElement('div');
@@ -214,7 +222,7 @@
       const msg = isInputEdited
         ? '✏️ Codi i entrada modificats. Prem <strong>↺</strong> (o Ctrl+Enter) per recarregar i executar.'
         : '✏️ Codi modificat. Prem <strong>↺</strong> (o Ctrl+Enter) per recarregar i executar.';
-      explanationBox.innerHTML = `<span class="stepper-edit-hint">${msg}</span>`;
+      explanationContent.innerHTML = `<span class="stepper-edit-hint">${msg}</span>`;
     });
 
     codeBlock.addEventListener('keydown', (e) => {
@@ -247,6 +255,24 @@
 
     const explanationBox = document.createElement('div');
     explanationBox.className = 'stepper-explanation';
+
+    const explanationContent = document.createElement('div');
+    explanationContent.className = 'stepper-explanation-content';
+
+    const expandBtn = document.createElement('button');
+    expandBtn.className = 'stepper-expand-btn';
+    expandBtn.type = 'button';
+    expandBtn.title = 'Ampliar visualització (pantalla quasi-completa)';
+    expandBtn.setAttribute('aria-label', 'Ampliar visualització');
+
+    const expandIconSvg = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>';
+
+    const compressIconSvg = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="10" y1="14" x2="3" y2="21"></line></svg>';
+
+    expandBtn.innerHTML = expandIconSvg;
+
+    explanationBox.appendChild(explanationContent);
+    explanationBox.appendChild(expandBtn);
 
     const memBox = document.createElement('div');
     memBox.className = 'stepper-mem';
@@ -290,7 +316,7 @@
       const msg = isCodeEdited
         ? '✏️ Codi i entrada modificats. Prem <strong>↺</strong> (o Ctrl+Enter) per recarregar i executar.'
         : '✏️ Entrada modificada. Prem <strong>↺</strong> (o Ctrl+Enter) per recarregar i executar.';
-      explanationBox.innerHTML = `<span class="stepper-edit-hint">${msg}</span>`;
+      explanationContent.innerHTML = `<span class="stepper-edit-hint">${msg}</span>`;
     });
 
     consoleInContent.addEventListener('keydown', (e) => {
@@ -385,19 +411,28 @@
             }
           }
         });
+        const firstLineNum = state.lines[0];
+        const firstRow = codeBlock.querySelector(`.code-line-row[data-line="${firstLineNum}"]`);
+        if (firstRow && (root.classList.contains('is-expanded') || pre.scrollHeight > pre.clientHeight)) {
+          const preRect = pre.getBoundingClientRect();
+          const rowRect = firstRow.getBoundingClientRect();
+          if (rowRect.top < preRect.top || rowRect.bottom > preRect.bottom) {
+            firstRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          }
+        }
       }
 
       // 2. Update Explanation & Phase Badge
-      explanationBox.innerHTML = '';
+      explanationContent.innerHTML = '';
       if (state.partName) {
         const partBadge = document.createElement('span');
         partBadge.className = `stepper-phase-badge part-${state.part || 'body'}`;
         partBadge.textContent = state.partName;
-        explanationBox.appendChild(partBadge);
+        explanationContent.appendChild(partBadge);
       }
       const expContent = document.createElement('span');
       expContent.innerHTML = state.explanation || '';
-      explanationBox.appendChild(expContent);
+      explanationContent.appendChild(expContent);
 
       // 3. Update Memory
       memList.innerHTML = '';
@@ -481,7 +516,7 @@
         renderStep(0);
       } catch (err) {
         console.warn('Stepper 2.0: Error simulating edited code or inputs:', err);
-        explanationBox.innerHTML = `<span class="stepper-phase-badge part-end">Error</span> <span style="color:#f87171; margin-left: 0.5em;">${escapeHtml(err.message || String(err))}</span>`;
+        explanationContent.innerHTML = `<span class="stepper-phase-badge part-end">Error</span> <span style="color:#f87171; margin-left: 0.5em;">${escapeHtml(err.message || String(err))}</span>`;
         resetBtn.classList.add('needs-reset');
       }
     });
@@ -490,8 +525,97 @@
       renderStep(parseInt(slider.value, 10));
     });
 
+    // Quasi-Fullscreen Dialog Management
+    let placeholder = null;
+    let dialog = null;
+
+    function openDialog() {
+      // Close any currently open stepper dialog
+      document.querySelectorAll('dialog.stepper-dialog[open]').forEach(d => {
+        d.dispatchEvent(new Event('cancel'));
+      });
+
+      if (!dialog) {
+        dialog = document.createElement('dialog');
+        dialog.className = 'stepper-dialog';
+
+        // Close on backdrop click (click outside the dialog box)
+        dialog.addEventListener('click', (e) => {
+          if (e.target === dialog) {
+            const rect = dialog.getBoundingClientRect();
+            const isInDialog = (
+              rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+              rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+            );
+            if (!isInDialog) {
+              closeDialog();
+            }
+          }
+        });
+
+        // Close on Escape key via native dialog cancel event
+        dialog.addEventListener('cancel', (e) => {
+          e.preventDefault();
+          closeDialog();
+        });
+      }
+
+      placeholder = document.createComment('stepper-placeholder');
+      root.parentNode.insertBefore(placeholder, root);
+      dialog.appendChild(root);
+      document.body.appendChild(dialog);
+      document.body.classList.add('stepper-modal-open');
+
+      root.classList.add('is-expanded');
+      expandBtn.innerHTML = compressIconSvg;
+      expandBtn.title = 'Reduir visualització (sortir de pantalla quasi-completa)';
+      expandBtn.setAttribute('aria-label', 'Reduir visualització');
+
+      dialog.showModal();
+      root.focus();
+    }
+
+    function closeDialog() {
+      if (!dialog || !dialog.open) return;
+
+      if (placeholder && placeholder.parentNode) {
+        placeholder.parentNode.insertBefore(root, placeholder);
+        placeholder.remove();
+        placeholder = null;
+      }
+
+      root.classList.remove('is-expanded');
+      expandBtn.innerHTML = expandIconSvg;
+      expandBtn.title = 'Ampliar visualització (pantalla quasi-completa)';
+      expandBtn.setAttribute('aria-label', 'Ampliar visualització');
+
+      document.body.classList.remove('stepper-modal-open');
+      dialog.close();
+      if (dialog.parentNode) {
+        dialog.parentNode.removeChild(dialog);
+      }
+      root.focus();
+    }
+
+    function toggleDialog() {
+      if (root.classList.contains('is-expanded')) {
+        closeDialog();
+      } else {
+        openDialog();
+      }
+    }
+
+    expandBtn.addEventListener('click', toggleDialog);
+    closeDialogBtn.addEventListener('click', closeDialog);
+
     // Keyboard navigation when stepper has focus
     root.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && root.classList.contains('is-expanded')) {
+        e.preventDefault();
+        closeDialog();
+        return;
+      }
+
       // Do not intercept navigation keys while typing inside an editable element
       if (e.target && (e.target.isContentEditable || (e.target.closest && e.target.closest('code, pre, input, textarea, [contenteditable="true"]')))) return;
 
