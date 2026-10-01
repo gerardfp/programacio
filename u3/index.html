@@ -86,6 +86,32 @@ for (int i = 0; i < array.length; i++) {
 </code>
     </div>
 
+    <p>El mateix exemple amb un array d'<code class="w">Strings</code>:</p>
+    <p>Observa:</p>
+    <ul>
+        <li>La longitud (<code class="w">len</code>) de l'array segueix sent un nombre enter</li>
+        <li>Quan es crea l'array de tipus <code class="w">String</code>, 
+            els valor son <code class="w">null</code></li>
+    </ul>
+        <div class="stepper-v2" java auto in="5\nDilluns\nDimarts\nDimecres\nDijous\nDivendres" title="Lectura i memòria d'Arrays">
+<code class="source">
+
+// llegir l'array
+int len = Integer.parseInt(IO.readln());
+String[] array = new String[len];
+
+for (int i = 0; i < array.length; i++) {
+    array[i] = IO.readln();
+}
+
+
+// imprimir l'array
+for (int i = 0; i < array.length; i++) {
+    IO.println(array[i]);
+}
+</code>
+    </div>
+
     <h2>2. Matrius Bidimensionals (Arrays 2D)</h2>
     <p>Una <strong>matriu</strong> és un array d'arrays. Es pot visualitzar com una graella o taula formada per files i columnes, molt útil per representar taulers de joc, imatges o dades tabulades:</p>
 
@@ -142,7 +168,18 @@ for (int i = 0; i < matriu.length; i++) {
 </code>
     </div>
 
+    <h2>3. ArrayIndexOutOfBoundsException</h2>
+    <p>Una <code class="w">ArrayIndexOutOfBoundsException</code> es produeix quan intentes accedir a un índex d'una matriu que no existeix. Per exemple, si una matriu té 3 files, intentar accedir a la fila 3 (que està fora de límits) llençarà aquesta excepció.</p>
     
+    <img src="aioobe.png" style="border-radius: 8px;" alt="Exemple d'ArrayIndexOutOfBoundsException" style="max-width: 100%; height: auto;">
+
+    <div class="sc" java>
+        int[] numeros = new int[5];
+
+        IO.println(numeros[5]);   // <span style="color: red;">aioobe</span>
+        numeros[5] = 743;         // <span style="color: red;">aioobe</span>
+    </div>
+
     <div class="exercise-card">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div>

@@ -37,10 +37,10 @@
                 </div>
 <p>Emparella les següents operacions amb el seu resultat:</p>
 </div>
-<div class="o">numbers[0]</div> <div class="o">1</div>
-<div class="o">numbers[6]</div> <div class="o">4</div>
-<div class="o">numbers.length</div> <div class="o">7</div>
-<div class="o">numbers[7]</div> <div class="o">OutOfBounds</div>
+<div class="o"><code class="w">numbers[0]</code></div> <div class="o">1</div>
+<div class="o"><code class="w">numbers[6]</code></div> <div class="o">4</div>
+<div class="o"><code class="w">numbers.length</code></div> <div class="o">7</div>
+<div class="o"><code class="w">numbers[7]</code></div> <div class="o">OutOfBounds</div>
 </div>
 <div class="question" single="">
 <div class="statement">
@@ -56,6 +56,37 @@
 <div class="o" correct=""><div class="mem">{ 0, 0, 0, 79, 0 }</div></div>
 <div class="o">Execpció OutOfBounds</div>
 </div>
+<div class="question" single="">
+<div class="statement">
+<p>Quin serà el valor de l'array <code class="w">dies</code> després d'executar aquest codi?</p>
+<div class="sc" java="">
+                    String[] dies = new String[5];
+
+                    dies[3] = "Dijous";
+                </div>
+</div>
+<div class="o"><code class="w">{ null, null, null, "Dijous", null }</code></div>
+<div class="o"><code class="w">{ "", "", "", "Dijous", ""}</code></div>
+<div class="o" correct=""><code class="w">{ null, null, "Dijous", null, null }</code></div>
+<div class="o">Execpció OutOfBounds</div>
+</div>
+
+<div class="question" text="">
+<div class="statement">
+<p>Escriu com podem accedir als elements indicats d'un array anomenat <code class="w">numbers</code>.</p>
+
+<table>
+    <tr><td>Primer</td><td><code class="w">numbers[0]</code></td></tr>
+    <tr><td>Últim</td><td><div class="o">numbers[numbers.length - 1]</div></td></tr>
+    <tr><td>Penúltim</td><td><div class="o">numbers[numbers.length - 2]</div></td></tr>
+    <tr><td>Mita</td><td><div class="o">numbers[numbers.length / 2]</div></td></tr>
+</table>
+</div>
+     
+
+</div>
+     
+
 </div>
 
     <h2>2. Qüestionari de Matrius Bidimensionals (2D)</h2>
@@ -85,24 +116,486 @@
 </div>
 </div>
 
-    <h2>3. Exercicis Pràctics de Codi</h2>
-    <div class="work">
-        <h3>Exercicis proposats</h3>
-        <ul>
-            <li><p><strong>Suma i mitjana d'un array:</strong> Donat un array d'enters introduït per l'usuari, calcula la suma de tots els elements i la mitjana aritmètica.</p></li>
-            <li><p><strong>Màxim i mínim d'un array:</strong> Troba el valor més gran i el més petit d'un array d'enters i la posició on es troben.</p></li>
-            <li><p><strong>Inversió d'un array:</strong> Inverteix l'ordre dels elements d'un array sense utilitzar un segon array auxiliar.</p></li>
-            <li><p><strong>Matriu Identitat:</strong> Genera i mostra una matriu identitat de mida N x N (valors 1 a la diagonal principal, 0 a la resta).</p></li>
-        </ul>
+    <h2>5. Exercicis Pràctics d'Arrays i Matrius</h2>
 
-        <h3>Reptes addicionals</h3>
-        <ul>
-            <li><p><strong>Inicialitzar array:</strong> Llegeix N enters des del teclat i desa'ls en un array per mostrar-los en ordre invers.</p></li>
-            <li><p><strong>Cercant mines:</strong> En una matriu que representa un tauler de joc, compta quantes mines hi ha al voltant d'una casella (fila, columna).</p></li>
-            <li><p><strong>Suma de matrius:</strong> Suma dues matrius bidimensionals de les mateixes dimensions i mostra la matriu resultant.</p></li>
-            <li><p><strong>Bomberman:</strong> Simula l'explosió en creu d'una bomba en un tauler 2D, buidant els obstacles adjacents.</p></li>
-        </ul>
-    </div>
+<div class="work">
+    <h3>Exercicis proposats</h3>
+
+    <ol>
+
+        <li>
+            <p><strong>Inventari</strong></p>
+            <p>
+                Un videojoc té un inventari amb 5 objectes.
+                Crea un array amb els següents objectes:
+            </p>
+
+            <div class="sc">
+                String[] inventari = {"espasa", "escut", "poció", "arc", "clau"};
+            </div>
+
+            <p>Mostra per pantalla tots els objectes indicant el seu índex.</p>
+
+            <div class="shell">
+[0] espasa
+[1] escut
+[2] poció
+[3] arc
+[4] clau
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Marcador</strong></p>
+            <p>
+                Un jugador ha obtingut aquestes puntuacions en 5 partides:
+            </p>
+
+            <div class="shell">
+120 450 230 800 320
+            </div>
+
+            <p>
+                Guarda-les en un array i mostra:
+            </p>
+
+            <ul>
+                <li>la puntuació de la primera partida</li>
+                <li>la puntuació de l'última partida</li>
+                <li>totes les puntuacions</li>
+            </ul>
+
+            <div class="shell">
+Primera partida: 120
+Última partida: 320
+
+Puntuacions:
+120
+450
+230
+800
+320
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Canvi de dades</strong></p>
+            <p>
+                Crea un array de 5 enters amb els valors:
+            </p>
+
+            <div class="shell">
+10 20 30 40 50
+            </div>
+
+            <p>
+                Demana a l'usuari una posició i un nou valor.
+                Modifica l'element d'aquella posició i mostra l'array complet.
+            </p>
+
+            <div class="shell">
+Array inicial:
+10 20 30 40 50
+
+Posició que vols modificar: <span class="in">2</span>
+Nou valor: <span class="in">99</span>
+
+Array modificat:
+10 20 99 40 50
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Radar</strong></p>
+            <p>
+                Un robot té 8 sensors de distància.
+                Guarda en un array les distàncies detectades:
+            </p>
+
+            <div class="shell">
+15 23 8 42 17 31 5 28
+            </div>
+
+            <p>
+                Recorre l'array i mostra únicament les distàncies inferiors a 10 metres.
+            </p>
+
+            <div class="shell">
+Objectes perillosos detectats:
+8
+5
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Vida del jugador</strong></p>
+            <p>
+                Un jugador té 6 nivells de vida registrats durant una partida:
+            </p>
+
+            <div class="shell">
+100 85 72 60 42 15
+            </div>
+
+            <p>
+                Mostra cada valor indicant el nivell de la partida.
+                Si la vida és inferior a 20, mostra també <code>PERILL</code>.
+            </p>
+
+            <div class="shell">
+Nivell 1: 100
+Nivell 2: 85
+Nivell 3: 72
+Nivell 4: 60
+Nivell 5: 42
+Nivell 6: 15 PERILL
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Filtre de puntuacions</strong></p>
+            <p>
+                Demana 8 puntuacions a l'usuari i guarda-les en un array.
+            </p>
+
+            <p>
+                Després recorre l'array i mostra només les puntuacions
+                que siguen iguals o superiors a 500.
+            </p>
+
+            <div class="shell">
+Introdueix la puntuació 1: <span class="in">340</span>
+Introdueix la puntuació 2: <span class="in">720</span>
+Introdueix la puntuació 3: <span class="in">510</span>
+...
+
+Puntuacions que superen 500:
+720
+510
+...
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Array invertit</strong></p>
+            <p>
+                Crea un array amb 7 números.
+                Mostra primer els elements en l'ordre normal
+                i després en ordre invers.
+            </p>
+
+            <div class="shell">
+Normal:
+10 20 30 40 50 60 70
+
+Invers:
+70 60 50 40 30 20 10
+            </div>
+
+            <p>
+                <strong>Important:</strong> no crees un segon array.
+                Utilitza només l'array original.
+            </p>
+        </li>
+
+
+        <li>
+            <p><strong>Escàner de mapa</strong></p>
+
+            <p>
+                Un robot explora 10 posicions d'un mapa.
+                En cada posició hi ha:
+            </p>
+
+            <ul>
+                <li><code>0</code> → buit</li>
+                <li><code>1</code> → obstacle</li>
+            </ul>
+
+            <p>Guarda el mapa en un array i mostra'l.</p>
+
+            <div class="shell">
+Mapa:
+0 0 1 0 0 1 1 0 0 1
+
+Obstacles:
+Posició 2
+Posició 5
+Posició 6
+Posició 9
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Mapa del joc</strong></p>
+
+            <p>
+                Un videojoc utilitza una matriu de 4 files × 6 columnes.
+            </p>
+
+            <p>
+                Cada posició conté:
+            </p>
+
+            <ul>
+                <li><code>0</code> → terreny lliure</li>
+                <li><code>1</code> → paret</li>
+            </ul>
+
+            <p>Inicialitza la matriu amb aquest mapa:</p>
+
+            <div class="shell">
+0 0 0 1 1 0
+0 1 0 0 0 0
+0 1 1 1 0 0
+0 0 0 0 0 0
+            </div>
+
+            <p>
+                Mostra el mapa utilitzant dos bucles <code class="w">for</code>.
+            </p>
+        </li>
+
+
+        <li>
+            <p><strong>Posició del tresor</strong></p>
+
+            <p>
+                En una matriu de 5 × 5 hi ha un tresor representat pel valor <code>9</code>.
+            </p>
+
+            <div class="shell">
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 9 0
+0 0 0 0 0
+0 0 0 0 0
+            </div>
+
+            <p>
+                Recorre la matriu i mostra les coordenades on està el tresor.
+            </p>
+
+            <div class="shell">
+Tresor trobat!
+Fila: 2
+Columna: 3
+            </div>
+
+            <p>
+                Recorda que les files i columnes comencen en <code>0</code>.
+            </p>
+        </li>
+
+
+        <li>
+            <p><strong>Tauler de llums</strong></p>
+
+            <p>
+                Una nau espacial té un tauler de 5 × 5 llums.
+            </p>
+
+            <p>
+                Cada posició conté:
+            </p>
+
+            <ul>
+                <li><code>0</code> → llum apagada</li>
+                <li><code>1</code> → llum encesa</li>
+            </ul>
+
+            <p>
+                Mostra el tauler i compta quantes llums estan enceses.
+            </p>
+
+            <div class="shell">
+1 0 1 1 0
+0 1 0 0 1
+1 1 1 0 0
+0 0 1 1 1
+1 0 0 1 0
+
+Llums enceses: 13
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Radar</strong></p>
+
+            <p>
+                Un radar representa les distàncies detectades en una matriu de 4 × 4.
+            </p>
+
+            <p>
+                Mostra només les posicions on la distància siga inferior a 20.
+            </p>
+
+            <div class="shell">
+12 45 31 18
+52 17 80 44
+25 33 9  61
+14 72 38 16
+            </div>
+
+            <div class="shell">
+(0,0) → 12
+(0,3) → 18
+(1,1) → 17
+(2,2) → 9
+(3,0) → 14
+(3,3) → 16
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Generador de tauler</strong></p>
+
+            <p>
+                Demana a l'usuari el nombre de files i columnes
+                i crea una matriu d'eixes dimensions.
+            </p>
+
+            <p>
+                Ompli-la amb el número de la fila.
+            </p>
+
+            <div class="shell">
+Introduix el número de files: <span class="in">4</span>
+Introduix el número de columnes: <span class="in">6</span>
+
+0 0 0 0 0 0
+1 1 1 1 1 1
+2 2 2 2 2 2
+3 3 3 3 3 3
+            </div>
+
+            <p>
+                Després fes una segona versió que ompliga cada posició
+                amb el número de la columna:
+            </p>
+
+            <div class="shell">
+0 1 2 3 4 5
+0 1 2 3 4 5
+0 1 2 3 4 5
+0 1 2 3 4 5
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Línia de foc</strong></p>
+
+            <p>
+                Crea una matriu de 7 × 7 que represente un tauler.
+            </p>
+
+            <p>
+                Demana a l'usuari una fila i una columna.
+                La posició indicada representa el centre d'una explosió.
+            </p>
+
+            <p>
+                Mostra una <code>X</code> en la fila i columna indicades
+                i <code>.</code> en la resta.
+            </p>
+
+            <div class="shell">
+Fila: <span class="in">3</span>
+Columna: <span class="in">4</span>
+
+.......
+.......
+.......
+....X..
+.......
+.......
+.......
+            </div>
+
+            <p>
+                <strong>Repte:</strong> modifica el programa perquè
+                l'explosió ocupe tota la fila i tota la columna.
+            </p>
+
+            <div class="shell">
+...X...
+...X...
+...X...
+XXXXXXX
+...X...
+...X...
+...X...
+            </div>
+        </li>
+
+
+        <li>
+            <p><strong>Dungeon</strong></p>
+
+            <p>
+                Crea una matriu de 8 × 8 que represente una sala
+                d'un videojoc.
+            </p>
+
+            <p>Cada posició pot contenir:</p>
+
+            <ul>
+                <li><code>.</code> → espai buit</li>
+                <li><code>#</code> → paret</li>
+                <li><code>E</code> → entrada</li>
+                <li><code>T</code> → tresor</li>
+                <li><code>X</code> → enemic</li>
+            </ul>
+
+            <p>Utilitza aquesta matriu:</p>
+
+            <div class="shell">
+########
+#......#
+#.###..#
+#...#..#
+#...#T.#
+#..E#..#
+#......#
+########
+            </div>
+
+            <p>
+                Mostra la sala per pantalla.
+            </p>
+
+            <p>
+                Després recorre tota la matriu i informa de la posició de:
+            </p>
+
+            <ul>
+                <li>l'entrada</li>
+                <li>el tresor</li>
+                <li>cada enemic</li>
+            </ul>
+
+            <div class="shell">
+Entrada: (5,3)
+Tresor: (4,5)
+            </div>
+
+            <p>
+                <strong>Repte final:</strong> compta quantes parets hi ha a la sala.
+            </p>
+        </li>
+
+    </ol>
+</div>
 
 </section>
 </body>
