@@ -64,15 +64,23 @@ void main() {
     println("Substitució: " + nom.replace("Garcia", "Pérez"));
     println("És igual a 'Maria Garcia'? " + nom.trim().equals("Maria Garcia"));
 
-    String frase = "Hola, com estàs?";
-    String[] paraules = frase.split(" ");
 
-    // paraules = { "Hola,", "com", "estàs?" }
+    // SPLIT
+    String frase = "Hola, com estàs?";
+    String[] paraules = frase.split(" ");    // paraules = { "Hola,", "com", "estàs?" }
 
     println("Paraules de la frase:");
     println(paraules[0]); // Hola,
     println(paraules[1]); // com
     println(paraules[2]); // estàs?
+
+    // SPLIT
+    String[] noms = "Anna;Joan;Pere;Laura".split(";");  
+          // noms = { "Anna", "Joan", "Pere", "Laura" }
+
+    // SPLIT
+    String[] parts = "27/10/1981".split("/");  
+          // parts = { "27", "10", "1981"
 }
     </code>
 
@@ -112,6 +120,9 @@ void main() {
 }
     </code>
 
+    <div class="note">
+        <p>Observa l'ús de les cometes triples <code>"""..."""</code> per a definir cadenes de text multilínia.</p>
+    </div>
     <h2>2. Lectura de Dades per Teclat: Scanner</h2>
     <p>Per demanar dades a l'usuari a través de la consola i llegir la seva resposta utilitzem <code>Scanner</code>. Com que forma part del paquet d'utilitats de Java, cal afegir la sentència <code>import java.util.Scanner;</code> a l'inici del fitxer:</p>
 
@@ -259,7 +270,7 @@ void main() {
         <tbody>
 
                         <tr>
-                <td><code>JOptionPane</code></td>
+                <td><code inline>JOptionPane</code></td>
                 <td>💬 Mostrar un mensaje</td>
                 <td>
                     <code>JOptionPane.showMessageDialog(null, "¡Hola!");</code>
@@ -268,7 +279,7 @@ void main() {
             </tr>
 
                         <tr>
-                <td><code>JOptionPane</code></td>
+                <td><code inline>JOptionPane</code></td>
                 <td>❓ Preguntar algo</td>
                 <td>
                     <code>JOptionPane.showInputDialog("¿Cómo te llamas?");</code>
