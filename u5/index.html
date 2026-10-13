@@ -46,7 +46,7 @@
         <li><strong>Finalització:</strong> càlcul o tractament posterior un cop acabat el bucle (per exemple, dividir la suma entre el total per obtenir la mitjana, o comprovar si s'ha trobat l'element).</li>
     </ol>
 
-    <div class="info">
+    <div class="important">
         <h3>La Gran Decisió: Recorregut vs. Cerca</h3>
         <p>Davant de qualsevol problema sobre una col·lecció de dades, la primera pregunta que t'has de fer és:</p>
         <ul>
@@ -87,7 +87,7 @@ println("Suma aprovats: " + suma);
     <h3>2.3 Màxims i Mínims (Extrems)</h3>
     <p>La determinació del valor màxim o mínim d'una seqüència és un <strong>esquema de recorregut</strong>: tret que la col·lecció estigui ordenada, cal examinar obligatòriament tots els elements per assegurar que cap altre supera el candidat actual.</p>
 
-    <div class="warn">
+    <div class="warning">
         <h3>Regla d'or dels Extrems (Màxims i Mínims)</h3>
         <p>Quan busques el màxim o mínim d'un array, <strong>mai inicialitzis el màxim a zero</strong> ni a un valor arbitrari! Si tots els números de l'array fossin negatius (per exemple: <code>{-10, -5, -20}</code>), un màxim inicialitzat a 0 retornaria erròniament 0 com a resultat.</p>
         <p>La manera correcta i universal és inicialitzar sempre la variable amb el <strong>primer element de la seqüència</strong> (<code>valors[0]</code>) i començar el bucle des de l'índex <code>1</code>:</p>
@@ -191,7 +191,7 @@ println("Index clau: " + trobat);
 </code>
     </div>
 
-    <div class="info">
+    <div class="note">
         <h3>Per què la cerca binària és tan revolucionària?</h3>
         <p>A cada iteració, la cerca binària descarta la <strong>meitat</strong> dels elements restants. El seu cost computacional és <strong>$O(\log_2 n)$</strong> enfront del cost lineal <strong>$O(n)$</strong> de la cerca seqüencial:</p>
         <ul>

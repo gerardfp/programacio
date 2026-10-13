@@ -234,12 +234,13 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  padding: 0.5em 0;
+  padding: 10px 0;
   background: rgba(0, 0, 0, 0.22);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   user-select: none;
   pointer-events: none;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .stepper-v2 .code-line-num {
@@ -249,7 +250,7 @@
   padding: 0 10px 0 6px;
   color: #4b5563;
   font-family: var(--step-font-mono);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 500;
   box-sizing: border-box;
   transition: color 0.15s ease;
@@ -264,13 +265,14 @@
 .stepper-v2 .code-pre {
   flex: 1;
   margin: 0 !important;
-  padding: 0.5em 0 0.5em 14px !important;
+  padding: 10px 0 10px 14px !important;
   background: transparent !important;
   font-family: var(--step-font-mono);
   font-size: 0.9rem;
   line-height: 1.55;
   border: none !important;
   overflow-x: auto;
+  box-sizing: border-box;
 }
 
 .stepper-v2 .code-pre code {
@@ -292,6 +294,7 @@
   display: block;
   min-height: 1.55em;
   line-height: 1.55;
+  box-sizing: border-box;
   transition: background-color 0.15s ease;
 }
 

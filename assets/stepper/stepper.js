@@ -179,7 +179,26 @@
         lineRow.appendChild(spanCode);
         codeBlock.appendChild(lineRow);
       });
+
+      syncGutterHeights();
+      if (typeof requestAnimationFrame !== 'undefined') {
+        requestAnimationFrame(syncGutterHeights);
+      }
     }
+
+    function syncGutterHeights() {
+      const rows = codeBlock.querySelectorAll('.code-line-row');
+      const nums = gutter.querySelectorAll('.code-line-num');
+      const count = Math.min(rows.length, nums.length);
+      for (let i = 0; i < count; i++) {
+        const h = rows[i].getBoundingClientRect().height;
+        if (h > 0) {
+          nums[i].style.height = `${h}px`;
+        }
+      }
+    }
+
+    window.addEventListener('resize', syncGutterHeights);
 
     buildCodeView(cleanCode);
 
@@ -199,6 +218,7 @@
         spanNum.textContent = String(i);
         gutter.appendChild(spanNum);
       }
+      syncGutterHeights();
     }
 
     // Editable code listeners: no real-time syntax highlight while typing (only plain text)

@@ -131,22 +131,171 @@ function normalizeCodeWhitespace(html, options = {}) {
   }).join('\n');
 }
 
+function detectLanguage(codeStr) {
+  const code = (codeStr || '').trim();
+  if (!code) return 'java';
+
+  // JSON detection
+  if ((code.startsWith('{') && code.endsWith('}')) || (code.startsWith('[') && code.endsWith(']'))) {
+    if (/^[\s\r\n]*[{\[][\s\r\n]*"[a-zA-Z0-9_$-]+"\s*:/.test(code)) {
+      return 'json';
+    }
+  }
+
+  // HTML / XML detection
+  if (/^<(!DOCTYPE|html|div|span|p|a|ul|ol|li|table|h[1-6]|form|input|button|svg|section|header|footer)[\s>]/i.test(code) || /<\/[a-z]+>$/i.test(code)) {
+    return 'html';
+  }
+
+  // SQL detection
+  if (/^(SELECT|INSERT\s+INTO|UPDATE|DELETE\s+FROM|CREATE\s+TABLE|ALTER\s+TABLE|DROP\s+TABLE)\b/i.test(code)) {
+    return 'sql';
+  }
+
+  // Bash / Shell detection
+  if (/^(\$\s+|#!\/bin\/(bash|sh)|sudo\s+|apt\s+|npm\s+|git\s+|javac\s+|java\s+-jar)/m.test(code)) {
+    return 'bash';
+  }
+
+  // CSS detection
+  if (/^[.#]?[a-zA-Z0-9_-]+\s*\{[\s\S]*:[^;]+;[\s\S]*\}/m.test(code)) {
+    return 'css';
+  }
+
+  // Default to Java for tutorial
+  return 'java';
+}
+
+function normalizeLang(lang) {
+  if (!lang) return 'java';
+  if (lang === 'js') return 'javascript';
+  if (lang === 'sh' || lang === 'shell') return 'bash';
+  if (lang === 'py') return 'python';
+  if (lang === 'plain') return 'text';
+  return lang;
+}
+
+function extractLanguage(el, codeText) {
+  const attrs = el.getAttributeNames();
+  const knownLangs = ['java', 'javascript', 'js', 'html', 'xml', 'markup', 'css', 'json', 'sql', 'python', 'py', 'bash', 'sh', 'c', 'cpp', 'csharp', 'kotlin', 'dart', 'text', 'plain', 'none'];
+
+  for (const a of attrs) {
+    const lower = a.toLowerCase();
+    if (knownLangs.includes(lower)) {
+      el.removeAttribute(a);
+      return normalizeLang(lower);
+    }
+  }
+
+  const classNames = (el.className || '').split(/\s+/).filter(Boolean);
+  for (const c of classNames) {
+    const lower = c.toLowerCase();
+    if (lower.startsWith('language-')) {
+      return normalizeLang(lower.replace('language-', ''));
+    }
+    if (knownLangs.includes(lower)) {
+      return normalizeLang(lower);
+    }
+  }
+
+  return normalizeLang(detectLanguage(codeText));
+}
+
+function isInlineCodeElement(el) {
+  // Explicit overrides
+  if (el.hasAttribute('inline') || el.classList.contains('inline') || el.classList.contains('w') || el.classList.contains('m')) {
+    return true;
+  }
+  if (el.hasAttribute('block') || el.classList.contains('block') || el.classList.contains('sc')) {
+    return false;
+  }
+
+  // If already inside a pre, it's block
+  if (el.parentElement && el.parentElement.tagName === 'PRE') {
+    return false;
+  }
+
+  // Inside quiz options or dropdowns, code is always inline
+  if (el.closest('o, .o, .match-container, .quiz-select-wrap, .quiz-select-menu')) {
+    return true;
+  }
+
+  const inlineTags = ['SPAN', 'A', 'EM', 'STRONG', 'B', 'I', 'U', 'KBD', 'SMALL', 'SUB', 'SUP', 'MARK', 'LABEL'];
+
+  // Check previous sibling for non-empty text or inline tag
+  let prev = el.previousSibling;
+  if (prev) {
+    if (prev.nodeType === 3 && prev.textContent.trim().length > 0) {
+      return true;
+    }
+    if (prev.nodeType === 1 && inlineTags.includes(prev.tagName)) {
+      return true;
+    }
+  }
+
+  // Check next sibling for non-empty text or inline tag
+  let next = el.nextSibling;
+  if (next) {
+    if (next.nodeType === 3 && next.textContent.trim().length > 0) {
+      return true;
+    }
+    if (next.nodeType === 1 && inlineTags.includes(next.tagName)) {
+      return true;
+    }
+  }
+
+  // Check parent container
+  const parent = el.parentElement;
+  if (parent) {
+    if (inlineTags.includes(parent.tagName)) {
+      return true;
+    }
+
+    // Check if parent contains text nodes with non-whitespace text
+    for (const child of parent.childNodes) {
+      if (child === el) continue;
+      if (child.nodeType === 3 && child.textContent.trim().length > 0) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+function extractLineNumbers(el) {
+  if (el.hasAttribute('num') || el.classList.contains('num') || el.hasAttribute('line-numbers') || el.classList.contains('line-numbers')) {
+    const val = el.getAttribute('num') || el.getAttribute('data-start') || '';
+    el.removeAttribute('num');
+    el.removeAttribute('line-numbers');
+    const start = parseInt(val, 10);
+    return { enabled: true, start: !isNaN(start) && start > 0 ? start : 1 };
+  }
+  return { enabled: false, start: 1 };
+}
+
+function ensureLineNumbers(preWrap, codeWrap) {
+  if (codeWrap.querySelector('.line-numbers-rows')) return;
+  const rawText = codeWrap.textContent || '';
+  const lines = rawText.replace(/\n$/, '').split('\n');
+  const count = Math.max(1, lines.length);
+  const rows = document.createElement('span');
+  rows.className = 'line-numbers-rows';
+  rows.setAttribute('aria-hidden', 'true');
+  rows.innerHTML = new Array(count + 1).join('<span></span>');
+  codeWrap.appendChild(rows);
+}
+
 function syntaxHighlight() {
   if (typeof Prism === 'undefined') return;
 
-  // Process block code: sc, .sc, div.sc, pre.sc
+  // 1. Process legacy block code: sc, .sc, div.sc, pre.sc
   document.querySelectorAll('sc, .sc').forEach(b => {
     if (b.getAttribute('data-highlighted') === 'true') return;
     b.setAttribute('data-highlighted', 'true');
 
     if (b.tagName === 'SPAN') {
-      let lang = 'java';
-      for (const a of b.getAttributeNames()) {
-        if (['java', 'html', 'css', 'javascript', 'js', 'bash', 'sh', 'python', 'py', 'sql', 'json'].includes(a.toLowerCase())) {
-          lang = a.toLowerCase();
-          break;
-        }
-      }
+      const lang = extractLanguage(b, b.textContent);
       b.classList.add('language-' + lang);
       try {
         Prism.highlightElement(b);
@@ -168,7 +317,14 @@ function syntaxHighlight() {
     }
     preWrap.appendChild(codeWrap);
 
-    const attrs = b.getAttributeNames();
+    const numInfo = extractLineNumbers(b);
+    if (numInfo.enabled) {
+      preWrap.classList.add('line-numbers');
+      if (numInfo.start > 1) {
+        preWrap.setAttribute('data-start', String(numInfo.start));
+        preWrap.style.counterReset = 'linenumber ' + (numInfo.start - 1);
+      }
+    }
 
     if (b.hasAttribute('diff')) {
       codeWrap.classList.add('diff-highlight');
@@ -180,40 +336,21 @@ function syntaxHighlight() {
       b.removeAttribute('data-line');
     }
 
-    // Determine language
-    let lang = null;
-    for (const a of attrs) {
-      if (['java', 'html', 'css', 'javascript', 'js', 'bash', 'sh', 'python', 'py', 'sql', 'json'].includes(a.toLowerCase())) {
-        lang = a.toLowerCase();
-        b.removeAttribute(a);
-        break;
-      }
-    }
-
-    if (!lang) {
-      for (const c of b.classList) {
-        if (c.startsWith('language-')) {
-          lang = c.replace('language-', '');
-          break;
-        } else if (['java', 'css', 'javascript', 'html', 'python', 'sql', 'bash'].includes(c)) {
-          lang = c;
-          break;
-        }
-      }
-    }
-
-    if (!lang) lang = 'java';
-    if (lang === 'js') lang = 'javascript';
-    if (lang === 'sh') lang = 'bash';
-    if (lang === 'py') lang = 'python';
+    const lang = extractLanguage(b, codeWrap.textContent);
 
     preWrap.className = (preWrap.className + ' language-' + lang).trim();
     codeWrap.className = 'language-' + lang;
 
-    try {
-      Prism.highlightElement(codeWrap);
-    } catch (e) {
-      console.warn('Prism highlight error:', e);
+    if (lang !== 'text' && lang !== 'none' && Prism.languages[lang]) {
+      try {
+        Prism.highlightElement(codeWrap);
+      } catch (e) {
+        console.warn('Prism highlight error:', e);
+      }
+    }
+
+    if (numInfo.enabled) {
+      ensureLineNumbers(preWrap, codeWrap);
     }
 
     // Clean initial newlines inside custom markers
@@ -222,14 +359,98 @@ function syntaxHighlight() {
     });
   });
 
-  // Highlight inline code elements: code.w, code.m, code[java]
-  document.querySelectorAll('code.w, code.m, code[java]').forEach(el => {
-    if (el.closest('pre') || el.getAttribute('data-highlighted') === 'true') return;
-    el.setAttribute('data-highlighted', 'true');
-    el.classList.add('language-java');
-    try {
-      Prism.highlightElement(el);
-    } catch (e) {}
+  // 2. Process all generic <code> elements
+  document.querySelectorAll('code').forEach(el => {
+    if (el.getAttribute('data-highlighted') === 'true') return;
+    if (el.closest('stepper-v2, .stepper-v2, .code-gutter, .line-numbers-rows')) return;
+
+    // Check if inline or block code
+    if (isInlineCodeElement(el)) {
+      // INLINE CODE
+      const lang = extractLanguage(el, el.textContent);
+      el.setAttribute('data-highlighted', 'true');
+      el.classList.add('inline');
+      el.removeAttribute('inline');
+
+      if (lang && lang !== 'text' && lang !== 'none') {
+        el.classList.add('language-' + lang);
+        if (Prism.languages[lang]) {
+          try {
+            Prism.highlightElement(el);
+          } catch (e) {}
+        }
+      }
+    } else {
+      // BLOCK CODE
+      const numInfo = extractLineNumbers(el);
+      const lang = extractLanguage(el, el.textContent);
+      const isPre = el.parentElement && el.parentElement.tagName === 'PRE';
+      const preWrap = isPre ? el.parentElement : document.createElement('pre');
+
+      const cleanHtml = normalizeCodeWhitespace(el.innerHTML);
+      el.innerHTML = cleanHtml;
+
+      preWrap.className = 'sc language-' + lang;
+      if (numInfo.enabled) {
+        preWrap.classList.add('line-numbers');
+        if (numInfo.start > 1) {
+          preWrap.setAttribute('data-start', String(numInfo.start));
+          preWrap.style.counterReset = 'linenumber ' + (numInfo.start - 1);
+        }
+      }
+
+      if (el.hasAttribute('diff')) {
+        el.classList.add('diff-highlight');
+        el.removeAttribute('diff');
+      }
+      if (el.hasAttribute('data-line')) {
+        preWrap.setAttribute('data-line', el.getAttribute('data-line'));
+        el.removeAttribute('data-line');
+      }
+
+      el.className = 'language-' + lang;
+      el.setAttribute('data-highlighted', 'true');
+      preWrap.setAttribute('data-highlighted', 'true');
+
+      if (!isPre && el.parentElement) {
+        // If parent is a paragraph containing only this code block, replace paragraph
+        if (el.parentElement.tagName === 'P') {
+          const p = el.parentElement;
+          let hasOther = false;
+          for (const c of p.childNodes) {
+            if (c === el) continue;
+            if (c.nodeType === 3 && c.textContent.trim().length > 0) hasOther = true;
+            if (c.nodeType === 1) hasOther = true;
+          }
+          if (!hasOther && p.parentElement) {
+            p.parentElement.replaceChild(preWrap, p);
+            preWrap.appendChild(el);
+          } else {
+            el.parentElement.replaceChild(preWrap, el);
+            preWrap.appendChild(el);
+          }
+        } else {
+          el.parentElement.replaceChild(preWrap, el);
+          preWrap.appendChild(el);
+        }
+      }
+
+      if (lang !== 'text' && lang !== 'none' && Prism.languages[lang]) {
+        try {
+          Prism.highlightElement(el);
+        } catch (e) {
+          console.warn('Prism highlight error:', e);
+        }
+      }
+
+      if (numInfo.enabled) {
+        ensureLineNumbers(preWrap, el);
+      }
+
+      el.querySelectorAll('add, rem, hig, lin, low, blk, blkin, .add, .rem, .hig, .lin, .low, .blk, .blkin, .h').forEach(k => {
+        k.innerHTML = k.innerHTML.replace(/^(?:\r?\n|\r)/, '');
+      });
+    }
   });
 
   // Highlight shell output and memory inspection blocks
@@ -366,6 +587,8 @@ function doQuizz() {
       initOrderQuestion(q, checkBtn, retryBtn, feedback);
     } else if (q.hasAttribute('text') || q.classList.contains('text')) {
       initTextQuestion(q, checkBtn, retryBtn, feedback);
+    } else if (q.hasAttribute('select') || q.classList.contains('select')) {
+      initSelectQuestion(q, checkBtn, retryBtn, feedback);
     } else {
       initSingleQuestion(q, checkBtn, retryBtn, feedback);
     }
@@ -566,8 +789,35 @@ function initMatchQuestion(q, checkBtn, retryBtn, feedback) {
     }
   });
 
+  const syncHeights = () => {
+    if (window.innerWidth <= 640) {
+      matchContainer.querySelectorAll('o, .o').forEach(el => el.style.minHeight = '');
+      return;
+    }
+    const leftItems = leftdiv.querySelectorAll(':scope > o, :scope > .o');
+    const rightItems = rightdiv.querySelectorAll(':scope > o, :scope > .o');
+    const count = Math.min(leftItems.length, rightItems.length);
+
+    for (let i = 0; i < count; i++) {
+      leftItems[i].style.minHeight = '';
+      rightItems[i].style.minHeight = '';
+    }
+
+    for (let i = 0; i < count; i++) {
+      const lh = leftItems[i].offsetHeight;
+      const rh = rightItems[i].offsetHeight;
+      const maxH = Math.max(lh, rh);
+      if (maxH > 0) {
+        leftItems[i].style.minHeight = maxH + 'px';
+        rightItems[i].style.minHeight = maxH + 'px';
+      }
+    }
+  };
+
   shuffleNodes(rightdiv);
-  enableSwapAndDrag(rightdiv);
+  enableSwapAndDrag(rightdiv, syncHeights);
+  requestAnimationFrame(syncHeights);
+  window.addEventListener('resize', syncHeights);
 
   checkBtn.addEventListener('click', () => {
     let score = 0;
@@ -599,12 +849,13 @@ function initMatchQuestion(q, checkBtn, retryBtn, feedback) {
   retryBtn.addEventListener('click', () => {
     rightdiv.querySelectorAll('o, .o').forEach(o => o.classList.remove('right', 'wrong', 'highlight', 'selected-swap'));
     shuffleNodes(rightdiv);
+    syncHeights();
     feedback.style.display = 'none';
     retryBtn.style.display = 'none';
   });
 }
 
-function enableSwapAndDrag(container) {
+function enableSwapAndDrag(container, onSwap) {
   let draggedEl = null;
   let selectedClickEl = null;
 
@@ -643,6 +894,7 @@ function enableSwapAndDrag(container) {
       item.classList.remove('highlight');
       if (draggedEl && draggedEl !== item) {
         swapElements(draggedEl, item);
+        if (onSwap) onSwap();
       }
     });
 
@@ -657,6 +909,7 @@ function enableSwapAndDrag(container) {
         selectedClickEl.classList.remove('selected-swap');
         swapElements(selectedClickEl, item);
         selectedClickEl = null;
+        if (onSwap) onSwap();
       }
     });
   });
@@ -997,6 +1250,293 @@ function initTextQuestion(q, checkBtn, retryBtn, feedback) {
   });
 }
 
+function initSelectQuestion(q, checkBtn, retryBtn, feedback) {
+  const containers = Array.from(q.querySelectorAll('select, .select, .select-group')).filter(el => el !== q);
+  const groupDataList = [];
+
+  if (containers.length > 0) {
+    containers.forEach(container => {
+      const options = Array.from(container.querySelectorAll(':scope > o, :scope > .o, o, .o'));
+      if (options.length > 0) {
+        groupDataList.push({
+          targetNode: container,
+          replaceTarget: true,
+          options: options.map(o => ({
+            html: o.innerHTML,
+            isCorrect: o.hasAttribute('correct') || o.classList.contains('correct'),
+            originalEl: o
+          }))
+        });
+      }
+    });
+  } else {
+    const allOptions = Array.from(q.querySelectorAll('o, .o'));
+    if (allOptions.length === 0) return;
+
+    const hasGroupAttr = allOptions.some(o => o.hasAttribute('group') || o.hasAttribute('data-group'));
+
+    if (hasGroupAttr) {
+      const groupMap = new Map();
+      allOptions.forEach(o => {
+        const gId = o.getAttribute('group') || o.getAttribute('data-group') || '1';
+        if (!groupMap.has(gId)) {
+          groupMap.set(gId, []);
+        }
+        groupMap.get(gId).push(o);
+      });
+
+      groupMap.forEach(opts => {
+        groupDataList.push({
+          targetNode: opts[0],
+          replaceTarget: false,
+          removeNodes: opts,
+          options: opts.map(o => ({
+            html: o.innerHTML,
+            isCorrect: o.hasAttribute('correct') || o.classList.contains('correct'),
+            originalEl: o
+          }))
+        });
+      });
+    } else {
+      // Single dropdown: all options belong to one group
+      groupDataList.push({
+        targetNode: allOptions[0],
+        replaceTarget: false,
+        removeNodes: allOptions,
+        options: allOptions.map(o => ({
+          html: o.innerHTML,
+          isCorrect: o.hasAttribute('correct') || o.classList.contains('correct'),
+          originalEl: o
+        }))
+      });
+    }
+  }
+
+  if (groupDataList.length === 0) return;
+
+  const dropdownWidgets = [];
+
+  groupDataList.forEach((groupData, idx) => {
+    const isInline = groupData.targetNode.tagName === 'SPAN' || groupData.targetNode.classList.contains('inline');
+
+    const wrap = document.createElement('div');
+    wrap.className = 'quiz-select-wrap' + (isInline ? ' is-inline' : '');
+    wrap.setAttribute('data-group-id', String(idx + 1));
+
+    // Trigger styled as .o
+    const trigger = document.createElement('div');
+    trigger.className = 'quiz-select-trigger o';
+    trigger.setAttribute('tabindex', '0');
+    trigger.setAttribute('role', 'combobox');
+    trigger.setAttribute('aria-expanded', 'false');
+
+    const valueDisplay = document.createElement('span');
+    valueDisplay.className = 'quiz-select-value is-placeholder';
+    valueDisplay.textContent = 'Tria una opció...';
+
+    const arrow = document.createElement('span');
+    arrow.className = 'quiz-select-arrow';
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.textContent = '▾';
+
+    trigger.appendChild(valueDisplay);
+    trigger.appendChild(arrow);
+    wrap.appendChild(trigger);
+
+    // Dropdown list
+    const menu = document.createElement('div');
+    menu.className = 'quiz-select-menu';
+    menu.setAttribute('role', 'listbox');
+    wrap.appendChild(menu);
+
+    let selectedOption = null;
+
+    function renderOptions() {
+      menu.innerHTML = '';
+      // Shuffle options randomly (Fisher-Yates)
+      const shuffled = [...groupData.options];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      shuffled.forEach(opt => {
+        const item = document.createElement('div');
+        item.className = 'quiz-select-item o';
+        item.setAttribute('role', 'option');
+        item.innerHTML = opt.html;
+
+        if (selectedOption === opt) {
+          item.classList.add('selected');
+        }
+
+        item.addEventListener('click', (e) => {
+          if (e && e.stopPropagation) e.stopPropagation();
+          selectOption(opt);
+          closeDropdown();
+        });
+
+        menu.appendChild(item);
+      });
+    }
+
+    function selectOption(opt) {
+      selectedOption = opt;
+      valueDisplay.className = 'quiz-select-value';
+      valueDisplay.innerHTML = opt.html;
+      trigger.classList.remove('right');
+      trigger.classList.remove('wrong');
+
+      menu.querySelectorAll('.quiz-select-item').forEach(it => {
+        if (it.innerHTML === opt.html) {
+          it.classList.add('selected');
+        } else {
+          it.classList.remove('selected');
+        }
+      });
+    }
+
+    function resetDropdown() {
+      selectedOption = null;
+      valueDisplay.className = 'quiz-select-value is-placeholder';
+      valueDisplay.textContent = 'Tria una opció...';
+      trigger.classList.remove('right');
+      trigger.classList.remove('wrong');
+      closeDropdown();
+      renderOptions();
+    }
+
+    function openDropdown() {
+      document.querySelectorAll('.quiz-select-wrap.is-open').forEach(w => {
+        if (w !== wrap) {
+          w.classList.remove('is-open');
+          const tr = w.querySelector('.quiz-select-trigger');
+          if (tr) tr.setAttribute('aria-expanded', 'false');
+        }
+      });
+      wrap.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDropdown() {
+      wrap.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    function toggleDropdown() {
+      if (wrap.classList.contains('is-open')) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    }
+
+    trigger.addEventListener('click', (e) => {
+      if (e && e.stopPropagation) e.stopPropagation();
+      toggleDropdown();
+    });
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleDropdown();
+      } else if (e.key === 'Escape') {
+        closeDropdown();
+      }
+    });
+
+    renderOptions();
+
+    // DOM placement
+    if (groupData.replaceTarget && groupData.targetNode.parentNode) {
+      groupData.targetNode.parentNode.replaceChild(wrap, groupData.targetNode);
+    } else if (groupData.targetNode.parentNode) {
+      groupData.targetNode.parentNode.insertBefore(wrap, groupData.targetNode);
+      if (groupData.removeNodes) {
+        groupData.removeNodes.forEach(n => {
+          if (n.parentNode) n.parentNode.removeChild(n);
+        });
+      }
+    }
+
+    dropdownWidgets.push({
+      wrap,
+      trigger,
+      getSelected: () => selectedOption,
+      reset: resetDropdown
+    });
+  });
+
+  // Remove empty paragraphs left by detached divs
+  q.querySelectorAll('p').forEach(p => {
+    if (p.children.length === 0 && p.textContent.trim() === '') {
+      p.remove();
+    }
+  });
+
+  // Close open dropdowns when clicking outside
+  const handleDocClick = (e) => {
+    dropdownWidgets.forEach(w => {
+      if (!w.wrap.contains(e.target)) {
+        w.wrap.classList.remove('is-open');
+        w.trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  };
+  document.addEventListener('click', handleDocClick);
+
+  // Check button listener
+  checkBtn.addEventListener('click', () => {
+    const unanswered = dropdownWidgets.filter(w => !w.getSelected());
+
+    feedback.style.display = 'block';
+    if (unanswered.length > 0) {
+      feedback.className = 'quiz-feedback warning';
+      feedback.textContent = dropdownWidgets.length === 1
+        ? 'Selecciona una opció abans de comprovar!'
+        : 'Selecciona una opció a cada desplegable abans de comprovar!';
+      return;
+    }
+
+    let correctCount = 0;
+    const total = dropdownWidgets.length;
+
+    dropdownWidgets.forEach(w => {
+      w.trigger.classList.remove('right');
+      w.trigger.classList.remove('wrong');
+
+      const sel = w.getSelected();
+      if (sel && sel.isCorrect) {
+        w.trigger.classList.add('right');
+        correctCount++;
+      } else {
+        w.trigger.classList.add('wrong');
+      }
+    });
+
+    if (correctCount === total) {
+      feedback.className = 'quiz-feedback success';
+      feedback.textContent = total === 1
+        ? '🎉 Molt bé! Resposta correcta.'
+        : '🎉 Molt bé! Totes les respostes són correctes.';
+    } else {
+      feedback.className = 'quiz-feedback error';
+      feedback.textContent = total === 1
+        ? '❌ Resposta incorrecta. Revisa l\'opció assenyalada i torna-ho a provar.'
+        : `❌ Has encertat ${correctCount} de ${total} desplegables. Revisa les opcions assenyalades i torna-ho a provar.`;
+    }
+
+    retryBtn.style.display = 'inline-flex';
+  });
+
+  // Retry button listener
+  retryBtn.addEventListener('click', () => {
+    dropdownWidgets.forEach(w => w.reset());
+    feedback.style.display = 'none';
+    retryBtn.style.display = 'none';
+  });
+}
+
 // ==========================================================================
 // 5. Mermaid Diagrams
 // ==========================================================================
@@ -1239,6 +1779,78 @@ function pageTitle() {
   }
 }
 
+function initAlerts() {
+  const GITHUB_ALERTS = {
+    note: {
+      type: 'note',
+      title: 'Note',
+      icon: '<svg class="octicon octicon-info" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>',
+      selector: 'note, .note, .markdown-alert-note, info, .info'
+    },
+    tip: {
+      type: 'tip',
+      title: 'Tip',
+      icon: '<svg class="octicon octicon-light-bulb" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.18.213-.363.434-.542.68-.207.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5Zm1 3h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5Z"></path></svg>',
+      selector: 'tip, .tip, .markdown-alert-tip'
+    },
+    important: {
+      type: 'important',
+      title: 'Important',
+      icon: '<svg class="octicon octicon-report" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>',
+      selector: 'important, .important, .markdown-alert-important, observe, .observe'
+    },
+    warning: {
+      type: 'warning',
+      title: 'Warning',
+      icon: '<svg class="octicon octicon-alert" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>',
+      selector: 'warning, .warning, .markdown-alert-warning, warn, .warn'
+    },
+    caution: {
+      type: 'caution',
+      title: 'Caution',
+      icon: '<svg class="octicon octicon-stop" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>',
+      selector: 'caution, .caution, .markdown-alert-caution'
+    }
+  };
+
+  // Convert markdown blockquotes (> [!NOTE] etc.)
+  document.querySelectorAll('blockquote').forEach(bq => {
+    if (bq.getAttribute('data-alert-init')) return;
+    const firstP = bq.querySelector('p');
+    if (!firstP) return;
+    const text = firstP.textContent.trim();
+    const match = text.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i);
+    if (match) {
+      const type = match[1].toLowerCase();
+      bq.classList.add('markdown-alert', `markdown-alert-${type}`, type);
+      firstP.innerHTML = firstP.innerHTML.replace(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(<br\s*\/?>)?/i, '').trim();
+    }
+  });
+
+  Object.values(GITHUB_ALERTS).forEach(def => {
+    document.querySelectorAll(def.selector).forEach(el => {
+      if (el.getAttribute('data-alert-init')) return;
+      el.setAttribute('data-alert-init', 'true');
+
+      el.classList.add('markdown-alert', `markdown-alert-${def.type}`);
+
+      // If already has title or marked no-title, don't insert
+      if (el.querySelector('.markdown-alert-title') || el.hasAttribute('no-title') || el.classList.contains('no-title')) {
+        return;
+      }
+
+      const customTitle = el.getAttribute('title') || el.getAttribute('data-title');
+      const titleText = customTitle || def.title;
+
+      const titleEl = document.createElement('div');
+      titleEl.className = 'markdown-alert-title';
+      titleEl.innerHTML = `${def.icon}<span>${titleText}</span>`;
+
+      el.insertBefore(titleEl, el.firstChild);
+    });
+  });
+}
+
 function wrappers() {
   ['img'].forEach(hlname => {
     document.querySelectorAll(hlname).forEach(t => {
@@ -1250,7 +1862,7 @@ function wrappers() {
     });
   });
 
-  const hlElements = ['work', 'warn', 'info', 'optional', 'tldr', 'observe', 'quizz', 'challenge', 'project'];
+  const hlElements = ['work', 'optional', 'tldr', 'quizz', 'challenge', 'project'];
   hlElements.forEach(hlname => {
     document.querySelectorAll(hlname + ', .' + hlname).forEach(hl => {
       if (hl.previousElementSibling && hl.previousElementSibling.classList.contains(hlname + '-header')) return;
@@ -1290,6 +1902,7 @@ function initApp() {
     { name: 'initMermaid', fn: initMermaid },
     { name: 'navigation', fn: navigation },
     { name: 'pageTitle', fn: pageTitle },
+    { name: 'initAlerts', fn: initAlerts },
     { name: 'wrappers', fn: wrappers },
     { name: 'replaceParams', fn: replaceParams },
     { name: 'initScrollSpy', fn: initScrollSpy }

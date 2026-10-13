@@ -343,9 +343,9 @@ nav.sidenav a.sidenav2 {
     color: var(--text-dim);
 }
 
-/* Callout Info Boxes & Exercises */
-.work, work, .warn, warn, .info, info, .optional, optional, .tldr, tldr, 
-.observe, observe, .quizz, quizz, .challenge, challenge, .project, project {
+/* Activities, Challenges & Exercises */
+.work, work, .optional, optional, .tldr, tldr, 
+.quizz, quizz, .challenge, challenge, .project, project {
     display: block;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     padding: 1.5em;
@@ -353,7 +353,7 @@ nav.sidenav a.sidenav2 {
     box-shadow: var(--shadow-sm);
 }
 
-.work-header, .warn-header, .info-header, .observe-header, .challenge-header, 
+.work-header, .challenge-header, 
 .tldr-header, .optional-header, .project-header, .quizz-header {
     display: flex;
     align-items: center;
@@ -369,9 +369,6 @@ nav.sidenav a.sidenav2 {
 }
 
 .work-header + :is(.work, work),
-.warn-header + :is(.warn, warn),
-.info-header + :is(.info, info),
-.observe-header + :is(.observe, observe),
 .challenge-header + :is(.challenge, challenge),
 .tldr-header + :is(.tldr, tldr),
 .optional-header + :is(.optional, optional),
@@ -380,34 +377,10 @@ nav.sidenav a.sidenav2 {
     margin-top: 0 !important;
 }
 
-:is(.work, work, .warn, warn, .info, info, .optional, optional, .tldr, tldr, 
-.observe, observe, .quizz, quizz, .challenge, challenge, .project, project) > :first-child {
+:is(.work, work, .optional, optional, .tldr, tldr, 
+.quizz, quizz, .challenge, challenge, .project, project) > :first-child {
     margin-top: 0;
 }
-
-/* Info (Blue) */
-.info, info {
-    background-color: rgba(14, 116, 144, 0.12);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    border-top: none;
-}
-.info-header {
-    background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
-    color: #ffffff;
-}
-.info-header::before { content: 'ℹ'; font-size: 1.1em; }
-
-/* Warn (Amber) */
-.warn, warn {
-    background-color: rgba(180, 83, 9, 0.12);
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    border-top: none;
-}
-.warn-header {
-    background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
-    color: #ffffff;
-}
-.warn-header::before { content: '⚠'; font-size: 1.1em; }
 
 /* Work / Exercise (Green) */
 .work, work {
@@ -433,18 +406,6 @@ nav.sidenav a.sidenav2 {
 }
 .challenge-header::before { content: '🎯'; font-size: 1.1em; }
 
-/* Observe (Purple) */
-.observe, observe {
-    background-color: rgba(126, 34, 206, 0.12);
-    border: 1px solid rgba(168, 85, 247, 0.3);
-    border-top: none;
-}
-.observe-header {
-    background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
-    color: #ffffff;
-}
-.observe-header::before { content: '👁'; font-size: 1.1em; }
-
 /* TLDR (Slate) */
 .tldr, tldr {
     background-color: rgba(30, 41, 59, 0.4);
@@ -456,6 +417,119 @@ nav.sidenav a.sidenav2 {
     color: #ffffff;
 }
 .tldr-header::before { content: '⚡'; font-size: 1.1em; }
+
+/* ==========================================================================
+   GitHub Markdown Alerts (Note, Tip, Important, Warning, Caution)
+   ========================================================================== */
+
+:is(.markdown-alert, .note, note, .tip, tip, .important, important, .warning, warning, .caution, caution, .info, info, .warn, warn, .observe, observe) {
+    display: block;
+    position: relative;
+    padding: 0.9em 1.25em;
+    margin: 1.75em 0;
+    border: 1px solid var(--border-default);
+    border-left-width: 4px;
+    border-left-style: solid;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-main);
+    background-color: rgba(15, 23, 42, 0.6);
+}
+
+:is(.markdown-alert, .note, note, .tip, tip, .important, important, .warning, warning, .caution, caution, .info, info, .warn, warn, .observe, observe) > *:first-child {
+    margin-top: 0;
+}
+
+:is(.markdown-alert, .note, note, .tip, tip, .important, important, .warning, warning, .caution, caution, .info, info, .warn, warn, .observe, observe) > *:last-child {
+    margin-bottom: 0;
+}
+
+:is(.markdown-alert, .note, note, .tip, tip, .important, important, .warning, warning, .caution, caution, .info, info, .warn, warn, .observe, observe) h3 {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+    font-size: 1.1rem;
+}
+
+:is(.markdown-alert, .note, note, .tip, tip, .important, important, .warning, warning, .caution, caution, .info, info, .warn, warn, .observe, observe) p {
+    margin: 0.4em 0;
+}
+
+:is(.markdown-alert, .note, note, .tip, tip, .important, important, .warning, warning, .caution, caution, .info, info, .warn, warn, .observe, observe) ul,
+:is(.markdown-alert, .note, note, .tip, tip, .important, important, .warning, warning, .caution, caution, .info, info, .warn, warn, .observe, observe) ol {
+    margin: 0.4em 0 0.4em 1.5em;
+}
+
+.markdown-alert-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.45em;
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+.markdown-alert-title svg.octicon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: text-bottom;
+    fill: currentColor;
+}
+
+/* 1. Note (Blue) */
+:is(.markdown-alert-note, .note, note, .info, info) {
+    background-color: rgba(56, 189, 248, 0.07);
+    border-color: rgba(56, 189, 248, 0.22);
+    border-left-color: var(--accent-blue) !important;
+}
+:is(.markdown-alert-note, .note, note, .info, info) > .markdown-alert-title {
+    color: var(--accent-blue);
+}
+
+/* 2. Tip (Green) */
+:is(.markdown-alert-tip, .tip, tip) {
+    background-color: rgba(16, 185, 129, 0.07);
+    border-color: rgba(16, 185, 129, 0.22);
+    border-left-color: var(--accent-green) !important;
+}
+:is(.markdown-alert-tip, .tip, tip) > .markdown-alert-title {
+    color: var(--accent-emerald);
+}
+
+/* 3. Important (Purple) */
+:is(.markdown-alert-important, .important, important, .observe, observe) {
+    background-color: rgba(192, 132, 252, 0.07);
+    border-color: rgba(192, 132, 252, 0.22);
+    border-left-color: var(--accent-purple) !important;
+}
+:is(.markdown-alert-important, .important, important, .observe, observe) > .markdown-alert-title {
+    color: var(--accent-purple);
+}
+
+/* 4. Warning (Amber) */
+:is(.markdown-alert-warning, .warning, warning, .warn, warn) {
+    background-color: rgba(245, 158, 11, 0.07);
+    border-color: rgba(245, 158, 11, 0.22);
+    border-left-color: var(--accent-amber) !important;
+}
+:is(.markdown-alert-warning, .warning, warning, .warn, warn) > .markdown-alert-title {
+    color: var(--accent-amber);
+}
+
+/* 5. Caution (Red) */
+:is(.markdown-alert-caution, .caution, caution) {
+    background-color: rgba(239, 68, 68, 0.07);
+    border-color: rgba(239, 68, 68, 0.22);
+    border-left-color: var(--accent-red) !important;
+}
+:is(.markdown-alert-caution, .caution, caution) > .markdown-alert-title {
+    color: var(--accent-red);
+}
 
 /* Cards & Curriculum Grid */
 .curriculum-grid {
@@ -607,7 +681,7 @@ code {
 }
 
 /* Inline Code Elements */
-:not(pre) > code, code.w, code.m {
+:not(pre) > code, code.w, code.m, code.inline {
     background: rgba(15, 23, 42, 0.85);
     border: 1px solid var(--border-default);
     color: #f1f5f9;
@@ -680,6 +754,42 @@ pre > code {
     border: none !important;
     font-size: 1em;
     color: #e2e8f0;
+}
+
+/* Line Numbers Support for pre.line-numbers / code[num] */
+pre.line-numbers {
+    position: relative;
+    padding-left: 3.8em !important;
+    counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+    position: relative;
+    white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 1.25em;
+    left: 0;
+    width: 3em;
+    letter-spacing: -1px;
+    border-right: 1px solid var(--border-default);
+    user-select: none;
+}
+
+.line-numbers-rows > span {
+    display: block;
+    counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+    content: counter(linenumber);
+    color: var(--text-dim);
+    display: block;
+    padding-right: 0.8em;
+    text-align: right;
 }
 
 /* ==========================================================================
@@ -976,7 +1086,10 @@ quizz, .quizz {
 
 :is(question, .question) :is(o, .o) {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
+    text-align: left;
     gap: 0.75em;
     padding: 0.65em 0.9em;
     margin: 0.5em 0;
@@ -998,50 +1111,47 @@ quizz, .quizz {
     width: 1.15em;
     height: 1.15em;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 :is(question, .question) label {
     flex: 1;
     cursor: pointer;
     font-size: 0.95rem;
+    text-align: left;
 }
 
-.right, :is(question, .question) :is(o, .o).right {
+:is(question, .question) :is(o, .o).right {
     background-color: rgba(16, 185, 129, 0.2) !important;
     border-color: var(--accent-green) !important;
     color: #34d399 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
 }
 
-:is(question, .question) :is(o, .o).right::after {
-    content: '✓';
-    color: var(--accent-green);
-    font-weight: 900;
-    margin-left: auto;
-}
-
-.wrong, :is(question, .question) :is(o, .o).wrong {
+:is(question, .question) :is(o, .o).wrong {
     background-color: rgba(239, 68, 68, 0.2) !important;
     border-color: var(--accent-red) !important;
     color: #f87171 !important;
-}
-
-:is(question, .question) :is(o, .o).wrong::after {
-    content: '✕';
-    color: var(--accent-red);
-    font-weight: 900;
-    margin-left: auto;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
 }
 
 :is(question, .question) :is(o, .o).was-correct {
-    border: 2px dashed var(--accent-green) !important;
+    border: 1px dashed var(--accent-green) !important;
     background-color: rgba(16, 185, 129, 0.08) !important;
-}
-
-:is(question, .question) :is(o, .o).was-correct::after {
-    content: '(correcta)';
-    color: var(--accent-green);
-    font-size: 0.8rem;
-    margin-left: auto;
+    color: #34d399 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
 }
 
 /* Match Questions */
@@ -1058,15 +1168,25 @@ quizz, .quizz {
     }
 }
 
-:is(question, .question) .left,
-:is(question, .question) .right {
+:is(question, .question) .match-container .left,
+:is(question, .question) .match-container .right {
     display: flex;
     flex-direction: column;
     gap: 0.6em;
 }
 
-:is(question, .question) .left .o,
-:is(question, .question) .left o {
+:is(question, .question) .match-container :is(o, .o) {
+    margin: 0 !important;
+    min-height: 2.85em;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+:is(question, .question) .match-container .left :is(o, .o) {
     background: #0f172a;
     border: 1px solid var(--border-default);
     color: var(--text-heading);
@@ -1075,8 +1195,7 @@ quizz, .quizz {
     font-weight: 600;
 }
 
-:is(question, .question) .right .o,
-:is(question, .question) .right o {
+:is(question, .question) .match-container .right :is(o, .o) {
     background: #1e293b;
     border: 1px dashed var(--accent-blue);
     cursor: grab;
@@ -1084,22 +1203,22 @@ quizz, .quizz {
     transition: all 0.2s ease;
 }
 
-:is(question, .question) .right .o:active {
+:is(question, .question) .match-container .right :is(o, .o):active {
     cursor: grabbing;
 }
 
-:is(question, .question) .right .o.dragging {
+:is(question, .question) .match-container .right :is(o, .o).dragging {
     opacity: 0.4;
     border-style: solid;
 }
 
-:is(question, .question) .right .o.highlight {
+:is(question, .question) .match-container .right :is(o, .o).highlight {
     background: rgba(56, 189, 248, 0.25) !important;
     border-color: #38bdf8 !important;
     transform: scale(1.02);
 }
 
-:is(question, .question) .right .o.selected-swap {
+:is(question, .question) .match-container .right :is(o, .o).selected-swap {
     background: rgba(245, 158, 11, 0.25) !important;
     border-color: var(--accent-yellow) !important;
     box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
@@ -1233,6 +1352,137 @@ quizz, .quizz {
     background-color: rgba(239, 68, 68, 0.15) !important;
     border-color: var(--accent-red) !important;
     color: #f87171 !important;
+}
+
+/* Select / Dropdown Questions */
+.quiz-select-wrap {
+    position: relative;
+    display: block;
+    margin: 0.6em 0;
+    width: 100%;
+}
+
+.quiz-select-wrap.is-inline {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    min-width: 160px;
+    margin: 0 0.35em;
+}
+
+:is(question, .question) .quiz-select-trigger.o {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between !important;
+    gap: 0.75em;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
+    min-height: 2.85em;
+    text-align: left;
+}
+
+:is(question, .question) .quiz-select-trigger.o:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.25);
+}
+
+.quiz-select-wrap.is-open :is(question, .question) .quiz-select-trigger.o {
+    border-color: var(--accent-orange);
+}
+
+.quiz-select-value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 0.5em;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.quiz-select-value.is-placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.quiz-select-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding-left: 0.5em;
+    color: var(--text-muted);
+    font-size: 0.8em;
+    transition: transform 0.2s ease, color 0.2s ease;
+    user-select: none;
+}
+
+.quiz-select-wrap.is-open .quiz-select-arrow {
+    transform: rotate(180deg);
+    color: var(--accent-orange);
+}
+
+/* Floating dropdown menu */
+.quiz-select-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 60;
+    background: #0f172a;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 0.4em;
+    animation: quizSelectFadeDown 0.15s ease;
+}
+
+@keyframes quizSelectFadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quiz-select-wrap.is-open .quiz-select-menu {
+    display: block;
+}
+
+/* Options inside dropdown */
+:is(question, .question) .quiz-select-menu :is(o, .o, .quiz-select-item) {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    margin: 0.25em 0;
+    padding: 0.6em 0.85em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+:is(question, .question) .quiz-select-menu :is(o, .o, .quiz-select-item):hover {
+    background: rgba(249, 115, 22, 0.15);
+    border-color: rgba(249, 115, 22, 0.45);
+}
+
+:is(question, .question) .quiz-select-menu :is(o, .o, .quiz-select-item).selected {
+    border-color: var(--accent-orange);
+    background: rgba(249, 115, 22, 0.12);
 }
 
 /* Action Buttons & Feedback */
