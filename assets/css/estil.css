@@ -688,6 +688,7 @@ code {
     padding: 0.15em 0.45em;
     border-radius: 4px;
     font-family: var(--font-mono);
+    white-space: pre-wrap;
 }
 
 /* Code Blocks Container */

@@ -22,50 +22,632 @@
 <section>
 
     <div class="note">
-        <h3>Autoavaluació interactiva d'U4</h3>
-        <p>Posa a prova els teus coneixements sobre les utilitats bàsiques del JDK: la lectura amb <code class="w">Scanner</code>, manipulació de text amb <code class="w">String</code>, càlculs amb <code class="w">Math</code>, generació de valors amb <code class="w">Random</code> i format de dades amb <code class="w">.formatted()</code>.</p>
+        <h3>Autoavaluació interactiva d'U4: Utils del JDK</h3>
+        <p>Posa a prova els teus coneixements sobre les eines essencials del JDK: la lectura de dades per teclat amb <code>Scanner</code>, el tractament i manipulació de text amb <code>String</code>, els càlculs i constants amb <code>Math</code>, i la generació de valors aleatoris amb <code>Random</code>.</p>
     </div>
 
-    <h2>1. Mètodes de Scanner i Format de Dades</h2>
-    <p>Avalua si coneixes quin mètode d'Scanner s'ha d'utilitzar segons el tipus de dada i com es dona format a la informació.</p>
+    <h2>1. Scanner</h2>
+    <p>Declaració, inicialització i mètodes de lectura per consola segons el tipus de dada introduït.</p>
     <div class="quizz">
-<div class="question" match="">
-<div class="statement"><p>Fes coincidir els mètodes de <code class="w">Scanner</code> amb el tipus de valor que llegeixen.</p></div>
-<div class="o">nextInt()</div><div class="o">int</div>
-<div class="o">nextBoolean()</div><div class="o">boolean</div>
-<div class="o">nextFloat()</div><div class="o">float</div>
-<div class="o">next()</div><div class="o">String</div>
-</div>
-<div class="question" single="">
-<div class="statement">
-<p>Invoquem el mètode <code class="w">next()</code> i introduïm el número <code class="w">9</code> a l'entrada estàndard, quin tipus 
-                    de dada serà?</p>
-</div>
-<div class="o" correct="">String</div>
-<div class="o">char</div>
-<div class="o">int</div>
-<div class="o">float</div>
-</div>
-<div class="question" single="">
-<div class="statement">
-<p>Quin especificador de format hem d'utilitzar amb <code class="w">.formatted()</code> per a mostrar un decimal amb exactament dues xifres decimals?</p>
-</div>
-<div class="o" correct=""><code class="w">%.2f</code></div>
-<div class="o"><code class="w">%2d</code></div>
-<div class="o"><code class="w">%s.2</code></div>
-<div class="o"><code class="w">%.2decimal</code></div>
-</div>
-</div>
+        <div class="question" match="">
+            <div class="statement">
+                <p>Fes coincidir cada mètode de <code>Scanner</code> amb el tipus de dada que llegeix o el seu comportament:</p>
+            </div>
+            <div class="o"><code>nextLine()</code></div><div class="o">Llegeix tota la línia de text fins a prémer Enter</div>
+            <div class="o"><code>next()</code></div><div class="o">Llegeix només una paraula (s'atura en trobar un espai en blanc)</div>
+            <div class="o"><code>nextInt()</code></div><div class="o">Llegeix un nombre enter (int)</div>
+            <div class="o"><code>nextDouble()</code></div><div class="o">Llegeix un nombre decimal (double)</div>
+            <div class="o"><code>nextBoolean()</code></div><div class="o">Llegeix un valor booleà (true o false)</div>
+        </div>
 
-    <h2>2. Exercicis Pràctics d'Utils del JDK</h2>
+        <div class="question" single="">
+            <div class="statement">
+                <p>Si l'usuari escriu <code>Pere Pi</code> a la consola i prem Enter, què mostrarà el següent codi?</p>
+                <div class="sc" java="">
+Scanner scanner = new Scanner(System.in);
+String paraula1 = scanner.next();
+String paraula2 = scanner.next();
+println(paraula2 + ", " + paraula1);
+                </div>
+            </div>
+            <div class="o" correct=""><code>Pi, Pere</code></div>
+            <div class="o"><code>Pere, Pi</code></div>
+            <div class="o"><code>Pere Pi, Pere Pi</code></div>
+            <div class="o">Genera un error d'execució</div>
+        </div>
+
+        <div class="question" order="">
+            <div class="statement">
+                <p>Ordena les línies de codi per crear un programa funcional que importi <code>Scanner</code>, demani el nom de l'usuari i el saludi:</p>
+                <p class="order-hint">Arrossega des d'ací (o clica dues línies per intercanviar-les):</p>
+            </div>
+            <div class="o"><code>import java.util.Scanner;</code></div>
+            <div class="o"><code>void main() {</code></div>
+            <div class="o"><code>    Scanner scanner = new Scanner(System.in);</code></div>
+            <div class="o"><code>    print("Com et dius? ");</code></div>
+            <div class="o"><code>    String nom = scanner.nextLine();</code></div>
+            <div class="o"><code>    println("Hola, " + nom + "!");</code></div>
+            <div class="o"><code>}</code></div>
+        </div>
+
+        <div class="question" select="">
+            <div class="statement">
+                <p>Tria l'opció correcta per completar la preparació del lector i la lectura de  dades:</p>
+            </div>
+            <div>
+                <div class="o" group=1 correct=""><code>Scanner scanner = new Scanner(System.in);</code></div>
+                <div class="o" group=1><code>Scanner scanner = new Scanner(System.out);</code></div>
+                <div class="o" group=1><code>Scanner scanner = new Scanner();</code></div>
+                <div class="o" group=1><code>Scanner scanner = new Scanner("keyboard");</code></div>
+            </div>
+            <div>
+                <div class="o" group=2 correct=""><code>double alcada = scanner.nextDouble();</code></div>
+                <div class="o" group=2><code>double alcada = scanner.nextInt();</code></div>
+                <div class="o" group=2><code>double alcada = scanner.readDouble();</code></div>
+                <div class="o" group=2><code>double alcada = scanner.next();</code></div>
+            </div>
+            <div>
+                <div class="o" group=3 correct=""><code>boolean esSoci = scanner.nextBoolean();</code></div>
+                <div class="o" group=3><code>boolean esSoci = scanner.nextBool();</code></div>
+                <div class="o" group=3><code>boolean esSoci = scanner.readBoolean();</code></div>
+                <div class="o" group=3><code>boolean esSoci = scanner.next();</code></div>
+            </div>
+        </div>
+
+        <div class="question" single="">
+            <div class="statement">
+                <p>Si invoquem el mètode <code>next()</code> i l'usuari introdueix el dígit <code>9</code> a l'entrada estàndard, de quin tipus de dada serà la variable que rebi el resultat?</p>
+            </div>
+            <div class="o" correct=""><code>String</code></div>
+            <div class="o"><code>int</code></div>
+            <div class="o"><code>char</code></div>
+            <div class="o"><code>double</code></div>
+        </div>
+    </div>
+
+    <h2>2. String</h2>
+    <p>Operacions fonamentals sobre cadenes de text: inspecció, subcadenes, comparacions, divisions i format amb <code>.formatted()</code>.</p>
+    <div class="quizz">
+        <div class="question" match="">
+            <div class="statement">
+                <p>Fes coincidir cada mètode de <code>String</code> amb la seva funció corresponent:</p>
+            </div>
+            <div class="o"><code>text.length()</code></div><div class="o">Retorna el nombre total de caràcters</div>
+            <div class="o"><code>text.charAt(0)</code></div><div class="o">Retorna el primer caràcter (posició 0)</div>
+            <div class="o"><code>text.trim()</code></div><div class="o">Elimina els espais en blanc sobrants dels extrems</div>
+            <div class="o"><code>text.substring(0, 4)</code></div><div class="o">Extreu els caràcters des de l'índex 0 fins al 3</div>
+            <div class="o"><code>text.replace("vell", "nou")</code></div><div class="o">Substitueix totes les aparicions d'un fragment per un altre</div>
+            <div class="o"><code>text.split(";")</code></div><div class="o">Divideix la cadena en un array utilitzant el delimitador</div>
+        </div>
+
+        <div class="question" text="">
+            <div class="statement">
+                <p>Escriu el resultat exacte (sense cometes) que retorna cadascuna de les següents operacions sobre cadenes:</p>
+            </div>
+            <table>
+                <tr><td><code>"Programació".length()</code></td><td><div class="o">11</div></td></tr>
+                <tr><td><code>"Java".charAt(2)</code></td><td><div class="o">v</div></td></tr>
+                <tr><td><code>"  Hola  ".strip()</code></td><td><div class="o">Hola</div></td></tr>
+                <tr><td><code>"Barcelona".substring(0, 4)</code></td><td><div class="o">Barc</div></td></tr>
+                <tr><td><code>"27/10/1981".split("/")[0]</code></td><td><div class="o">27</div></td></tr>
+            </table>
+        </div>
+
+        <div class="question" multi="">
+            <div class="statement">
+                <p>Donada la variable <code>String s = "Java 26";</code>, quines de les següents expressions booleanes avaluen a <code>true</code>?</p>
+            </div>
+            <div class="o" correct=""><code>s.contains("26")</code></div>
+            <div class="o" correct=""><code>s.startsWith("Java")</code></div>
+            <div class="o" correct=""><code>s.endsWith("26")</code></div>
+            <div class="o" correct=""><code>s.equalsIgnoreCase("java 26")</code></div>
+            <div class="o"><code>s.equals("java 26")</code></div>
+            <div class="o"><code>s.startsWith("26")</code></div>
+        </div>
+
+        <div class="question" single="">
+            <div class="statement">
+                <p>Quin especificador de format hem d'utilitzar amb <code>.formatted()</code> per a mostrar un decimal amb exactament dues xifres decimals?</p>
+            </div>
+            <div class="o" correct=""><code>%.2f</code></div>
+            <div class="o"><code>%2d</code></div>
+            <div class="o"><code>%s.2</code></div>
+            <div class="o"><code>%.2decimal</code></div>
+        </div>
+
+        <div class="question" order="">
+            <div class="statement">
+                <p>Ordena les línies de codi per construir i formatar una plantilla de factura simplificada utilitzant Text Blocks (cometes triples):</p>
+                <p class="order-hint">Arrossega des d'ací (o clica dues línies per intercanviar-les):</p>
+            </div>
+            <div class="o"><code>String producte = "Portàtil";</code></div>
+            <div class="o"><code>double preu = 899.95;</code></div>
+            <div class="o"><code>String factura = """</code></div>
+            <div class="o"><code>    Article: %s</code></div>
+            <div class="o"><code>    Total:   %.2f €</code></div>
+            <div class="o"><code>    """.formatted(producte, preu);</code></div>
+            <div class="o"><code>println(factura);</code></div>
+        </div>
+    </div>
+
+    <h2>3. Math</h2>
+    <p>Constants matemàtiques, arrels quadrades, càlcul de potències, extrems, arrodoniments i generació decimal bàsica.</p>
+    <div class="quizz">
+        <div class="question" match="">
+            <div class="statement">
+                <p>Emparella cadascuna d'aquestes operacions de <code>Math</code> amb el seu valor de retorn:</p>
+            </div>
+            <div class="o"><code>Math.floor(4.7)</code></div><div class="o">4.0 (arrodoneix cap avall a l'enter inferior)</div>
+            <div class="o"><code>Math.ceil(4.2)</code></div><div class="o">5.0 (arrodoneix cap amunt a l'enter superior)</div>
+            <div class="o"><code>Math.round(4.5)</code></div><div class="o">5 (arrodoneix a l'enter més proper)</div>
+            <div class="o"><code>Math.sqrt(144)</code></div><div class="o">12.0 (arrel quadrada, retorna double)</div>
+            <div class="o"><code>Math.pow(2, 4)</code></div><div class="o">16.0 (potència base^exponent, retorna double)</div>
+            <div class="o"><code>Math.abs(-15)</code></div><div class="o">15 (elimina el signe negatiu)</div>
+        </div>
+
+        <div class="question" single="">
+            <div class="statement">
+                <p>Quin és el tipus de dada retornat per la crida <code>Math.pow(3, 2)</code> i quin és el seu valor exacte?</p>
+            </div>
+            <div class="o" correct=""><code>double amb valor 9.0</code></div>
+            <div class="o"><code>int amb valor 9</code></div>
+            <div class="o"><code>float amb valor 9.0f</code></div>
+            <div class="o"><code>long amb valor 9L</code></div>
+        </div>
+
+        <div class="question" text="">
+            <div class="statement">
+                <p>Escriu el resultat numèric retornat per cadascuna de les següents instruccions de <code>Math</code>:</p>
+            </div>
+            <table>
+                <tr><td><code>Math.max(45, 80)</code></td><td><div class="o">80</div></td></tr>
+                <tr><td><code>Math.min(45, 80)</code></td><td><div class="o">45</div></td></tr>
+                <tr><td><code>Math.abs(-99)</code></td><td><div class="o">99</div></td></tr>
+                <tr><td><code>Math.round(7.2)</code></td><td><div class="o">7</div></td></tr>
+                <tr><td><code>Math.round(7.8)</code></td><td><div class="o">8</div></td></tr>
+            </table>
+        </div>
+
+        <div class="question" multi="">
+            <div class="statement">
+                <p>Selecciona <b>totes</b> les afirmacions correctes sobre la classe <code>Math</code>:</p>
+            </div>
+            <div class="o" correct=""><code>Math.random()</code> retorna un <code>double</code> aleatori entre 0.0 (inclòs) i 1.0 (exclòs).</div>
+            <div class="o" correct="">No cal afegir cap instrucció <code>import</code> per utilitzar <code>Math</code>, ja que pertany al paquet bàsic <code>java.lang</code>.</div>
+            <div class="o" correct=""><code>Math.PI</code> és una constant que conté el valor aproximat del nombre pi (3.14159...).</div>
+            <div class="o"><code>Math.floor(x)</code> arrodoneix sempre cap a l'enter superior més proper.</div>
+            <div class="o"><code>Math.sqrt(x)</code> retorna sempre un nombre enter (<code>int</code>).</div>
+        </div>
+
+        <div class="question" single="">
+            <div class="statement">
+                <p>Quina és l'expressió correcta per generar un nombre enter aleatori entre 1 i 10 (ambdós inclosos) fent servir <code>Math.random()</code>?</p>
+            </div>
+            <div class="o" correct=""><code>(int) (Math.random() * 10) + 1</code></div>
+            <div class="o"><code>(int) Math.random() * 10 + 1</code></div>
+            <div class="o"><code>Math.random(1, 10)</code></div>
+            <div class="o"><code>Math.round(Math.random() * 10)</code></div>
+        </div>
+    </div>
+
+    <h2>4. Random</h2>
+    <p>La classe <code>java.util.Random</code> per generar enters en intervals concrets, decimals i valors booleans.</p>
+    <div class="quizz">
+        <div class="question" match="">
+            <div class="statement">
+                <p>Tenint un generador <code>Random random = new Random();</code>, emparella cada mètode amb el resultat que produeix:</p>
+            </div>
+            <div class="o"><code>random.nextInt(6)</code></div><div class="o">Enter entre 0 i 5 (límit superior exclòs)</div>
+            <div class="o"><code>random.nextInt(1, 7)</code></div><div class="o">Enter entre 1 i 6 (dau clàssic de 6 cares)</div>
+            <div class="o"><code>random.nextDouble()</code></div><div class="o">Decimal aleatori entre 0.0 i 1.0</div>
+            <div class="o"><code>random.nextBoolean()</code></div><div class="o">Valor booleà true o false (50% de probabilitat)</div>
+        </div>
+
+        <div class="question" single="">
+            <div class="statement">
+                <p>Si executem <code>int resultat = random.nextInt(10);</code>, quin dels següents valors <b>MAI</b> no podrà ser assignat a la variable <code>resultat</code>?</p>
+            </div>
+            <div class="o" correct=""><code>10</code></div>
+            <div class="o"><code>0</code></div>
+            <div class="o"><code>5</code></div>
+            <div class="o"><code>9</code></div>
+        </div>
+
+        <div class="question" order="">
+            <div class="statement">
+                <p>Ordena les línies de codi per crear un programa que simuli el llançament de dos daus de 6 cares i n'imprimeixi la suma:</p>
+                <p class="order-hint">Arrossega des d'ací (o clica dues línies per intercanviar-les):</p>
+            </div>
+            <div class="o"><code>import java.util.Random;</code></div>
+            <div class="o"><code>void main() {</code></div>
+            <div class="o"><code>    Random random = new Random();</code></div>
+            <div class="o"><code>    int dau1 = random.nextInt(1, 7);</code></div>
+            <div class="o"><code>    int dau2 = random.nextInt(1, 7);</code></div>
+            <div class="o"><code>    println("Suma dels daus: " + (dau1 + dau2));</code></div>
+            <div class="o"><code>}</code></div>
+        </div>
+
+        <div class="question" select="">
+            <div class="statement">
+                <p>Selecciona la instrucció més idònia de l'objecte <code>random</code> per a cadascuna d'aquestes simulacions:</p>
+            </div>
+            <div>
+                <div class="o" group=1 correct=""><code>boolean esCara = random.nextBoolean();</code></div>
+                <div class="o" group=1><code>boolean esCara = random.nextInt(2);</code></div>
+                <div class="o" group=1><code>boolean esCara = random.nextDouble();</code></div>
+                <div class="o" group=1><code>boolean esCara = random.nextCoin();</code></div>
+            </div>
+            <div>
+                <div class="o" group=2 correct=""><code>int carta = random.nextInt(1, 13);</code></div>
+                <div class="o" group=2><code>int carta = random.nextInt(12);</code></div>
+                <div class="o" group=2><code>int carta = random.nextInt(1, 12);</code></div>
+                <div class="o" group=2><code>int carta = random.nextDouble() * 12;</code></div>
+            </div>
+            <div>
+                <div class="o" group=3 correct=""><code></code>double percentatge = random.nextDouble() * 100;</code></div>
+                <div class="o" group=3><code>double percentatge = random.nextInt(100);</code></div>
+                <div class="o" group=3><code>double percentatge = random.nextPercent();</code></div>
+                <div class="o" group=3><code>double percentatge = random.nextFloat();</code></div>
+            </div>
+        </div>
+
+        <div class="question" single="">
+            <div class="statement">
+                <p>Quina és la diferència principal a l'hora d'utilitzar <code>Random</code> respecte a <code>Math.random()</code>?</p>
+            </div>
+            <div class="o" correct=""><code>Random</code> requereix afegir <code>import java.util.Random;</code> i instanciar el generador amb <code>new Random()</code>, però ofereix mètodes més directes com <code>nextInt(inici, fi)</code> i <code>nextBoolean()</code>.</div>
+            <div class="o"><code>Math.random()</code> requereix crear un objecte amb <code>new Math()</code> i <code>Random</code> s'utilitza de forma estàtica.</div>
+            <div class="o"><code>Random</code> només pot generar nombres enters i mai decimals.</div>
+            <div class="o">No hi ha cap diferència; són dos noms diferents per a la mateixa funció.</div>
+        </div>
+    </div>
+
+    <h2>5. Exercicis Pràctics d'Utils del JDK</h2>
     <div class="work">
         <h3>Exercicis proposats</h3>
+        <ol>
+            <li>
+                <p><strong>Comptador i analitzador de caràcters (Scanner + String)</strong></p>
+                <p>Demana a l'usuari el seu nom complet mitjançant <code>scanner.nextLine()</code>. El programa ha de netejar els espais sobrants dels extrems amb <code>trim()</code> i mostrar:</p>
+                <ul>
+                    <li>El nom net entre cometes simples.</li>
+                    <li>La longitud total de la cadena neta.</li>
+                    <li>El nombre de caràcters sense comptar els espais en blanc (utilitzant <code>replace(" ", "")</code>).</li>
+                    <li>El primer caràcter en majúscules.</li>
+                    <li>L'últim caràcter en majúscules.</li>
+                </ul>
+                <div class="shell">
+Com et dius? <span class="in">  Maria Garcia Pérez  </span>
+Nom net: 'Maria Garcia Pérez'
+Longitud total: 18 caràcters
+Lletres (sense espais): 16
+Primer caràcter: M
+Últim caràcter: Z
+                </div>
+            </li>
+
+            <li>
+                <p><strong>Generador d'àlies i correu institucional (String + split + formatted)</strong></p>
+                <p>Demana a l'usuari el seu nom i el seu primer cognom en una sola línia separats per un espai (ex: <code>"Gerard Falco"</code>). Utilitza <code>split(" ")</code> per separar ambdues parts i genera un àlies combinant les 3 primeres lletres del nom i les 3 primeres lletres del cognom en minúscules amb <code>substring(0, 3)</code> i <code>toLowerCase()</code>. Finalment, mostra les dades formatades amb <code>.formatted()</code>:</p>
+                <div class="shell">
+Introdueix nom i cognom: <span class="in">Gerard Falco</span>
+Nom: Gerard | Cognom: Falco
+Àlies d'usuari: gerfal
+Correu institucional: gerfal@institut.cat
+                </div>
+            </li>
+
+            <li>
+                <p><strong>Calculadora geomètrica (Scanner + Math)</strong></p>
+                <p>Demana a l'usuari la longitud dels dos catets d'un triangle rectangle ($a$ i $b$). Calcula la hipotenusa $c = \sqrt{a^2 + b^2}$ fent servir <code>Math.sqrt()</code> i <code>Math.pow()</code>. Després, demana el radi $r$ d'un cercle i calcula la seva àrea ($A = \pi \cdot r^2$) i el seu perímetre ($P = 2 \cdot \pi \cdot r$) amb <code>Math.PI</code>. Mostra els resultats amb 2 xifres decimals amb <code>%.2f</code> i el perímetre arrodonit amb <code>Math.round()</code>:</p>
+                <div class="shell">
+Catet A: <span class="in">3</span>
+Catet B: <span class="in">4</span>
+Hipotenusa: 5.00
+Radi del cercle: <span class="in">2.5</span>
+Àrea del cercle: 19.63
+Perímetre del cercle: 15.71 (arrodonit a l'enter més proper: 16)
+                </div>
+            </li>
+
+            <li>
+                <p><strong>Simulador de combat per torns (Random + Math)</strong></p>
+                <p>Crea una simulació de combat entre un Heroi i un Monstre utilitzant <code>Random</code>:</p>
+                <ul>
+                    <li>L'Heroi llança dos daus de 6 cares (<code>random.nextInt(1, 7)</code> cadascun) i en suma el valor base.</li>
+                    <li>Amb <code>random.nextBoolean()</code> es determina si l'Heroi aconsegueix un <em>cop crític</em> (duplica l'atac).</li>
+                    <li>El Monstre llança un dau de 12 cares (<code>random.nextInt(1, 13)</code>).</li>
+                    <li>Utilitza <code>Math.max()</code> per determinar quin dels dos ha infligit més dany i mostra qui guanya la ronda.</li>
+                </ul>
+                <div class="shell">
+--- RONDA DE COMBAT ---
+Heroi tira dos daus de 6: [4] + [5] = 9
+Cop crític aconseguit? true -> Dany final heroi: 18
+Monstre tira dau de 12: [10] -> Dany final monstre: 10
+Dany més alt de la ronda: 18
+Resultat: L'Heroi guanya la ronda!
+                </div>
+            </li>
+
+            <li>
+                <p><strong>Tiquet de compra amb Text Blocks i format (Scanner + String formatting)</strong></p>
+                <p>Demana a l'usuari el nom d'un article, el preu unitari en euros (<code>scanner.nextDouble()</code>) i la quantitat d'unitats (<code>scanner.nextInt()</code>). Calcula el subtotal, l'IVA aplicat del 21% i el preu total final. Mostra un tiquet de caixa perfectament alineat utilitzant una plantilla multilínia Text Block (<code>"""..."""</code>) i especificadors de format (<code>%-15s</code>, <code>%3d</code>, <code>%8.2f €</code>):</p>
+                <div class="shell">
+Nom de l'article: <span class="in">Auriculars Bluetooth</span>
+Preu unitari: <span class="in">29.99</span>
+Quantitat: <span class="in">3</span>
+
+=========== TIQUET DE COMPRA ===========
+Article:         Auriculars Bluetooth
+Unitats:                            3
+Preu unitari:                 29.99 €
+----------------------------------------
+Subtotal:                     89.97 €
+IVA (21%):                    18.89 €
+TOTAL A PAGAR:               108.86 €
+========================================
+                </div>
+            </li>
+
+    <li>
+        <p><strong>Analitzador de matrícules d'un vehicle (String)</strong></p>
+
+        <p>
+            Demana a l'usuari una matrícula en el format actual espanyol
+            (quatre xifres i tres lletres, per exemple, <code>4821KLM</code>).
+            El programa ha de mostrar:
+        </p>
+
         <ul>
-            <li><p><strong>Comptador de caràcters:</strong> Demana a l'usuari el seu nom complet i mostra quants caràcters té en total (sense comptar els espais), el primer caràcter i l'últim caràcter en majúscules.</p></li>
-            <li><p><strong>Generador d'àlies:</strong> Llegeix el nom i el cognom d'una persona i genera un àlies combinant les 3 primeres lletres del nom i les 3 primeres lletres del cognom en minúscules.</p></li>
-            <li><p><strong>Dau aleatori:</strong> Utilitza <code class="w">Random</code> o <code class="w">Math.random()</code> per simular el llançament de dos daus de 6 cares i mostrar la suma obtinguda.</p></li>
-            <li><p><strong>Tiquet de compra amb format:</strong> Demana el nom d'un article, el preu unitari i la quantitat, i mostra un tiquet alineat i formatat usant <code class="w">.formatted()</code> amb dues xifres decimals.</p></li>
+            <li>La matrícula en majúscules, encara que s'haja introduït en minúscules.</li>
+            <li>Les quatre xifres inicials per separat.</li>
+            <li>Les tres lletres finals per separat.</li>
+            <li>El codi format per les lletres en ordre invers.</li>
+            <li>La matrícula amb un guió entre les xifres i les lletres.</li>
         </ul>
+
+        <div class="shell">
+Introdueix la matrícula: <span class="in">4821klm</span>
+
+Matrícula normalitzada: 4821KLM
+Part numèrica: 4821
+Part alfabètica: KLM
+Lletres en ordre invers: MLK
+Matrícula completa: 4821-KLM
+        </div>
+    </li>
+
+    <li>
+        <p><strong>Generador de codis d'inventari (String + Math + formatted)</strong></p>
+
+        <p>
+            Demana el nom d'un producte i el número de prestatgeria on
+            s'emmagatzema. Genera un codi d'inventari a partir de:
+        </p>
+
+        <ul>
+            <li>Les dues primeres lletres del producte en majúscules.</li>
+            <li>El número de prestatgeria amb tres xifres, completant amb zeros a l'esquerra.</li>
+            <li>La longitud del nom del producte.</li>
+        </ul>
+
+        <div class="shell">
+Nom del producte: <span class="in">Teclat</span>
+Número de prestatgeria: <span class="in">7</span>
+
+Producte: Teclat
+Codi d'inventari: TE-007-06
+Longitud del nom: 6 caràcters
+        </div>
+    </li>
+
+    <li>
+        <p><strong>Calculadora de consum elèctric (Scanner + Math)</strong></p>
+
+        <p>
+            Demana la potència d'un aparell elèctric en watts, el nombre
+            d'hores que funciona al dia i el preu del kWh.
+            Calcula el consum diari i mensual (30 dies) en kWh,
+            així com el cost mensual.
+        </p>
+
+        <ul>
+            <li>Converteix la potència de watts a quilowatts.</li>
+            <li>Calcula el consum multiplicant la potència en kW per les hores.</li>
+            <li>Calcula el cost mensual del consum.</li>
+            <li>Mostra el cost mensual amb dos decimals i el nombre enter de cèntims
+                més pròxim amb <code>Math.round()</code>.</li>
+        </ul>
+
+        <div class="shell">
+Potència de l'aparell (W): <span class="in">1500</span>
+Hores de funcionament al dia: <span class="in">3</span>
+Preu del kWh (€): <span class="in">0.20</span>
+
+Consum diari: 4.50 kWh
+Consum mensual: 135.00 kWh
+Cost mensual: 27.00 €
+Cost mensual en cèntims: 2700
+        </div>
+    </li>
+
+    <li>
+        <p><strong>Simulador d'una màquina recreativa (Random + Math)</strong></p>
+
+        <p>
+            Simula una tirada d'una màquina recreativa amb tres símbols
+            representats per nombres aleatoris entre 1 i 5.
+            Utilitza <code>random.nextInt(1, 6)</code> per generar-los.
+        </p>
+
+        <ul>
+            <li>Mostra els tres nombres obtinguts.</li>
+            <li>Calcula la suma dels tres nombres.</li>
+            <li>Calcula la puntuació màxima de la tirada amb
+                <code>Math.max()</code>.</li>
+            <li>Calcula la puntuació mínima amb <code>Math.min()</code>.</li>
+            <li>Calcula la diferència entre la puntuació màxima i la mínima.</li>
+        </ul>
+
+        <p>
+            Per a aquest exercici, no cal determinar si l'usuari ha guanyat
+            ni aplicar premis segons el resultat.
+        </p>
+
+        <div class="shell">
+--- MÀQUINA RECREATIVA ---
+Resultat: [4] [2] [5]
+Suma dels símbols: 11
+Valor màxim: 5
+Valor mínim: 2
+Diferència màxim-mínim: 3
+        </div>
+    </li>
+
+    <li>
+        <p><strong>Targeta d'embarcament (Scanner + String + Text Blocks)</strong></p>
+
+        <p>
+            Demana el nom complet d'un passatger, el codi del vol i el número
+            del seient. Genera una targeta d'embarcament amb el format següent:
+        </p>
+
+        <ul>
+            <li>El nom del passatger en majúscules.</li>
+            <li>El codi del vol en majúscules.</li>
+            <li>El seient dividit en fila i lletra, per exemple, <code>14C</code>.</li>
+            <li>Un text de confirmació que incloga el nom i el codi del vol.</li>
+        </ul>
+
+        <p>
+            Utilitza <code>toUpperCase()</code>, <code>substring()</code>,
+            <code>.formatted()</code> i una plantilla multilínia
+            amb Text Blocks.
+        </p>
+
+        <div class="shell">
+Nom del passatger: <span class="in">Maria Garcia</span>
+Codi del vol: <span class="in">ab123</span>
+Seient: <span class="in">14c</span>
+
+========================================
+          TARGETA D'EMBARCAMENT
+========================================
+PASSATGER: MARIA GARCIA
+VOL:       AB123
+SEIENT:    14C
+----------------------------------------
+Maria Garcia, el seu vol AB123 està confirmat.
+========================================
+        </div>
+    </li>
+
+    <li>
+        <p><strong>Calculadora de distàncies GPS (Scanner + Math)</strong></p>
+
+        <p>
+            Demana les coordenades X i Y de dos punts d'un mapa.
+            Calcula la distància en línia recta entre aquests punts
+            mitjançant la fórmula:
+        </p>
+
+        <p>
+            <code>d = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))</code>
+        </p>
+
+        <p>
+            A continuació, calcula el temps necessari per recórrer aquesta
+            distància si un vehicle es desplaça a una velocitat constant
+            de 60 unitats per hora. Expressa el resultat en minuts i mostra
+            també el temps arrodonit amb <code>Math.round()</code>.
+        </p>
+
+        <div class="shell">
+Coordenada X del punt A: <span class="in">1</span>
+Coordenada Y del punt A: <span class="in">2</span>
+Coordenada X del punt B: <span class="in">4</span>
+Coordenada Y del punt B: <span class="in">6</span>
+
+Distància entre A i B: 5.00 unitats
+Velocitat del vehicle: 60.00 unitats/h
+Temps estimat: 5.00 minuts
+Temps arrodonit: 5 minuts
+        </div>
+    </li>
+
+    <li>
+        <p><strong>Generador de contrasenyes temporals (Random + String)</strong></p>
+
+        <p>
+            Genera una contrasenya temporal de sis xifres. Cada xifra s'ha
+            d'obtindre amb una crida a <code>random.nextInt(0, 10)</code>.
+            Concatena els resultats en una cadena de text.
+        </p>
+
+        <ul>
+            <li>Mostra la contrasenya completa.</li>
+            <li>Mostra la primera i l'última xifra.</li>
+            <li>Mostra la contrasenya amb un asterisc en lloc de les quatre
+                xifres centrals.</li>
+            <li>Mostra la longitud de la contrasenya.</li>
+        </ul>
+
+        <p>
+            La contrasenya s'ha de tractar com una cadena, no com un nombre,
+            perquè pot començar per zero.
+        </p>
+
+        <div class="shell">
+--- GENERADOR DE CLAUS ---
+Clau generada: 038572
+Primera xifra: 0
+Última xifra: 2
+Clau oculta: 0****2
+Longitud: 6 caràcters
+        </div>
+    </li>
+
+    <li>
+        <p><strong>Factura d'un servei de missatgeria (Scanner + Math + formatted)</strong></p>
+
+        <p>
+            Demana el pes d'un paquet en quilograms, la distància d'enviament
+            en quilòmetres i si el servei és urgent, representat per un valor
+            booleà.
+        </p>
+
+        <p>Calcula el preu final amb les tarifes següents:</p>
+
+        <ul>
+            <li>Preu base: 3,50 €.</li>
+            <li>Cost per quilogram: 1,20 €.</li>
+            <li>Cost per cada 10 km: 0,50 €.</li>
+            <li>Recàrrec d'urgència: 5,00 € si el servei és urgent.</li>
+        </ul>
+
+        <p>
+            Considera que el cost per distància és proporcional a la distància
+            recorreguda. Utilitza <code>Math.ceil()</code> per arrodonir
+            el nombre de trams de 10 km cap amunt.
+            Mostra un resum de la factura amb dos decimals.
+        </p>
+
+        <div class="shell">
+Pes del paquet (kg): <span class="in">2.5</span>
+Distància (km): <span class="in">23</span>
+Servei urgent (true/false): <span class="in">true</span>
+
+========== FACTURA D'ENVIAMENT ==========
+Preu base:                         3.50 €
+Pes del paquet: 2.50 kg            3.00 €
+Distància: 23 km                   1.50 €
+Servei urgent:                     5.00 €
+----------------------------------------
+TOTAL:                            13.00 €
+=========================================
+        </div>
+    </li>
+</ol>
     </div>
 
 </section>
