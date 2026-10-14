@@ -74,6 +74,12 @@ function extendPrismForJava26() {
         env.settings['remove-indent'] = false;
       }
     });
+
+    Prism.hooks.add('after-highlight', function(env) {
+      if (env.element && isInlineCodeElement(env.element)) {
+        preserveInlineLeadingWhitespace(env.element);
+      }
+    });
   }
 
   if (!Prism.languages || !Prism.languages.java) return;
@@ -149,6 +155,17 @@ function normalizeCodeWhitespace(html, options = {}) {
     if (line.trim() === '') return '';
     return line.startsWith(commonIndent) ? line.slice(commonIndent.length) : line;
   }).join('\n');
+}
+
+function preserveInlineLeadingWhitespace(el) {
+  if (!el) return;
+  // Preserve leading spaces per line by converting ASCII spaces/tabs to non-breaking spaces (\u00a0)
+  // This prevents browsers from collapsing or trimming leading indentation in inline elements and flex items.
+  el.innerHTML = el.innerHTML.replace(/^[\r\n]+/, '').replace(/[\r\n\s]+$/, '');
+  el.innerHTML = el.innerHTML.replace(/(^|\r?\n)([ \t]+)/g, (match, nl, spaces) => {
+    const count = spaces.replace(/\t/g, '    ').length;
+    return nl + '\u00a0'.repeat(count);
+  });
 }
 
 function detectLanguage(codeStr) {
@@ -241,12 +258,12 @@ function isInlineCodeElement(el) {
   }
 
   // Inside phrasing elements or text containers (p, h1-h6, span, strong, em, etc.)
-  const phrasingSelector = 'p, h1, h2, h3, h4, h5, h6, span, a, em, strong, b, i, u, s, mark, small, del, ins, sub, sup, kbd, label, button, abbr, cite, q, time, dfn, var, samp, data, bdi, bdo, summary, dt';
+  const phrasingSelector = 'p, h1, h2, h3, h4, h5, h6, span, a, em, strong, b, i, u, s, mark, small, del, ins, sub, sup, kbd, label, button, abbr, cite, q, time, dfn, var, samp, data, bdi, bdo, summary, dt, dd, li, td, th, caption, figcaption';
   if (el.parentElement && el.parentElement.closest(phrasingSelector)) {
     return true;
   }
 
-  const inlineTags = ['SPAN', 'A', 'EM', 'STRONG', 'B', 'I', 'U', 'S', 'DEL', 'INS', 'KBD', 'SMALL', 'SUB', 'SUP', 'MARK', 'LABEL', 'ABBR', 'CITE', 'Q', 'TIME', 'DFN', 'VAR', 'SAMP', 'DATA', 'BDI', 'BDO', 'BUTTON'];
+  const inlineTags = ['SPAN', 'A', 'EM', 'STRONG', 'B', 'I', 'U', 'S', 'DEL', 'INS', 'KBD', 'SMALL', 'SUB', 'SUP', 'MARK', 'LABEL', 'ABBR', 'CITE', 'Q', 'TIME', 'DFN', 'VAR', 'SAMP', 'DATA', 'BDI', 'BDO', 'BUTTON', 'LI', 'TD', 'TH', 'DD', 'DT'];
 
   // Check previous sibling for non-empty text or inline tag
   let prev = el.previousSibling;
@@ -408,6 +425,7 @@ function syntaxHighlight() {
           } catch (e) {}
         }
       }
+      preserveInlineLeadingWhitespace(el);
     } else {
       // BLOCK CODE
       const numInfo = extractLineNumbers(el);
@@ -964,7 +982,14 @@ function getOptionContentKey(o) {
     text = text.replace(/[\r\n\s]+$/, '');
     return text;
   }
-  return o.innerHTML.replace(/^[\r\n]+/, '').replace(/[\r\n\s]+$/, '');
+  const clone = o.cloneNode(true);
+  while (clone.firstChild && clone.firstChild.nodeType === 3 && clone.firstChild.textContent.trim() === '') {
+    clone.removeChild(clone.firstChild);
+  }
+  while (clone.lastChild && clone.lastChild.nodeType === 3 && clone.lastChild.textContent.trim() === '') {
+    clone.removeChild(clone.lastChild);
+  }
+  return clone.innerHTML.replace(/^[\r\n]+/, '').replace(/[\r\n\s]+$/, '');
 }
 
 function initOrderQuestion(q, checkBtn, retryBtn, feedback) {
@@ -1009,12 +1034,22 @@ function initOrderQuestion(q, checkBtn, retryBtn, feedback) {
       let text = o.textContent;
       text = text.replace(/^[\r\n]+/, '');
       text = text.replace(/[\r\n\s]+$/, '');
+      text = text.replace(/(^|\r?\n)([ \t]+)/g, (match, nl, spaces) => {
+        return nl + '\u00a0'.repeat(spaces.replace(/\t/g, '    ').length);
+      });
       content.textContent = text;
       o.textContent = '';
     } else {
+      while (o.firstChild && o.firstChild.nodeType === 3 && o.firstChild.textContent.trim() === '') {
+        o.removeChild(o.firstChild);
+      }
+      while (o.lastChild && o.lastChild.nodeType === 3 && o.lastChild.textContent.trim() === '') {
+        o.removeChild(o.lastChild);
+      }
       while (o.firstChild) {
         content.appendChild(o.firstChild);
       }
+      content.querySelectorAll('code').forEach(c => preserveInlineLeadingWhitespace(c));
     }
 
     o.appendChild(handle);

@@ -678,6 +678,7 @@ nav.sidenav a.sidenav2 {
 code {
     font-family: var(--font-mono);
     font-size: 0.88em;
+    white-space: break-spaces;
 }
 
 /* Inline Code Elements */
@@ -688,7 +689,7 @@ code {
     padding: 0.15em 0.45em;
     border-radius: 4px;
     font-family: var(--font-mono);
-    white-space: pre-wrap;
+    white-space: break-spaces;
 }
 
 /* Code Blocks Container */
@@ -808,6 +809,11 @@ pre[class*="language-"] {
     line-height: 1.6;
     tab-size: 4;
     hyphens: none;
+}
+
+:not(pre) > code[class*="language-"],
+code.inline[class*="language-"] {
+    white-space: break-spaces;
 }
 
 /* Comments */
@@ -1303,8 +1309,20 @@ quizz, .quizz {
 :is(question, .question) .order-content {
     flex-grow: 1;
     font-family: inherit;
-    white-space: pre-wrap;
+    white-space: break-spaces;
     word-break: break-word;
+}
+
+:is(question, .question) .order-container :is(o, .o) code,
+:is(question, .question) .order-content code {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    white-space: break-spaces !important;
+    display: inline-block !important;
 }
 
 :is(question, .question) .order-hint {
