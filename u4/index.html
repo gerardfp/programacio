@@ -34,7 +34,8 @@
 
 
     <h2>1. <code>Scanner</code></h2>
-    <p>Per demanar dades a l'usuari a través de la consola i llegir la seva resposta utilitzem <code>Scanner</code>. Com que forma part del paquet d'utilitats de Java, cal afegir la sentència <code>import java.util.Scanner;</code> a l'inici del fitxer:</p>
+    <p>La utilitat <code>Scanner</code> ens permet llegir les dades introduïdes per teclat a la consola. 
+        A diferència de <code>IO.readln()</code>, l'Scanner permet llegir diverses dades en una mateixa línia.</p>
 
     <p>Per començar a llegir, preparem un lector (<code>scanner</code>) vinculat a l'entrada estàndard del sistema (<code>System.in</code>):</p>
     <code>
@@ -51,8 +52,6 @@ Scanner scanner = new Scanner(System.in);
     </ul>
 
     <code>
-import java.util.Scanner;
-
 void main() {
     Scanner scanner = new Scanner(System.in);
 
@@ -179,7 +178,7 @@ void main() {
 
 
     <h2>3. <code>Math</code></h2>
-    <p><code>Math</code> proporciona un conjunt complet de funcions matemàtiques i constants. Està disponible directament a qualsevol programa Java sense necessitat d'afegir cap instrucció <code>import</code>.</p>
+    <p><code>Math</code> proporciona un conjunt complet de funcions i constants matemàtiques.</p>
 
     <p>S'utilitza escrivint directament <code>Math.</code> seguit del nom de l'operació o constant que necessitem:</p>
 
@@ -215,7 +214,8 @@ void main() {
     </code>
 
     <h2>4. <code>Random</code></h2>
-    <p>Quan volem generar valors a l'atzar amb més flexibilitat (nombres enters en intervals concrets, daus, cartes o simulacions), la utilitat <code>Random</code> del paquet <code>java.util</code> (<code>import java.util.Random;</code>) és la més recomanada.</p>
+    <p>Podem utilitzar la utilitat <code>Random</code> quan volem generar valors a l'atzar amb més flexibilitat 
+        (nombres enters en intervals concrets, daus, cartes, simulacions,...) </p>
 
     <p>Primer preparem el generador:</p>
     <code>
@@ -231,8 +231,6 @@ Random random = new Random();
     </ul>
 
     <code>
-import java.util.Random;
-
 void main() {
     Random random = new Random();
 
