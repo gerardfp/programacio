@@ -156,6 +156,7 @@ println(7 % 2);     // 1 (el residu de dividir 7 entre 2: 7 = 3 * 2 + 1)
     <ul>
         <li><p><strong>Concatenació amb <code>String</code>:</strong> Quan l'operador <code>+</code> s'utilitza i un dels operands és un text, 
             Java no suma matemàticament, sinó que <strong>concatena</strong> (uneix) les dades en una nova cadena de text (<code>String</code>):</p>
+            <div>
             <code>
 String salutacio = "Hola, " + "Joan!";        // "Hola, Joan!"
 String missatge = "Tens " + 3 + " missatges";   // "Tens 3 missatges"
@@ -164,8 +165,12 @@ String missatge = "Tens " + 3 + " missatges";   // "Tens 3 missatges"
 println("Punts: " + 5 + 3);     // "Punts: 53" (concatena "Punts: 5" i després "3")
 println("Punts: " + (5 + 3));   // "Punts: 8" (primer suma matemàtica dels parèntesis)
             </code>
+                </div>
         </li>
-        <li><p><strong>Aritmètica amb caràcters (<code>char</code>):</strong> A Java, els caràcters s'emmagatzemen a la memòria amb el seu codi numèric Unicode/ASCII (per exemple, <code>'A'</code> és 65, <code>'B'</code> és 66, i <code>'a'</code> és 97). Per tant, es poden sumar i restar amb nombres o entre ells:</p>
+        <li><p><strong>Aritmètica amb caràcters (<code>char</code>):</strong> A Java, els caràcters s'emmagatzemen a la memòria 
+            amb el seu codi numèric Unicode/ASCII (per exemple, <code>'A'</code> és 65, <code>'B'</code> és 66, i <code>'a'</code> és 97). 
+            Per tant, es poden sumar i restar amb nombres o entre ells:</p>
+            <div>
             <code>
 char lletra = 'A';
 int codi = lletra + 1;              // 66 (el codi numèric de 'B')
@@ -174,6 +179,7 @@ char seguent = (char) (lletra + 1);   // 'B' (fent càsting explícit a char)
 // Calcular la distància o desplaçament entre lletres:
 int distancia = 'e' - 'a';          // 4 (perquè 'e' està 4 posicions després de 'a')
             </code>
+                </div>
         </li>
     </ul>
 
