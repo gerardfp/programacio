@@ -258,7 +258,7 @@ function isInlineCodeElement(el) {
   }
 
   // Inside phrasing elements or text containers (p, h1-h6, span, strong, em, etc.)
-  const phrasingSelector = 'p, h1, h2, h3, h4, h5, h6, span, a, em, strong, b, i, u, s, mark, small, del, ins, sub, sup, kbd, label, button, abbr, cite, q, time, dfn, var, samp, data, bdi, bdo, summary, dt, dd, li, td, th, caption, figcaption';
+  const phrasingSelector = 'p, h1, h2, h3, h4, h5, h6, span, a, em, strong, b, i, u, s, mark, small, del, ins, sub, sup, kbd, label, button, abbr, cite, q, time, dfn, var, samp, data, bdi, bdo, dt, dd, figcaption';
   if (el.parentElement && el.parentElement.closest(phrasingSelector)) {
     return true;
   }
