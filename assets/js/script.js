@@ -263,7 +263,7 @@ function isInlineCodeElement(el) {
     return true;
   }
 
-  const inlineTags = ['SPAN', 'A', 'EM', 'STRONG', 'B', 'I', 'U', 'S', 'DEL', 'INS', 'KBD', 'SMALL', 'SUB', 'SUP', 'MARK', 'LABEL', 'ABBR', 'CITE', 'Q', 'TIME', 'DFN', 'VAR', 'SAMP', 'DATA', 'BDI', 'BDO', 'BUTTON', 'LI', 'TD', 'TH', 'DD', 'DT'];
+  const inlineTags = ['SPAN', 'A', 'EM', 'STRONG', 'B', 'I', 'U', 'S', 'DEL', 'INS', 'KBD', 'SMALL', 'SUB', 'SUP', 'MARK', 'LABEL', 'ABBR', 'CITE', 'Q', 'TIME', 'DFN', 'VAR', 'SAMP', 'DATA', 'BDI', 'BDO', 'BUTTON', 'DD', 'DT'];
 
   // Check previous sibling for non-empty text or inline tag
   let prev = el.previousSibling;
