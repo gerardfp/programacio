@@ -432,13 +432,15 @@
         <h3>6.1 Càsting entre tipus primitius</h3>
         <p>Quan convertim entre tipus numèrics primitius, trobem dues situacions:</p>
         <ul>
-            <li><strong>Conversió implícita (automàtica o promoció):</strong> Es produeix en passar d'un tipus més petit o estret a un de més gran o ample (per exemple, de <code>int</code> a <code>double</code>). Com que el tipus destí té més capacitat de bits, no hi ha cap perill de pèrdua d'informació i Java ho fa automàticament:
+            <li>
+                <p><strong>Conversió implícita (automàtica o promoció):</strong> Es produeix en passar d'un tipus més petit o estret a un de més gran o ample (per exemple, de <code>int</code> a <code>double</code>). Com que el tipus destí té més capacitat de bits, no hi ha cap perill de pèrdua d'informació i Java ho fa automàticament:</p>
                 <code>
                     int a = 10;
                     double b = a; // Correcte i automàtic: b valdrà 10.0
                 </code>
             </li>
-            <li><strong>Càsting explícit:</strong> Es produeix en voler passar d'un tipus més gran a un de més petit (per exemple, de <code>double</code> a <code>int</code>). Com que hi pot haver pèrdua de precisió o desbordament, el compilador ens obliga a indicar el tipus destí explícitament entre parèntesis <code>(tipus)</code>:
+            <li>
+                <p><strong>Càsting explícit:</strong> Es produeix en voler passar d'un tipus més gran a un de més petit (per exemple, de <code>double</code> a <code>int</code>). Com que hi pot haver pèrdua de precisió o desbordament, el compilador ens obliga a indicar el tipus destí explícitament entre parèntesis <code>(tipus)</code>:</p>
                 <code>
                     double preu = 9.99;
                     int partEntera = (int) preu; // partEntera valdrà 9 (es trunquen els decimals, no s'arrodoneix)
