@@ -97,6 +97,7 @@ void main() {
         <li><code>text.contains("paraula")</code>: retorna <code>true</code> si el text conté la paraula indicada.</li>
         <li><code>text.startsWith("prefix")</code> / <code>text.endsWith("sufix")</code>: comprova com comença o acaba un text.</li>
         <li><code>text.replace("vell", "nou")</code>: canvia totes les aparicions d'un text per un altre.</li>
+        <li><code>text.repeat(n)</code>: repeteix el text <code>n</code> vegades.</li>
         <li><code>text.equals(altre)</code>: compara si dos textos tenen exactament el mateix contingut (<code>true</code> o <code>false</code>).</li>
         <li><code>text.equalsIgnoreCase(altre)</code>: compara dos textos ignorant majúscules i minúscules.</li>
         <li><code>text.split("delimitador")</code>: divideix el text en un array de cadenes utilitzant el delimitador indicat.</li>
@@ -115,7 +116,10 @@ void main() {
     println("Subcadena (0..5): " + nom.trim().substring(0, 5)); // Maria
     println("Substitució: " + nom.replace("Garcia", "Pérez"));
     println("És igual a 'Maria Garcia'? " + nom.trim().equals("Maria Garcia"));
+    println("Dues vegades: " + nom.repeat(2)); //   Maria Garcia    Maria Garcia  
 
+    // REPEAT
+    println("-".repeat(20)); // --------------------
 
     // SPLIT
     String frase = "Hola, com estàs?";
