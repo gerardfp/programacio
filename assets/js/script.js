@@ -258,12 +258,12 @@ function isInlineCodeElement(el) {
   }
 
   // Inside phrasing elements or text containers (p, h1-h6, span, strong, em, etc.)
-  const phrasingSelector = 'p, h1, h2, h3, h4, h5, h6, span, a, em, strong, b, i, u, s, mark, small, del, ins, sub, sup, kbd, label, button, abbr, cite, q, time, dfn, var, samp, data, bdi, bdo, summary, dt, dd, li, td, th, caption, figcaption';
+  const phrasingSelector = 'p, h1, h2, h3, h4, h5, h6, span, a, em, strong, b, i, u, s, mark, small, del, ins, sub, sup, kbd, label, button, abbr, cite, q, time, dfn, var, samp, data, bdi, bdo, dt, dd, figcaption';
   if (el.parentElement && el.parentElement.closest(phrasingSelector)) {
     return true;
   }
 
-  const inlineTags = ['SPAN', 'A', 'EM', 'STRONG', 'B', 'I', 'U', 'S', 'DEL', 'INS', 'KBD', 'SMALL', 'SUB', 'SUP', 'MARK', 'LABEL', 'ABBR', 'CITE', 'Q', 'TIME', 'DFN', 'VAR', 'SAMP', 'DATA', 'BDI', 'BDO', 'BUTTON', 'LI', 'TD', 'TH', 'DD', 'DT'];
+  const inlineTags = ['SPAN', 'A', 'EM', 'STRONG', 'B', 'I', 'U', 'S', 'DEL', 'INS', 'KBD', 'SMALL', 'SUB', 'SUP', 'MARK', 'LABEL', 'ABBR', 'CITE', 'Q', 'TIME', 'DFN', 'VAR', 'SAMP', 'DATA', 'BDI', 'BDO', 'BUTTON', 'DD', 'DT'];
 
   // Check previous sibling for non-empty text or inline tag
   let prev = el.previousSibling;
