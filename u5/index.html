@@ -27,6 +27,8 @@
         <div class="check">Esquemes de cerca: cerca lineal amb sortida anticipada i cerca dicotòmica o binària sobre dades ordenades</div>
         <div class="check">Cerca dicotòmica o binària sobre col·leccions ordenades: estratègia <em>divideix i venceràs</em> i cost logarítmic</div>
         <div class="check">Algorismes clàssics d'ordenació: Bombolla (<em>Bubble Sort</em>), Selecció directa (<em>Selection Sort</em>) i Inserció directa</div>
+        <div class="check">Cerca d’un patró contigu dins d’un array o una cadena</div>
+        <div class="check">Finestra lliscant de mida fixa: suma màxima de k elements consecutius</div>
         <div class="check">Mescla (<em>Merge</em>) de dues seqüències ordenades en temps lineal</div>
     </div>
 </header>
@@ -200,6 +202,46 @@ println("Index clau: " + trobat);
         </ul>
     </div>
 
+    <h3>3.3 Cerca d'un Patró Contigu</h3>
+    <p>Podem ampliar la cerca lineal per localitzar un <strong>patró</strong>: una seqüència d'elements que ha d'aparéixer en el mateix ordre i en <strong>posicions consecutives</strong> dins d'un altre array. Provem cada possible posició inicial i comparem els elements del patró amb els de l'array a partir d'aquella posició.</p>
+    <p>Si <code>n</code> és la longitud de les dades i <code>m</code> la del patró, l'últim inici possible és <code>n - m</code>, inclòs. Per a cada inici <code>i</code>, comparem <code>dades[i + j]</code> amb <code>patro[j]</code>:</p>
+    <ol>
+        <li>Suposem que el patró coincideix en la posició actual.</li>
+        <li>Si trobem una diferència, descartem aquesta posició i interrompem el bucle interior.</li>
+        <li>Si tots els elements coincideixen, guardem l'inici i interrompem també la cerca exterior.</li>
+    </ol>
+
+    <div class="stepper-v2" java auto title="Cerca d'un patró contigu">
+<code class="source">
+int[] dades = {2, 1, 2, 3, 1};
+int[] patro = {2, 3};
+int pos = -1;
+
+for (int i = 0; i <= dades.length - patro.length; i++) {
+    boolean coincideix = true;
+    for (int j = 0; j < patro.length; j++) {
+        if (dades[i + j] != patro[j]) {
+            coincideix = false;
+            break;
+        }
+    }
+    if (coincideix) {
+        pos = i;
+        break;
+    }
+}
+println("Inici del patro: " + pos);
+</code>
+    </div>
+
+    <p>El resultat és <code>2</code>; si el patró no apareix, <code>pos</code> conserva el valor <code>-1</code>. Si el patró és més llarg que les dades, el bucle exterior no s'executa. Amb un patró buit, aquest codi retorna <code>0</code>, seguint el conveni que la seqüència buida apareix al principi.</p>
+    <p>En el pitjor cas es comparen fins a <code>m</code> elements per cada inici possible: el cost és <strong>$O((n - m + 1) m)$</strong> quan $1 ≤ m ≤ n$, habitualment expressat com <strong>$O(nm)$</strong>.</p>
+
+    <div class="note">
+        <h3>Subcadena i subseqüència</h3>
+        <p>En una cadena de text, un patró contigu és una <strong>subcadena</strong>. Podem aplicar el mateix algorisme utilitzant <code>length()</code> i <code>charAt(i + j)</code> / <code>charAt(j)</code> per comparar els caràcters de les dades i del patró. Una <strong>subseqüència</strong>, en canvi, permet saltar elements mantenint-ne l'ordre: <code>{2, 3}</code> és subseqüència de <code>{2, 1, 3}</code>, però no és un segment contigu.</p>
+    </div>
+
     <h2>4. Esquemes d'Ordenació</h2>
     <p>Tenir les dades ordenades és el requisit previ per fer cerques ultraràpides. Vegem els tres algorismes clàssics d'ordenació directa que tot programador ha de dominar.</p>
 
@@ -295,7 +337,81 @@ while (i < a.length) { c[k++] = a[i++]; }
 while (j < b.length) { c[k++] = b[j++]; }
     </div>
 
-    <h2>6. Resum Comparatiu dels Esquemes</h2>
+    <h2>6. Finestra Lliscant de Mida Fixa</h2>
+    <p>Una <strong>finestra</strong> és un segment d'elements consecutius d'una seqüència. Si té mida <code>k</code> i comença a l'índex <code>i</code>, inclou les posicions de <code>i</code> a <code>i + k - 1</code>. Desplaçar-la una posició significa eliminar l'element de l'esquerra i incorporar-ne un de nou per la dreta.</p>
+    <p>Volem trobar la <strong>suma màxima de k elements consecutius</strong> i l'índex on comença el primer segment que l'aconsegueix. Suposem que <strong><code>1 ≤ k ≤ dades.length</code></strong>.</p>
+
+    <h3>6.1 Solució amb Bucles Anidats</h3>
+    <p>Una primera solució consisteix a provar tots els inicis possibles i calcular cada suma des de zero:</p>
+    <div class="sc" java>
+int[] dades = {2, 1, 5, 1, 3};
+int k = 3;
+int sumaMax = 0;
+int iniciMax = 0;
+
+for (int inici = 0; inici <= dades.length - k; inici++) {
+    int suma = 0;
+    for (int j = 0; j < k; j++) {
+        suma += dades[inici + j];
+    }
+    if (inici == 0 || suma > sumaMax) {
+        sumaMax = suma;
+        iniciMax = inici;
+    }
+}
+println("Suma maxima: " + sumaMax);
+println("Inici: " + iniciMax);
+    </div>
+    <p>La condició <code>inici == 0</code> fa que la primera suma es guarde sempre, encara que siga negativa. Després, només actualitzem el màxim si la nova suma és superior. Aquesta solució fa <code>k</code> sumes per cada finestra: cost <strong>$O((n - k + 1) k)$</strong>, amb una cota <strong>$O(nk)$</strong>.</p>
+
+    <h3>6.2 Reutilitzar la Suma: Finestra Lliscant</h3>
+    <p>Dues finestres consecutives comparteixen <code>k - 1</code> elements. Per tant, podem obtindre la nova suma amb una resta i una suma: <strong>restem l'element que ix i sumem el que entra</strong>.</p>
+    <table>
+        <thead><tr><th>Inici</th><th>Finestra</th><th>Càlcul de la suma</th></tr></thead>
+        <tbody>
+            <tr><td>0</td><td>2, 1, 5</td><td>2 + 1 + 5 = 8</td></tr>
+            <tr><td>1</td><td>1, 5, 1</td><td>8 − 2 + 1 = 7</td></tr>
+            <tr><td>2</td><td>5, 1, 3</td><td>7 − 1 + 3 = 9</td></tr>
+        </tbody>
+    </table>
+    <ol>
+        <li>Calculem la suma de la primera finestra i la prenem com a màxim inicial.</li>
+        <li>Recorrem els elements des de l'índex <code>k</code>. Per a cada índex <code>i</code>, ix <code>dades[i - k]</code> i entra <code>dades[i]</code>.</li>
+        <li>Comparem la suma actualitzada amb el màxim. L'inici de la nova finestra és <code>i - k + 1</code>.</li>
+    </ol>
+
+    <div class="stepper-v2" java auto title="Finestra lliscant: suma màxima de k elements">
+<code class="source">
+int[] dades = {2, 1, 5, 1, 3};
+int k = 3;
+int suma = 0;
+
+for (int i = 0; i < k; i++) {
+    suma += dades[i];
+}
+int sumaMax = suma;
+int iniciMax = 0;
+
+for (int i = k; i < dades.length; i++) {
+    suma -= dades[i - k];
+    suma += dades[i];
+    if (suma > sumaMax) {
+        sumaMax = suma;
+        iniciMax = i - k + 1;
+    }
+}
+println("Suma maxima: " + sumaMax);
+println("Inici: " + iniciMax);
+</code>
+    </div>
+    <p>El resultat és una suma màxima de <code>9</code> amb inici a l'índex <code>2</code>. En cas d'empat, conservem la primera finestra perquè comparem amb <code>&gt;</code>. L'algorisme també funciona amb valors negatius: el màxim inicial és la suma de la primera finestra, no zero.</p>
+    <p>El primer bucle processa <code>k</code> elements i el segon en processa <code>n - k</code>. En total, el cost és <strong>$O(n)$</strong> i l'espai addicional és <strong>$O(1)$</strong>. Si <code>k == dades.length</code>, només hi ha una finestra i el segon bucle no s'executa.</p>
+    <div class="important">
+        <h3>Desplaçar un segment i reutilitzar el càlcul</h3>
+        <p>En la cerca de patrons també desplacem un segment, però tornem a comparar els elements en cada posició. En aquesta suma amb finestra lliscant, la millora consisteix a <strong>actualitzar el resultat anterior sense recalcular tota la finestra</strong>.</p>
+    </div>
+
+    <h2>7. Resum Comparatiu dels Esquemes</h2>
 
     <div class="work">
         <table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
@@ -331,6 +447,18 @@ while (j < b.length) { c[k++] = b[j++]; }
                     <td style="padding: 0.6em;">Ordenar arrays</td>
                     <td style="padding: 0.6em;">Cap</td>
                     <td style="padding: 0.6em;">$O(n^2)$</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                    <td style="padding: 0.6em;"><strong>Patró contigu</strong></td>
+                    <td style="padding: 0.6em;">Localitzar una seqüència d'elements consecutius</td>
+                    <td style="padding: 0.6em;">Patró no buit per a aquesta cota</td>
+                    <td style="padding: 0.6em;">$O(nm)$</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                    <td style="padding: 0.6em;"><strong>Finestra lliscant (suma)</strong></td>
+                    <td style="padding: 0.6em;">Suma màxima de k elements consecutius</td>
+                    <td style="padding: 0.6em;">$1 ≤ k ≤ n$</td>
+                    <td style="padding: 0.6em;">$O(n)$</td>
                 </tr>
                 <tr>
                     <td style="padding: 0.6em;"><strong>Mescla (Merge)</strong></td>

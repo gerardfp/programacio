@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ca">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Laboratori d’algorismes · U5</title><link rel="stylesheet" href="../assets/prismjs/prism.css"><link rel="stylesheet" href="visual.css"><script src="../assets/prismjs/prism.js" defer></script><script src="../assets/stepper/stepper.js" defer></script><script src="visual.js" defer></script></head>
+<body>
+<header class="toolbar">
+<select id="algorithm" aria-label="Algorisme"><optgroup label="Esquemes de recorregut"><option value="counter">Comptador · nombres parells</option><option value="accumulator">Acumulador · suma</option><option value="maximum">Màxim</option><option value="minimum">Mínim</option></optgroup><optgroup label="Banderes (flags)"><option value="all_positive">Tots són positius?</option><option value="any_negative">Hi ha algun negatiu?</option></optgroup><optgroup label="Finestra de mida fixa"><option value="sum" selected>Suma màxima</option><option value="pattern">Patró contigu</option></optgroup><optgroup label="Cerca"><option value="linear">Cerca lineal</option><option value="binary">Cerca binària</option></optgroup><optgroup label="Ordenació"><option value="bubble">Bombolla</option><option value="selection">Selecció directa</option></optgroup></select>
+<button id="manual" title="Introduir dades manualment" aria-label="Introduir dades manualment">⌨</button>
+<button id="random" title="Generar dades aleatòries" aria-label="Generar dades aleatòries">⚄</button>
+<span class="separator"></span>
+<button id="reset" title="Inici (Home)" aria-label="Inici">↤</button>
+<button id="prev" title="Pas enrere (←)" aria-label="Pas enrere">◀</button>
+<button id="play" class="play" title="Reproduir o pausar (Espai)" aria-label="Reproduir">▶</button>
+<button id="next" title="Executar instrucció (→)" aria-label="Executar instrucció">▶|</button>
+<button id="end" title="Final (End)" aria-label="Final">↦</button>
+<span id="counter"></span><input id="seek" type="range" min="0" value="0" aria-label="Punt de l’execució">
+<select id="speed" aria-label="Velocitat"><option value="1500">0.5×</option><option value="750" selected>1×</option><option value="375">2×</option><option value="150">5×</option></select>
+</header>
+<main>
+<section class="code-panel">
+<div class="step-info" aria-live="polite"><span id="lineBadge"></span><div id="explanation"></div><span id="phase" class="phase"></span></div>
+<div class="editor"><div class="code-scroll" id="codeScroll"><pre id="code" aria-label="Codi Java"></pre></div><div class="console"><span>SORTIDA</span><pre id="output">—</pre></div></div>
+</section>
+<section class="stage"><div class="stage-scroll"><div id="variables" title="Valor actual → valor després d’executar la instrucció"></div><div id="scene"></div><div id="accesses"></div><div id="expression" hidden></div></div></section>
+</main>
+<dialog id="dataDialog" aria-labelledby="dialogTitle">
+<form id="inputs"><div class="dialog-title"><h2 id="dialogTitle">Dades d’entrada</h2><button type="button" id="closeDialog" aria-label="Tancar">×</button></div>
+<p>Entre 1 i 24 enters, separats per comes o espais. Aplicar les dades reinicia l’execució.</p>
+<label class="data-label"><span>dades[]</span><input id="data" value="32, 31, 35, 31, 33, 32, 37, 31" autocomplete="off" spellcheck="false" required></label>
+<label id="extraWrap"><span id="extraLabel">k</span><input id="extra" value="3" autocomplete="off"></label>
+<p id="inputHint"></p><span id="error" role="alert"></span><div class="dialog-actions"><button type="button" id="cancelDialog">Cancel·lar</button><button type="submit" class="apply">Aplicar dades</button></div></form>
+</dialog>
+</body></html>

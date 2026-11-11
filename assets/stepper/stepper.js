@@ -663,13 +663,13 @@
   // Java Simulator Engine (Auto-Trace)
   // ==========================================================================
 
-  function simulateJava(rawCode, inputs = []) {
+  function simulateJava(rawCode, inputs = [], options = {}) {
     const inputQueue = [...inputs];
     const initialInputs = [...inputs];
     const steps = [];
     const scope = {};
     const varTypes = {};
-    const MAX_STEPS = 200;
+    const MAX_STEPS = options.maxSteps || 200;
 
     let readInputsThisStep = [];
     let readPromptsThisStep = [];
